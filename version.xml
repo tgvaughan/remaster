@@ -1,0 +1,6 @@
+<addon name="reMASTER" version="1.0.0">
+            <depends on="beast2" atleast="2.6.0"/>
+
+            <!-- Add other dependencies as necessary. -->
+            </addon>
+        
