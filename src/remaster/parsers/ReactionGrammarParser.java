@@ -1,5 +1,5 @@
-// Generated from /Users/vaughant/code/beast_and_friends/reMASTER/src/remaster/model/parsers/ReMASTERGrammar.g4 by ANTLR 4.9.1
-package remaster.model.parsers;
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.9.2
+package remaster.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,8 +10,8 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class ReMASTERGrammarParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
+public class ReactionGrammarParser extends Parser {
+	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -25,18 +25,18 @@ public class ReMASTERGrammarParser extends Parser {
 	public static final int
 		RULE_reaction = 0, RULE_reactants = 1, RULE_products = 2, RULE_popsum = 3, 
 		RULE_popel = 4, RULE_factor = 5, RULE_id = 6, RULE_assignment = 7, RULE_popname = 8, 
-		RULE_loc = 9, RULE_locel = 10, RULE_expression = 11;
+		RULE_loc = 9, RULE_locidx = 10, RULE_expression = 11;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"reaction", "reactants", "products", "popsum", "popel", "factor", "id", 
-			"assignment", "popname", "loc", "locel", "expression"
+			"assignment", "popname", "loc", "locidx", "expression"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'->'", "':'", "':='", "'['", "','", "']'", "'('", "')'", "'{'", 
+			null, "'->'", "':'", "':='", "'['", "']'", "'('", "')'", "'{'", "','", 
 			"'}'", "'!'", "'?'", "'+'", "'-'", "'*'", "'/'", "'%'", "'^'", "'exp'", 
 			"'log'", "'sqrt'", "'sum'", "'theta'", "'abs'", "'&&'", "'||'", "'=='", 
 			"'>'", "'<'", "'>='", "'<='", "'!='", "'0'"
@@ -87,7 +87,7 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "ReMASTERGrammar.g4"; }
+	public String getGrammarFileName() { return "ReactionGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -98,7 +98,7 @@ public class ReMASTERGrammarParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public ReMASTERGrammarParser(TokenStream input) {
+	public ReactionGrammarParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -110,22 +110,22 @@ public class ReMASTERGrammarParser extends Parser {
 		public ProductsContext products() {
 			return getRuleContext(ProductsContext.class,0);
 		}
-		public TerminalNode EOF() { return getToken(ReMASTERGrammarParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(ReactionGrammarParser.EOF, 0); }
 		public ReactionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_reaction; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterReaction(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterReaction(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitReaction(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitReaction(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitReaction(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitReaction(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -167,15 +167,15 @@ public class ReMASTERGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_reactants; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterReactants(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterReactants(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitReactants(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitReactants(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitReactants(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitReactants(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -211,15 +211,15 @@ public class ReMASTERGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_products; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterProducts(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterProducts(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitProducts(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitProducts(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitProducts(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitProducts(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -252,26 +252,26 @@ public class ReMASTERGrammarParser extends Parser {
 		public PopelContext popel(int i) {
 			return getRuleContext(PopelContext.class,i);
 		}
-		public List<TerminalNode> ADD() { return getTokens(ReMASTERGrammarParser.ADD); }
+		public List<TerminalNode> ADD() { return getTokens(ReactionGrammarParser.ADD); }
 		public TerminalNode ADD(int i) {
-			return getToken(ReMASTERGrammarParser.ADD, i);
+			return getToken(ReactionGrammarParser.ADD, i);
 		}
-		public TerminalNode ZERO() { return getToken(ReMASTERGrammarParser.ZERO, 0); }
+		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
 		public PopsumContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_popsum; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterPopsum(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterPopsum(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitPopsum(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopsum(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitPopsum(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopsum(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -349,15 +349,15 @@ public class ReMASTERGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_popel; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterPopel(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterPopel(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitPopel(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopel(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitPopel(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopel(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -417,22 +417,22 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	public static class FactorContext extends ParserRuleContext {
-		public TerminalNode NZINT() { return getToken(ReMASTERGrammarParser.NZINT, 0); }
+		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
 		public FactorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterFactor(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterFactor(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitFactor(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitFactor(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitFactor(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitFactor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -459,23 +459,23 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	public static class IdContext extends ParserRuleContext {
-		public TerminalNode ZERO() { return getToken(ReMASTERGrammarParser.ZERO, 0); }
-		public TerminalNode NZINT() { return getToken(ReMASTERGrammarParser.NZINT, 0); }
+		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
+		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
 		public IdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_id; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterId(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterId(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitId(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitId(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitId(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitId(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -517,7 +517,7 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode EOF() { return getToken(ReMASTERGrammarParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(ReactionGrammarParser.EOF, 0); }
 		public LocContext loc() {
 			return getRuleContext(LocContext.class,0);
 		}
@@ -527,15 +527,15 @@ public class ReMASTERGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_assignment; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterAssignment(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterAssignment(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitAssignment(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitAssignment(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitAssignment(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitAssignment(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -579,22 +579,22 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	public static class PopnameContext extends ParserRuleContext {
-		public TerminalNode IDENT() { return getToken(ReMASTERGrammarParser.IDENT, 0); }
+		public TerminalNode IDENT() { return getToken(ReactionGrammarParser.IDENT, 0); }
 		public PopnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_popname; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterPopname(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterPopname(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitPopname(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopname(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitPopname(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopname(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -621,11 +621,8 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	public static class LocContext extends ParserRuleContext {
-		public List<LocelContext> locel() {
-			return getRuleContexts(LocelContext.class);
-		}
-		public LocelContext locel(int i) {
-			return getRuleContext(LocelContext.class,i);
+		public LocidxContext locidx() {
+			return getRuleContext(LocidxContext.class,0);
 		}
 		public LocContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -633,15 +630,15 @@ public class ReMASTERGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_loc; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterLoc(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterLoc(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitLoc(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitLoc(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitLoc(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitLoc(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -649,32 +646,15 @@ public class ReMASTERGrammarParser extends Parser {
 	public final LocContext loc() throws RecognitionException {
 		LocContext _localctx = new LocContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_loc);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(69);
 			match(T__3);
 			setState(70);
-			locel();
-			setState(75);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__4) {
-				{
-				{
-				setState(71);
-				match(T__4);
-				setState(72);
-				locel();
-				}
-				}
-				setState(77);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(78);
-			match(T__5);
+			locidx();
+			setState(71);
+			match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -688,37 +668,37 @@ public class ReMASTERGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class LocelContext extends ParserRuleContext {
-		public TerminalNode ZERO() { return getToken(ReMASTERGrammarParser.ZERO, 0); }
-		public TerminalNode NZINT() { return getToken(ReMASTERGrammarParser.NZINT, 0); }
-		public TerminalNode IDENT() { return getToken(ReMASTERGrammarParser.IDENT, 0); }
-		public LocelContext(ParserRuleContext parent, int invokingState) {
+	public static class LocidxContext extends ParserRuleContext {
+		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
+		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
+		public TerminalNode IDENT() { return getToken(ReactionGrammarParser.IDENT, 0); }
+		public LocidxContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_locel; }
+		@Override public int getRuleIndex() { return RULE_locidx; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterLocel(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterLocidx(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitLocel(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitLocidx(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitLocel(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitLocidx(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final LocelContext locel() throws RecognitionException {
-		LocelContext _localctx = new LocelContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_locel);
+	public final LocidxContext locidx() throws RecognitionException {
+		LocidxContext _localctx = new LocidxContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_locidx);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(73);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ZERO) | (1L << NZINT) | (1L << IDENT))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -757,61 +737,61 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode EXP() { return getToken(ReMASTERGrammarParser.EXP, 0); }
-		public TerminalNode LOG() { return getToken(ReMASTERGrammarParser.LOG, 0); }
-		public TerminalNode SQRT() { return getToken(ReMASTERGrammarParser.SQRT, 0); }
-		public TerminalNode SUM() { return getToken(ReMASTERGrammarParser.SUM, 0); }
-		public TerminalNode THETA() { return getToken(ReMASTERGrammarParser.THETA, 0); }
-		public TerminalNode ABS() { return getToken(ReMASTERGrammarParser.ABS, 0); }
+		public TerminalNode EXP() { return getToken(ReactionGrammarParser.EXP, 0); }
+		public TerminalNode LOG() { return getToken(ReactionGrammarParser.LOG, 0); }
+		public TerminalNode SQRT() { return getToken(ReactionGrammarParser.SQRT, 0); }
+		public TerminalNode SUM() { return getToken(ReactionGrammarParser.SUM, 0); }
+		public TerminalNode THETA() { return getToken(ReactionGrammarParser.THETA, 0); }
+		public TerminalNode ABS() { return getToken(ReactionGrammarParser.ABS, 0); }
 		public UnaryOpContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterUnaryOp(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterUnaryOp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitUnaryOp(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitUnaryOp(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitUnaryOp(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitUnaryOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class VariableContext extends ExpressionContext {
-		public TerminalNode IDENT() { return getToken(ReMASTERGrammarParser.IDENT, 0); }
+		public TerminalNode IDENT() { return getToken(ReactionGrammarParser.IDENT, 0); }
 		public VariableContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterVariable(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterVariable(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitVariable(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitVariable(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitVariable(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitVariable(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class NegationContext extends ExpressionContext {
-		public TerminalNode SUB() { return getToken(ReMASTERGrammarParser.SUB, 0); }
+		public TerminalNode SUB() { return getToken(ReactionGrammarParser.SUB, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public NegationContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterNegation(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterNegation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitNegation(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitNegation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitNegation(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitNegation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -823,21 +803,21 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode MUL() { return getToken(ReMASTERGrammarParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(ReMASTERGrammarParser.DIV, 0); }
-		public TerminalNode MOD() { return getToken(ReMASTERGrammarParser.MOD, 0); }
+		public TerminalNode MUL() { return getToken(ReactionGrammarParser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(ReactionGrammarParser.DIV, 0); }
+		public TerminalNode MOD() { return getToken(ReactionGrammarParser.MOD, 0); }
 		public MulDivContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterMulDiv(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterMulDiv(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitMulDiv(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitMulDiv(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitMulDiv(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitMulDiv(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -849,20 +829,20 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode ADD() { return getToken(ReMASTERGrammarParser.ADD, 0); }
-		public TerminalNode SUB() { return getToken(ReMASTERGrammarParser.SUB, 0); }
+		public TerminalNode ADD() { return getToken(ReactionGrammarParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(ReactionGrammarParser.SUB, 0); }
 		public AddSubContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterAddSub(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterAddSub(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitAddSub(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitAddSub(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitAddSub(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitAddSub(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -874,20 +854,20 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode AND() { return getToken(ReMASTERGrammarParser.AND, 0); }
-		public TerminalNode OR() { return getToken(ReMASTERGrammarParser.OR, 0); }
+		public TerminalNode AND() { return getToken(ReactionGrammarParser.AND, 0); }
+		public TerminalNode OR() { return getToken(ReactionGrammarParser.OR, 0); }
 		public BooleanOpContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterBooleanOp(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterBooleanOp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitBooleanOp(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitBooleanOp(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitBooleanOp(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitBooleanOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -898,19 +878,19 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode POW() { return getToken(ReMASTERGrammarParser.POW, 0); }
+		public TerminalNode POW() { return getToken(ReactionGrammarParser.POW, 0); }
 		public ExponentiationContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterExponentiation(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterExponentiation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitExponentiation(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitExponentiation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitExponentiation(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitExponentiation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -921,15 +901,15 @@ public class ReMASTERGrammarParser extends Parser {
 		public BracketedContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterBracketed(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterBracketed(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitBracketed(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitBracketed(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitBracketed(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitBracketed(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -943,15 +923,15 @@ public class ReMASTERGrammarParser extends Parser {
 		public ArrayContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterArray(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterArray(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitArray(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitArray(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitArray(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitArray(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -962,20 +942,20 @@ public class ReMASTERGrammarParser extends Parser {
 		public FactorialContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterFactorial(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterFactorial(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitFactorial(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitFactorial(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitFactorial(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitFactorial(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class FunctionContext extends ExpressionContext {
-		public TerminalNode IDENT() { return getToken(ReMASTERGrammarParser.IDENT, 0); }
+		public TerminalNode IDENT() { return getToken(ReactionGrammarParser.IDENT, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
@@ -985,35 +965,35 @@ public class ReMASTERGrammarParser extends Parser {
 		public FunctionContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterFunction(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterFunction(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitFunction(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitFunction(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitFunction(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitFunction(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class NumberContext extends ExpressionContext {
 		public Token val;
-		public TerminalNode ZERO() { return getToken(ReMASTERGrammarParser.ZERO, 0); }
-		public TerminalNode NZINT() { return getToken(ReMASTERGrammarParser.NZINT, 0); }
-		public TerminalNode NNFLOAT() { return getToken(ReMASTERGrammarParser.NNFLOAT, 0); }
+		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
+		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
+		public TerminalNode NNFLOAT() { return getToken(ReactionGrammarParser.NNFLOAT, 0); }
 		public NumberContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterNumber(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterNumber(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitNumber(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitNumber(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitNumber(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitNumber(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1027,15 +1007,15 @@ public class ReMASTERGrammarParser extends Parser {
 		public ArraySubscriptContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterArraySubscript(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterArraySubscript(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitArraySubscript(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitArraySubscript(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitArraySubscript(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitArraySubscript(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1047,24 +1027,24 @@ public class ReMASTERGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode EQ() { return getToken(ReMASTERGrammarParser.EQ, 0); }
-		public TerminalNode NE() { return getToken(ReMASTERGrammarParser.NE, 0); }
-		public TerminalNode LT() { return getToken(ReMASTERGrammarParser.LT, 0); }
-		public TerminalNode GT() { return getToken(ReMASTERGrammarParser.GT, 0); }
-		public TerminalNode LE() { return getToken(ReMASTERGrammarParser.LE, 0); }
-		public TerminalNode GE() { return getToken(ReMASTERGrammarParser.GE, 0); }
+		public TerminalNode EQ() { return getToken(ReactionGrammarParser.EQ, 0); }
+		public TerminalNode NE() { return getToken(ReactionGrammarParser.NE, 0); }
+		public TerminalNode LT() { return getToken(ReactionGrammarParser.LT, 0); }
+		public TerminalNode GT() { return getToken(ReactionGrammarParser.GT, 0); }
+		public TerminalNode LE() { return getToken(ReactionGrammarParser.LE, 0); }
+		public TerminalNode GE() { return getToken(ReactionGrammarParser.GE, 0); }
 		public EqualityContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterEquality(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterEquality(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitEquality(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitEquality(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitEquality(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitEquality(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1078,15 +1058,15 @@ public class ReMASTERGrammarParser extends Parser {
 		public IfThenElseContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).enterIfThenElse(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).enterIfThenElse(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReMASTERGrammarListener ) ((ReMASTERGrammarListener)listener).exitIfThenElse(this);
+			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitIfThenElse(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReMASTERGrammarVisitor ) return ((ReMASTERGrammarVisitor<? extends T>)visitor).visitIfThenElse(this);
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitIfThenElse(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1107,21 +1087,21 @@ public class ReMASTERGrammarParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(119);
+			setState(112);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
 				_localctx = new BracketedContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(83);
-				match(T__6);
-				setState(84);
+				setState(76);
+				match(T__5);
+				setState(77);
 				expression(0);
-				setState(85);
-				match(T__7);
+				setState(78);
+				match(T__6);
 				}
 				break;
 			case 2:
@@ -1129,27 +1109,27 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new ArrayContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(87);
-				match(T__8);
-				setState(88);
+				setState(80);
+				match(T__7);
+				setState(81);
 				expression(0);
-				setState(93);
+				setState(86);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__4) {
+				while (_la==T__8) {
 					{
 					{
-					setState(89);
-					match(T__4);
-					setState(90);
+					setState(82);
+					match(T__8);
+					setState(83);
 					expression(0);
 					}
 					}
-					setState(95);
+					setState(88);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(96);
+				setState(89);
 				match(T__9);
 				}
 				break;
@@ -1158,30 +1138,30 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new FunctionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(98);
+				setState(91);
 				match(IDENT);
-				setState(99);
-				match(T__6);
-				setState(100);
+				setState(92);
+				match(T__5);
+				setState(93);
 				expression(0);
-				setState(105);
+				setState(98);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__4) {
+				while (_la==T__8) {
 					{
 					{
-					setState(101);
-					match(T__4);
-					setState(102);
+					setState(94);
+					match(T__8);
+					setState(95);
 					expression(0);
 					}
 					}
-					setState(107);
+					setState(100);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(108);
-				match(T__7);
+				setState(101);
+				match(T__6);
 				}
 				break;
 			case 4:
@@ -1189,7 +1169,7 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new UnaryOpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(110);
+				setState(103);
 				((UnaryOpContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EXP) | (1L << LOG) | (1L << SQRT) | (1L << SUM) | (1L << THETA) | (1L << ABS))) != 0)) ) {
@@ -1200,12 +1180,12 @@ public class ReMASTERGrammarParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(111);
-				match(T__6);
-				setState(112);
+				setState(104);
+				match(T__5);
+				setState(105);
 				expression(0);
-				setState(113);
-				match(T__7);
+				setState(106);
+				match(T__6);
 				}
 				break;
 			case 5:
@@ -1213,9 +1193,9 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new NegationContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(115);
+				setState(108);
 				match(SUB);
-				setState(116);
+				setState(109);
 				expression(10);
 				}
 				break;
@@ -1224,7 +1204,7 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new VariableContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(117);
+				setState(110);
 				match(IDENT);
 				}
 				break;
@@ -1233,7 +1213,7 @@ public class ReMASTERGrammarParser extends Parser {
 				_localctx = new NumberContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(118);
+				setState(111);
 				((NumberContext)_localctx).val = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ZERO) | (1L << NZINT) | (1L << NNFLOAT))) != 0)) ) {
@@ -1248,26 +1228,26 @@ public class ReMASTERGrammarParser extends Parser {
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(151);
+			setState(144);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(149);
+					setState(142);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExponentiationContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(121);
+						setState(114);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(122);
+						setState(115);
 						match(POW);
-						setState(123);
+						setState(116);
 						expression(8);
 						}
 						break;
@@ -1275,9 +1255,9 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new MulDivContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(124);
+						setState(117);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(125);
+						setState(118);
 						((MulDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MUL) | (1L << DIV) | (1L << MOD))) != 0)) ) {
@@ -1288,7 +1268,7 @@ public class ReMASTERGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(126);
+						setState(119);
 						expression(8);
 						}
 						break;
@@ -1296,9 +1276,9 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new AddSubContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(127);
+						setState(120);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(128);
+						setState(121);
 						((AddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
@@ -1309,7 +1289,7 @@ public class ReMASTERGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(129);
+						setState(122);
 						expression(7);
 						}
 						break;
@@ -1317,9 +1297,9 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new EqualityContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(130);
+						setState(123);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(131);
+						setState(124);
 						((EqualityContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQ) | (1L << GT) | (1L << LT) | (1L << GE) | (1L << LE) | (1L << NE))) != 0)) ) {
@@ -1330,7 +1310,7 @@ public class ReMASTERGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(132);
+						setState(125);
 						expression(6);
 						}
 						break;
@@ -1338,9 +1318,9 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new BooleanOpContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(133);
+						setState(126);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(134);
+						setState(127);
 						((BooleanOpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==AND || _la==OR) ) {
@@ -1351,7 +1331,7 @@ public class ReMASTERGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(135);
+						setState(128);
 						expression(5);
 						}
 						break;
@@ -1359,15 +1339,15 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new IfThenElseContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(136);
+						setState(129);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(137);
+						setState(130);
 						match(T__11);
-						setState(138);
+						setState(131);
 						expression(0);
-						setState(139);
+						setState(132);
 						match(T__1);
-						setState(140);
+						setState(133);
 						expression(3);
 						}
 						break;
@@ -1375,32 +1355,32 @@ public class ReMASTERGrammarParser extends Parser {
 						{
 						_localctx = new ArraySubscriptContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(142);
+						setState(135);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-						setState(143);
+						setState(136);
 						match(T__3);
-						setState(144);
+						setState(137);
 						expression(0);
-						setState(145);
-						match(T__5);
+						setState(138);
+						match(T__4);
 						}
 						break;
 					case 8:
 						{
 						_localctx = new FactorialContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(147);
+						setState(140);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(148);
+						setState(141);
 						match(T__10);
 						}
 						break;
 					}
 					} 
 				}
-				setState(153);
+				setState(146);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
 			}
 			}
 		}
@@ -1445,50 +1425,47 @@ public class ReMASTERGrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3)\u009d\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3)\u0096\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\5\7"+
 		"\5\'\n\5\f\5\16\5*\13\5\3\5\5\5-\n\5\3\6\5\6\60\n\6\3\6\3\6\5\6\64\n\6"+
 		"\3\6\3\6\5\68\n\6\3\7\3\7\3\b\3\b\3\t\3\t\5\t@\n\t\3\t\3\t\3\t\3\t\3\n"+
-		"\3\n\3\13\3\13\3\13\3\13\7\13L\n\13\f\13\16\13O\13\13\3\13\3\13\3\f\3"+
-		"\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\r^\n\r\f\r\16\ra\13\r\3\r\3\r"+
-		"\3\r\3\r\3\r\3\r\3\r\7\rj\n\r\f\r\16\rm\13\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
-		"\r\3\r\3\r\3\r\3\r\5\rz\n\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
-		"\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r"+
-		"\7\r\u0098\n\r\f\r\16\r\u009b\13\r\3\r\2\3\30\16\2\4\6\b\n\f\16\20\22"+
-		"\24\26\30\2\n\3\2#$\4\2#$&&\3\2\25\32\3\2#%\3\2\21\23\3\2\17\20\3\2\35"+
-		"\"\3\2\33\34\2\u00a7\2\32\3\2\2\2\4\37\3\2\2\2\6!\3\2\2\2\b,\3\2\2\2\n"+
-		"/\3\2\2\2\f9\3\2\2\2\16;\3\2\2\2\20=\3\2\2\2\22E\3\2\2\2\24G\3\2\2\2\26"+
-		"R\3\2\2\2\30y\3\2\2\2\32\33\5\4\3\2\33\34\7\3\2\2\34\35\5\6\4\2\35\36"+
-		"\7\2\2\3\36\3\3\2\2\2\37 \5\b\5\2 \5\3\2\2\2!\"\5\b\5\2\"\7\3\2\2\2#("+
-		"\5\n\6\2$%\7\17\2\2%\'\5\n\6\2&$\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2"+
-		"\2)-\3\2\2\2*(\3\2\2\2+-\7#\2\2,#\3\2\2\2,+\3\2\2\2-\t\3\2\2\2.\60\5\f"+
-		"\7\2/.\3\2\2\2/\60\3\2\2\2\60\61\3\2\2\2\61\63\5\22\n\2\62\64\5\24\13"+
-		"\2\63\62\3\2\2\2\63\64\3\2\2\2\64\67\3\2\2\2\65\66\7\4\2\2\668\5\16\b"+
-		"\2\67\65\3\2\2\2\678\3\2\2\28\13\3\2\2\29:\7$\2\2:\r\3\2\2\2;<\t\2\2\2"+
-		"<\17\3\2\2\2=?\5\22\n\2>@\5\24\13\2?>\3\2\2\2?@\3\2\2\2@A\3\2\2\2AB\7"+
-		"\5\2\2BC\5\30\r\2CD\7\2\2\3D\21\3\2\2\2EF\7&\2\2F\23\3\2\2\2GH\7\6\2\2"+
-		"HM\5\26\f\2IJ\7\7\2\2JL\5\26\f\2KI\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2"+
-		"\2NP\3\2\2\2OM\3\2\2\2PQ\7\b\2\2Q\25\3\2\2\2RS\t\3\2\2S\27\3\2\2\2TU\b"+
-		"\r\1\2UV\7\t\2\2VW\5\30\r\2WX\7\n\2\2Xz\3\2\2\2YZ\7\13\2\2Z_\5\30\r\2"+
-		"[\\\7\7\2\2\\^\5\30\r\2][\3\2\2\2^a\3\2\2\2_]\3\2\2\2_`\3\2\2\2`b\3\2"+
-		"\2\2a_\3\2\2\2bc\7\f\2\2cz\3\2\2\2de\7&\2\2ef\7\t\2\2fk\5\30\r\2gh\7\7"+
-		"\2\2hj\5\30\r\2ig\3\2\2\2jm\3\2\2\2ki\3\2\2\2kl\3\2\2\2ln\3\2\2\2mk\3"+
-		"\2\2\2no\7\n\2\2oz\3\2\2\2pq\t\4\2\2qr\7\t\2\2rs\5\30\r\2st\7\n\2\2tz"+
-		"\3\2\2\2uv\7\20\2\2vz\5\30\r\fwz\7&\2\2xz\t\5\2\2yT\3\2\2\2yY\3\2\2\2"+
-		"yd\3\2\2\2yp\3\2\2\2yu\3\2\2\2yw\3\2\2\2yx\3\2\2\2z\u0099\3\2\2\2{|\f"+
-		"\n\2\2|}\7\24\2\2}\u0098\5\30\r\n~\177\f\t\2\2\177\u0080\t\6\2\2\u0080"+
-		"\u0098\5\30\r\n\u0081\u0082\f\b\2\2\u0082\u0083\t\7\2\2\u0083\u0098\5"+
-		"\30\r\t\u0084\u0085\f\7\2\2\u0085\u0086\t\b\2\2\u0086\u0098\5\30\r\b\u0087"+
-		"\u0088\f\6\2\2\u0088\u0089\t\t\2\2\u0089\u0098\5\30\r\7\u008a\u008b\f"+
-		"\5\2\2\u008b\u008c\7\16\2\2\u008c\u008d\5\30\r\2\u008d\u008e\7\4\2\2\u008e"+
-		"\u008f\5\30\r\5\u008f\u0098\3\2\2\2\u0090\u0091\f\17\2\2\u0091\u0092\7"+
-		"\6\2\2\u0092\u0093\5\30\r\2\u0093\u0094\7\b\2\2\u0094\u0098\3\2\2\2\u0095"+
-		"\u0096\f\13\2\2\u0096\u0098\7\r\2\2\u0097{\3\2\2\2\u0097~\3\2\2\2\u0097"+
-		"\u0081\3\2\2\2\u0097\u0084\3\2\2\2\u0097\u0087\3\2\2\2\u0097\u008a\3\2"+
-		"\2\2\u0097\u0090\3\2\2\2\u0097\u0095\3\2\2\2\u0098\u009b\3\2\2\2\u0099"+
-		"\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a\31\3\2\2\2\u009b\u0099\3\2\2"+
-		"\2\16(,/\63\67?M_ky\u0097\u0099";
+		"\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7"+
+		"\rW\n\r\f\r\16\rZ\13\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\rc\n\r\f\r\16\rf"+
+		"\13\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\rs\n\r\3\r\3\r\3\r"+
+		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
+		"\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\r\u0091\n\r\f\r\16\r\u0094\13\r\3\r\2"+
+		"\3\30\16\2\4\6\b\n\f\16\20\22\24\26\30\2\n\3\2#$\4\2#$&&\3\2\25\32\3\2"+
+		"#%\3\2\21\23\3\2\17\20\3\2\35\"\3\2\33\34\2\u009f\2\32\3\2\2\2\4\37\3"+
+		"\2\2\2\6!\3\2\2\2\b,\3\2\2\2\n/\3\2\2\2\f9\3\2\2\2\16;\3\2\2\2\20=\3\2"+
+		"\2\2\22E\3\2\2\2\24G\3\2\2\2\26K\3\2\2\2\30r\3\2\2\2\32\33\5\4\3\2\33"+
+		"\34\7\3\2\2\34\35\5\6\4\2\35\36\7\2\2\3\36\3\3\2\2\2\37 \5\b\5\2 \5\3"+
+		"\2\2\2!\"\5\b\5\2\"\7\3\2\2\2#(\5\n\6\2$%\7\17\2\2%\'\5\n\6\2&$\3\2\2"+
+		"\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)-\3\2\2\2*(\3\2\2\2+-\7#\2\2,#\3\2\2"+
+		"\2,+\3\2\2\2-\t\3\2\2\2.\60\5\f\7\2/.\3\2\2\2/\60\3\2\2\2\60\61\3\2\2"+
+		"\2\61\63\5\22\n\2\62\64\5\24\13\2\63\62\3\2\2\2\63\64\3\2\2\2\64\67\3"+
+		"\2\2\2\65\66\7\4\2\2\668\5\16\b\2\67\65\3\2\2\2\678\3\2\2\28\13\3\2\2"+
+		"\29:\7$\2\2:\r\3\2\2\2;<\t\2\2\2<\17\3\2\2\2=?\5\22\n\2>@\5\24\13\2?>"+
+		"\3\2\2\2?@\3\2\2\2@A\3\2\2\2AB\7\5\2\2BC\5\30\r\2CD\7\2\2\3D\21\3\2\2"+
+		"\2EF\7&\2\2F\23\3\2\2\2GH\7\6\2\2HI\5\26\f\2IJ\7\7\2\2J\25\3\2\2\2KL\t"+
+		"\3\2\2L\27\3\2\2\2MN\b\r\1\2NO\7\b\2\2OP\5\30\r\2PQ\7\t\2\2Qs\3\2\2\2"+
+		"RS\7\n\2\2SX\5\30\r\2TU\7\13\2\2UW\5\30\r\2VT\3\2\2\2WZ\3\2\2\2XV\3\2"+
+		"\2\2XY\3\2\2\2Y[\3\2\2\2ZX\3\2\2\2[\\\7\f\2\2\\s\3\2\2\2]^\7&\2\2^_\7"+
+		"\b\2\2_d\5\30\r\2`a\7\13\2\2ac\5\30\r\2b`\3\2\2\2cf\3\2\2\2db\3\2\2\2"+
+		"de\3\2\2\2eg\3\2\2\2fd\3\2\2\2gh\7\t\2\2hs\3\2\2\2ij\t\4\2\2jk\7\b\2\2"+
+		"kl\5\30\r\2lm\7\t\2\2ms\3\2\2\2no\7\20\2\2os\5\30\r\fps\7&\2\2qs\t\5\2"+
+		"\2rM\3\2\2\2rR\3\2\2\2r]\3\2\2\2ri\3\2\2\2rn\3\2\2\2rp\3\2\2\2rq\3\2\2"+
+		"\2s\u0092\3\2\2\2tu\f\n\2\2uv\7\24\2\2v\u0091\5\30\r\nwx\f\t\2\2xy\t\6"+
+		"\2\2y\u0091\5\30\r\nz{\f\b\2\2{|\t\7\2\2|\u0091\5\30\r\t}~\f\7\2\2~\177"+
+		"\t\b\2\2\177\u0091\5\30\r\b\u0080\u0081\f\6\2\2\u0081\u0082\t\t\2\2\u0082"+
+		"\u0091\5\30\r\7\u0083\u0084\f\5\2\2\u0084\u0085\7\16\2\2\u0085\u0086\5"+
+		"\30\r\2\u0086\u0087\7\4\2\2\u0087\u0088\5\30\r\5\u0088\u0091\3\2\2\2\u0089"+
+		"\u008a\f\17\2\2\u008a\u008b\7\6\2\2\u008b\u008c\5\30\r\2\u008c\u008d\7"+
+		"\7\2\2\u008d\u0091\3\2\2\2\u008e\u008f\f\13\2\2\u008f\u0091\7\r\2\2\u0090"+
+		"t\3\2\2\2\u0090w\3\2\2\2\u0090z\3\2\2\2\u0090}\3\2\2\2\u0090\u0080\3\2"+
+		"\2\2\u0090\u0083\3\2\2\2\u0090\u0089\3\2\2\2\u0090\u008e\3\2\2\2\u0091"+
+		"\u0094\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0093\3\2\2\2\u0093\31\3\2\2"+
+		"\2\u0094\u0092\3\2\2\2\r(,/\63\67?Xdr\u0090\u0092";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

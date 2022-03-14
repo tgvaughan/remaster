@@ -1,328 +1,328 @@
-// Generated from /Users/vaughant/code/beast_and_friends/reMASTER/src/remaster/model/parsers/ReMASTERGrammar.g4 by ANTLR 4.9.1
-package remaster.model.parsers;
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.9.2
+package remaster.parsers;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link ReMASTERGrammarListener},
+ * This class provides an empty implementation of {@link ReactionGrammarListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class ReMASTERGrammarBaseListener implements ReMASTERGrammarListener {
+public class ReactionGrammarBaseListener implements ReactionGrammarListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReaction(ReMASTERGrammarParser.ReactionContext ctx) { }
+	@Override public void enterReaction(ReactionGrammarParser.ReactionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReaction(ReMASTERGrammarParser.ReactionContext ctx) { }
+	@Override public void exitReaction(ReactionGrammarParser.ReactionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReactants(ReMASTERGrammarParser.ReactantsContext ctx) { }
+	@Override public void enterReactants(ReactionGrammarParser.ReactantsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReactants(ReMASTERGrammarParser.ReactantsContext ctx) { }
+	@Override public void exitReactants(ReactionGrammarParser.ReactantsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProducts(ReMASTERGrammarParser.ProductsContext ctx) { }
+	@Override public void enterProducts(ReactionGrammarParser.ProductsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProducts(ReMASTERGrammarParser.ProductsContext ctx) { }
+	@Override public void exitProducts(ReactionGrammarParser.ProductsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopsum(ReMASTERGrammarParser.PopsumContext ctx) { }
+	@Override public void enterPopsum(ReactionGrammarParser.PopsumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopsum(ReMASTERGrammarParser.PopsumContext ctx) { }
+	@Override public void exitPopsum(ReactionGrammarParser.PopsumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopel(ReMASTERGrammarParser.PopelContext ctx) { }
+	@Override public void enterPopel(ReactionGrammarParser.PopelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopel(ReMASTERGrammarParser.PopelContext ctx) { }
+	@Override public void exitPopel(ReactionGrammarParser.PopelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(ReMASTERGrammarParser.FactorContext ctx) { }
+	@Override public void enterFactor(ReactionGrammarParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(ReMASTERGrammarParser.FactorContext ctx) { }
+	@Override public void exitFactor(ReactionGrammarParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(ReMASTERGrammarParser.IdContext ctx) { }
+	@Override public void enterId(ReactionGrammarParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(ReMASTERGrammarParser.IdContext ctx) { }
+	@Override public void exitId(ReactionGrammarParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(ReMASTERGrammarParser.AssignmentContext ctx) { }
+	@Override public void enterAssignment(ReactionGrammarParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(ReMASTERGrammarParser.AssignmentContext ctx) { }
+	@Override public void exitAssignment(ReactionGrammarParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopname(ReMASTERGrammarParser.PopnameContext ctx) { }
+	@Override public void enterPopname(ReactionGrammarParser.PopnameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopname(ReMASTERGrammarParser.PopnameContext ctx) { }
+	@Override public void exitPopname(ReactionGrammarParser.PopnameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoc(ReMASTERGrammarParser.LocContext ctx) { }
+	@Override public void enterLoc(ReactionGrammarParser.LocContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoc(ReMASTERGrammarParser.LocContext ctx) { }
+	@Override public void exitLoc(ReactionGrammarParser.LocContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocel(ReMASTERGrammarParser.LocelContext ctx) { }
+	@Override public void enterLocidx(ReactionGrammarParser.LocidxContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLocel(ReMASTERGrammarParser.LocelContext ctx) { }
+	@Override public void exitLocidx(ReactionGrammarParser.LocidxContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryOp(ReMASTERGrammarParser.UnaryOpContext ctx) { }
+	@Override public void enterUnaryOp(ReactionGrammarParser.UnaryOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryOp(ReMASTERGrammarParser.UnaryOpContext ctx) { }
+	@Override public void exitUnaryOp(ReactionGrammarParser.UnaryOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable(ReMASTERGrammarParser.VariableContext ctx) { }
+	@Override public void enterVariable(ReactionGrammarParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable(ReMASTERGrammarParser.VariableContext ctx) { }
+	@Override public void exitVariable(ReactionGrammarParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNegation(ReMASTERGrammarParser.NegationContext ctx) { }
+	@Override public void enterNegation(ReactionGrammarParser.NegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNegation(ReMASTERGrammarParser.NegationContext ctx) { }
+	@Override public void exitNegation(ReactionGrammarParser.NegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMulDiv(ReMASTERGrammarParser.MulDivContext ctx) { }
+	@Override public void enterMulDiv(ReactionGrammarParser.MulDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMulDiv(ReMASTERGrammarParser.MulDivContext ctx) { }
+	@Override public void exitMulDiv(ReactionGrammarParser.MulDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddSub(ReMASTERGrammarParser.AddSubContext ctx) { }
+	@Override public void enterAddSub(ReactionGrammarParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddSub(ReMASTERGrammarParser.AddSubContext ctx) { }
+	@Override public void exitAddSub(ReactionGrammarParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanOp(ReMASTERGrammarParser.BooleanOpContext ctx) { }
+	@Override public void enterBooleanOp(ReactionGrammarParser.BooleanOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBooleanOp(ReMASTERGrammarParser.BooleanOpContext ctx) { }
+	@Override public void exitBooleanOp(ReactionGrammarParser.BooleanOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExponentiation(ReMASTERGrammarParser.ExponentiationContext ctx) { }
+	@Override public void enterExponentiation(ReactionGrammarParser.ExponentiationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExponentiation(ReMASTERGrammarParser.ExponentiationContext ctx) { }
+	@Override public void exitExponentiation(ReactionGrammarParser.ExponentiationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBracketed(ReMASTERGrammarParser.BracketedContext ctx) { }
+	@Override public void enterBracketed(ReactionGrammarParser.BracketedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBracketed(ReMASTERGrammarParser.BracketedContext ctx) { }
+	@Override public void exitBracketed(ReactionGrammarParser.BracketedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray(ReMASTERGrammarParser.ArrayContext ctx) { }
+	@Override public void enterArray(ReactionGrammarParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray(ReMASTERGrammarParser.ArrayContext ctx) { }
+	@Override public void exitArray(ReactionGrammarParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactorial(ReMASTERGrammarParser.FactorialContext ctx) { }
+	@Override public void enterFactorial(ReactionGrammarParser.FactorialContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactorial(ReMASTERGrammarParser.FactorialContext ctx) { }
+	@Override public void exitFactorial(ReactionGrammarParser.FactorialContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction(ReMASTERGrammarParser.FunctionContext ctx) { }
+	@Override public void enterFunction(ReactionGrammarParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction(ReMASTERGrammarParser.FunctionContext ctx) { }
+	@Override public void exitFunction(ReactionGrammarParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumber(ReMASTERGrammarParser.NumberContext ctx) { }
+	@Override public void enterNumber(ReactionGrammarParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumber(ReMASTERGrammarParser.NumberContext ctx) { }
+	@Override public void exitNumber(ReactionGrammarParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArraySubscript(ReMASTERGrammarParser.ArraySubscriptContext ctx) { }
+	@Override public void enterArraySubscript(ReactionGrammarParser.ArraySubscriptContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArraySubscript(ReMASTERGrammarParser.ArraySubscriptContext ctx) { }
+	@Override public void exitArraySubscript(ReactionGrammarParser.ArraySubscriptContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEquality(ReMASTERGrammarParser.EqualityContext ctx) { }
+	@Override public void enterEquality(ReactionGrammarParser.EqualityContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEquality(ReMASTERGrammarParser.EqualityContext ctx) { }
+	@Override public void exitEquality(ReactionGrammarParser.EqualityContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfThenElse(ReMASTERGrammarParser.IfThenElseContext ctx) { }
+	@Override public void enterIfThenElse(ReactionGrammarParser.IfThenElseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfThenElse(ReMASTERGrammarParser.IfThenElseContext ctx) { }
+	@Override public void exitIfThenElse(ReactionGrammarParser.IfThenElseContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

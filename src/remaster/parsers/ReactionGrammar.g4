@@ -1,4 +1,4 @@
-grammar ReMASTERGrammar;
+grammar ReactionGrammar;
 
 // Reaction string parser rules
 
@@ -17,8 +17,8 @@ assignment : popname loc? ':=' expression EOF;
 // Misc parser rules
 
 popname : IDENT ;
-loc : '[' locel (',' locel)* ']' ;
-locel : '0' | NZINT | IDENT ;
+loc : '[' locidx ']' ;
+locidx : '0' | NZINT | IDENT ;
 
 // Expression parser rules
 

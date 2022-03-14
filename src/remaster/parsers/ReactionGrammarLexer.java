@@ -1,5 +1,5 @@
-// Generated from /Users/vaughant/code/beast_and_friends/reMASTER/src/remaster/model/parsers/ReMASTERGrammar.g4 by ANTLR 4.9.1
-package remaster.model.parsers;
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.9.2
+package remaster.parsers;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,8 +10,8 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class ReMASTERGrammarLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
+public class ReactionGrammarLexer extends Lexer {
+	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -43,7 +43,7 @@ public class ReMASTERGrammarLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'->'", "':'", "':='", "'['", "','", "']'", "'('", "')'", "'{'", 
+			null, "'->'", "':'", "':='", "'['", "']'", "'('", "')'", "'{'", "','", 
 			"'}'", "'!'", "'?'", "'+'", "'-'", "'*'", "'/'", "'%'", "'^'", "'exp'", 
 			"'log'", "'sqrt'", "'sum'", "'theta'", "'abs'", "'&&'", "'||'", "'=='", 
 			"'>'", "'<'", "'>='", "'<='", "'!='", "'0'"
@@ -94,13 +94,13 @@ public class ReMASTERGrammarLexer extends Lexer {
 	}
 
 
-	public ReMASTERGrammarLexer(CharStream input) {
+	public ReactionGrammarLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "ReMASTERGrammar.g4"; }
+	public String getGrammarFileName() { return "ReactionGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -154,8 +154,8 @@ public class ReMASTERGrammarLexer extends Lexer {
 		"\3\2\2\2C\u00ac\3\2\2\2E\u00ae\3\2\2\2G\u00b7\3\2\2\2I\u00cb\3\2\2\2K"+
 		"\u00cd\3\2\2\2M\u00cf\3\2\2\2O\u00d6\3\2\2\2Q\u00e3\3\2\2\2S\u00f2\3\2"+
 		"\2\2UV\7/\2\2VW\7@\2\2W\4\3\2\2\2XY\7<\2\2Y\6\3\2\2\2Z[\7<\2\2[\\\7?\2"+
-		"\2\\\b\3\2\2\2]^\7]\2\2^\n\3\2\2\2_`\7.\2\2`\f\3\2\2\2ab\7_\2\2b\16\3"+
-		"\2\2\2cd\7*\2\2d\20\3\2\2\2ef\7+\2\2f\22\3\2\2\2gh\7}\2\2h\24\3\2\2\2"+
+		"\2\\\b\3\2\2\2]^\7]\2\2^\n\3\2\2\2_`\7_\2\2`\f\3\2\2\2ab\7*\2\2b\16\3"+
+		"\2\2\2cd\7+\2\2d\20\3\2\2\2ef\7}\2\2f\22\3\2\2\2gh\7.\2\2h\24\3\2\2\2"+
 		"ij\7\177\2\2j\26\3\2\2\2kl\7#\2\2l\30\3\2\2\2mn\7A\2\2n\32\3\2\2\2op\7"+
 		"-\2\2p\34\3\2\2\2qr\7/\2\2r\36\3\2\2\2st\7,\2\2t \3\2\2\2uv\7\61\2\2v"+
 		"\"\3\2\2\2wx\7\'\2\2x$\3\2\2\2yz\7`\2\2z&\3\2\2\2{|\7g\2\2|}\7z\2\2}~"+

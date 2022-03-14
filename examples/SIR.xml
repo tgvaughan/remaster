@@ -1,0 +1,30 @@
+<beast version="2.0" namespace="beast.core.parameter
+                               :beast.core
+                               :remaster">
+    <run spec="Simulator" nSims="100">
+        <simulate spec="StochasticTrajectory" id="SIRTrajectory">
+            <population spec="RealParameter" id="S" value="1000"/>
+            <population spec="RealParameter" id="I" value="1"/>
+            <population spec="RealParameter" id="R" value="0"/>
+            <samplePopulation spec="RealParameter" id="X" value="0"/>
+
+            <reaction spec="Reaction" rate="0.01">
+                S + I -> 2I
+            </reaction>
+
+            <reaction spec="Reaction" rate="1.0">
+                I -> R
+            </reaction>
+
+            <reaction spec="Reaction" rate="1.0">
+                I -> X
+            </reaction>
+
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+<!--        <logger spec="Logger">-->
+            <log idref="SIRTrajectory"/>
+        </logger>
+    </run>
+</beast>
