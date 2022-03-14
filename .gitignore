@@ -1,3 +1,6 @@
 /.idea
 /reMaster.iml
 /out
+/example/*.traj
+/example/*.log
+/example/*.trees
