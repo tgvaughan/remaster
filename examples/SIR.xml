@@ -23,7 +23,6 @@
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">
-<!--        <logger spec="Logger">-->
             <log idref="SIRTrajectory"/>
         </logger>
     </run>
