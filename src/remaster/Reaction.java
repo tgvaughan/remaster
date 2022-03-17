@@ -103,7 +103,7 @@ public class Reaction extends BEASTObject {
      * @param state
      */
     public void updatePropensity(Map<String, Double[]> state) {
-        currentPropensity = rateInput.get();
+        currentPropensity = rateInput.get().getArrayValue();
         for (ReactElement reactElement : reactants.elementSet()) {
             currentPropensity *= Binomial.choose( state.get(reactElement.name)[reactElement.idx],
                     reactants.count(reactElement));
