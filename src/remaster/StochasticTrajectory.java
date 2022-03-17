@@ -142,7 +142,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
                 isFirst = false;
                 out.print("t=0");
             } else {
-                out.print(",");
+                out.print(";");
                 out.print("t=" + event.time);
             }
 
