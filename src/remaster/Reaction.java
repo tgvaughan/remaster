@@ -1,11 +1,13 @@
 package remaster;
 
 import beast.core.BEASTObject;
+import beast.core.Function;
 import beast.core.Input;
-import beast.core.parameter.RealParameter;
+import beast.core.util.Log;
 import beast.math.Binomial;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.Sets;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -13,14 +15,13 @@ import remaster.parsers.ReactionGrammarBaseListener;
 import remaster.parsers.ReactionGrammarLexer;
 import remaster.parsers.ReactionGrammarParser;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 public class Reaction extends BEASTObject {
 
-    public Input<Double> rateInput = new Input<>("rate",
+    public Input<Function> rateInput = new Input<>("rate",
             "Per-configuration rate constant.");
 
     public Input<String> reactionStringInput = new Input<>("value",
