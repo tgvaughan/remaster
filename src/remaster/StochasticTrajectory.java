@@ -41,6 +41,12 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
         reactions = reactionsInput.get();
 
+        for (Reaction reaction : reactions) {
+            if (!reaction.isValid(state, samplePops))
+                throw new IllegalStateException("Invalid reaction detected.");
+        }
+
+
         doSimulation();
     }
 

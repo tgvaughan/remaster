@@ -29,11 +29,21 @@ public class Reaction extends BEASTObject {
 
     Multiset<ReactElement> reactants, products;
 
+    Map<ReactElement,ReactElement> productParents;
+
     @Override
     public void initAndValidate() {
+        parseReactionString(reactionStringInput.get());
+    }
 
-        // Parse reaction string
-        CharStream rsInput = CharStreams.fromString(reactionStringInput.get());
+    /**
+     * Parse reaction string and record reactants and products
+     * in the Multisets reactants and products.
+     *
+     * @param reactionString reaction string
+     */
+    private void parseReactionString(String reactionString) {
+        CharStream rsInput = CharStreams.fromString(reactionString);
 
         // Custom parser/lexer error listener
         BaseErrorListener errorListener = new BaseErrorListener() {
@@ -87,6 +97,24 @@ public class Reaction extends BEASTObject {
                 }
             }
         }, reactionStringParseTree);
+    }
+
+    public boolean isValid(Map<String, Double[]> state, Set<String> samplePopulations) {
+        for (ReactElement reactElement : Sets.union(reactants.elementSet(), products.elementSet())) {
+            if (!state.containsKey(reactElement.name)) {
+                Log.err("Reaction " + getID() + " (" + this + ") contains unknown element '" + reactElement.name + "'.");
+                return false;
+            }
+        }
+
+        for (ReactElement reactElement : reactants.elementSet()) {
+            if (samplePopulations.contains(reactElement.name)) {
+                Log.err("Reaction " + getID() + " (" + this + ") contains sample population '" + reactElement.name + "' as reactant.");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean producesSamples(Set<String> samplePopulations) {
