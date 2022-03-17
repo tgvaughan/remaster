@@ -1,6 +1,14 @@
+# IntelliJ stuff
 /.idea
 /reMaster.iml
 /out
-/example/*.traj
-/example/*.log
-/example/*.trees
+
+# Binaries
+/dist
+/build
+
+# Generated example files
+/examples/*.traj
+/examples/*.log
+/examples/*.trees
+/examples/.Rhistory
