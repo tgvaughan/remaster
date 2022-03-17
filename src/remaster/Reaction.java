@@ -166,7 +166,7 @@ public class Reaction extends BEASTObject {
     /**
      * Class for reactants and products of reaction
      */
-    public class ReactElement {
+    public static class ReactElement {
         String name;
         int idx;
 
