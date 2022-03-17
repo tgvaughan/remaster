@@ -151,4 +151,14 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     public void close(PrintStream out) {
 
     }
+
+    public static class TrajectoryEvent {
+        public double time;
+        Reaction reaction;
+
+        public TrajectoryEvent(double time, Reaction reaction) {
+            this.time = time;
+            this.reaction = reaction;
+        }
+    }
 }
