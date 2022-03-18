@@ -52,8 +52,8 @@ public class Reaction extends BEASTObject {
                                     int line, int charPositionInLine,
                                     String msg, RecognitionException e) {
                 throw new RuntimeException("Error parsing character " +
-                        charPositionInLine + " of MASTER reaction " +
-                        "string: " + msg);
+                        charPositionInLine + " of reaction " +
+                        "string '" + reactionString + "': " + msg);
             }
         };
 
