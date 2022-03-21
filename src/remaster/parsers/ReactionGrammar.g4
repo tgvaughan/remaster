@@ -8,7 +8,7 @@ products : popsum ;
 popsum : popel ('+' popel)* | '0' ;
 popel : factor? popname loc? (':' id)?;
 factor : NZINT ;
-id: '0' | NZINT ;
+id: '0' | NZINT | IDENT;
 
 // Misc parser rules:
 

@@ -4,6 +4,7 @@ import beast.core.BEASTObject;
 import beast.core.Function;
 import beast.core.Input;
 import beast.core.util.Log;
+import beast.evolution.tree.Node;
 import beast.math.Binomial;
 import com.google.common.collect.*;
 import org.antlr.v4.runtime.*;
@@ -14,8 +15,8 @@ import remaster.parsers.ReactionGrammarLexer;
 import remaster.parsers.ReactionGrammarParser;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class Reaction extends BEASTObject {
@@ -28,7 +29,7 @@ public class Reaction extends BEASTObject {
 
     Multiset<ReactElement> reactants, products;
 
-    Map<ReactElement,ReactElement> productParents;
+    Multimap<ReactElement,ReactElement> productParents;
 
     @Override
     public void initAndValidate() {
@@ -62,13 +63,10 @@ public class Reaction extends BEASTObject {
         rsLexer.addErrorListener(errorListener);
 
         CommonTokenStream rsTokens = new CommonTokenStream(rsLexer);
-
         ReactionGrammarParser rsParser = new ReactionGrammarParser(rsTokens);
         rsParser.removeErrorListeners();
         rsParser.addErrorListener(errorListener);
-
         ParseTree reactionStringParseTree = rsParser.reaction();
-
         ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
 
         reactants = HashMultiset.create();
@@ -77,37 +75,53 @@ public class Reaction extends BEASTObject {
         parseTreeWalker.walk(new ReactionGrammarBaseListener() {
             @Override
             public void exitReaction(ReactionGrammarParser.ReactionContext ctx) {
+
+                Map<String, ReactElement> reactIDs = new HashMap<>();
+
+                // Process reactants
                 for (ReactionGrammarParser.PopelContext popelContext : ctx.reactants().popsum().popel()) {
                     String name = popelContext.popname().getText();
                     int idx = popelContext.loc() == null ? 0
                             : Integer.parseInt(popelContext.loc().locidx().getText());
                     int factor = popelContext.factor() == null ? 1
                             : Integer.parseInt(popelContext.factor().getText());
-                    reactants.add(new ReactElement(name, idx), factor);
+                    ReactElement el = new ReactElement(name, idx);
+                    reactants.add(el, factor);
+
+                    String reactID = popelContext.id() == null
+                            ? null : popelContext.id().getText().intern();
+
+                    if (reactID != null && (factor > 1 || reactIDs.containsKey(reactID)))
+                        throw new IllegalStateException("In reaction '"
+                                + reactionString +"' reactants cannot share an ID.");
+
+                    reactIDs.put(reactID, el);
                 }
 
+                // Process products
                 for (ReactionGrammarParser.PopelContext popelContext : ctx.products().popsum().popel()) {
                     String name = popelContext.popname().getText();
                     int idx = popelContext.loc() == null ? 0
                             : Integer.parseInt(popelContext.loc().locidx().getText());
                     int factor = popelContext.factor() == null ? 1
                             : Integer.parseInt(popelContext.factor().getText());
-                    products.add(new ReactElement(name, idx), factor);
+                    ReactElement el = new ReactElement(name, idx);
+                    products.add(el, factor);
                 }
             }
         }, reactionStringParseTree);
     }
 
-    public boolean isValid(Map<String, Double[]> state, Set<String> samplePopulations) {
+    public boolean isValid(TrajectoryState state) {
         for (ReactElement reactElement : Sets.union(reactants.elementSet(), products.elementSet())) {
-            if (!state.containsKey(reactElement.name)) {
+            if (!state.hasPopNamed(reactElement.name)) {
                 Log.err("Reaction " + getID() + " (" + this + ") contains unknown element '" + reactElement.name + "'.");
                 return false;
             }
         }
 
         for (ReactElement reactElement : reactants.elementSet()) {
-            if (samplePopulations.contains(reactElement.name)) {
+            if (state.hasSamplePopNamed(reactElement.name)) {
                 Log.err("Reaction " + getID() + " (" + this + ") contains sample population '" + reactElement.name + "' as reactant.");
                 return false;
             }
@@ -129,10 +143,10 @@ public class Reaction extends BEASTObject {
      *
      * @param state
      */
-    public void updatePropensity(Map<String, Double[]> state) {
+    public void updatePropensity(TrajectoryState state) {
         currentPropensity = rateInput.get().getArrayValue();
         for (ReactElement reactElement : reactants.elementSet()) {
-            currentPropensity *= Binomial.choose( state.get(reactElement.name)[reactElement.idx],
+            currentPropensity *= Binomial.choose(state.get(reactElement.name)[reactElement.idx],
                     reactants.count(reactElement));
         }
     }
@@ -147,12 +161,21 @@ public class Reaction extends BEASTObject {
      *
      * @param state
      */
-    public void incrementState(Map<String, Double[]> state) {
+    public void incrementState(TrajectoryState state) {
         for (ReactElement reactElement : reactants.elementSet())
             state.get(reactElement.name)[reactElement.idx] -= reactants.count(reactElement);
 
         for (ReactElement reactElement : products.elementSet())
             state.get(reactElement.name)[reactElement.idx] += products.count(reactElement);
+    }
+
+    /**
+     * Increment lineage state according to reaction.
+     */
+    public void incrementLineageState(Map<ReactElement, List<Node>> lineages, double t) {
+
+
+
     }
 
     @Override
@@ -188,40 +211,6 @@ public class Reaction extends BEASTObject {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * Class for reactants and products of reaction
-     */
-    public static class ReactElement {
-        String name;
-        int idx;
-
-        public ReactElement(String name, int idx) {
-            this.name = name.intern();
-            this.idx = idx;
-        }
-
-        @Override
-        public String toString() {
-            return "ReactElement{" +
-                    "name='" + name + '\'' +
-                    ", idx=" + idx +
-                    '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ReactElement that = (ReactElement) o;
-            return idx == that.idx && name.equals(that.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, idx);
-        }
     }
 
     // Main method for debugging

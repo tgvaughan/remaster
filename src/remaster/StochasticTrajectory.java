@@ -20,7 +20,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     public Input<List<Reaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
 
-    Map<String, Double[]> state, initialState;
+    TrajectoryState state;
     Set<String> samplePops;
     List<Reaction> reactions;
 
@@ -28,21 +28,13 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
     @Override
     public void initAndValidate() {
-        state = new HashMap<>();
-        initialState = new HashMap<>();
+        state = new TrajectoryState(populationsInput.get(), samplePopulationsInput.get());
         events = new ArrayList<>();
-
-        for (Function popFunc : populationsInput.get())
-            initPop(popFunc);
-
-        samplePops = new HashSet<>();
-        for (Function popFunc : samplePopulationsInput.get())
-            samplePops.add(initPop(popFunc));
 
         reactions = reactionsInput.get();
 
         for (Reaction reaction : reactions) {
-            if (!reaction.isValid(state, samplePops))
+            if (!reaction.isValid(state))
                 throw new IllegalStateException("Invalid reaction detected.");
         }
 
@@ -50,28 +42,10 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         doSimulation();
     }
 
-    private String initPop(Function popFunc) {
-        String popName = ((BEASTObject)popFunc).getID();
 
-        Double[] popArray = new Double[popFunc.getDimension()];
-        for (int i=0; i<popArray.length; i++)
-            popArray[i] = popFunc.getArrayValue(i);
-        initialState.put(popName, popArray);
-        state.put(popName, new Double[popArray.length]);
-
-        return popName;
-    }
-
-    public void resetState() {
-        for (String popName : state.keySet())
-            System.arraycopy(initialState.get(popName),
-                    0, state.get(popName),
-                    0, state.get(popName).length);
-
-    }
 
     public void doSimulation() {
-        resetState();
+        state.reset();
         events.clear();
 
         double t=0.0;
@@ -116,25 +90,10 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             out.print(getID() + "\t");
     }
 
-    private String getStateString(Map<String,Double[]> state) {
-        StringBuilder sb = new StringBuilder();
-
-        for (String popName : state.keySet()) {
-            sb.append(":").append(popName).append("=");
-            Double[] values  = state.get(popName);
-            for (int i=0; i<values.length; i++) {
-                if (i>0)
-                    sb.append(",");
-                sb.append(values[i]);
-            }
-        }
-
-        return sb.toString();
-    }
 
     @Override
     public void log(long sample, PrintStream out) {
-        resetState();
+        state.reset();
 
         boolean isFirst = true;
         for (TrajectoryEvent event : events) {
@@ -146,7 +105,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
                 out.print("t=" + event.time);
             }
 
-            out.print(getStateString(state));
+            out.print(state);
             event.reaction.incrementState(state);
         }
 

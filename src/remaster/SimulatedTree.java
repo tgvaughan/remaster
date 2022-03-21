@@ -4,6 +4,8 @@ import beast.core.Input;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
 
+import java.util.*;
+
 public class SimulatedTree extends Tree {
 
     public Input<StochasticTrajectory> trajectoryInput = new Input<>("trajectory",
@@ -17,12 +19,20 @@ public class SimulatedTree extends Tree {
         trajectory = trajectoryInput.get();
 
         super.initAndValidate();
+
+        doSimulation();
     }
 
     public void doSimulation() {
 
-        while (true) {
+        List<StochasticTrajectory.TrajectoryEvent> eventList =
+                new ArrayList<>(trajectory.events);
+        Collections.reverse(eventList);
 
+        Map<ReactElement, List<Node>> lineages = new HashMap<>();
+
+        for (StochasticTrajectory.TrajectoryEvent event : eventList) {
         }
+
     }
 }

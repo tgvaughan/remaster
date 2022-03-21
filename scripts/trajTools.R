@@ -1,11 +1,7 @@
 ## Scripts useful for plotting and manipulating trajectory data
 ## using ggplot and friends.
 
-library(dplyr)
-library(readr)
-library(stringr)
-library(tidyr)
-library(ggplot2)
+library(tidyverse)
 
 parseTrajectory <- function(trajStr) {
   strValues <- str_split(str_split(trajStr, ";")[[1]], ":", simplify = TRUE)
