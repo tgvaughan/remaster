@@ -16,10 +16,7 @@ public class ReactElement {
 
     @Override
     public String toString() {
-        return "ReactElement{" +
-                "name='" + name + '\'' +
-                ", idx=" + idx +
-                '}';
+        return name + "[" + idx + "]";
     }
 
     @Override

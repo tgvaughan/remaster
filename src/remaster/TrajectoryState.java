@@ -42,10 +42,6 @@ public class TrajectoryState {
         return occupancies.containsKey(string);
     }
 
-    public Set<String> getSamplePopNames() {
-        return samplePopNames;
-    }
-
     public boolean hasSamplePopNamed(String string) {
         return samplePopNames.contains(string);
     }

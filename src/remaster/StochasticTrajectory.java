@@ -4,6 +4,8 @@ import beast.core.BEASTObject;
 import beast.core.Function;
 import beast.core.Input;
 import beast.core.Loggable;
+import beast.evolution.tree.Node;
+import beast.math.Binomial;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
@@ -21,7 +23,6 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             "Reaction", new ArrayList<>());
 
     TrajectoryState state;
-    Set<String> samplePops;
     List<Reaction> reactions;
 
     List<TrajectoryEvent> events;
@@ -34,10 +35,10 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         reactions = reactionsInput.get();
 
         for (Reaction reaction : reactions) {
+            reaction.markSamples(state);
             if (!reaction.isValid(state))
                 throw new IllegalStateException("Invalid reaction detected.");
         }
-
 
         doSimulation();
     }
@@ -52,10 +53,8 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
         while (true) {
             double a0 = 0.0;
-            for (Reaction reaction : reactions) {
-                reaction.updatePropensity(state);
-                a0 += reaction.currentPropensity;
-            }
+            for (Reaction reaction : reactions)
+                a0 += reaction.updatePropensity(state);
 
             if (a0 == 0.0)
                 break;
@@ -90,7 +89,6 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             out.print(getID() + "\t");
     }
 
-
     @Override
     public void log(long sample, PrintStream out) {
         state.reset();
@@ -113,10 +111,11 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     }
 
     @Override
-    public void close(PrintStream out) {
+    public void close(PrintStream out) { }
 
-    }
-
+    /**
+     * Events produced by stochastic trajectories.
+     */
     public static class TrajectoryEvent {
         public double time;
         Reaction reaction;

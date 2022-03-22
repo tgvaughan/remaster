@@ -6,6 +6,7 @@ import beast.core.Input;
 import beast.core.util.Log;
 import beast.evolution.tree.Node;
 import beast.math.Binomial;
+import beast.util.Randomizer;
 import com.google.common.collect.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -14,10 +15,7 @@ import remaster.parsers.ReactionGrammarBaseListener;
 import remaster.parsers.ReactionGrammarLexer;
 import remaster.parsers.ReactionGrammarParser;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Reaction extends BEASTObject {
 
@@ -29,7 +27,8 @@ public class Reaction extends BEASTObject {
 
     Multiset<ReactElement> reactants, products;
 
-    Multimap<ReactElement,ReactElement> productParents;
+    List<ReactElement> parents;
+    List<Multiset<ReactElement>> children;
 
     @Override
     public void initAndValidate() {
@@ -72,11 +71,14 @@ public class Reaction extends BEASTObject {
         reactants = HashMultiset.create();
         products = HashMultiset.create();
 
+        parents = new ArrayList<>();
+        children = new ArrayList<>();
+
         parseTreeWalker.walk(new ReactionGrammarBaseListener() {
             @Override
             public void exitReaction(ReactionGrammarParser.ReactionContext ctx) {
 
-                Map<String, ReactElement> reactIDs = new HashMap<>();
+                Map<String, Integer> parentIDs = new HashMap<>();
 
                 // Process reactants
                 for (ReactionGrammarParser.PopelContext popelContext : ctx.reactants().popsum().popel()) {
@@ -91,11 +93,17 @@ public class Reaction extends BEASTObject {
                     String reactID = popelContext.id() == null
                             ? null : popelContext.id().getText().intern();
 
-                    if (reactID != null && (factor > 1 || reactIDs.containsKey(reactID)))
-                        throw new IllegalStateException("In reaction '"
-                                + reactionString +"' reactants cannot share an ID.");
+                    for (int i=0; i<factor; i++) {
+                        parents.add(el);
+                        children.add(HashMultiset.create());
 
-                    reactIDs.put(reactID, el);
+                        if (reactID != null) {
+                            if (parentIDs.containsKey(reactID))
+                                throw new IllegalStateException("In reaction '"
+                                        + reactionString +"' reactants cannot share an ID.");
+                            parentIDs.put(reactID, parents.size() - 1);
+                        }
+                    }
                 }
 
                 // Process products
@@ -107,9 +115,45 @@ public class Reaction extends BEASTObject {
                             : Integer.parseInt(popelContext.factor().getText());
                     ReactElement el = new ReactElement(name, idx);
                     products.add(el, factor);
+
+                    String reactID = popelContext.id() == null
+                            ? null : popelContext.id().getText().intern();
+
+                    int parentIndex;
+                    if (reactID != null) {
+                        if (!parentIDs.containsKey(reactID))
+                            throw new IllegalStateException("In reaction '" + reactionString + "' the product ID " +
+                                    "'" + reactID + "' is not associated with a reactant.");
+
+                        parentIndex = parentIDs.get(reactID);
+                    } else {
+                        // Find first parent with same population
+                        parentIndex = 0;
+                        while (parentIndex < parents.size() && !parents.get(parentIndex).name.equals(el.name))
+                            parentIndex += 1;
+                    }
+
+                    if (parentIndex < parents.size())
+                        children.get(parentIndex).add(el, factor);
                 }
             }
         }, reactionStringParseTree);
+    }
+
+    Set<String> samplePopNames;
+    public boolean producesSamples = false;
+
+    public void markSamples(TrajectoryState state) {
+        samplePopNames = state.samplePopNames;
+
+        for (ReactElement element : products.elementSet()) {
+            if (samplePopNames.contains(element.name)) {
+                producesSamples = true;
+                return;
+            }
+        }
+
+        producesSamples = true;
     }
 
     public boolean isValid(TrajectoryState state) {
@@ -130,25 +174,21 @@ public class Reaction extends BEASTObject {
         return true;
     }
 
-    public boolean producesSamples(Set<String> samplePopulations) {
-        for (ReactElement element : products.elementSet())
-            if (samplePopulations.contains(element.name))
-                return true;
-
-        return false;
-    }
 
     /**
      * Update current propensity using the provided state.
      *
-     * @param state
+     * @param state trajectory state
+     * @return calculated propensity
      */
-    public void updatePropensity(TrajectoryState state) {
+    public double updatePropensity(TrajectoryState state) {
         currentPropensity = rateInput.get().getArrayValue();
         for (ReactElement reactElement : reactants.elementSet()) {
             currentPropensity *= Binomial.choose(state.get(reactElement.name)[reactElement.idx],
                     reactants.count(reactElement));
         }
+
+        return currentPropensity;
     }
 
     /**
@@ -172,7 +212,26 @@ public class Reaction extends BEASTObject {
     /**
      * Increment lineage state according to reaction.
      */
-    public void incrementLineageState(Map<ReactElement, List<Node>> lineages, double t) {
+    public void incrementLineages(Map<ReactElement, List<Node>> lineages, TrajectoryState state) {
+        if (lineages.isEmpty() && !producesSamples)
+            return;
+
+        // We're iterating over the products here anyway.  THIS is where we choose
+        // which products go with which lineages:
+
+        double logP_noEffect = 0.0;
+        for (ReactElement el : products.elementSet()) {
+            if (!lineages.containsKey(el))
+                continue;
+
+            logP_noEffect += Util.logChoose(state.get(el.name)[el.idx]-lineages.get(el).size(),
+                    products.count(el));
+        }
+
+        if (logP_noEffect == 0.0
+                || (logP_noEffect > Double.NEGATIVE_INFINITY
+                && Randomizer.nextDouble() > Math.exp(logP_noEffect)))
+            return;
 
 
 
