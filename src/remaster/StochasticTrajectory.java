@@ -4,6 +4,7 @@ import beast.core.BEASTObject;
 import beast.core.Function;
 import beast.core.Input;
 import beast.core.Loggable;
+import beast.core.parameter.RealParameter;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
@@ -19,6 +20,9 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
     public Input<List<Reaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
+
+    public Input<Function> endTimeInput = new Input<>("endTime",
+            "Period of simulation", new RealParameter("Infinity"));
 
     TrajectoryState state;
     List<Reaction> reactions;
@@ -41,8 +45,6 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         doSimulation();
     }
 
-
-
     public void doSimulation() {
         state.resetToInitial();
         events.clear();
@@ -52,7 +54,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         while (true) {
             double a0 = 0.0;
             for (Reaction reaction : reactions)
-                a0 += reaction.updatePropensity(state);
+                a0 += reaction.updatePropensity(state, t);
 
             if (a0 == 0.0)
                 break;
