@@ -12,3 +12,6 @@
 /examples/*.log
 /examples/*.trees
 /examples/.Rhistory
+
+# MacOS cruft
+.DS_Store
