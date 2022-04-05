@@ -34,12 +34,14 @@ public class SimulatedTree extends Tree {
 
         trajectory.state.resetToFinal();
 
+        LineageFactory lineageFactory = new LineageFactory();
+
         for (StochasticTrajectory.TrajectoryEvent event : eventList) {
-            event.reaction.incrementLineages(lineages, trajectory.state, event.time);
+            event.reaction.incrementLineages(lineages, trajectory.state, event.time, lineageFactory);
             event.reaction.reverseIncremementState(trajectory.state);
         }
 
-        List<Node> rootLineages = new ArrayList<>();
+        List<Lineage> rootLineages = new ArrayList<>();
         for (ReactElement pop : lineages.keySet())
             rootLineages.addAll(lineages.get(pop));
 
@@ -50,6 +52,8 @@ public class SimulatedTree extends Tree {
         // Might allow this in future
         if (rootLineages.size()>1)
             throw new IllegalStateException("Multiple lineages remaining.");
+
+        lineageFactory.numberInternals(rootLineages.get(0));
 
         assignFromWithoutID(new Tree(rootLineages.get(0)));
     }

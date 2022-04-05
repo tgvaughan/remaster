@@ -6,7 +6,9 @@ import beast.core.Input;
 import beast.core.util.Log;
 import beast.math.Binomial;
 import beast.util.Randomizer;
-import com.google.common.collect.*;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Sets;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -130,6 +132,8 @@ public class Reaction extends BEASTObject {
                                     "'" + reactID + "' is not associated with a reactant.");
 
                         parentIndex = parentIDs.get(reactID);
+                    } else if (parents.size() == 1) {
+                        parentIndex = 0;
                     } else {
                         // Find first parent with same population
                         parentIndex = 0;
@@ -242,7 +246,8 @@ public class Reaction extends BEASTObject {
     /**
      * Increment lineage state according to reaction.
      */
-    public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, TrajectoryState state, double eventTime) {
+    public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, TrajectoryState state, double eventTime,
+                                  LineageFactory lineageFactory) {
         if (lineages.isEmpty() && !producesSamples)
             return;
 
@@ -256,7 +261,7 @@ public class Reaction extends BEASTObject {
                     seenElements.put(el, 0);
 
                 if (samplePopNames.contains(el.name)) {
-                    toInclude.add(new Lineage(parents.get(i), eventTime));
+                    toInclude.add(lineageFactory.createSample(parents.get(i), eventTime));
                     continue;
                 }
 
@@ -279,15 +284,19 @@ public class Reaction extends BEASTObject {
             if (toInclude.isEmpty())
                 continue;
 
+            Lineage parent;
             if (toInclude.size()==1 && toInclude.get(0).reactElement.equals(parents.get(i))) {
-                toInclude.clear();
-                continue;
+                parent = toInclude.get(0);
+            } else {
+                parent = lineageFactory.createInternal(parents.get(i), eventTime);
+                for (Lineage child : toInclude) {
+                    parent.addChild(child);
+                }
             }
 
-            Lineage parent = new Lineage(parents.get(i), eventTime);
-            for (Lineage child : toInclude) {
-                parent.addChild(child);
-            }
+            if (!lineages.containsKey(parent.reactElement))
+                lineages.put(parent.reactElement, new ArrayList<>());
+            lineages.get(parent.reactElement).add(parent);
 
             toInclude.clear();
         }
