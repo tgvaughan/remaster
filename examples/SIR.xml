@@ -8,7 +8,7 @@
 
             <reaction spec="Reaction" rate="0.01"> S + I -> 2I </reaction>
             <reaction spec="Reaction" rate="1.0"> I -> R </reaction>
-            <reaction spec="Reaction" rate="1.0"> I -> sample </reaction>
+            <reaction spec="Reaction" rate="1.0"> I:a -> sample:a</reaction>
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">

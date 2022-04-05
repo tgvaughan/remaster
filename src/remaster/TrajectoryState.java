@@ -9,6 +9,7 @@ public class TrajectoryState {
 
     public Map<String, Double[]> occupancies = new HashMap<>();
     public Map<String, Double[]> initialOccupancies = new HashMap<>();
+    public Map<String, Double[]> finalOccupancies = new HashMap<>();
 
     public Set<String> samplePopNames = new HashSet<>();
 
@@ -30,6 +31,7 @@ public class TrajectoryState {
             popArray[i] = popFunc.getArrayValue(i);
         initialOccupancies.put(popName, popArray);
         occupancies.put(popName, new Double[popArray.length]);
+        finalOccupancies.put(popName, new Double[popArray.length]);
 
         return popName;
     }
@@ -50,13 +52,30 @@ public class TrajectoryState {
         return occupancies.get(popName);
     }
 
+    public double get(ReactElement el) {
+        return occupancies.get(el.name)[el.idx];
+    }
 
-    public void reset() {
+    public void setFinal() {
         for (String popName : occupancies.keySet())
-            System.arraycopy(initialOccupancies.get(popName),
-                    0, occupancies.get(popName),
-                    0, occupancies.get(popName).length);
+            System.arraycopy(occupancies.get(popName), 0,
+                    finalOccupancies.get(popName), 0,
+                    occupancies.get(popName).length);
+    }
 
+    public void resetToInitial() {
+        for (String popName : occupancies.keySet())
+            System.arraycopy(initialOccupancies.get(popName), 0,
+                    occupancies.get(popName), 0,
+                    occupancies.get(popName).length);
+
+    }
+
+    public void resetToFinal() {
+        for (String popName : occupancies.keySet())
+            System.arraycopy(finalOccupancies.get(popName), 0,
+                    occupancies.get(popName), 0,
+                    occupancies.get(popName).length);
     }
 
     @Override

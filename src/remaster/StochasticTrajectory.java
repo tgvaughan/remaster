@@ -4,8 +4,6 @@ import beast.core.BEASTObject;
 import beast.core.Function;
 import beast.core.Input;
 import beast.core.Loggable;
-import beast.evolution.tree.Node;
-import beast.math.Binomial;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
@@ -46,7 +44,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
 
     public void doSimulation() {
-        state.reset();
+        state.resetToInitial();
         events.clear();
 
         double t=0.0;
@@ -80,7 +78,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             thisReaction.incrementState(state);
         }
 
-
+        state.setFinal();
     }
 
     @Override
@@ -91,7 +89,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
     @Override
     public void log(long sample, PrintStream out) {
-        state.reset();
+        state.resetToInitial();
 
         boolean isFirst = true;
         for (TrajectoryEvent event : events) {

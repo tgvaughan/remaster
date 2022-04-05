@@ -30,10 +30,14 @@ public class SimulatedTree extends Tree {
                 new ArrayList<>(trajectory.events);
         Collections.reverse(eventList);
 
-        Map<ReactElement, List<Node>> lineages = new HashMap<>();
+        Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
 
-        for (StochasticTrajectory.TrajectoryEvent event : eventList)
-            event.reaction.incrementLineages(lineages, trajectory.state);
+        trajectory.state.resetToFinal();
+
+        for (StochasticTrajectory.TrajectoryEvent event : eventList) {
+            event.reaction.incrementLineages(lineages, trajectory.state, event.time);
+            event.reaction.reverseIncremementState(trajectory.state);
+        }
 
         List<Node> rootLineages = new ArrayList<>();
         for (ReactElement pop : lineages.keySet())

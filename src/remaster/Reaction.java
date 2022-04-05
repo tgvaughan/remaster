@@ -4,7 +4,6 @@ import beast.core.BEASTObject;
 import beast.core.Function;
 import beast.core.Input;
 import beast.core.util.Log;
-import beast.evolution.tree.Node;
 import beast.math.Binomial;
 import beast.util.Randomizer;
 import com.google.common.collect.*;
@@ -27,8 +26,11 @@ public class Reaction extends BEASTObject {
 
     Multiset<ReactElement> reactants, products;
 
+    // These fields are used to record the parent-child relationships between reactants and products:
     List<ReactElement> parents;
     List<Multiset<ReactElement>> children;
+    List<Multiset<ReactElement>> samples;
+    List<List<Lineage>> childLineages;
 
     @Override
     public void initAndValidate() {
@@ -73,6 +75,7 @@ public class Reaction extends BEASTObject {
 
         parents = new ArrayList<>();
         children = new ArrayList<>();
+        childLineages = new ArrayList<>();
 
         parseTreeWalker.walk(new ReactionGrammarBaseListener() {
             @Override
@@ -96,6 +99,7 @@ public class Reaction extends BEASTObject {
                     for (int i=0; i<factor; i++) {
                         parents.add(el);
                         children.add(HashMultiset.create());
+                        childLineages.add(new ArrayList<>());
 
                         if (reactID != null) {
                             if (parentIDs.containsKey(reactID))
@@ -209,32 +213,86 @@ public class Reaction extends BEASTObject {
             state.get(reactElement.name)[reactElement.idx] += products.count(reactElement);
     }
 
+    public void reverseIncremementState(TrajectoryState state) {
+        for (ReactElement reactElement : products.elementSet())
+            state.get(reactElement.name)[reactElement.idx] -= products.count(reactElement);
+
+        for (ReactElement reactElement : reactants.elementSet())
+            state.get(reactElement.name)[reactElement.idx] += reactants.count(reactElement);
+    }
+
+
+    /**
+     * Hashmap used to track how many of each type of product have already been "seen"
+     * when incrementing the lineage state.
+     *
+     * We make this a field to avoid having to create a new hashmap every time incrementLineages()
+     * is called.
+     */
+    private final Map<ReactElement, Integer> seenElements = new HashMap<>();
+
+    /**
+     * List used to keep track of lineages to include in a particular lineage update event.
+     *
+     * We make this a field to avoid having to create a new arraylist every time incrementLineages()
+     * is called.
+     */
+    private final List<Lineage> toInclude = new ArrayList<>();
+
     /**
      * Increment lineage state according to reaction.
      */
-    public void incrementLineages(Map<ReactElement, List<Node>> lineages, TrajectoryState state) {
+    public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, TrajectoryState state, double eventTime) {
         if (lineages.isEmpty() && !producesSamples)
             return;
 
-        // We're iterating over the products here anyway.  THIS is where we choose
-        // which products go with which lineages:
+        // Iterate over **products**
 
-        double logP_noEffect = 0.0;
-        for (ReactElement el : products.elementSet()) {
-            if (!lineages.containsKey(el))
+        double u = Randomizer.nextDouble();
+
+        for (int i=0; i<children.size(); i++) {
+            for (ReactElement el : children.get(i)) {
+                if (!seenElements.containsKey(el))
+                    seenElements.put(el, 0);
+
+                if (samplePopNames.contains(el.name)) {
+                    toInclude.add(new Lineage(parents.get(i), eventTime));
+                    continue;
+                }
+
+                double pInclude = lineages.containsKey(el)
+                        ? lineages.get(el).size()/(state.get(el) - seenElements.get(el))
+                        : 0.0;
+
+                if (u < pInclude) {
+                    int lineageIdx = (int)Math.round(Math.floor(lineages.get(el).size()*(u/pInclude)));
+
+                    toInclude.add(lineages.get(el).remove(lineageIdx));
+
+                    u = Randomizer.nextDouble();
+                } else if (pInclude>0.0)
+                    u = (u - pInclude)/(1.0 - pInclude);
+
+                seenElements.put(el, seenElements.get(el)+1);
+            }
+
+            if (toInclude.isEmpty())
                 continue;
 
-            logP_noEffect += Util.logChoose(state.get(el.name)[el.idx]-lineages.get(el).size(),
-                    products.count(el));
+            if (toInclude.size()==1 && toInclude.get(0).reactElement.equals(parents.get(i))) {
+                toInclude.clear();
+                continue;
+            }
+
+            Lineage parent = new Lineage(parents.get(i), eventTime);
+            for (Lineage child : toInclude) {
+                parent.addChild(child);
+            }
+
+            toInclude.clear();
         }
 
-        if (logP_noEffect == 0.0
-                || (logP_noEffect > Double.NEGATIVE_INFINITY
-                && Randomizer.nextDouble() > Math.exp(logP_noEffect)))
-            return;
-
-
-
+        seenElements.clear();
     }
 
     @Override
