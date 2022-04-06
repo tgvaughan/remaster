@@ -198,27 +198,23 @@ public class Reaction extends BEASTObject {
         return true;
     }
 
-    /**
-     * Retrieve rate constant for a given time.
-     *
-     * Note: This is a somewhat wasteful computation, requiring log2(n) steps
-     * per call. If this becomes inportant, could do better by keeping track
-     * of an interval index somewhere (where?).
-     *
-     * @param time time at which to evaluate rate
-     * @return rate value
-     */
-    public double getRate(double time) {
-        if (changeTimes.length == 0)
-            return rates[0];
-        else {
-            int idx = Arrays.binarySearch(changeTimes, time);
-            if (idx < 0) {
-                idx = -idx - 1;
-            }
-            return rates[idx];
-        }
+    int currentInterval = 0;
+
+    public void resetInterval() {
+        currentInterval = 0;
     }
+
+    public void incrementInterval() {
+        currentInterval += 1;
+    }
+
+    public double getNextChangeTime() {
+        if (currentInterval < changeTimes.length)
+            return changeTimes[currentInterval];
+        else
+            return Double.POSITIVE_INFINITY;
+    }
+
 
     /**
      * Update current propensity using the provided state.
@@ -226,8 +222,8 @@ public class Reaction extends BEASTObject {
      * @param state trajectory state
      * @return calculated propensity
      */
-    public double updatePropensity(TrajectoryState state, double time) {
-        currentPropensity = getRate(time);
+    public double updatePropensity(TrajectoryState state) {
+        currentPropensity = rates[currentInterval];
         for (ReactElement reactElement : reactants.elementSet()) {
             currentPropensity *= Binomial.choose(state.get(reactElement.name)[reactElement.idx],
                     reactants.count(reactElement));

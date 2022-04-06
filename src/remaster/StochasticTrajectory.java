@@ -6,6 +6,8 @@ import beast.core.Input;
 import beast.core.Loggable;
 import beast.core.parameter.RealParameter;
 import beast.util.Randomizer;
+import com.google.common.collect.SortedMultiset;
+import com.google.common.collect.TreeMultiset;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -45,22 +47,36 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         doSimulation();
     }
 
+
     public void doSimulation() {
         state.resetToInitial();
         events.clear();
+
+        List<Reaction> reactionsSortedByChangeTimes = new ArrayList<>(reactions);
+        reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(Reaction::getNextChangeTime));
 
         double t=0.0;
 
         while (true) {
             double a0 = 0.0;
             for (Reaction reaction : reactions)
-                a0 += reaction.updatePropensity(state, t);
+                a0 += reaction.updatePropensity(state);
 
-            if (a0 == 0.0)
-                break;
-
-            double delta = Randomizer.nextExponential(a0);
+            double delta = a0 == 0 ? Double.POSITIVE_INFINITY : Randomizer.nextExponential(a0);
             t += delta;
+
+            Reaction updatedReaction = reactionsSortedByChangeTimes.get(0);
+            if (t > updatedReaction.getNextChangeTime()) {
+                t = updatedReaction.getNextChangeTime();
+
+                updatedReaction.incrementInterval();
+                reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(Reaction::getNextChangeTime));
+
+                continue;
+            }
+
+            if (delta == Double.POSITIVE_INFINITY)
+                break;
 
             double u = Randomizer.nextDouble()*a0;
 
