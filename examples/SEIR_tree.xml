@@ -1,3 +1,5 @@
+<!-- SEIR tree simulation with finite sampling window -->
+
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="SIRTree">
@@ -11,7 +13,7 @@
                 <reaction spec="Reaction" rate="0.01"> S + I:a -> I:a + E:a </reaction>
                 <reaction spec="Reaction" rate="0.5"> E -> I </reaction>
                 <reaction spec="Reaction" rate="2.0 0" changeTimes="5"> I -> R </reaction>
-                <reaction spec="Reaction" rate="0 2.0" changeTimes="5"> I -> sample</reaction>
+                <reaction spec="Reaction" rate="0 2.0" changeTimes="5"> I -> sample </reaction>
             </trajectory>
         </simulate>
 
@@ -21,7 +23,6 @@
 
         <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
             <log spec="TypedTreeLogger" tree="@SIRTree"/>
-<!--            <log idref="SIRTree"/>-->
         </logger>
     </run>
 </beast>
