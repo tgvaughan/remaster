@@ -16,6 +16,8 @@ ReMASTER is in development and is not yet ready for use.
 Development News
 ----------------
 
+### 2022-04-06
+
 Remaster can now simulate birth-death trajectories and birth-death sampling trees with piecewise-constant rate
 variation.  There's no support yet for contemporaneous sampling (or birth/death) events, nor is there yet support
 for the approximate algorithms needed to handle extremely large populations (10^6+), but in some ways it is already
@@ -53,6 +55,8 @@ more flexible and capable than MASTER.  Here is an example SEIR simulation XML w
 Note that "populations" are initialized using regular `RealParameter`s (actually `Function`s), and that all `rate`
 and `changeTimes` inputs take `Functions`. This makes it possible to use any other `BEASTObject` implementing `Function`
 to specify these.
+
+And yes, `SimulatedTree` is an actual BEAST tree.
 
 
 License
