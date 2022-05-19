@@ -136,18 +136,14 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     public void log(long sample, PrintStream out) {
         state.resetToInitial();
 
-        boolean isFirst = true;
-        for (TrajectoryEvent event : events) {
-            if (isFirst) {
-                isFirst = false;
-                out.print("t=0");
-            } else {
-                out.print(";");
-                out.print("t=" + event.time);
-            }
+        out.print("t=0");
+        out.print(state);
 
-            out.print(state);
+        for (TrajectoryEvent event : events) {
+            out.print(";");
+            out.print("t=" + event.time);
             event.reaction.incrementState(state, event.multiplicity);
+            out.print(state);
         }
 
         out.print("\t");
