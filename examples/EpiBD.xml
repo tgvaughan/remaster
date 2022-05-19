@@ -1,0 +1,49 @@
+<!-- Demonstrates use of feast's ExpCalculator to simulate using
+     epi parameters -->
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+
+    <param id="r0" spec="RealParameter" value="2 0"/>
+    <param id="burate" spec="RealParameter" value="36 0"/>
+    <param id="s" spec="RealParameter" value="0.1 0"/>
+    <param id="changeTimes" spec="RealParameter" value="0.2"/>
+
+    <param id="lambda" spec="feast.expressions.ExpCalculator" value="r0*burate">
+        <arg idref="r0"/>
+        <arg idref="burate"/>
+    </param>
+
+    <param id="mu" spec="feast.expressions.ExpCalculator" value="burate*(1-s)">
+        <arg idref="burate"/>
+        <arg idref="s"/>
+    </param>
+
+    <param id="psi" spec="feast.expressions.ExpCalculator" value="burate*s">
+        <arg idref="burate"/>
+        <arg idref="s"/>
+    </param>
+
+    <run spec="Simulator" nSims="100">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
+                <population spec="RealParameter" id="X" value="1"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="@lambda" changeTimes="@changeTimes"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="@mu" changeTimes="@changeTimes"> X -> 0 </reaction>
+                <reaction spec="Reaction" rate="@psi" changeTimes="@changeTimes"> X -> sample </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+
+        <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+        </logger>
+
+        <logger spec="Logger">
+            <log spec="beast.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
+        </logger>
+    </run>
+</beast>
