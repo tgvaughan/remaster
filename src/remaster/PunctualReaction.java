@@ -71,16 +71,16 @@ public class PunctualReaction extends AbstractReaction {
                 n = N;
             } else {
                 // Sample number of reactions:
-                double logP = N*Math.log(p);
-                double logC = logP;
+                double logP = N*Math.log(1-p);
+                double C = Math.exp(logP);
                 double logf = Math.log(p/(1-p));
 
                 n = 0;
                 double u = Randomizer.nextDouble();
-                while (u > Math.exp(logC)) {
+                while (u > C) {
                     n += 1;
                     logP += logf + Math.log(N-n+1) - Math.log(n);
-                    logC += logP;
+                    C += Math.exp(logP);
                 }
             }
         }
