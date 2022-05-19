@@ -1,13 +1,13 @@
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
-    <run spec="Simulator" nSims="1">
+    <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
-                <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
-                <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
-                <reaction spec="PunctualReaction" n="2" times="1"> X -> sample </reaction>
+                <reaction spec="Reaction" rate="2 0" changeTimes="3"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="1 0" changeTimes="3"> X -> 0 </reaction>
+                <reaction spec="PunctualReaction" n="5 5" times="2 3"> X -> sample </reaction>
             </trajectory>
         </simulate>
 
@@ -17,6 +17,10 @@
 
         <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
             <log spec="TypedTreeLogger" tree="@SIRTree"/>
+        </logger>
+
+        <logger spec="Logger">
+            <log spec="beast.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
         </logger>
     </run>
 </beast>
