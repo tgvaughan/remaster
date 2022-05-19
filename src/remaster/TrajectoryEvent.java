@@ -13,4 +13,10 @@ public class TrajectoryEvent {
         this.reaction = reaction;
         this.multiplicity = multiplicity;
     }
+
+    @Override
+    public String toString() {
+        return reaction.toString() + " at t=" + time
+                + " (multiplicity " + multiplicity + ")";
+    }
 }
