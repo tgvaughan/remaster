@@ -56,6 +56,15 @@ public class TrajectoryState {
         return occupancies.get(el.name)[el.idx];
     }
 
+    public boolean isValid() {
+        for (Double[] popValues : occupancies.values())
+            for (double val : popValues)
+                if (val < 0.0)
+                    return false;
+
+        return true;
+    }
+
     public void setFinal() {
         for (String popName : occupancies.keySet())
             System.arraycopy(occupancies.get(popName), 0,

@@ -5,6 +5,7 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.core.Loggable;
 import beast.core.parameter.RealParameter;
+import beast.core.util.Log;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
@@ -54,7 +55,8 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
                         reaction.getClass().getCanonicalName());
         }
 
-        doSimulation();
+        while (!doSimulation())
+            Log.info("Simulation rejected: retrying");
     }
 
 
@@ -91,6 +93,9 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
                 updatedReaction.incrementInterval();
                 reactionsSortedByChangeTimes
                         .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
+
+                if (!state.isValid())
+                    return false;
 
                 continue;
             }
