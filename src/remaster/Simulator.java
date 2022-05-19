@@ -1,12 +1,9 @@
 package remaster;
 
-import beast.core.BEASTObject;
-import beast.core.Input;
-import beast.core.Logger;
+import beast.core.*;
 import beast.core.Runnable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Simulator extends Runnable {
 
@@ -40,10 +37,14 @@ public class Simulator extends Runnable {
             logger.init();
         }
 
+        Set<BEASTObject> alreadySeen = new HashSet<>();
         for (int i=0; i<nSimsInput.get(); i++) {
+
+            // Reinitialize objects (kicks off simulation)
             if (i>0) {
+                alreadySeen.clear();
                 for (BEASTObject beastObject : beastObjectInput.get())
-                    beastObject.initAndValidate();
+                    reinitializeObjects(beastObject, alreadySeen);
             }
 
             // Log state
@@ -55,4 +56,32 @@ public class Simulator extends Runnable {
         for (Logger logger : loggersInput.get())
             logger.close();
     }
+
+    /**
+     * Run initAndValidate() on all descendant inputs in post-order.
+     *
+     * @param rootObject root of object graph
+     * @param alreadyInitialized set of objects which have already been seen
+     */
+    private void reinitializeObjects(BEASTObject rootObject, Set<BEASTObject> alreadyInitialized) {
+
+        if (alreadyInitialized.contains(rootObject))
+            return;
+
+        for (Input input : rootObject.getInputs().values()) {
+            if (input.get() != null) {
+                if (input.get() instanceof BEASTObject) {
+                    reinitializeObjects((BEASTObject)input.get(), alreadyInitialized);
+                } else if (input.get() instanceof List) {
+                    for (Object el : (List) input.get()) {
+                        if (el instanceof BEASTObject)
+                            reinitializeObjects((BEASTObject) el, alreadyInitialized);
+                    }
+                }
+            }
+        }
+
+        rootObject.initAndValidate();
+    }
+
 }
