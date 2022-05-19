@@ -16,6 +16,57 @@ Remaster is in development and is not yet ready for use.
 Development News
 ----------------
 
+### 2022-05-18
+
+Remaster can now simulate birth-death trajectories and birth-death-sampling
+trees with punctual events, including contemporaneous sampling.  Such events
+take two forms: n-events, which always result in the reaction firing n times,
+and p-events, which apply the reaction to every possible reactant combination
+with a probability p.
+
+Here's an example BD simulation XML which produces trees containing exactly
+10 samples at time 5, and in which all lineages surviving to time 6 are sampled
+with probability 0.2:
+
+```xml
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+    <run spec="Simulator" nSims="100">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
+                <population spec="RealParameter" id="X" value="1"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="2 0" changeTimes="6"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="1 0" changeTimes="6"> X -> 0 </reaction>
+                <reaction spec="PunctualReaction" n="10" times="5"> X -> sample </reaction>
+                <reaction spec="PunctualReaction" p="0.2" times="6"> X -> sample </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+
+        <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+        </logger>
+
+        <logger spec="Logger">
+            <log spec="beast.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
+        </logger>
+    </run>
+</beast>
+```
+
+The `n`, `p` and `times` inputs are all `Functions`, and can all take
+multiple values, allowing you to specify multiple punctual events using
+a single reaction.  When `n` or `p` have fewer elements than `times`, earlier
+values are "recycled" in the same way that they are in R.
+
+Something to be aware of: remaster currently simulates until all reactions stop
+firing and there are no more punctual events to consider. This is why the rates
+of the continuous reactions are all set to zero at time 6 in the example above.
+
 ### 2022-04-06
 
 Remaster can now simulate birth-death trajectories and birth-death sampling
