@@ -5,9 +5,9 @@
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
-                <reaction spec="Reaction" rate="2 0" changeTimes="3"> X -> 2X </reaction>
-                <reaction spec="Reaction" rate="1 0" changeTimes="3"> X -> 0 </reaction>
-                <reaction spec="PunctualReaction" n="5 5" times="2 3"> X -> sample </reaction>
+                <reaction spec="Reaction" rate="2 0" changeTimes="6"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="1 0" changeTimes="6"> X -> 0 </reaction>
+                <reaction spec="PunctualReaction" n="5" times="5 6"> X -> sample </reaction>
             </trajectory>
         </simulate>
 

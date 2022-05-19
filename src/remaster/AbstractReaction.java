@@ -171,7 +171,7 @@ public abstract class AbstractReaction extends BEASTObject {
             }
         }
 
-        producesSamples = true;
+        producesSamples = false;
     }
 
     public boolean isValid(TrajectoryState state) {

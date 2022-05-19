@@ -25,18 +25,21 @@ public class PunctualReaction extends AbstractReaction {
 
     @Override
     public void initAndValidate() {
-        if (pInput.get() != null)
-            ps = pInput.get().getDoubleValues();
-
-        if (nInput.get() != null)
-            ns = nInput.get().getDoubleValues();
-
         times = timesInput.get().getDoubleValues();
 
-        if ((ps != null && ps.length != times.length)
-                || (ns != null && ns.length != times.length))
-            throw new IllegalArgumentException("Number of times must match " +
-                    "length of p or n inputs.");
+        if (pInput.get() != null) {
+            ps = new double[times.length];
+            int pDim = pInput.get().getDimension();
+            for (int i=0; i<times.length; i++)
+                ps[i] = pInput.get().getArrayValue(i%pDim);
+        }
+
+        if (nInput.get() != null) {
+            ns = new double[times.length];
+            int nDim = nInput.get().getDimension();
+            for (int i=0; i<times.length; i++)
+                ns[i] = nInput.get().getArrayValue(i%nDim);
+        }
 
         super.initAndValidate();
     }

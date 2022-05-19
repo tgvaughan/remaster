@@ -87,7 +87,8 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
                 if (updatedReaction instanceof PunctualReaction) {
                     // Implement punctual reaction
                     double multiplicity = ((PunctualReaction) updatedReaction).implementEvent(state);
-                    events.add(new TrajectoryEvent(t, updatedReaction, multiplicity));
+                    if (multiplicity>0)
+                        events.add(new TrajectoryEvent(t, updatedReaction, multiplicity));
                 }
 
                 updatedReaction.incrementInterval();

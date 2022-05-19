@@ -1,6 +1,7 @@
 package remaster;
 
 import beast.core.Input;
+import beast.core.util.Log;
 import beast.evolution.tree.Tree;
 
 import java.util.*;
@@ -18,6 +19,11 @@ public class SimulatedTree extends Tree {
         trajectory = trajectoryInput.get();
 
         super.initAndValidate();
+
+        while(trajectory.events.stream().noneMatch(e -> e.reaction.producesSamples)) {
+            Log.info("No sampling events in trajectory: regenerating.");
+            trajectory.initAndValidate();
+        }
 
         doSimulation();
     }
