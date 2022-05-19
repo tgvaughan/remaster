@@ -68,12 +68,12 @@ public class Simulator extends Runnable {
         if (alreadyInitialized.contains(rootObject))
             return;
 
-        for (Input input : rootObject.getInputs().values()) {
+        for (Input<?> input : rootObject.getInputs().values()) {
             if (input.get() != null) {
                 if (input.get() instanceof BEASTObject) {
                     reinitializeObjects((BEASTObject)input.get(), alreadyInitialized);
                 } else if (input.get() instanceof List) {
-                    for (Object el : (List) input.get()) {
+                    for (Object el : (List<?>) input.get()) {
                         if (el instanceof BEASTObject)
                             reinitializeObjects((BEASTObject) el, alreadyInitialized);
                     }
