@@ -48,5 +48,5 @@ plotTrajectories <- function(filenames) {
     ggplot(loadTrajectories(filenames),
            aes(x=t, y=value, col=interaction(population, factor(index)),
                group=interaction(population,factor(index), factor(Sample)))) +
-        geom_step(alpha=0.2)
+        geom_step()
 }

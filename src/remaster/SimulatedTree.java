@@ -1,10 +1,8 @@
 package remaster;
 
 import beast.core.Input;
-import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
 
-import java.sql.Array;
 import java.util.*;
 
 public class SimulatedTree extends Tree {
@@ -26,7 +24,7 @@ public class SimulatedTree extends Tree {
 
     public void doSimulation() {
 
-        List<StochasticTrajectory.TrajectoryEvent> eventList =
+        List<TrajectoryEvent> eventList =
                 new ArrayList<>(trajectory.events);
         Collections.reverse(eventList);
 
@@ -36,9 +34,12 @@ public class SimulatedTree extends Tree {
 
         LineageFactory lineageFactory = new LineageFactory();
 
-        for (StochasticTrajectory.TrajectoryEvent event : eventList) {
-            event.reaction.incrementLineages(lineages, trajectory.state, event.time, lineageFactory);
-            event.reaction.reverseIncremementState(trajectory.state);
+        for (TrajectoryEvent event : eventList) {
+            for (long i=0; i<Math.round(event.multiplicity); i++) {
+                event.reaction.incrementLineages(lineages, trajectory.state,
+                        event.time, lineageFactory);
+                event.reaction.reverseIncremementState(trajectory.state, 1);
+            }
         }
 
         List<Lineage> rootLineages = new ArrayList<>();

@@ -6,8 +6,6 @@ import beast.core.Input;
 import beast.core.Loggable;
 import beast.core.parameter.RealParameter;
 import beast.util.Randomizer;
-import com.google.common.collect.SortedMultiset;
-import com.google.common.collect.TreeMultiset;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -20,14 +18,16 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     public Input<List<Function>> samplePopulationsInput = new Input<>("samplePopulation",
             "Sample population or compartment", new ArrayList<>());
 
-    public Input<List<Reaction>> reactionsInput = new Input<>("reaction",
+    public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
 
     public Input<Function> endTimeInput = new Input<>("endTime",
             "Period of simulation", new RealParameter("Infinity"));
 
     TrajectoryState state;
-    List<Reaction> reactions;
+    List<AbstractReaction> reactions;
+    List<Reaction> continuousReactions;
+    List<PunctualReaction> punctualReactions;
 
     List<TrajectoryEvent> events;
 
@@ -37,40 +37,60 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         events = new ArrayList<>();
 
         reactions = reactionsInput.get();
+        continuousReactions = new ArrayList<>();
+        punctualReactions = new ArrayList<>();
 
-        for (Reaction reaction : reactions) {
+        for (AbstractReaction reaction : reactions) {
             reaction.markSamples(state);
             if (!reaction.isValid(state))
                 throw new IllegalStateException("Invalid reaction detected.");
+
+            if (reaction instanceof Reaction)
+                continuousReactions.add((Reaction)reaction);
+            else if (reaction instanceof PunctualReaction)
+                punctualReactions.add((PunctualReaction)reaction);
+            else
+                throw new IllegalArgumentException("Unsupported reaction type: " +
+                        reaction.getClass().getCanonicalName());
         }
 
         doSimulation();
     }
 
 
-    public void doSimulation() {
+    public boolean doSimulation() {
         state.resetToInitial();
         events.clear();
 
-        List<Reaction> reactionsSortedByChangeTimes = new ArrayList<>(reactions);
-        reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(Reaction::getNextChangeTime));
+        for (AbstractReaction reaction : reactions)
+            reaction.reset();
+
+        List<AbstractReaction> reactionsSortedByChangeTimes = new ArrayList<>(reactions);
+        reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
 
         double t=0.0;
 
         while (true) {
             double a0 = 0.0;
-            for (Reaction reaction : reactions)
+            for (Reaction reaction : continuousReactions)
                 a0 += reaction.updatePropensity(state);
 
             double delta = a0 == 0 ? Double.POSITIVE_INFINITY : Randomizer.nextExponential(a0);
             t += delta;
 
-            Reaction updatedReaction = reactionsSortedByChangeTimes.get(0);
-            if (t > updatedReaction.getNextChangeTime()) {
-                t = updatedReaction.getNextChangeTime();
+            AbstractReaction updatedReaction = reactionsSortedByChangeTimes.get(0);
+            if (t > updatedReaction.getIntervalEndTime()) {
+                t = updatedReaction.getIntervalEndTime();
+
+                if (updatedReaction instanceof PunctualReaction) {
+                    // Implement punctual reaction
+                    double multiplicity = ((PunctualReaction) updatedReaction).implementEvent(state);
+                    events.add(new TrajectoryEvent(t, updatedReaction, multiplicity));
+                }
 
                 updatedReaction.incrementInterval();
-                reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(Reaction::getNextChangeTime));
+                reactionsSortedByChangeTimes
+                        .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
 
                 continue;
             }
@@ -81,7 +101,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             double u = Randomizer.nextDouble()*a0;
 
             Reaction thisReaction = null;
-            for (Reaction reaction : reactions) {
+            for (Reaction reaction : continuousReactions) {
                 if (u < reaction.currentPropensity) {
                     thisReaction = reaction;
                     break;
@@ -92,11 +112,13 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             if (thisReaction == null)
                 throw new IllegalStateException("Reaction selection loop fell through.");
 
-            events.add(new TrajectoryEvent(t, thisReaction));
-            thisReaction.incrementState(state);
+            events.add(new TrajectoryEvent(t, thisReaction, 1));
+            thisReaction.incrementState(state, 1);
         }
 
         state.setFinal();
+
+        return true;
     }
 
     @Override
@@ -120,7 +142,7 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             }
 
             out.print(state);
-            event.reaction.incrementState(state);
+            event.reaction.incrementState(state, event.multiplicity);
         }
 
         out.print("\t");
@@ -129,16 +151,4 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     @Override
     public void close(PrintStream out) { }
 
-    /**
-     * Events produced by stochastic trajectories.
-     */
-    public static class TrajectoryEvent {
-        public double time;
-        Reaction reaction;
-
-        public TrajectoryEvent(double time, Reaction reaction) {
-            this.time = time;
-            this.reaction = reaction;
-        }
-    }
 }

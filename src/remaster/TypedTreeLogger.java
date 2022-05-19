@@ -9,7 +9,8 @@ import java.io.PrintStream;
 
 public class TypedTreeLogger extends BEASTObject implements Loggable {
 
-    public Input<Tree> treeInput = new Input<Tree>("tree", "Tree to log.", Input.Validate.REQUIRED);
+    public Input<Tree> treeInput = new Input<Tree>("tree",
+            "Tree to log.", Input.Validate.REQUIRED);
 
     Tree tree;
 
