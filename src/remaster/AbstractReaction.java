@@ -135,16 +135,14 @@ public abstract class AbstractReaction extends BEASTObject {
                     String reactID = popelContext.id() == null
                             ? null : popelContext.id().getText().intern();
 
-                    int parentIndex;
+                    int parentIndex = 0;
                     if (reactID != null) {
                         if (!parentIDs.containsKey(reactID))
                             throw new IllegalStateException("In reaction '" + reactionString + "' the product ID " +
                                     "'" + reactID + "' is not associated with a reactant.");
 
                         parentIndex = parentIDs.get(reactID);
-                    } else if (parents.size() == 1) {
-                        parentIndex = 0;
-                    } else {
+                    } else if (parents.stream().anyMatch(p -> p.name.equals(el.name))){
                         // Find first parent with same population
                         parentIndex = 0;
                         while (parentIndex < parents.size() && !parents.get(parentIndex).name.equals(el.name))

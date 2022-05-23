@@ -10,7 +10,7 @@
                 <population spec="RealParameter" id="R" value="0"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
-                <reaction spec="Reaction" rate="0.01"> S + I:a -> I:a + E:a </reaction>
+                <reaction spec="Reaction" rate="0.01"> I + S -> I + E </reaction>
                 <reaction spec="Reaction" rate="0.5"> E -> I </reaction>
                 <reaction spec="Reaction" rate="2.0 0" changeTimes="5"> I -> R </reaction>
                 <reaction spec="Reaction" rate="0 2.0" changeTimes="5"> I -> sample </reaction>
