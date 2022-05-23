@@ -1,4 +1,4 @@
-// Generated from ReactionGrammar.g4 by ANTLR 4.7.2
+// Generated from EndConditionGrammar.g4 by ANTLR 4.7.2
 package remaster.parsers;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -6,131 +6,119 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link ReactionGrammarListener},
+ * This class provides an empty implementation of {@link EndConditionGrammarListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class ReactionGrammarBaseListener implements ReactionGrammarListener {
+public class EndConditionGrammarBaseListener implements EndConditionGrammarListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReaction(ReactionGrammarParser.ReactionContext ctx) { }
+	@Override public void enterPop(EndConditionGrammarParser.PopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReaction(ReactionGrammarParser.ReactionContext ctx) { }
+	@Override public void exitPop(EndConditionGrammarParser.PopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReactants(ReactionGrammarParser.ReactantsContext ctx) { }
+	@Override public void enterUnaryOp(EndConditionGrammarParser.UnaryOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReactants(ReactionGrammarParser.ReactantsContext ctx) { }
+	@Override public void exitUnaryOp(EndConditionGrammarParser.UnaryOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProducts(ReactionGrammarParser.ProductsContext ctx) { }
+	@Override public void enterNumber(EndConditionGrammarParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProducts(ReactionGrammarParser.ProductsContext ctx) { }
+	@Override public void exitNumber(EndConditionGrammarParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopsum(ReactionGrammarParser.PopsumContext ctx) { }
+	@Override public void enterBooleanOp(EndConditionGrammarParser.BooleanOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopsum(ReactionGrammarParser.PopsumContext ctx) { }
+	@Override public void exitBooleanOp(EndConditionGrammarParser.BooleanOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopel(ReactionGrammarParser.PopelContext ctx) { }
+	@Override public void enterEquality(EndConditionGrammarParser.EqualityContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopel(ReactionGrammarParser.PopelContext ctx) { }
+	@Override public void exitEquality(EndConditionGrammarParser.EqualityContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(ReactionGrammarParser.FactorContext ctx) { }
+	@Override public void enterBracketed(EndConditionGrammarParser.BracketedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(ReactionGrammarParser.FactorContext ctx) { }
+	@Override public void exitBracketed(EndConditionGrammarParser.BracketedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(ReactionGrammarParser.IdContext ctx) { }
+	@Override public void enterPopname(EndConditionGrammarParser.PopnameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(ReactionGrammarParser.IdContext ctx) { }
+	@Override public void exitPopname(EndConditionGrammarParser.PopnameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopname(ReactionGrammarParser.PopnameContext ctx) { }
+	@Override public void enterLoc(EndConditionGrammarParser.LocContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopname(ReactionGrammarParser.PopnameContext ctx) { }
+	@Override public void exitLoc(EndConditionGrammarParser.LocContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoc(ReactionGrammarParser.LocContext ctx) { }
+	@Override public void enterLocidx(EndConditionGrammarParser.LocidxContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoc(ReactionGrammarParser.LocContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLocidx(ReactionGrammarParser.LocidxContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLocidx(ReactionGrammarParser.LocidxContext ctx) { }
+	@Override public void exitLocidx(EndConditionGrammarParser.LocidxContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

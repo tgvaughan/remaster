@@ -16,6 +16,62 @@ Remaster is in development and is not yet ready for use.
 Development News
 ----------------
 
+### 2022-05-23
+
+The reaction parser rules have been subtly modified, such that an
+ID-less product is considered the child of
+1. the first reactant having the same population type, if one exists, or
+2. the first reactant if one exists.
+
+If no parent is identified, the reactant is assumed to be an orphan.
+
+These rules mean that appropriate parent-child relationships can be
+specified for more kinds of reactions without recourse to the clumsy
+":id" notation.
+
+### 2022-05-23
+
+Preliminary support for end conditions has been added.
+In Remaster, these conditions are specified using boolean expressions
+represented as strings that are subsequently parsed.
+
+For example, the following produces a birth-death-sampling tree using
+the first 5 samples produced by the process.
+
+```xml
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory"
+                        endsWhen="sample==10" maxTime="6">
+                <population spec="RealParameter" id="X" value="1"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+                <reaction spec="Reaction" rate="0.1"> X -> sample </reaction>
+            </trajectory>
+        </simulate>
+        <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+        </logger>
+    </run>
+</beast>
+```
+
+The expression string may contain equality/inequality operators (==, !=, <, >, <
+=, >=), boolean operators (&&, ||), special functions (sum, min, max), as well as
+grouping with parentheses. In all cases, population IDs (such as "sample" in the
+example) refer to the current size of the population. Non-scalar populations are
+vectors, to which sum(), min() and max() may be applied.
+
+The `maxTime` input specifies a maximum time for the simulation.  When
+an `endsWhen` input is specified, the condition must be satisfied even if
+the maximum simulation time is reached.  (Otherwise the simulation is repeated.)
+
+With this addition, Remaster can perform all birth-death simulations
+that were possible in the original MASTER.
+
 ### 2022-05-18
 
 Remaster can now simulate birth-death trajectories and birth-death-sampling

@@ -1,13 +1,14 @@
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
-            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" maxTime="6">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory"
+                        endsWhen="sample==10">
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
                 <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
-                <reaction spec="PunctualReaction" n="5" times="5 6"> X -> sample </reaction>
+                <reaction spec="Reaction" rate="0.1"> X -> sample </reaction>
             </trajectory>
         </simulate>
 

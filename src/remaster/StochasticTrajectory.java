@@ -22,13 +22,17 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
 
-    public Input<Function> endTimeInput = new Input<>("endTime",
-            "Period of simulation", new RealParameter("Infinity"));
+    public Input<Function> maxTimeInput = new Input<>("maxTime",
+            "Maximum length of simulation", new RealParameter("Infinity"));
+
+    public Input<String> endsWhenInput = new Input<>("endsWhen",
+            "End conditions.");
 
     TrajectoryState state;
     List<AbstractReaction> reactions;
     List<Reaction> continuousReactions;
     List<PunctualReaction> punctualReactions;
+    EndCondition endCondition;
 
     List<TrajectoryEvent> events;
 
@@ -40,6 +44,9 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
         reactions = reactionsInput.get();
         continuousReactions = new ArrayList<>();
         punctualReactions = new ArrayList<>();
+
+        if (endsWhenInput.get() != null)
+            endCondition = new EndCondition(endsWhenInput.get(), state);
 
         for (AbstractReaction reaction : reactions) {
             reaction.markSamples(state);
@@ -81,7 +88,10 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
             t += delta;
 
             AbstractReaction updatedReaction = reactionsSortedByChangeTimes.get(0);
-            if (t > updatedReaction.getIntervalEndTime()) {
+            if (maxTimeInput.get().getArrayValue() < updatedReaction.getIntervalEndTime()) {
+                if (t > maxTimeInput.get().getArrayValue())
+                    break;
+            } else if (t > updatedReaction.getIntervalEndTime()) {
                 t = updatedReaction.getIntervalEndTime();
 
                 if (updatedReaction instanceof PunctualReaction) {
@@ -120,10 +130,15 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
             events.add(new TrajectoryEvent(t, thisReaction, 1));
             thisReaction.incrementState(state, 1);
+
+            if (endCondition != null && endCondition.isMet())
+                break;
         }
 
-        state.setFinal();
+        if (endCondition != null && !endCondition.isMet())
+            return false;
 
+        state.setFinal();
         return true;
     }
 
