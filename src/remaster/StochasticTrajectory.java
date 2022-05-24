@@ -1,66 +1,22 @@
 package remaster;
 
-import beast.core.BEASTObject;
-import beast.core.Function;
-import beast.core.Input;
-import beast.core.Loggable;
-import beast.core.parameter.RealParameter;
 import beast.core.util.Log;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
-public class StochasticTrajectory extends BEASTObject implements Loggable {
-
-    public Input<List<Function>> populationsInput = new Input<>("population",
-            "Population or compartment", new ArrayList<>());
-
-    public Input<List<Function>> samplePopulationsInput = new Input<>("samplePopulation",
-            "Sample population or compartment", new ArrayList<>());
-
-    public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
-            "Reaction", new ArrayList<>());
-
-    public Input<Function> maxTimeInput = new Input<>("maxTime",
-            "Maximum length of simulation", new RealParameter("Infinity"));
-
-    public Input<String> endsWhenInput = new Input<>("endsWhen",
-            "End conditions.");
-
-    TrajectoryState state;
-    List<AbstractReaction> reactions;
-    List<Reaction> continuousReactions;
-    List<PunctualReaction> punctualReactions;
-    EndCondition endCondition;
+public class StochasticTrajectory extends AbstractTrajectory {
 
     List<TrajectoryEvent> events;
 
     @Override
     public void initAndValidate() {
-        state = new TrajectoryState(populationsInput.get(), samplePopulationsInput.get());
+        super.initAndValidate();
+
         events = new ArrayList<>();
-
-        reactions = reactionsInput.get();
-        continuousReactions = new ArrayList<>();
-        punctualReactions = new ArrayList<>();
-
-        if (endsWhenInput.get() != null)
-            endCondition = new EndCondition(endsWhenInput.get(), state);
-
-        for (AbstractReaction reaction : reactions) {
-            reaction.markSamples(state);
-            if (!reaction.isValid(state))
-                throw new IllegalStateException("Invalid reaction detected.");
-
-            if (reaction instanceof Reaction)
-                continuousReactions.add((Reaction)reaction);
-            else if (reaction instanceof PunctualReaction)
-                punctualReactions.add((PunctualReaction)reaction);
-            else
-                throw new IllegalArgumentException("Unsupported reaction type: " +
-                        reaction.getClass().getCanonicalName());
-        }
 
         while (!doSimulation())
             Log.info("Simulation rejected: retrying");
@@ -143,12 +99,6 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
     }
 
     @Override
-    public void init(PrintStream out) {
-        if (getID() != null)
-            out.print(getID() + "\t");
-    }
-
-    @Override
     public void log(long sample, PrintStream out) {
         state.resetToInitial();
 
@@ -164,8 +114,4 @@ public class StochasticTrajectory extends BEASTObject implements Loggable {
 
         out.print("\t");
     }
-
-    @Override
-    public void close(PrintStream out) { }
-
 }
