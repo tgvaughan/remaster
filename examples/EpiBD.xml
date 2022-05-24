@@ -2,10 +2,9 @@
      epi parameters -->
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
 
-    <param id="r0" spec="RealParameter" value="2 0"/>
-    <param id="burate" spec="RealParameter" value="36 0"/>
-    <param id="s" spec="RealParameter" value="0.1 0"/>
-    <param id="changeTimes" spec="RealParameter" value="0.2"/>
+    <param id="r0" spec="RealParameter" value="2"/>
+    <param id="burate" spec="RealParameter" value="36"/>
+    <param id="s" spec="RealParameter" value="0.1"/>
 
     <param id="lambda" spec="feast.expressions.ExpCalculator" value="r0*burate">
         <arg idref="r0"/>
@@ -24,13 +23,13 @@
 
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
-            <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=100">
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
-                <reaction spec="Reaction" rate="@lambda" changeTimes="@changeTimes"> X -> 2X </reaction>
-                <reaction spec="Reaction" rate="@mu" changeTimes="@changeTimes"> X -> 0 </reaction>
-                <reaction spec="Reaction" rate="@psi" changeTimes="@changeTimes"> X -> sample </reaction>
+                <reaction spec="Reaction" rate="@lambda"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="@mu"> X -> 0 </reaction>
+                <reaction spec="Reaction" rate="@psi"> X -> sample </reaction>
             </trajectory>
         </simulate>
 
