@@ -6,12 +6,15 @@
 # Binaries
 /dist
 /build
+/build-lib/
 
 # Generated example files
 /examples/*.traj
 /examples/*.log
 /examples/*.trees
-/examples/.Rhistory
 
 # MacOS cruft
 .DS_Store
+
+# Other cruft
+.Rhistory
