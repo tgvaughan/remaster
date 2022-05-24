@@ -1,5 +1,5 @@
 Remaster
-========
+===========
 
 Remaster is an in-progress rewrite of the
 [MASTER](https://tgvaughan.github.io/MASTER) tree simulation package
@@ -11,7 +11,15 @@ It aims to address the following problems with MASTER:
 3. difficult to configure sampling in BD models,
 4. inflexible design.
 
-Remaster is in development and is not yet ready for use.
+Remaster is still in development and not suitable for production use.
+However, many of these goals have already been addressed and, at
+least in the author's opinion, it is in some ways already much nicer
+to use than MASTER.  If you'd like to play with it and perhaps try
+out some of the examples below (all of which are also contained in
+the `examples/` directory of this repository), use the following
+package repository to install it via BEAUti's package manager:
+
+https://tgvaughan.github.io/remaster/package.xml
 
 Development News
 ----------------
