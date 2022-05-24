@@ -12,7 +12,7 @@ It aims to address the following problems with MASTER:
 4. inflexible design.
 
 Remaster is still in development and not suitable for production use.
-However, many of these goals have already been addressed and, at
+However, some of these goals have already been addressed and, at
 least in the author's opinion, it is in some ways already much nicer
 to use than MASTER.  If you'd like to play with it and perhaps try
 out some of the examples below (all of which are also contained in
@@ -44,7 +44,7 @@ In Remaster, these conditions are specified using boolean expressions
 represented as strings that are subsequently parsed.
 
 For example, the following produces a birth-death-sampling tree using
-the first 5 samples produced by the process.
+the first 10 samples produced by the process.
 
 ```xml
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
