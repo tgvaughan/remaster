@@ -203,10 +203,12 @@ public abstract class AbstractReaction extends BEASTObject {
      */
     public void incrementState(TrajectoryState state, double multiplicity) {
         for (ReactElement reactElement : reactants.elementSet())
-            state.get(reactElement.name)[reactElement.idx] -= multiplicity*reactants.count(reactElement);
+            state.increment(reactElement.name, reactElement.idx,
+                    -multiplicity*reactants.count(reactElement));
 
         for (ReactElement reactElement : products.elementSet())
-            state.get(reactElement.name)[reactElement.idx] += multiplicity*products.count(reactElement);
+            state.increment(reactElement.name, reactElement.idx,
+                    multiplicity*products.count(reactElement));
     }
 
     /**

@@ -3,12 +3,6 @@ package remaster;
 import beast.core.Function;
 import beast.core.Input;
 import beast.math.Binomial;
-import beast.util.Randomizer;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class of continuous-time reactions.
@@ -61,14 +55,12 @@ public class Reaction extends AbstractReaction {
     public double updatePropensity(TrajectoryState state) {
         currentPropensity = rates[currentInterval];
         for (ReactElement reactElement : reactants.elementSet()) {
-            currentPropensity *= Binomial.choose(state.get(reactElement.name)[reactElement.idx],
+            currentPropensity *= Binomial.choose(state.get(reactElement),
                     reactants.count(reactElement));
         }
 
         return currentPropensity;
     }
-
-
 
     // Main method for debugging
     public static void main(String[] args) {
