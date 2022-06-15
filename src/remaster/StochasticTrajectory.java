@@ -23,6 +23,7 @@ public class StochasticTrajectory extends AbstractTrajectory {
     }
 
 
+    @Override
     public boolean doSimulation() {
         state.resetToInitial();
         events.clear();

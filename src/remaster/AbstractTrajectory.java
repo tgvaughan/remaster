@@ -59,6 +59,8 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
         }
     }
 
+    public abstract boolean doSimulation();
+
     @Override
     public void init(PrintStream out) {
         if (getID() != null)
