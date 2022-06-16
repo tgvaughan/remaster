@@ -1,13 +1,14 @@
 package remaster;
 
-import beast.core.BEASTObject;
-import beast.core.Function;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DeterministicTrajectory extends AbstractTrajectory {
 
@@ -31,43 +32,36 @@ public class DeterministicTrajectory extends AbstractTrajectory {
 
     public class ODESystem implements FirstOrderDifferentialEquations {
 
-        Map<String, Integer> popIndices;
+        TrajectoryState state;
 
         List<Reaction> reactions;
 
-        double[] y, dydt;
+        Map<Reaction, double[]> vs;
 
-        public ODESystem(List<Function> pops, List<Function> sampPops,
-                         List<Reaction> reactions) {
+        int dimension;
 
+        public ODESystem(List<Reaction> reactions, TrajectoryState state) {
+            this.state = state;
             this.reactions = reactions;
 
-            popIndices = new HashMap<>();
+            dimension = state.getTotalSubpopCount();
 
-            List<Function> allPops = new ArrayList<>(pops);
-            allPops.addAll(sampPops);
+            vs = new HashMap<>();
+            for (Reaction reaction : reactions) {
+                double[] v = new double[dimension];
+                for (ReactElement reactElement : reaction.reactants)
+                    v[state.getOffset(reactElement)] += 1;
 
-            int idx = 0;
-            for (Function pop : allPops) {
-                String popName = ((BEASTObject)pop).getID().intern();
-                popIndices.put(popName, idx);
-                idx += pop.getDimension();
-            }
-
-            y = new double[idx];
-            dydt = new double[idx];
-
-            for (Function pop : allPops) {
-                String popName = ((BEASTObject)pop).getID().intern();
-                idx = popIndices.get(popName);
-                for (int i=idx; i<pop.getDimension(); i++)
-                    System.arraycopy(pop.getDoubleValues(), 0, y, idx, pop.getDimension());
+                for (ReactElement reactElement : reaction.products) {
+                    v[state.getOffset(reactElement)] -= 1;
+                }
+                vs.put(reaction, v);
             }
         }
 
         @Override
         public int getDimension() {
-            return y.length;
+            return dimension;
         }
 
         @Override
@@ -76,9 +70,13 @@ public class DeterministicTrajectory extends AbstractTrajectory {
             Arrays.fill(ydot, 0.0);
 
             for (Reaction reaction : reactions) {
+                reaction.updatePropensity(state);
+                double[] v = vs.get(reaction);
 
+                for (int i=0; i<dimension; i++) {
+                    ydot[i] += reaction.currentPropensity * v[i];
+                }
             }
-
         }
     }
 

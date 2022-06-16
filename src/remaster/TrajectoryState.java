@@ -68,6 +68,10 @@ public class TrajectoryState {
         return occupancies[popIndices.get(el.name) + el.idx];
     }
 
+    public int getOffset(ReactElement el) {
+        return popIndices.get(el.name) + el.idx;
+    }
+
     public Double[] getArray(String popName) {
         Double[] res = new Double[popDims.get(popName)];
 
@@ -76,6 +80,10 @@ public class TrajectoryState {
             res[i] = occupancies[offset+i];
 
         return res;
+    }
+
+    public int getTotalSubpopCount() {
+        return occupancies.length;
     }
 
     public void increment(String popName, int idx, double amount) {
