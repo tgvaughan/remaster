@@ -68,6 +68,16 @@ public class TrajectoryState {
         return occupancies[popIndices.get(el.name) + el.idx];
     }
 
+    public Double[] getArray(String popName) {
+        Double[] res = new Double[popDims.get(popName)];
+
+        int offset = popIndices.get(popName);
+        for (int i=0; i<res.length; i++)
+            res[i] = occupancies[offset+i];
+
+        return res;
+    }
+
     public void increment(String popName, int idx, double amount) {
         occupancies[popIndices.get(popName)+idx] += amount;
     }

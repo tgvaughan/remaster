@@ -1,9 +1,6 @@
 package remaster.parsers;
 
-import org.antlr.v4.runtime.tree.ParseTree;
 import remaster.TrajectoryState;
-
-import java.util.Arrays;
 
 public class EndConditionVisitor extends EndConditionGrammarBaseVisitor<Double[]> {
 
@@ -15,11 +12,14 @@ public class EndConditionVisitor extends EndConditionGrammarBaseVisitor<Double[]
 
     @Override
     public Double[] visitPop(EndConditionGrammarParser.PopContext ctx) {
-        Double[] res = state.get(ctx.popname().getText());
-        if (ctx.loc() != null)
-            return new Double[] {res[Integer.parseInt(ctx.loc().locidx().getText())]};
+        if (ctx.loc() != null) {
+            return new Double[]{state.get(ctx.popname().getText().intern(),
+                    Integer.parseInt(ctx.loc().locidx().getText()))};
+        } else {
+            Double[] res = state.getArray(ctx.popname().getText().intern());
+            return res;
+        }
 
-        return res;
     }
 
     @Override
