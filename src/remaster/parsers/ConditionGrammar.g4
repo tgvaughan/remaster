@@ -1,4 +1,4 @@
-grammar EndConditionGrammar;
+grammar ConditionGrammar;
 
 expression :
     '(' expression ')'                                          # Bracketed

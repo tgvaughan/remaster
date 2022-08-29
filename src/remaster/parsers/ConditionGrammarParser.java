@@ -1,4 +1,4 @@
-// Generated from EndConditionGrammar.g4 by ANTLR 4.7.2
+// Generated from ConditionGrammar.g4 by ANTLR 4.7.2
 package remaster.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class EndConditionGrammarParser extends Parser {
+public class ConditionGrammarParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -78,7 +78,7 @@ public class EndConditionGrammarParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "EndConditionGrammar.g4"; }
+	public String getGrammarFileName() { return "ConditionGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -89,7 +89,7 @@ public class EndConditionGrammarParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public EndConditionGrammarParser(TokenStream input) {
+	public ConditionGrammarParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -115,15 +115,15 @@ public class EndConditionGrammarParser extends Parser {
 		public PopContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterPop(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterPop(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitPop(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitPop(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitPop(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitPop(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -132,41 +132,41 @@ public class EndConditionGrammarParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode SUM() { return getToken(EndConditionGrammarParser.SUM, 0); }
-		public TerminalNode MIN() { return getToken(EndConditionGrammarParser.MIN, 0); }
-		public TerminalNode MAX() { return getToken(EndConditionGrammarParser.MAX, 0); }
+		public TerminalNode SUM() { return getToken(ConditionGrammarParser.SUM, 0); }
+		public TerminalNode MIN() { return getToken(ConditionGrammarParser.MIN, 0); }
+		public TerminalNode MAX() { return getToken(ConditionGrammarParser.MAX, 0); }
 		public UnaryOpContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterUnaryOp(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterUnaryOp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitUnaryOp(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitUnaryOp(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitUnaryOp(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitUnaryOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class NumberContext extends ExpressionContext {
 		public Token val;
-		public TerminalNode ZERO() { return getToken(EndConditionGrammarParser.ZERO, 0); }
-		public TerminalNode NZINT() { return getToken(EndConditionGrammarParser.NZINT, 0); }
-		public TerminalNode NNFLOAT() { return getToken(EndConditionGrammarParser.NNFLOAT, 0); }
+		public TerminalNode ZERO() { return getToken(ConditionGrammarParser.ZERO, 0); }
+		public TerminalNode NZINT() { return getToken(ConditionGrammarParser.NZINT, 0); }
+		public TerminalNode NNFLOAT() { return getToken(ConditionGrammarParser.NNFLOAT, 0); }
 		public NumberContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterNumber(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterNumber(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitNumber(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitNumber(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitNumber(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitNumber(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -178,20 +178,20 @@ public class EndConditionGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode AND() { return getToken(EndConditionGrammarParser.AND, 0); }
-		public TerminalNode OR() { return getToken(EndConditionGrammarParser.OR, 0); }
+		public TerminalNode AND() { return getToken(ConditionGrammarParser.AND, 0); }
+		public TerminalNode OR() { return getToken(ConditionGrammarParser.OR, 0); }
 		public BooleanOpContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterBooleanOp(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterBooleanOp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitBooleanOp(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitBooleanOp(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitBooleanOp(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitBooleanOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -203,24 +203,24 @@ public class EndConditionGrammarParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode EQ() { return getToken(EndConditionGrammarParser.EQ, 0); }
-		public TerminalNode NE() { return getToken(EndConditionGrammarParser.NE, 0); }
-		public TerminalNode LT() { return getToken(EndConditionGrammarParser.LT, 0); }
-		public TerminalNode GT() { return getToken(EndConditionGrammarParser.GT, 0); }
-		public TerminalNode LE() { return getToken(EndConditionGrammarParser.LE, 0); }
-		public TerminalNode GE() { return getToken(EndConditionGrammarParser.GE, 0); }
+		public TerminalNode EQ() { return getToken(ConditionGrammarParser.EQ, 0); }
+		public TerminalNode NE() { return getToken(ConditionGrammarParser.NE, 0); }
+		public TerminalNode LT() { return getToken(ConditionGrammarParser.LT, 0); }
+		public TerminalNode GT() { return getToken(ConditionGrammarParser.GT, 0); }
+		public TerminalNode LE() { return getToken(ConditionGrammarParser.LE, 0); }
+		public TerminalNode GE() { return getToken(ConditionGrammarParser.GE, 0); }
 		public EqualityContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterEquality(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterEquality(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitEquality(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitEquality(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitEquality(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitEquality(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -231,15 +231,15 @@ public class EndConditionGrammarParser extends Parser {
 		public BracketedContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterBracketed(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterBracketed(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitBracketed(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitBracketed(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitBracketed(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitBracketed(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -420,22 +420,22 @@ public class EndConditionGrammarParser extends Parser {
 	}
 
 	public static class PopnameContext extends ParserRuleContext {
-		public TerminalNode IDENT() { return getToken(EndConditionGrammarParser.IDENT, 0); }
+		public TerminalNode IDENT() { return getToken(ConditionGrammarParser.IDENT, 0); }
 		public PopnameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_popname; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterPopname(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterPopname(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitPopname(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitPopname(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitPopname(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitPopname(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -471,15 +471,15 @@ public class EndConditionGrammarParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_loc; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterLoc(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterLoc(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitLoc(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitLoc(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitLoc(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitLoc(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -510,24 +510,24 @@ public class EndConditionGrammarParser extends Parser {
 	}
 
 	public static class LocidxContext extends ParserRuleContext {
-		public TerminalNode ZERO() { return getToken(EndConditionGrammarParser.ZERO, 0); }
-		public TerminalNode NZINT() { return getToken(EndConditionGrammarParser.NZINT, 0); }
-		public TerminalNode IDENT() { return getToken(EndConditionGrammarParser.IDENT, 0); }
+		public TerminalNode ZERO() { return getToken(ConditionGrammarParser.ZERO, 0); }
+		public TerminalNode NZINT() { return getToken(ConditionGrammarParser.NZINT, 0); }
+		public TerminalNode IDENT() { return getToken(ConditionGrammarParser.IDENT, 0); }
 		public LocidxContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_locidx; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).enterLocidx(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterLocidx(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EndConditionGrammarListener ) ((EndConditionGrammarListener)listener).exitLocidx(this);
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitLocidx(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof EndConditionGrammarVisitor ) return ((EndConditionGrammarVisitor<? extends T>)visitor).visitLocidx(this);
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitLocidx(this);
 			else return visitor.visitChildren(this);
 		}
 	}

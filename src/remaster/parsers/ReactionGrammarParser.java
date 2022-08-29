@@ -114,6 +114,11 @@ public class ReactionGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitReaction(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitReaction(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ReactionContext reaction() throws RecognitionException {
@@ -159,6 +164,11 @@ public class ReactionGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitReactants(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitReactants(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ReactantsContext reactants() throws RecognitionException {
@@ -197,6 +207,11 @@ public class ReactionGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitProducts(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitProducts(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -240,6 +255,11 @@ public class ReactionGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopsum(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopsum(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -322,6 +342,11 @@ public class ReactionGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopel(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopel(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PopelContext popel() throws RecognitionException {
@@ -392,6 +417,11 @@ public class ReactionGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitFactor(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitFactor(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FactorContext factor() throws RecognitionException {
@@ -430,6 +460,11 @@ public class ReactionGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitId(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitId(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -477,6 +512,11 @@ public class ReactionGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitPopname(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitPopname(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PopnameContext popname() throws RecognitionException {
@@ -515,6 +555,11 @@ public class ReactionGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitLoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitLoc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -558,6 +603,11 @@ public class ReactionGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ReactionGrammarListener ) ((ReactionGrammarListener)listener).exitLocidx(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReactionGrammarVisitor ) return ((ReactionGrammarVisitor<? extends T>)visitor).visitLocidx(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

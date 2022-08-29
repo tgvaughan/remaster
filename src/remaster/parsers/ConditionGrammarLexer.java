@@ -1,4 +1,4 @@
-// Generated from EndConditionGrammar.g4 by ANTLR 4.7.2
+// Generated from ConditionGrammar.g4 by ANTLR 4.7.2
 package remaster.parsers;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class EndConditionGrammarLexer extends Lexer {
+public class ConditionGrammarLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -86,13 +86,13 @@ public class EndConditionGrammarLexer extends Lexer {
 	}
 
 
-	public EndConditionGrammarLexer(CharStream input) {
+	public ConditionGrammarLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "EndConditionGrammar.g4"; }
+	public String getGrammarFileName() { return "ConditionGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

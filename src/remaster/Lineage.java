@@ -14,6 +14,6 @@ public class Lineage extends Node {
         super();
         this.reactElement = reactElement;
         setHeight(height);
-        metaDataString = "type=\"" + reactElement.toString() + "\"";
+        metaDataString = "type=\"" + reactElement + "\"";
     }
 }

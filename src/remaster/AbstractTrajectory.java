@@ -27,10 +27,13 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
     public Input<String> endsWhenInput = new Input<>("endsWhen",
             "End conditions.");
 
+    public Input<String> mustHaveInput = new Input<>("mustHave",
+            "Acceptance predicate.");
+
     List<AbstractReaction> reactions;
     List<Reaction> continuousReactions;
     List<PunctualReaction> punctualReactions;
-    EndCondition endCondition;
+    Condition endCondition, acceptCondition;
 
     TrajectoryState state;
 
@@ -42,7 +45,10 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
         punctualReactions = new ArrayList<>();
 
         if (endsWhenInput.get() != null)
-            endCondition = new EndCondition(endsWhenInput.get(), state);
+            endCondition = new Condition(endsWhenInput.get(), state);
+
+        if (mustHaveInput.get() != null)
+            acceptCondition = new Condition(mustHaveInput.get(), state);
 
         for (AbstractReaction reaction : reactions) {
             reaction.markSamples(state);

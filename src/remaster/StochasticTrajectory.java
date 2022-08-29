@@ -95,6 +95,9 @@ public class StochasticTrajectory extends AbstractTrajectory {
         if (endCondition != null && !endCondition.isMet())
             return false;
 
+        if (acceptCondition != null && !acceptCondition.isMet())
+            return false;
+
         state.setFinal();
         return true;
     }
