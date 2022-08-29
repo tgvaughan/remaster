@@ -24,6 +24,36 @@ https://tgvaughan.github.io/remaster/package.xml
 Development News
 ----------------
 
+### 2022-08-29
+
+I've added another kind of condition: the "must have" condition.
+This allows rejection filtering on the final state of the simulation.
+
+For example, the following will ensure the number of samples lies
+between 10 and 20:
+
+```xml
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="SimulatedTree" id="tree">
+            <trajectory spec="StochasticTrajectory" id="traj"
+                        mustHave="sample > 10 &amp;&amp; sample<20"
+                        maxTime="6">
+                <population spec="RealParameter" id="X" value="1 0"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+                
+                <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="0.1"> X -> sample </reaction>
+            </trajectory>
+        </simulate>
+    </run>
+</beast>
+```
+
+Note the use of the XML entity `&amp;` instead of `&` in the predicate
+expression, due to the limitations of XML.
+
 ### 2022-05-23
 
 The reaction parser rules have been subtly modified, such that an
