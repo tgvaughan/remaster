@@ -88,15 +88,16 @@ public class StochasticTrajectory extends AbstractTrajectory {
             events.add(new TrajectoryEvent(t, thisReaction, 1));
             thisReaction.incrementState(state, 1);
 
-            if (endCondition != null && endCondition.isMet())
+            if (endCondition != null && endCondition.isMet()) {
+                System.out.println("Trajectory termination condition met: " + endsWhenInput.get());
                 break;
+            }
         }
 
-        if (endCondition != null && !endCondition.isMet())
+        if (acceptCondition != null && !acceptCondition.isMet()) {
+            System.out.println("Trajectory acceptance condition not met: " + mustHaveInput.get());
             return false;
-
-        if (acceptCondition != null && !acceptCondition.isMet())
-            return false;
+        }
 
         state.setFinal();
         return true;

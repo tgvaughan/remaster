@@ -120,9 +120,9 @@ public class TrajectoryState {
 
         for (String popName : popIndices.keySet()) {
             sb.append(":").append(popName).append("=");
-            int idx  = popIndices.get(popName);
+            int idx = popIndices.get(popName);
             for (int i=idx; i<idx+popDims.get(popName); i++) {
-                if (i>0)
+                if (i>idx)
                     sb.append(",");
                 sb.append(occupancies[i]);
             }
