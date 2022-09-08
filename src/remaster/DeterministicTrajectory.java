@@ -1,6 +1,10 @@
 package remaster;
 
+import beast.core.Function;
+import beast.core.Input;
+import beast.core.parameter.IntegerParameter;
 import beast.core.parameter.RealParameter;
+import beast.evolution.tree.Node;
 import beast.util.Randomizer;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
@@ -19,6 +23,10 @@ import java.util.stream.Collectors;
 
 public class DeterministicTrajectory extends AbstractTrajectory {
 
+    public Input<Function> loggingGridSizeInput = new Input<>("loggingGridSize",
+            "Number of grid points used to log trajectory.",
+            new IntegerParameter("101"));
+
     @Override
     public void initAndValidate() {
         super.initAndValidate();
@@ -29,29 +37,13 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         doSimulation();
     }
 
-    Map<Reaction, double[]> vs;
 
-    public void computeStoichiometry(TrajectoryState state, List<Reaction> reactions) {
-        vs = new HashMap<>();
-        for (Reaction reaction : reactions) {
-            double[] v = new double[state.getTotalSubpopCount()];
-            for (ReactElement reactElement : reaction.reactants)
-                v[state.getOffset(reactElement)] -= 1;
-
-            for (ReactElement reactElement : reaction.products) {
-                v[state.getOffset(reactElement)] += 1;
-            }
-            vs.put(reaction, v);
-        }
-    }
 
     public ContinuousOutputModel continuousOutputModel;
 
     @Override
     public boolean doSimulation() {
         state.resetToInitial();
-
-        computeStoichiometry(state, continuousReactions);
 
         FirstOrderDifferentialEquations system = new FirstOrderDifferentialEquations() {
 
@@ -64,11 +56,12 @@ public class DeterministicTrajectory extends AbstractTrajectory {
             public void computeDerivatives(double t, double[] y, double[] ydot)
                     throws MaxCountExceededException, DimensionMismatchException {
                 Arrays.fill(ydot, 0.0);
+                System.arraycopy(y, 0, state.occupancies, 0, y.length);
 
                 for (Reaction reaction : continuousReactions) {
 
                     reaction.updatePropensity(state);
-                    double[] v = vs.get(reaction);
+                    double[] v = reaction.stoichiometryVector;
 
                     for (int i=0; i<state.occupancies.length; i++) {
                         ydot[i] += reaction.currentPropensity * v[i];
@@ -78,7 +71,9 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         };
 
         DormandPrince54Integrator integrator = new DormandPrince54Integrator(
-                1e-6, 1, 1e-5, 1e-10);
+                 1e-5*maxTimeInput.get().getArrayValue(),
+                 1e-2*maxTimeInput.get().getArrayValue(),
+                1, 0.01);
 
         continuousOutputModel = new ContinuousOutputModel();
         integrator.addStepHandler(continuousOutputModel);
@@ -86,16 +81,37 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         integrator.integrate(system, 0, state.occupancies,
                 maxTimeInput.get().getArrayValue(), state.occupancies);
 
-        continuousOutputModel.setInterpolatedTime(5);
-        double[] res = continuousOutputModel.getInterpolatedState();
-
         return false;
     }
 
+    @Override
+    public Node simulateTree() {
+
+        return null;
+    }
 
     @Override
     public void log(long sample, PrintStream out) {
-        // TODO
+        state.resetToInitial();
+
+        out.print("t=0");
+        out.print(state);
+
+        double T = maxTimeInput.get().getArrayValue();
+        double dt = T/loggingGridSizeInput.get().getArrayValue();
+        for (double t=dt; t<maxTimeInput.get().getArrayValue(); t += dt) {
+
+            out.print(";");
+            out.print("t=" + t);
+
+            continuousOutputModel.setInterpolatedTime(t);
+            System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
+                    state.occupancies, 0, state.occupancies.length);
+
+            out.print(state);
+        }
+
+        out.print("\t");
     }
 
     /**

@@ -172,6 +172,28 @@ public abstract class AbstractReaction extends BEASTObject {
         producesSamples = false;
     }
 
+
+    /**
+     * Stoichiometry vector.
+     */
+    public double[] stoichiometryVector;
+
+    /**
+     * Compute stoichiometry vector.  Called on initialisation of
+     * trajectory.
+     *
+     * @param state Trajectory state instance
+     */
+    public void computeStoichiometry(TrajectoryState state) {
+        stoichiometryVector = new double[state.getTotalSubpopCount()];
+        for (ReactElement reactElement : reactants)
+            stoichiometryVector[state.getOffset(reactElement)] -= 1;
+
+        for (ReactElement reactElement : products) {
+            stoichiometryVector[state.getOffset(reactElement)] += 1;
+        }
+    }
+
     public boolean isValid(TrajectoryState state) {
         for (ReactElement reactElement : Sets.union(reactants.elementSet(),
                 products.elementSet())) {

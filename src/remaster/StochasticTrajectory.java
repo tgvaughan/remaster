@@ -1,12 +1,11 @@
 package remaster;
 
 import beast.core.util.Log;
+import beast.evolution.tree.Node;
 import beast.util.Randomizer;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class StochasticTrajectory extends AbstractTrajectory {
 
@@ -101,6 +100,47 @@ public class StochasticTrajectory extends AbstractTrajectory {
 
         state.setFinal();
         return true;
+    }
+
+    @Override
+    public Node simulateTree() {
+        while(events.stream().noneMatch(e -> e.reaction.producesSamples)) {
+            Log.info("No sampling events in trajectory: regenerating.");
+            initAndValidate();
+        }
+
+        List<TrajectoryEvent> eventList = new ArrayList<>(events);
+        Collections.reverse(eventList);
+
+        Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
+
+        state.resetToFinal();
+
+        LineageFactory lineageFactory = new LineageFactory();
+
+        for (TrajectoryEvent event : eventList) {
+            for (long i=0; i<Math.round(event.multiplicity); i++) {
+                event.reaction.incrementLineages(lineages, state,
+                        event.time, lineageFactory);
+                event.reaction.reverseIncremementState(state, 1);
+            }
+        }
+
+        List<Lineage> rootLineages = new ArrayList<>();
+        for (ReactElement pop : lineages.keySet())
+            rootLineages.addAll(lineages.get(pop));
+
+        // Restrict reactions to ensure this is impossible
+        if (rootLineages.isEmpty())
+            throw new IllegalStateException("No lineages remaining.");
+
+        // Might allow this in future
+        if (rootLineages.size()>1)
+            throw new IllegalStateException("Multiple lineages remaining.");
+
+        lineageFactory.numberInternals(rootLineages.get(0));
+
+        return rootLineages.get(0);
     }
 
     @Override

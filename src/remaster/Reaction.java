@@ -4,6 +4,10 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.math.Binomial;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Class of continuous-time reactions.
  */
@@ -61,6 +65,7 @@ public class Reaction extends AbstractReaction {
 
         return currentPropensity;
     }
+
 
     // Main method for debugging
     public static void main(String[] args) {

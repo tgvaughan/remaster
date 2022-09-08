@@ -5,6 +5,7 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.core.Loggable;
 import beast.core.parameter.RealParameter;
+import beast.evolution.tree.Node;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
             acceptCondition = new Condition(mustHaveInput.get(), state);
 
         for (AbstractReaction reaction : reactions) {
+            reaction.computeStoichiometry(state);
             reaction.markSamples(state);
             if (!reaction.isValid(state))
                 throw new IllegalStateException("Invalid reaction detected.");
@@ -66,6 +68,8 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
     }
 
     public abstract boolean doSimulation();
+
+    public abstract Node simulateTree();
 
     @Override
     public void init(PrintStream out) {
