@@ -17,9 +17,10 @@ public class ConditionGrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, SUM=5, MIN=6, MAX=7, AND=8, OR=9, EQ=10, 
-		GT=11, LT=12, GE=13, LE=14, NE=15, ZERO=16, NZINT=17, NNFLOAT=18, IDENT=19, 
-		COMMENT_SINGLELINE=20, COMMENT_MULTILINE=21, WHITESPACE=22;
+		T__0=1, T__1=2, T__2=3, T__3=4, SUM=5, MIN=6, MAX=7, ADD=8, SUB=9, MUL=10, 
+		DIV=11, MOD=12, AND=13, OR=14, EQ=15, GT=16, LT=17, GE=18, LE=19, NE=20, 
+		ZERO=21, NZINT=22, NNFLOAT=23, IDENT=24, COMMENT_SINGLELINE=25, COMMENT_MULTILINE=26, 
+		WHITESPACE=27;
 	public static final int
 		RULE_expression = 0, RULE_popname = 1, RULE_loc = 2, RULE_locidx = 3;
 	private static String[] makeRuleNames() {
@@ -31,16 +32,18 @@ public class ConditionGrammarParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "'['", "']'", "'sum'", "'min'", "'max'", "'&&'", 
-			"'||'", "'=='", "'>'", "'<'", "'>='", "'<='", "'!='", "'0'"
+			null, "'('", "')'", "'['", "']'", "'sum'", "'min'", "'max'", "'+'", "'-'", 
+			"'*'", "'/'", "'%'", "'&&'", "'||'", "'=='", "'>'", "'<'", "'>='", "'<='", 
+			"'!='", "'0'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "SUM", "MIN", "MAX", "AND", "OR", "EQ", 
-			"GT", "LT", "GE", "LE", "NE", "ZERO", "NZINT", "NNFLOAT", "IDENT", "COMMENT_SINGLELINE", 
-			"COMMENT_MULTILINE", "WHITESPACE"
+			null, null, null, null, null, "SUM", "MIN", "MAX", "ADD", "SUB", "MUL", 
+			"DIV", "MOD", "AND", "OR", "EQ", "GT", "LT", "GE", "LE", "NE", "ZERO", 
+			"NZINT", "NNFLOAT", "IDENT", "COMMENT_SINGLELINE", "COMMENT_MULTILINE", 
+			"WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -167,6 +170,57 @@ public class ConditionGrammarParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitNumber(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MulDivContext extends ExpressionContext {
+		public Token op;
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode MUL() { return getToken(ConditionGrammarParser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(ConditionGrammarParser.DIV, 0); }
+		public TerminalNode MOD() { return getToken(ConditionGrammarParser.MOD, 0); }
+		public MulDivContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterMulDiv(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitMulDiv(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitMulDiv(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddSubContext extends ExpressionContext {
+		public Token op;
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode ADD() { return getToken(ConditionGrammarParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(ConditionGrammarParser.SUB, 0); }
+		public AddSubContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).enterAddSub(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ConditionGrammarListener ) ((ConditionGrammarListener)listener).exitAddSub(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ConditionGrammarVisitor ) return ((ConditionGrammarVisitor<? extends T>)visitor).visitAddSub(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -346,7 +400,7 @@ public class ConditionGrammarParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(33);
+			setState(39);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -354,16 +408,58 @@ public class ConditionGrammarParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(31);
+					setState(37);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
-						_localctx = new EqualityContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MulDivContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(25);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(26);
+						((MulDivContext)_localctx).op = _input.LT(1);
+						_la = _input.LA(1);
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MUL) | (1L << DIV) | (1L << MOD))) != 0)) ) {
+							((MulDivContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						setState(27);
+						expression(7);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new AddSubContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(28);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(29);
+						((AddSubContext)_localctx).op = _input.LT(1);
+						_la = _input.LA(1);
+						if ( !(_la==ADD || _la==SUB) ) {
+							((AddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						setState(30);
+						expression(6);
+						}
+						break;
+					case 3:
+						{
+						_localctx = new EqualityContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(31);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(32);
 						((EqualityContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQ) | (1L << GT) | (1L << LT) | (1L << GE) | (1L << LE) | (1L << NE))) != 0)) ) {
@@ -374,17 +470,17 @@ public class ConditionGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(27);
+						setState(33);
 						expression(5);
 						}
 						break;
-					case 2:
+					case 4:
 						{
 						_localctx = new BooleanOpContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(28);
+						setState(34);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(29);
+						setState(35);
 						((BooleanOpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==AND || _la==OR) ) {
@@ -395,14 +491,14 @@ public class ConditionGrammarParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(30);
+						setState(36);
 						expression(4);
 						}
 						break;
 					}
 					} 
 				}
-				setState(35);
+				setState(41);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -446,7 +542,7 @@ public class ConditionGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
+			setState(42);
 			match(IDENT);
 			}
 		}
@@ -490,11 +586,11 @@ public class ConditionGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(38);
+			setState(44);
 			match(T__2);
-			setState(39);
+			setState(45);
 			locidx();
-			setState(40);
+			setState(46);
 			match(T__3);
 			}
 		}
@@ -539,7 +635,7 @@ public class ConditionGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
+			setState(48);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ZERO) | (1L << NZINT) | (1L << IDENT))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -572,28 +668,34 @@ public class ConditionGrammarParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 6);
 		case 1:
+			return precpred(_ctx, 5);
+		case 2:
+			return precpred(_ctx, 4);
+		case 3:
 			return precpred(_ctx, 3);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30/\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2"+
-		"\27\n\2\3\2\5\2\32\n\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\"\n\2\f\2\16\2%\13"+
-		"\2\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\2\3\2\6\2\4\6\b\2\7\3\2\7\t\3\2"+
-		"\22\24\3\2\f\21\3\2\n\13\4\2\22\23\25\25\2\60\2\31\3\2\2\2\4&\3\2\2\2"+
-		"\6(\3\2\2\2\b,\3\2\2\2\n\13\b\2\1\2\13\f\7\3\2\2\f\r\5\2\2\2\r\16\7\4"+
-		"\2\2\16\32\3\2\2\2\17\20\t\2\2\2\20\21\7\3\2\2\21\22\5\2\2\2\22\23\7\4"+
-		"\2\2\23\32\3\2\2\2\24\26\5\4\3\2\25\27\5\6\4\2\26\25\3\2\2\2\26\27\3\2"+
-		"\2\2\27\32\3\2\2\2\30\32\t\3\2\2\31\n\3\2\2\2\31\17\3\2\2\2\31\24\3\2"+
-		"\2\2\31\30\3\2\2\2\32#\3\2\2\2\33\34\f\6\2\2\34\35\t\4\2\2\35\"\5\2\2"+
-		"\7\36\37\f\5\2\2\37 \t\5\2\2 \"\5\2\2\6!\33\3\2\2\2!\36\3\2\2\2\"%\3\2"+
-		"\2\2#!\3\2\2\2#$\3\2\2\2$\3\3\2\2\2%#\3\2\2\2&\'\7\25\2\2\'\5\3\2\2\2"+
-		"()\7\5\2\2)*\5\b\5\2*+\7\6\2\2+\7\3\2\2\2,-\t\6\2\2-\t\3\2\2\2\6\26\31"+
-		"!#";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35\65\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5"+
+		"\2\27\n\2\3\2\5\2\32\n\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
+		"\2\7\2(\n\2\f\2\16\2+\13\2\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\2\3\2\6"+
+		"\2\4\6\b\2\t\3\2\7\t\3\2\27\31\3\2\f\16\3\2\n\13\3\2\21\26\3\2\17\20\4"+
+		"\2\27\30\32\32\28\2\31\3\2\2\2\4,\3\2\2\2\6.\3\2\2\2\b\62\3\2\2\2\n\13"+
+		"\b\2\1\2\13\f\7\3\2\2\f\r\5\2\2\2\r\16\7\4\2\2\16\32\3\2\2\2\17\20\t\2"+
+		"\2\2\20\21\7\3\2\2\21\22\5\2\2\2\22\23\7\4\2\2\23\32\3\2\2\2\24\26\5\4"+
+		"\3\2\25\27\5\6\4\2\26\25\3\2\2\2\26\27\3\2\2\2\27\32\3\2\2\2\30\32\t\3"+
+		"\2\2\31\n\3\2\2\2\31\17\3\2\2\2\31\24\3\2\2\2\31\30\3\2\2\2\32)\3\2\2"+
+		"\2\33\34\f\b\2\2\34\35\t\4\2\2\35(\5\2\2\t\36\37\f\7\2\2\37 \t\5\2\2 "+
+		"(\5\2\2\b!\"\f\6\2\2\"#\t\6\2\2#(\5\2\2\7$%\f\5\2\2%&\t\7\2\2&(\5\2\2"+
+		"\6\'\33\3\2\2\2\'\36\3\2\2\2\'!\3\2\2\2\'$\3\2\2\2(+\3\2\2\2)\'\3\2\2"+
+		"\2)*\3\2\2\2*\3\3\2\2\2+)\3\2\2\2,-\7\32\2\2-\5\3\2\2\2./\7\5\2\2/\60"+
+		"\5\b\5\2\60\61\7\6\2\2\61\7\3\2\2\2\62\63\t\b\2\2\63\t\3\2\2\2\6\26\31"+
+		"\')";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

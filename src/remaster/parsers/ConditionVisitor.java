@@ -28,6 +28,46 @@ public class ConditionVisitor extends ConditionGrammarBaseVisitor<Double[]> {
     }
 
     @Override
+    public Double[] visitMulDiv(ConditionGrammarParser.MulDivContext ctx) {
+        Double [] left = visit(ctx.expression(0));
+        Double [] right = visit(ctx.expression(1));
+
+        Double [] res = new Double[Math.max(left.length, right.length)];
+        for (int i=0; i<res.length; i++) {
+            switch (ctx.op.getType()) {
+                case ConditionGrammarParser.MUL:
+                    res[i] = left[i%left.length] * right[i%right.length];
+                    break;
+                case ConditionGrammarParser.DIV:
+                    res[i] = left[i%left.length] / right[i%right.length];
+                    break;
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Double[] visitAddSub(ConditionGrammarParser.AddSubContext ctx) {
+        Double [] left = visit(ctx.expression(0));
+        Double [] right = visit(ctx.expression(1));
+
+        Double [] res = new Double[Math.max(left.length, right.length)];
+        for (int i=0; i<res.length; i++) {
+            switch (ctx.op.getType()) {
+                case ConditionGrammarParser.ADD:
+                    res[i] = left[i%left.length] + right[i%right.length];
+                    break;
+                case ConditionGrammarParser.SUB:
+                    res[i] = left[i%left.length] - right[i%right.length];
+                    break;
+            }
+        }
+
+        return res;
+    }
+
+    @Override
     public Double[] visitEquality(ConditionGrammarParser.EqualityContext ctx) {
         Double [] left = visit(ctx.expression(0));
         Double [] right = visit(ctx.expression(1));

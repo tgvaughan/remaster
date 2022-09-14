@@ -3,6 +3,8 @@ grammar ConditionGrammar;
 expression :
     '(' expression ')'                                          # Bracketed
     |   op=(SUM|MIN|MAX) '(' expression ')'                     # UnaryOp
+    |   expression op=('*'|'/'|'%') expression                  # MulDiv
+    |   expression op=('+'|'-') expression                      # AddSub
     |   expression op=('=='|'!='|'<'|'>'|'<='|'>=') expression  # Equality
     |   expression op=('&&'|'||') expression                    # BooleanOp
     |   popname loc?                                            # Pop
@@ -20,6 +22,12 @@ locidx : '0' | NZINT | IDENT ;
 SUM : 'sum';
 MIN : 'min';
 MAX : 'max';
+
+ADD : '+' ;
+SUB : '-' ;
+MUL : '*' ;
+DIV : '/' ;
+MOD : '%' ;
 
 AND : '&&' ;
 OR : '||' ;

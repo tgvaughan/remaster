@@ -44,6 +44,30 @@ public interface ConditionGrammarListener extends ParseTreeListener {
 	 */
 	void exitNumber(ConditionGrammarParser.NumberContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMulDiv(ConditionGrammarParser.MulDivContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMulDiv(ConditionGrammarParser.MulDivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddSub(ConditionGrammarParser.AddSubContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddSub(ConditionGrammarParser.AddSubContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code BooleanOp}
 	 * labeled alternative in {@link ConditionGrammarParser#expression}.
 	 * @param ctx the parse tree

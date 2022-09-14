@@ -32,6 +32,20 @@ public interface ConditionGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumber(ConditionGrammarParser.NumberContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMulDiv(ConditionGrammarParser.MulDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ConditionGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSub(ConditionGrammarParser.AddSubContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code BooleanOp}
 	 * labeled alternative in {@link ConditionGrammarParser#expression}.
 	 * @param ctx the parse tree

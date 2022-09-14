@@ -137,35 +137,38 @@ public class DeterministicTrajectory extends AbstractTrajectory {
                 1e-5*maxTimeInput.get().getArrayValue(),
                 10);
 
-        EventHandler endConditionHandler = new EventHandler() {
-            double sign = 1.0;
+        if (endCondition != null) {
+            EventHandler endConditionHandler = new EventHandler() {
+                double sign = 1.0;
 
-            @Override
-            public void init(double t0, double[] y0, double tf) { }
+                @Override
+                public void init(double t0, double[] y0, double tf) {
+                }
 
-            @Override
-            public double g(double t, double[] y) {
-                System.arraycopy(y, 0, state.occupancies, 0,
-                        state.occupancies.length);
+                @Override
+                public double g(double t, double[] y) {
+                    System.arraycopy(y, 0, state.occupancies, 0,
+                            state.occupancies.length);
 
-                return endCondition.switchFunction()*sign;
-            }
+                    return endCondition.switchFunction() * sign;
+                }
 
-            @Override
-            public Action eventOccurred(double t, double[] y, boolean increasing) {
-                sign = -sign;
-                return Action.STOP;
-            }
+                @Override
+                public Action eventOccurred(double t, double[] y, boolean increasing) {
+                    sign = -sign;
+                    return Action.STOP;
+                }
 
-            @Override
-            public void resetState(double t, double[] y) {
-            }
-        };
+                @Override
+                public void resetState(double t, double[] y) {
+                }
+            };
 
-        integrator.addEventHandler(endConditionHandler,
-                1e-2*maxTimeInput.get().getArrayValue(),
-                1e-5*maxTimeInput.get().getArrayValue(),
-                10);
+            integrator.addEventHandler(endConditionHandler,
+                    1e-2 * maxTimeInput.get().getArrayValue(),
+                    1e-5 * maxTimeInput.get().getArrayValue(),
+                    10);
+        }
 
         continuousOutputModel = new ContinuousOutputModel();
         integrator.addStepHandler(continuousOutputModel);
