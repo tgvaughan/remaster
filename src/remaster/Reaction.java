@@ -4,9 +4,7 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.math.Binomial;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class of continuous-time reactions.
@@ -43,6 +41,11 @@ public class Reaction extends AbstractReaction {
             return changeTimes[currentInterval];
         else
             return Double.POSITIVE_INFINITY;
+    }
+
+    @Override
+    public double[] getAllIntervalEndTimes() {
+        return changeTimes;
     }
 
     /**

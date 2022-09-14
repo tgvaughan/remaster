@@ -53,6 +53,11 @@ public class PunctualReaction extends AbstractReaction {
         return Double.POSITIVE_INFINITY;
     }
 
+    @Override
+    public double[] getAllIntervalEndTimes() {
+        return times;
+    }
+
     public double implementEvent(TrajectoryState state) {
         if (ps != null)
             return implementPEvent(state);

@@ -1,14 +1,19 @@
 <beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
     <run spec="Simulator" nSims="1">
-        <simulate spec="DeterministicTrajectory" id="SIRTrajectory" maxTime="5">
+        <simulate spec="DeterministicTrajectory" id="SIRTrajectory"
+                  maxTime="20"
+                  endsWhen="I&lt;1 &amp;&amp; S&lt;500"
+                  loggingGridSize="1001">
             <population spec="RealParameter" id="S" value="1000"/>
             <population spec="RealParameter" id="I" value="1"/>
             <population spec="RealParameter" id="R" value="0"/>
             <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
             <reaction spec="Reaction" rate="0.01"> S + I -> 2I </reaction>
-            <reaction spec="Reaction" rate="1.0"> I -> R </reaction>
-            <reaction spec="Reaction" rate="1.0"> I -> sample</reaction>
+            <reaction spec="Reaction" rate="0 1" changeTimes="2"> I -> R </reaction>
+            <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
+
+            <reaction spec="PunctualReaction" n="5" times="3"> I -> sample </reaction>
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">

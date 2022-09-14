@@ -45,9 +45,9 @@ public abstract class AbstractReaction extends BEASTObject {
         currentInterval += 1;
     }
 
-    public double getIntervalEndTime() {
-        return Double.POSITIVE_INFINITY;
-    };
+    public abstract double getIntervalEndTime();
+
+    public abstract double[] getAllIntervalEndTimes();
 
     /**
      * Parse reaction string and record reactants and products
