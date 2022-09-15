@@ -6,11 +6,13 @@
                         endsWhen="I&lt;1 &amp;&amp; S&lt;500">
                 <population spec="RealParameter" id="S" value="1000"/>
                 <population spec="RealParameter" id="I" value="1"/>
+                <population spec="RealParameter" id="E" value="0"/>
                 <population spec="RealParameter" id="R" value="0"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
-                <reaction spec="Reaction" rate="0.01"> S + I -> 2I </reaction>
-                <reaction spec="Reaction" rate="0 1" changeTimes="2"> I -> R </reaction>
+                <reaction spec="Reaction" rate="0.01"> S + I:a -> I:a + E:a </reaction>
+                <reaction spec="Reaction" rate="1"> E:a -> I:a </reaction>
+                <reaction spec="Reaction" rate="1"> I -> R </reaction>
                 <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
             </trajectory>
         </simulate>

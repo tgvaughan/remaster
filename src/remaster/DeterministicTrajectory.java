@@ -4,6 +4,7 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.core.parameter.IntegerParameter;
 import beast.core.parameter.RealParameter;
+import beast.core.util.Log;
 import beast.evolution.tree.Node;
 import beast.util.Randomizer;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -184,7 +185,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
     }
 
     @Override
-    public Node simulateTree() {
+    public Node simulateTree() throws TreeSimulationFailureException {
 
         double dt = stopTime*relativeStepSizeInput.get().getArrayValue();
 
@@ -211,11 +212,13 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         for (ReactElement pop : lineages.keySet())
             rootLineages.addAll(lineages.get(pop));
 
-        if (rootLineages.isEmpty())
-            throw new IllegalStateException("No lineages remaining.");
+        if (rootLineages.isEmpty()) {
+            throw new TreeSimulationFailureException("No lineages remaining.");
+        }
 
-        if (rootLineages.size()>1)
-            throw new IllegalStateException("Multiple lineages remaining.");
+        if (rootLineages.size()>1) {
+            throw new TreeSimulationFailureException("Multiple lineages remaining.");
+        }
 
         lineageFactory.numberInternals(rootLineages.get(0));
 

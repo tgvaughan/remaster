@@ -69,7 +69,13 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
 
     public abstract boolean doSimulation();
 
-    public abstract Node simulateTree();
+    public abstract Node simulateTree() throws TreeSimulationFailureException;
+
+    public static class TreeSimulationFailureException extends Exception {
+        public TreeSimulationFailureException(String message) {
+            super(message);
+        }
+    }
 
     @Override
     public void init(PrintStream out) {
