@@ -1,10 +1,8 @@
 package remaster;
 
-import beast.core.Function;
-import beast.core.Input;
-import beast.math.Binomial;
-
-import java.util.*;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.util.Binomial;
 
 /**
  * Class of continuous-time reactions.

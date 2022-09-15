@@ -1,6 +1,6 @@
 package remaster;
 
-import beast.math.GammaFunction;
+import beast.base.util.GammaFunction;
 
 public class Util {
 

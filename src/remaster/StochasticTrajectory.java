@@ -1,8 +1,8 @@
 package remaster;
 
-import beast.core.util.Log;
-import beast.evolution.tree.Node;
-import beast.util.Randomizer;
+import beast.base.core.Log;
+import beast.base.evolution.tree.Node;
+import beast.base.util.Randomizer;
 
 import java.io.PrintStream;
 import java.util.*;

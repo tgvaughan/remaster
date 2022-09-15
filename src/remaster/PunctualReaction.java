@@ -1,8 +1,8 @@
 package remaster;
 
-import beast.core.Function;
-import beast.core.Input;
-import beast.util.Randomizer;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.util.Randomizer;
 
 /**
  * Class of reactions which occur at pre-determined times.

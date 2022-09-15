@@ -1,7 +1,7 @@
 package remaster;
 
-import beast.core.BEASTObject;
-import beast.core.Function;
+import beast.base.core.BEASTObject;
+import beast.base.core.Function;
 
 import java.util.*;
 

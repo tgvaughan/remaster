@@ -1,7 +1,7 @@
 package remaster;
 
-import beast.core.Input;
-import beast.evolution.tree.Tree;
+import beast.base.core.Input;
+import beast.base.evolution.tree.Tree;
 
 public class SimulatedTree extends Tree {
 

@@ -1,9 +1,10 @@
 package remaster;
 
-import beast.core.BEASTObject;
-import beast.core.Input;
-import beast.core.util.Log;
-import beast.util.Randomizer;
+import beast.base.core.BEASTObject;
+
+import beast.base.core.Input;
+import beast.base.core.Log;
+import beast.base.util.Randomizer;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Sets;
