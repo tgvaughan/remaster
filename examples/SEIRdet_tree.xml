@@ -2,7 +2,7 @@
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="DeterministicTrajectory" id="SIRTrajectory"
-                        maxTime="10"
+                        maxTime="20"
                         endsWhen="I&lt;1 &amp;&amp; S&lt;500">
                 <population spec="RealParameter" id="S" value="1000"/>
                 <population spec="RealParameter" id="I" value="1"/>

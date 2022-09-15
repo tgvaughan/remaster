@@ -156,6 +156,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
 
                 @Override
                 public Action eventOccurred(double t, double[] y, boolean increasing) {
+                    System.out.println("Trajectory termination condition met: " + endsWhenInput.get());
                     sign = -sign;
                     return Action.STOP;
                 }
@@ -179,6 +180,9 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         stopTime = integrator.integrate(system, 0, state.occupancies,
                 maxTimeInput.get().getArrayValue(), state.occupancies);
 
+        if (acceptCondition != null && !acceptCondition.isMet()) {
+            System.out.println("Trajectory acceptance condition not met: " + mustHaveInput.get());
+        }
 
         state.setFinal();
         return true;

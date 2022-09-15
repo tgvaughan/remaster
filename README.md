@@ -24,6 +24,42 @@ https://tgvaughan.github.io/remaster/package.xml
 Development News
 ----------------
 
+### 2022-09-15
+
+Simulation of deterministic ODE equivalents of birth-death models
+is now possible, simply by replacing `StochasticTrajectory` with
+`DeterministicTrajectory`. All models compatible with `StochasticTrajectory`
+are supported, including those containing rate shifts or punctual reactions.
+
+```xml
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="DeterministicTrajectory" id="SIRTrajectory"
+                  maxTime="20"
+                  endsWhen="I&lt;1 &amp;&amp; S&lt;500"
+                  loggingGridSize="1001">
+            <population spec="RealParameter" id="S" value="1000"/>
+            <population spec="RealParameter" id="I" value="1"/>
+            <population spec="RealParameter" id="R" value="0"/>
+            <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+            <reaction spec="Reaction" rate="0.01"> S + I -> 2I </reaction>
+            <reaction spec="Reaction" rate="0 1" changeTimes="2"> I -> R </reaction>
+            <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
+
+            <reaction spec="PunctualReaction" n="5" times="3"> I -> sample </reaction>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+    </run>
+</beast>
+```
+
+The optional `loggingGridSize` attribute specifies how many grid points to use
+when saving the simulation output to the log file.
+
 ### 2022-08-29
 
 I've added another kind of condition: the "must have" condition.
@@ -37,7 +73,7 @@ between 10 and 20:
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="traj"
-                        mustHave="sample > 10 &amp;&amp; sample<20"
+                        mustHave="sample>10 &amp;&amp; sample<20"
                         maxTime="6">
                 <population spec="RealParameter" id="X" value="1 0"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
