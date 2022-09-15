@@ -52,7 +52,7 @@ public class StochasticTrajectory extends AbstractTrajectory {
 
                 if (updatedReaction instanceof PunctualReaction) {
                     // Implement punctual reaction
-                    double multiplicity = ((PunctualReaction) updatedReaction).implementEvent(state);
+                    double multiplicity = ((PunctualReaction) updatedReaction).implementEvent(state, true);
                     if (multiplicity>0)
                         events.add(new TrajectoryEvent(t, updatedReaction, multiplicity));
                 }

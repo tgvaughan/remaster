@@ -123,7 +123,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
                     PunctualReaction punctualReaction = (PunctualReaction) reaction;
 
                     System.arraycopy(y, 0, state.occupancies, 0, y.length);
-                    punctualReaction.implementEvent(state);
+                    punctualReaction.implementEvent(state, false);
                     System.arraycopy(state.occupancies, 0, y, 0, y.length);
                 }
 

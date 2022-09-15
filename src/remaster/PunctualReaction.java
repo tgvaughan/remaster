@@ -58,14 +58,14 @@ public class PunctualReaction extends AbstractReaction {
         return times;
     }
 
-    public double implementEvent(TrajectoryState state) {
+    public double implementEvent(TrajectoryState state, boolean stochastic) {
         if (ps != null)
-            return implementPEvent(state);
+            return implementPEvent(state, stochastic);
         else
             return implementNEvent(state);
     }
 
-    private double implementPEvent(TrajectoryState state) {
+    private double implementPEvent(TrajectoryState state, boolean stochastic) {
         double p = ps[currentInterval];
         double n;
         if (p == 0.0) {
@@ -78,18 +78,21 @@ public class PunctualReaction extends AbstractReaction {
             if (p == 1.0) {
                 n = N;
             } else {
-                // Sample number of reactions:
-                double logP = N*Math.log(1-p);
-                double C = Math.exp(logP);
-                double logf = Math.log(p/(1-p));
+                if (stochastic) {
+                    // Sample number of reactions:
+                    double logP = N * Math.log(1 - p);
+                    double C = Math.exp(logP);
+                    double logf = Math.log(p / (1 - p));
 
-                n = 0;
-                double u = Randomizer.nextDouble();
-                while (u > C) {
-                    n += 1;
-                    logP += logf + Math.log(N-n+1) - Math.log(n);
-                    C += Math.exp(logP);
-                }
+                    n = 0;
+                    double u = Randomizer.nextDouble();
+                    while (u > C) {
+                        n += 1;
+                        logP += logf + Math.log(N - n + 1) - Math.log(n);
+                        C += Math.exp(logP);
+                    }
+                } else
+                    n = p*N;
             }
         }
 
