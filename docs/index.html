@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-16 Fri 14:40 -->
+<!-- 2022-09-16 Fri 15:38 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER Documentation</title>
@@ -25,29 +25,29 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4586515">1. Overview</a>
+<li><a href="#org749c63d">1. Overview</a>
 <ul>
-<li><a href="#orgb1772fc">1.1. The name</a></li>
-<li><a href="#org9263c15">1.2. License</a></li>
+<li><a href="#org72af7b6">1.1. The name</a></li>
+<li><a href="#org3f99648">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#org9d9a64b">2. Installation</a></li>
-<li><a href="#org64c8867">3. Model specification</a>
+<li><a href="#org32af47e">2. Installation</a></li>
+<li><a href="#org2e8700b">3. Model specification</a>
 <ul>
-<li><a href="#org0f05315">3.1. Populations</a></li>
-<li><a href="#org5f91d48">3.2. Reactions</a>
+<li><a href="#org2e62a85">3.1. Populations</a></li>
+<li><a href="#orgbf30c6d">3.2. Reactions</a>
 <ul>
-<li><a href="#orgfe20103">3.2.1. Continuous reactions</a></li>
-<li><a href="#org77e8e18">3.2.2. Punctual reactions</a></li>
-<li><a href="#org589e551">3.2.3. Identifying parents and children</a></li>
+<li><a href="#orgc0d0383">3.2.1. Continuous reactions</a></li>
+<li><a href="#org7ec9fb7">3.2.2. Punctual reactions</a></li>
+<li><a href="#org31bb931">3.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgcfedb10">4. Trajectory simulation</a></li>
-<li><a href="#org4cb83ef">5. Tree simulation</a></li>
-<li><a href="#org3957b1b">6. Integrating with BEAST</a></li>
-<li><a href="#org00f549d">7. Examples</a></li>
+<li><a href="#orgdf3f5cb">4. Trajectory simulation</a></li>
+<li><a href="#orgdbd4d64">5. Tree simulation</a></li>
+<li><a href="#orge4016fd">6. Integrating with BEAST</a></li>
+<li><a href="#org222fdbb">7. Examples</a></li>
 </ul>
 </div>
 </nav>
@@ -59,8 +59,8 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-org4586515" class="outline-2">
-<h2 id="org4586515"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org749c63d" class="outline-2">
+<h2 id="org749c63d"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 ReMASTER is a flexible tool for simulating trajectories
@@ -141,8 +141,8 @@ simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-orgb1772fc" class="outline-3">
-<h3 id="orgb1772fc"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-org72af7b6" class="outline-3">
+<h3 id="org72af7b6"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 "ReMASTER" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
@@ -152,8 +152,8 @@ of performing the simulation tasks for which MASTER itself is actually used.
 </div>
 </div>
 
-<div id="outline-container-org9263c15" class="outline-3">
-<h3 id="org9263c15"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-org3f99648" class="outline-3">
+<h3 id="org3f99648"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 ReMASTER is free software, and is made available under the terms of
@@ -165,8 +165,8 @@ official Github project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-org9d9a64b" class="outline-2">
-<h2 id="org9d9a64b"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-org32af47e" class="outline-2">
+<h2 id="org32af47e"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 ReMASTER is a BEAST 2 package and will eventually be available for installation
@@ -191,16 +191,16 @@ simulation.
 </div>
 </div>
 
-<div id="outline-container-org64c8867" class="outline-2">
-<h2 id="org64c8867"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-org2e8700b" class="outline-2">
+<h2 id="org2e8700b"><span class="section-number-2">3.</span> Model specification</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, ReMASTER defines models in terms of <a href="#org0f05315">populations</a> and <a href="#org5f91d48">reactions</a>.
+Like MASTER, ReMASTER defines models in terms of <a href="#org2e62a85">populations</a> and <a href="#orgbf30c6d">reactions</a>.
 </p>
 </div>
 
-<div id="outline-container-org0f05315" class="outline-3">
-<h3 id="org0f05315"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-org2e62a85" class="outline-3">
+<h3 id="org2e62a85"><span class="section-number-3">3.1.</span> Populations</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 A population in ReMASTER is simply a <code>RealParameter</code> (or other
@@ -246,8 +246,8 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-org5f91d48" class="outline-3">
-<h3 id="org5f91d48"><span class="section-number-3">3.2.</span> Reactions</h3>
+<div id="outline-container-orgbf30c6d" class="outline-3">
+<h3 id="orgbf30c6d"><span class="section-number-3">3.2.</span> Reactions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
@@ -257,20 +257,21 @@ simply the result of applying reactions at random or pre-determined times.
 
 <p>
 There are two distinct kinds of reactions which can be specified: "continuous"
-reactions and "punctual" reactions."  Continuous are applied continuously
-throughout the simulation at pre-defined <i>rates</i> which determine the probability
-per unit time for the reaction firing on each of the possible combinations of
-reactant individuals.  In contrast, punctual reactions are applied at one
-or more pre-defined <i>times</i>. At each of thes times, a punctual reaction may
-be applied with some probability to each available combination of
-reactants (i.e. the number of times the reaction fires is still
-random) or it may be applied a pre-specified number of times.
+reactions and "punctual" reactions.
 </p>
 </div>
 
-<div id="outline-container-orgfe20103" class="outline-4">
-<h4 id="orgfe20103"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
+
+<div id="outline-container-orgc0d0383" class="outline-4">
+<h4 id="orgc0d0383"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
 <div class="outline-text-4" id="text-3-2-1">
+<p>
+As the name suggests, reactions are applied continuously throughout the
+simulation at particular <i>rates</i> which determine the probability per
+unit time for the reaction firing on each of the possible combinations
+of reactant individuals.
+</p>
+
 <p>
 Use the following notation to specify a continuous reaction with a fixed rate in the XML:
 </p>
@@ -291,40 +292,145 @@ the following:
 </div>
 </div>
 
-<div id="outline-container-org77e8e18" class="outline-4">
-<h4 id="org77e8e18"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
+<div id="outline-container-org7ec9fb7" class="outline-4">
+<h4 id="org7ec9fb7"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
-To specify that a 
+In contrast, punctual reactions are applied at one or more pre-defined
+<i>times</i>. At each of thes times, a punctual reaction may be applied
+with some probability to each available combination of reactants
+(i.e. the number of times the reaction fires is still random) or it
+may be applied a pre-specified number of times.
+</p>
+
+<p>
+To specify a punctual reaction which fires with a particular probability
+for each available reactant (here 0.5) and at a chosen time (here 10),
+use the following notation:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"PunctualReaction"</span> <span style="color: #ff69b4;">p</span>=<span style="color: #61CE3C;">"0.5"</span> <span style="color: #ff69b4;">time</span>=<span style="color: #61CE3C;">"10"</span>&gt; I -&gt; sample &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+
+<p>
+To instead configure the reaction to fire a fixed number of times (say
+5), replace the <code>p</code> attribute with a <code>n</code> attribute specifying the
+number:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"PunctualReaction"</span> <span style="color: #ff69b4;">n</span>=<span style="color: #61CE3C;">"5"</span> <span style="color: #ff69b4;">time</span>=<span style="color: #61CE3C;">"10"</span>&gt; I -&gt; sample &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+
+<p>
+Each of <code>p</code>, <code>n</code> and <code>time</code> can take more than one value. For instance,
+to specify that the sampling reaction should fire 5 times at time 1.0,
+7 times at time 2.0 and 10 times at time 5.0, one could write
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"PunctualReaction"</span> <span style="color: #ff69b4;">n</span>=<span style="color: #61CE3C;">"5 7 10"</span> <span style="color: #ff69b4;">time</span>=<span style="color: #61CE3C;">"1.0 2.0 5.0"</span>&gt; I -&gt; sample &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+
+<p>
+In the case that the number of elements provided to <code>n</code> or <code>p</code> and the
+number provided to <code>time</code> do not match, elements of the shorter vector
+are reused.  Thus one could specify multiple $&rho;$-sampling events
+each with the same sampling probability of $\rho=0.5$ by writing
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"PunctualReaction"</span> <span style="color: #ff69b4;">p</span>=<span style="color: #61CE3C;">"0.5"</span> <span style="color: #ff69b4;">time</span>=<span style="color: #61CE3C;">"1.0 2.0 5.0"</span>&gt; I -&gt; sample &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org31bb931" class="outline-4">
+<h4 id="org31bb931"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+Although the reaction notation is intuitive, on its own it does not
+specify the parent/child relationships between reactants and products.
+For example, consider the following reaction representing pathogen
+transmission in an SIR model:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.1"</span>&gt; S + I -&gt; 2I &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+
+<p>
+The only thing which can be determined from this reaction is that one $S$
+and one $I$ individual are replaced by a pair of $I$ individuals.  It is
+completely unclear whether either of the $S$ or $I$ reactants should be
+regarded as a parent of any of the products.
+</p>
+
+<p>
+Specifying these relationships is necessary in order for trees composed
+of ancestral lineages can be built.
+</p>
+
+<p>
+There are two main ways to work around this limitation.  Firstly, one can
+rely on ReMASTER to automatically associate parents with children.
+By default, ReMASTER assumes that a product individual is considered to
+be
+</p>
+<ol class="org-ol">
+<li>the child of the first reactant having the same population type, if one exists, or</li>
+<li>the child the first reactant listed, if one exists, or</li>
+<li>an orphan.</li>
+</ol>
+
+<p>
+These rules mean that, in the SIR reaction above, the two $I$ product individuals
+would be regarded as children of the $I$ reactant, and that the $S$ would have no
+children.
+</p>
+
+<p>
+Alternatively, ReMASTER lets you explicitly specify parent-child relationships
+by appending ":label" tags to reaction elements identifying them as belonging
+to the same family.  If, for instance, we wanted the $S$ reactant to be the parent
+of the two $I$ products, we could write
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.1"</span>&gt; S:a + I:b -&gt; 2I:a &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+</pre>
+</div>
+
+<p>
+Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
+that the resulting relationships are tree-like.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org589e551" class="outline-4">
-<h4 id="org589e551"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
-</div>
 </div>
 </div>
 
-<div id="outline-container-orgcfedb10" class="outline-2">
-<h2 id="orgcfedb10"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div id="outline-container-orgdf3f5cb" class="outline-2">
+<h2 id="orgdf3f5cb"><span class="section-number-2">4.</span> Trajectory simulation</h2>
 </div>
 
-<div id="outline-container-org4cb83ef" class="outline-2">
-<h2 id="org4cb83ef"><span class="section-number-2">5.</span> Tree simulation</h2>
+<div id="outline-container-orgdbd4d64" class="outline-2">
+<h2 id="orgdbd4d64"><span class="section-number-2">5.</span> Tree simulation</h2>
 </div>
 
-<div id="outline-container-org3957b1b" class="outline-2">
-<h2 id="org3957b1b"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+<div id="outline-container-orge4016fd" class="outline-2">
+<h2 id="orge4016fd"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 </div>
 
-<div id="outline-container-org00f549d" class="outline-2">
-<h2 id="org00f549d"><span class="section-number-2">7.</span> Examples</h2>
+<div id="outline-container-org222fdbb" class="outline-2">
+<h2 id="org222fdbb"><span class="section-number-2">7.</span> Examples</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2022-09-16 Fri 14:40</p>
+<p class="date">Created: 2022-09-16 Fri 15:38</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

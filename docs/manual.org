@@ -147,16 +147,15 @@ more *product* individuals.  The dynamics that ReMASTER simulates are
 simply the result of applying reactions at random or pre-determined times.
 
 There are two distinct kinds of reactions which can be specified: "continuous"
-reactions and "punctual" reactions."  Continuous are applied continuously
-throughout the simulation at pre-defined /rates/ which determine the probability
-per unit time for the reaction firing on each of the possible combinations of
-reactant individuals.  In contrast, punctual reactions are applied at one
-or more pre-defined /times/. At each of thes times, a punctual reaction may
-be applied with some probability to each available combination of
-reactants (i.e. the number of times the reaction fires is still
-random) or it may be applied a pre-specified number of times.
+reactions and "punctual" reactions.
+
 
 *** Continuous reactions
+
+As the name suggests, reactions are applied continuously throughout the
+simulation at particular /rates/ which determine the probability per
+unit time for the reaction firing on each of the possible combinations
+of reactant individuals.
 
 Use the following notation to specify a continuous reaction with a fixed rate in the XML:
 #+begin_src xml
@@ -172,9 +171,83 @@ the following:
 
 *** Punctual reactions
 
-To specify that a 
+In contrast, punctual reactions are applied at one or more pre-defined
+/times/. At each of thes times, a punctual reaction may be applied
+with some probability to each available combination of reactants
+(i.e. the number of times the reaction fires is still random) or it
+may be applied a pre-specified number of times.
+
+To specify a punctual reaction which fires with a particular probability
+for each available reactant (here 0.5) and at a chosen time (here 10),
+use the following notation:
+#+begin_src xml
+<reaction spec="PunctualReaction" p="0.5" time="10"> I -> sample </reaction>
+#+end_src
+
+To instead configure the reaction to fire a fixed number of times (say
+5), replace the =p= attribute with a =n= attribute specifying the
+number:
+#+begin_src xml
+<reaction spec="PunctualReaction" n="5" time="10"> I -> sample </reaction>
+#+end_src
+
+Each of =p=, =n= and =time= can take more than one value. For instance,
+to specify that the sampling reaction should fire 5 times at time 1.0,
+7 times at time 2.0 and 10 times at time 5.0, one could write
+#+begin_src xml
+<reaction spec="PunctualReaction" n="5 7 10" time="1.0 2.0 5.0"> I -> sample </reaction>
+#+end_src
+
+In the case that the number of elements provided to =n= or =p= and the
+number provided to =time= do not match, elements of the shorter vector
+are reused.  Thus one could specify multiple $\rho$-sampling events
+each with the same sampling probability of $\rho=0.5$ by writing
+#+begin_src xml
+<reaction spec="PunctualReaction" p="0.5" time="1.0 2.0 5.0"> I -> sample </reaction>
+#+end_src
 
 *** Identifying parents and children
+
+Although the reaction notation is intuitive, on its own it does not
+specify the parent/child relationships between reactants and products.
+For example, consider the following reaction representing pathogen
+transmission in an SIR model:
+
+#+begin_src xml
+<reaction spec="Reaction" rate="0.1"> S + I -> 2I </reaction>
+#+end_src
+
+The only thing which can be determined from this reaction is that one $S$
+and one $I$ individual are replaced by a pair of $I$ individuals.  It is
+completely unclear whether either of the $S$ or $I$ reactants should be
+regarded as a parent of any of the products.
+
+Specifying these relationships is necessary in order for trees composed
+of ancestral lineages can be built.
+
+There are two main ways to work around this limitation.  Firstly, one can
+rely on ReMASTER to automatically associate parents with children.
+By default, ReMASTER assumes that a product individual is considered to
+be
+1. the child of the first reactant having the same population type, if one exists, or
+2. the child the first reactant listed, if one exists, or
+3. an orphan.
+
+These rules mean that, in the SIR reaction above, the two $I$ product individuals
+would be regarded as children of the $I$ reactant, and that the $S$ would have no
+children.
+
+Alternatively, ReMASTER lets you explicitly specify parent-child relationships
+by appending ":label" tags to reaction elements identifying them as belonging
+to the same family.  If, for instance, we wanted the $S$ reactant to be the parent
+of the two $I$ products, we could write
+
+#+begin_src xml
+<reaction spec="Reaction" rate="0.1"> S:a + I:b -> 2I:a </reaction>
+#+end_src
+
+Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
+that the resulting relationships are tree-like.
 
 * Trajectory simulation
 
