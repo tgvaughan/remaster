@@ -55,7 +55,7 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=10">
                 <population spec="RealParameter" id="X" value="1"/>
-                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+                <samplePopulation spec="RealParameter" id="S" value="0"/>
 
                 <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
@@ -251,9 +251,136 @@ that the resulting relationships are tree-like.
 
 * Trajectory simulation
 
+Trajectories are simply realisations of the population process.  There are two
+distinct types of trajectories in ReMASTER: *stochastic trajectories* and *deterministic trajectories*.
+
+Stochastic trajectories are simulated using a standard Gillespie-style
+algorithm, and are exact realisations of the continuous-time
+discrete-state Markov process defined by the reactions.  These are the
+trajectories that you'll want to use to simulate trees under
+birth-death phylodynamic models.
+
+Deterministic trajectories are simulated by integrating a set of
+ordinary differential equations corresponding to the reactions.  The
+dynamics generated are essentially the limiting behaviour of the
+stochastic trajectories when the population sizes are very large and
+the relative impact of the demographic stochasticity becomes
+vanishingly small.  These are the trajectories you'll want to use to
+simulate trees under coalescent models or coalescent approximations of
+birth-death models.
+
+** Stochastic Trajectories
+
+Once the population and reaction elements are specified, defining a stochastic trajectory
+in ReMASTER's XML is very easy.
+
+For example, the following represents a stochastic birth-death-sampling process
+trajectory with constant rates:
+
+#+begin_src xml
+  <trajectory spec="StochasticTrajectory"
+              maxTime="10">
+    <population id="X" spec="RealParameter" value="1"/>
+
+    <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
+    <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+  </trajectory>
+#+end_src
+
+The =maxTime= attribute specifies the maximum end time of the simulation.  For stochastic trajectories
+this attribute is actually optional, since there are many birth-death processes (although not this one)
+are guaranteed to terminate in finite amount of time.  (ReMASTER always ceases the simulation once
+no reactions are able to fire.)
+
+** Deterministic Trajectories
+
+** Self-contained trajectory simulation XMLs
+
+While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
+it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
+ReMASTER's =Simulator= object, which can be used as a =<run>= element as follows:
+
+#+begin_src xml
+  <beast version="2.0" namespace="beast.core.parameter:remaster">
+    <run spec="Simulator" nSims="100">
+      <simulate spec="StochasticTrajectory" maxTime="10">
+        <population id="X" spec="RealParameter" value="1"/>
+        <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
+        <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+      </simulate>
+
+      <logger fileName="output.traj">
+        <log idref="trajectory"/>
+      </logger>
+    </run>
+  </beast>
+#+end_src
+
+The =Simulator= takes the following inputs:
+- nSims :: an integer specifying the number of independent simulations to perform,
+- simulate :: an object representing the simulation, in this case a =StochasticTrajectory=, and
+- logger :: what to record in the output files for each replicate of the simulation.
+  This input can take multiple values, one for each output file.
+  (In this case we only produce one output file, containing a representation of the whole simulated trajectory.)
+
+To run the simulation and produce the output, copy the above XML into
+a file named something like "BDtraj.xml" and then run it through BEAST:
+#+begin_example
+$ beast BDtraj.xml
+#+end_example
+
+This should produce some screen output, together with a file
+"output.traj" containing the simulated trajectories.
+
+** Plotting simulated trajectories
+
+In order to actually visualise the simulation output, we can make use of the script
+[[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the ReMASTER repository
+to load the trajectories into a data frame:
+
+#+begin_src R
+  source("<PATH>/ReMASTER/scripts/trajTools.R")
+  traj <- loadTrajectories("output.traj")
+#+end_src
+(Here "<PATH>" is the path to the ReMASTER repository or package directory.)
+
+The resulting data frame has the following layout:
+#+begin_example
+> traj
+# A tibble: 8,039 × 5
+        t population index value Sample
+    <dbl> <chr>      <dbl> <dbl>  <int>
+ 1 0      X              0     1      0
+ 2 1.05   X              0     0      0
+ 3 0      X              0     1      1
+ 4 0.0269 X              0     2      1
+ 5 0.0484 X              0     3      1
+ 6 0.213  X              0     2      1
+ 7 0.990  X              0     1      1
+ 8 1.73   X              0     2      1
+ 9 1.80   X              0     3      1
+10 1.95   X              0     4      1
+# … with 8,029 more rows
+#+end_example
+Each row specifies the size of a particular population (and
+subpopulation) at a particular time.  The "Sample" indicies
+indicate to which specific simulated trajectory the results belong.
+
+This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2]]:
+#+begin_src R
+  ggplot(traj, aes(t, value, group_by=factor(traj))) + geom_step(alpha=0.5)
+#+end_src
+
+#+ATTR_HTML: width="200"
+[[file:examples/BDtraj_output.png]]
+
 * Tree simulation
 
 * Integrating with BEAST
 
 * Examples
 
+The =examples/= directory of the package repository contains a growing list of example
+ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
+You can also access these example scripts directly via the Github repository for the
+package: https://github.com/tgvaughan/remaster/tree/master/examples.

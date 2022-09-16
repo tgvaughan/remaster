@@ -1,0 +1,13 @@
+<beast version="2.0" namespace="beast.core.parameter:remaster">
+  <run spec="Simulator" nSims="100">
+    <simulate id="traj" spec="StochasticTrajectory" maxTime="10">
+      <population id="X" spec="RealParameter" value="1"/>
+      <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
+      <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+    </simulate>
+
+    <logger fileName="output.traj">
+      <log idref="traj"/>
+    </logger>
+  </run>
+</beast>

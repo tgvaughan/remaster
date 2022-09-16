@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-16 Fri 15:38 -->
+<!-- 2022-09-16 Fri 17:23 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER Documentation</title>
@@ -25,29 +25,36 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org749c63d">1. Overview</a>
+<li><a href="#orgf2c1988">1. Overview</a>
 <ul>
-<li><a href="#org72af7b6">1.1. The name</a></li>
-<li><a href="#org3f99648">1.2. License</a></li>
+<li><a href="#orge0819dd">1.1. The name</a></li>
+<li><a href="#org0152a06">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#org32af47e">2. Installation</a></li>
-<li><a href="#org2e8700b">3. Model specification</a>
+<li><a href="#orgbbf58a1">2. Installation</a></li>
+<li><a href="#orgba0e4cc">3. Model specification</a>
 <ul>
-<li><a href="#org2e62a85">3.1. Populations</a></li>
-<li><a href="#orgbf30c6d">3.2. Reactions</a>
+<li><a href="#org4155bb1">3.1. Populations</a></li>
+<li><a href="#org8306a96">3.2. Reactions</a>
 <ul>
-<li><a href="#orgc0d0383">3.2.1. Continuous reactions</a></li>
-<li><a href="#org7ec9fb7">3.2.2. Punctual reactions</a></li>
-<li><a href="#org31bb931">3.2.3. Identifying parents and children</a></li>
+<li><a href="#org1a2fc14">3.2.1. Continuous reactions</a></li>
+<li><a href="#org36e0c4c">3.2.2. Punctual reactions</a></li>
+<li><a href="#org9dbf036">3.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgdf3f5cb">4. Trajectory simulation</a></li>
-<li><a href="#orgdbd4d64">5. Tree simulation</a></li>
-<li><a href="#orge4016fd">6. Integrating with BEAST</a></li>
-<li><a href="#org222fdbb">7. Examples</a></li>
+<li><a href="#orga2a4616">4. Trajectory simulation</a>
+<ul>
+<li><a href="#org32f44c7">4.1. Stochastic Trajectories</a></li>
+<li><a href="#org5f6d362">4.2. Deterministic Trajectories</a></li>
+<li><a href="#orgeaac1c6">4.3. Self-contained trajectory simulation XMLs</a></li>
+<li><a href="#org9f304fd">4.4. Plotting simulated trajectories</a></li>
+</ul>
+</li>
+<li><a href="#org6554aac">5. Tree simulation</a></li>
+<li><a href="#org69838f1">6. Integrating with BEAST</a></li>
+<li><a href="#org31ce2f6">7. Examples</a></li>
 </ul>
 </div>
 </nav>
@@ -59,8 +66,8 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-org749c63d" class="outline-2">
-<h2 id="org749c63d"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orgf2c1988" class="outline-2">
+<h2 id="orgf2c1988"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 ReMASTER is a flexible tool for simulating trajectories
@@ -117,7 +124,7 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
         &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"SimulatedTree"</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"tree"</span>&gt;
             &lt;<span style="color: #ff1493;">trajectory</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"SIRTrajectory"</span> <span style="color: #ff69b4;">endsWhen</span>=<span style="color: #61CE3C;">"sample&gt;=10"</span>&gt;
                 &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
-                &lt;<span style="color: #ff1493;">samplePopulation</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"sample"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
+                &lt;<span style="color: #ff1493;">samplePopulation</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"S"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
 
                 &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"2"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
                 &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
@@ -141,8 +148,8 @@ simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-org72af7b6" class="outline-3">
-<h3 id="org72af7b6"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-orge0819dd" class="outline-3">
+<h3 id="orge0819dd"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 "ReMASTER" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
@@ -152,8 +159,8 @@ of performing the simulation tasks for which MASTER itself is actually used.
 </div>
 </div>
 
-<div id="outline-container-org3f99648" class="outline-3">
-<h3 id="org3f99648"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-org0152a06" class="outline-3">
+<h3 id="org0152a06"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 ReMASTER is free software, and is made available under the terms of
@@ -165,8 +172,8 @@ official Github project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-org32af47e" class="outline-2">
-<h2 id="org32af47e"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-orgbbf58a1" class="outline-2">
+<h2 id="orgbbf58a1"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 ReMASTER is a BEAST 2 package and will eventually be available for installation
@@ -191,16 +198,16 @@ simulation.
 </div>
 </div>
 
-<div id="outline-container-org2e8700b" class="outline-2">
-<h2 id="org2e8700b"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-orgba0e4cc" class="outline-2">
+<h2 id="orgba0e4cc"><span class="section-number-2">3.</span> Model specification</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, ReMASTER defines models in terms of <a href="#org2e62a85">populations</a> and <a href="#orgbf30c6d">reactions</a>.
+Like MASTER, ReMASTER defines models in terms of <a href="#org4155bb1">populations</a> and <a href="#org8306a96">reactions</a>.
 </p>
 </div>
 
-<div id="outline-container-org2e62a85" class="outline-3">
-<h3 id="org2e62a85"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-org4155bb1" class="outline-3">
+<h3 id="org4155bb1"><span class="section-number-3">3.1.</span> Populations</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 A population in ReMASTER is simply a <code>RealParameter</code> (or other
@@ -246,8 +253,8 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-orgbf30c6d" class="outline-3">
-<h3 id="orgbf30c6d"><span class="section-number-3">3.2.</span> Reactions</h3>
+<div id="outline-container-org8306a96" class="outline-3">
+<h3 id="org8306a96"><span class="section-number-3">3.2.</span> Reactions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
@@ -262,8 +269,8 @@ reactions and "punctual" reactions.
 </div>
 
 
-<div id="outline-container-orgc0d0383" class="outline-4">
-<h4 id="orgc0d0383"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
+<div id="outline-container-org1a2fc14" class="outline-4">
+<h4 id="org1a2fc14"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 As the name suggests, reactions are applied continuously throughout the
@@ -292,8 +299,8 @@ the following:
 </div>
 </div>
 
-<div id="outline-container-org7ec9fb7" class="outline-4">
-<h4 id="org7ec9fb7"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
+<div id="outline-container-org36e0c4c" class="outline-4">
+<h4 id="org36e0c4c"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -346,8 +353,8 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 
-<div id="outline-container-org31bb931" class="outline-4">
-<h4 id="org31bb931"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
+<div id="outline-container-org9dbf036" class="outline-4">
+<h4 id="org9dbf036"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 Although the reaction notation is intuitive, on its own it does not
@@ -412,25 +419,207 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 
-<div id="outline-container-orgdf3f5cb" class="outline-2">
-<h2 id="orgdf3f5cb"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div id="outline-container-orga2a4616" class="outline-2">
+<h2 id="orga2a4616"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Trajectories are simply realisations of the population process.  There are two
+distinct types of trajectories in ReMASTER: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
+</p>
+
+<p>
+Stochastic trajectories are simulated using a standard Gillespie-style
+algorithm, and are exact realisations of the continuous-time
+discrete-state Markov process defined by the reactions.  These are the
+trajectories that you'll want to use to simulate trees under
+birth-death phylodynamic models.
+</p>
+
+<p>
+Deterministic trajectories are simulated by integrating a set of
+ordinary differential equations corresponding to the reactions.  The
+dynamics generated are essentially the limiting behaviour of the
+stochastic trajectories when the population sizes are very large and
+the relative impact of the demographic stochasticity becomes
+vanishingly small.  These are the trajectories you'll want to use to
+simulate trees under coalescent models or coalescent approximations of
+birth-death models.
+</p>
 </div>
 
-<div id="outline-container-orgdbd4d64" class="outline-2">
-<h2 id="orgdbd4d64"><span class="section-number-2">5.</span> Tree simulation</h2>
+<div id="outline-container-org32f44c7" class="outline-3">
+<h3 id="org32f44c7"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Once the population and reaction elements are specified, defining a stochastic trajectory
+in ReMASTER's XML is very easy.
+</p>
+
+<p>
+For example, the following represents a stochastic birth-death-sampling process
+trajectory with constant rates:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">trajectory</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span>
+            <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+  &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+
+  &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.2"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+  &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+&lt;/<span style="color: #ff1493;">trajectory</span>&gt;
+</pre>
 </div>
 
-<div id="outline-container-orge4016fd" class="outline-2">
-<h2 id="orge4016fd"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+<p>
+The <code>maxTime</code> attribute specifies the maximum end time of the simulation.  For stochastic trajectories
+this attribute is actually optional, since there are many birth-death processes (although not this one)
+are guaranteed to terminate in finite amount of time.  (ReMASTER always ceases the simulation once
+no reactions are able to fire.)
+</p>
+</div>
 </div>
 
-<div id="outline-container-org222fdbb" class="outline-2">
-<h2 id="org222fdbb"><span class="section-number-2">7.</span> Examples</h2>
+<div id="outline-container-org5f6d362" class="outline-3">
+<h3 id="org5f6d362"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
+</div>
+
+<div id="outline-container-orgeaac1c6" class="outline-3">
+<h3 id="orgeaac1c6"><span class="section-number-3">4.3.</span> Self-contained trajectory simulation XMLs</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
+it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
+ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&gt;</code> element as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">beast</span> <span style="color: #ff69b4;">version</span>=<span style="color: #61CE3C;">"2.0"</span> <span style="color: #ff69b4;">namespace</span>=<span style="color: #61CE3C;">"beast.core.parameter:remaster"</span>&gt;
+  &lt;<span style="color: #ff1493;">run</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Simulator"</span> <span style="color: #ff69b4;">nSims</span>=<span style="color: #61CE3C;">"100"</span>&gt;
+    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+      &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+      &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.2"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+      &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+    &lt;/<span style="color: #ff1493;">simulate</span>&gt;
+
+    &lt;<span style="color: #ff1493;">logger</span> <span style="color: #ff69b4;">fileName</span>=<span style="color: #61CE3C;">"output.traj"</span>&gt;
+      &lt;<span style="color: #ff1493;">log</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"trajectory"</span>/&gt;
+    &lt;/<span style="color: #ff1493;">logger</span>&gt;
+  &lt;/<span style="color: #ff1493;">run</span>&gt;
+&lt;/<span style="color: #ff1493;">beast</span>&gt;
+</pre>
+</div>
+
+<p>
+The <code>Simulator</code> takes the following inputs:
+</p>
+<dl class="org-dl">
+<dt>nSims</dt><dd>an integer specifying the number of independent simulations to perform,</dd>
+<dt>simulate</dt><dd>an object representing the simulation, in this case a <code>StochasticTrajectory</code>, and</dd>
+<dt>logger</dt><dd>what to record in the output files for each replicate of the simulation.
+This input can take multiple values, one for each output file.
+(In this case we only produce one output file, containing a representation of the whole simulated trajectory.)</dd>
+</dl>
+
+<p>
+To run the simulation and produce the output, copy the above XML into
+a file named something like "BDtraj.xml" and then run it through BEAST:
+</p>
+<pre class="example" id="orgab1cd3d">
+$ beast BDtraj.xml
+</pre>
+
+<p>
+This should produce some screen output, together with a file
+"output.traj" containing the simulated trajectories.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9f304fd" class="outline-3">
+<h3 id="org9f304fd"><span class="section-number-3">4.4.</span> Plotting simulated trajectories</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+In order to actually visualise the simulation output, we can make use of the script
+<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the ReMASTER repository
+to load the trajectories into a data frame:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #96CBFE;">source</span>(<span style="color: #61CE3C;">"&lt;PATH&gt;/ReMASTER/scripts/trajTools.R"</span>)
+traj <span style="color: #96CBFE;">&lt;-</span> loadTrajectories(<span style="color: #61CE3C;">"output.traj"</span>)
+</pre>
+</div>
+<p>
+(Here "&lt;PATH&gt;" is the path to the ReMASTER repository or package directory.)
+</p>
+
+<p>
+The resulting data frame has the following layout:
+</p>
+<pre class="example" id="orgb5e2c12">
+&gt; traj
+# A tibble: 8,039 × 5
+        t population index value Sample
+    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
+ 1 0      X              0     1      0
+ 2 1.05   X              0     0      0
+ 3 0      X              0     1      1
+ 4 0.0269 X              0     2      1
+ 5 0.0484 X              0     3      1
+ 6 0.213  X              0     2      1
+ 7 0.990  X              0     1      1
+ 8 1.73   X              0     2      1
+ 9 1.80   X              0     3      1
+10 1.95   X              0     4      1
+# … with 8,029 more rows
+</pre>
+<p>
+Each row specifies the size of a particular population (and
+subpopulation) at a particular time.  The "Sample" indicies
+indicate to which specific simulated trajectory the results belong.
+</p>
+
+<p>
+This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">ggplot2</a>:
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(traj, aes(t, value, group_by=factor(traj))) + geom_step(alpha=0.5)
+</pre>
+</div>
+
+
+<figure id="org0454ba4">
+<img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
+
+</figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6554aac" class="outline-2">
+<h2 id="org6554aac"><span class="section-number-2">5.</span> Tree simulation</h2>
+</div>
+
+<div id="outline-container-org69838f1" class="outline-2">
+<h2 id="org69838f1"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+</div>
+
+<div id="outline-container-org31ce2f6" class="outline-2">
+<h2 id="org31ce2f6"><span class="section-number-2">7.</span> Examples</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+The <code>examples/</code> directory of the package repository contains a growing list of example
+ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
+You can also access these example scripts directly via the Github repository for the
+package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">https://github.com/tgvaughan/remaster/tree/master/examples</a>.
+</p>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2022-09-16 Fri 15:38</p>
+<p class="date">Created: 2022-09-16 Fri 17:23</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
