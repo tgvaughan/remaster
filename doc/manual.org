@@ -2,6 +2,7 @@
 #+author: Tim Vaughan
 
 #+SETUPFILE: theme.org
+#+EXPORT_FILE_NAME: index.html
 
 **Warning: Remaster is still in development and not yet suitable for production use.**
 
