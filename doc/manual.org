@@ -1,0 +1,185 @@
+#+title: ReMASTER Documentation
+#+author: Tim Vaughan
+
+#+SETUPFILE: theme.org
+
+**Warning: Remaster is still in development and not yet suitable for production use.**
+
+GitHub Repository: https://github.com/tgvaughan/remaster
+
+* Overview
+
+ReMASTER is a flexible tool for simulating trajectories
+and trees from birth-death and coalescent models commonly used in
+phylodynamic inference, as well as some less common models.
+
+ReMASTER defines stochastic population models using an intuitive
+"reaction" notation borrowed from Chemistry.  Using this notation,
+a simple birth-death process on the number of individuals of type $X$
+might be expressed using the following pair of reactions:
+$$X \overset{\lambda}{\longrightarrow} 2X$$
+and
+$$X \overset{\mu}{\longrightarrow} 0$$
+where in each case the elements on the left-hand side of the arrow
+indicate the individual(s) involved in the reaction (the reactants),
+and the elements on the right-hand side correspond to the individual(s)
+remaining after the reaction has fired.  The symbol above the arrow
+represents the rate (probability per unit time) at which the reaction
+fires for each available combination of reactants.
+
+In order to permit the simulation of reconstructed phylogenies corresponding
+to subsets of the whole population, ReMASTER allows users to specify that
+one or more of the model populations are "sample" populations.  This means
+that sampling processes can be explicitly included in the simulation model.
+For instance, by adding the reaction
+$$ X \overset{\psi}{\longrightarrow} S$$
+where $S$ is defined as a sample population, the birth-death model above becomes the
+linear birth-death-sampling model which is the basis of much modern phylodynamic inference.
+
+In addition, ReMASTER allows one to define "punctual" reactions which occur
+at pre-determined times and fire a fixed or stochastic number of times.
+Besides allowing models to include interesting discrete events, this allows
+users to pre-specify sample counts and times.
+
+Setting up a model in master involves composing an XML input file
+describing initial population sizes and the set of reactions governing
+their dynamics.  The input file format is quite readable and concise.
+For example, the following is a complete XML input file for 
+simulating 100 trees under a the above birth-death sampling model with
+$\lambda=2$, $\mu=1$ and $\psi=0.1$:
+
+#+begin_src xml
+<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+    <run spec="Simulator" nSims="100">
+        <simulate spec="SimulatedTree" id="tree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=10">
+                <population spec="RealParameter" id="X" value="1"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+                <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+                <reaction spec="Reaction" rate="0.1"> X -> S </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="simulated.trees">
+            <log idref="tree"/>
+        </logger>
+    </run>
+</beast>
+#+end_src
+
+ReMASTER is a [[https://www.beast2.org/][BEAST 2]] package, and integrates well with that platform.
+Simulated ReMASTER trees can be used directly inside of regular BEAST
+XML analysis scripts to initialise MCMC states or construct
+simulation-based validation studies.
+
+** The name
+
+"ReMASTER" is a play on the name of an earlier simulation tool, [[https://tgvaughan.github.io/MASTER][MASTER]].
+ReMASTER is a new implementation which is faster, leaner, and more capable
+of performing the simulation tasks for which MASTER itself is actually used.
+
+** License
+
+ReMASTER is free software, and is made available under the terms of
+version 3 of the GNU General Public License, the text of which is
+available [[https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING][here]].  The source code for the project can be found at the
+official Github project page: https://github.com/tgvaughan/remaster.
+
+* Installation
+
+ReMASTER is a BEAST 2 package and will eventually be available for installation
+directly from the standard BEAST 2 package repository.  However, while it is still
+in development, installation must be done as follows:
+
+1. Open BEAUti,
+2. Open the =File= menu and select =Manage packages=.
+3. Press the =Package repositories= button at the bottom of the dialog box, then add the
+   following URL: https://tgvaughan.github.io/remaster/package.xml
+4. Press =Done= to return to the package list.
+5. Select "remaster" from the package list and press the =Install/Upgrade= button.
+
+ReMASTER should now be available on your system, and running beast
+with a ReMASTER input file should perform the corresponding
+simulation.
+
+* Model specification
+
+Like MASTER, ReMASTER defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
+
+** Populations
+
+A population in ReMASTER is simply a ~RealParameter~ (or other
+~Function~) with a specific ID.  The value of the ~RealParameter~ is
+used as its initial population size in the simulation.
+
+For example, the following defines a population named "X" with an initial size
+of 10:
+#+begin_src xml
+<population id="X" spec="RealParameter" value="10"/>
+#+end_src
+
+If the ~RealParameter~ is a vector, its elements represent subpopulations.
+For example, the following population "Y" has two subpopulations initially
+occupied by 1 and 10 individuals, respectively:
+#+begin_src xml
+<population id="Y" spec="RealParameter" value="1 10"/>
+#+end_src
+
+Populations may also be marked as "sample" populations by using the appropriate
+tag:
+#+begin_src xml
+<samplePopulation id="sample" spec="RealParameter" value="0"/>
+#+end_src
+For trajectories, sample populations behave just like any other
+population, besides being forbidden from appearing on the reactant
+side of a reaction.  individuals of these populations take on a
+special meaning when trees are simulated, however, as the production
+of a sample corresponds to the creation of a node (internal or
+external) in the resulting tree.
+
+** Reactions
+
+Reactions connect zero or more *reactant* individuals with zero or
+more *product* individuals.  The dynamics that ReMASTER simulates are
+simply the result of applying reactions at random or pre-determined times.
+
+There are two distinct kinds of reactions which can be specified: "continuous"
+reactions and "punctual" reactions."  Continuous are applied continuously
+throughout the simulation at pre-defined /rates/ which determine the probability
+per unit time for the reaction firing on each of the possible combinations of
+reactant individuals.  In contrast, punctual reactions are applied at one
+or more pre-defined /times/. At each of thes times, a punctual reaction may
+be applied with some probability to each available combination of
+reactants (i.e. the number of times the reaction fires is still
+random) or it may be applied a pre-specified number of times.
+
+*** Continuous reactions
+
+Use the following notation to specify a continuous reaction with a fixed rate in the XML:
+#+begin_src xml
+<reaction spec="Reaction" rate="2"> S + I -> 2I </reaction>
+#+end_src
+
+The rate of a continuous reaction can change at one or more times.  For example,
+to specify that the rate should change from 2 to 1.4 at time 4, you can write
+the following:
+#+begin_src xml
+<reaction spec="Reaction" rate="2 1" changeTime="4"> S + I -> 2I </reaction>
+#+end_src
+
+*** Punctual reactions
+
+To specify that a 
+
+*** Identifying parents and children
+
+* Trajectory simulation
+
+* Tree simulation
+
+* Integrating with BEAST
+
+* Examples
+
