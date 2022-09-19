@@ -4,6 +4,8 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.util.Randomizer;
 
+import static remaster.Util.nextBinomial;
+
 /**
  * Class of reactions which occur at pre-determined times.
  */
@@ -44,7 +46,6 @@ public class PunctualReaction extends AbstractReaction {
         super.initAndValidate();
     }
 
-
     @Override
     public double getIntervalEndTime() {
         if (currentInterval < times.length)
@@ -53,9 +54,32 @@ public class PunctualReaction extends AbstractReaction {
         return Double.POSITIVE_INFINITY;
     }
 
+    public double getIntervalStartTime() {
+        if (currentInterval > 0)
+            return times[currentInterval-1];
+
+        return Double.NEGATIVE_INFINITY;
+    }
+
+    public void decrementInterval() {
+        currentInterval -= 1;
+    }
+
+    public void resetIntervalToEnd() {
+        currentInterval = times.length;
+    }
+
     @Override
     public double[] getAllIntervalEndTimes() {
         return times;
+    }
+
+    public double getMaxReactCount(TrajectoryState state) {
+        double N = Double.POSITIVE_INFINITY;
+        for (ReactElement el : reactants.elementSet())
+            N = Math.min(Math.floor(state.get(el)/reactants.count(el)), N);
+
+        return N;
     }
 
     public double implementEvent(TrajectoryState state, boolean stochastic) {
@@ -71,26 +95,12 @@ public class PunctualReaction extends AbstractReaction {
         if (p == 0.0) {
             n = 0.0;
         } else {
-            double N = Double.POSITIVE_INFINITY;
-            for (ReactElement el : reactants.elementSet())
-                N = Math.min(Math.floor(state.get(el)/reactants.count(el)), N);
-
+            double N = getMaxReactCount(state);
             if (p == 1.0) {
                 n = N;
             } else {
                 if (stochastic) {
-                    // Sample number of reactions:
-                    double logP = N * Math.log(1 - p);
-                    double C = Math.exp(logP);
-                    double logf = Math.log(p / (1 - p));
-
-                    n = 0;
-                    double u = Randomizer.nextDouble();
-                    while (u > C) {
-                        n += 1;
-                        logP += logf + Math.log(N - n + 1) - Math.log(n);
-                        C += Math.exp(logP);
-                    }
+                    n =  nextBinomial(N, p);
                 } else
                     n = p*N;
             }

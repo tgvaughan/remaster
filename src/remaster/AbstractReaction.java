@@ -37,7 +37,7 @@ public abstract class AbstractReaction extends BEASTObject {
 
     int currentInterval = 0;
 
-    public void reset() {
+    public void resetInterval() {
         currentInterval = 0;
     }
 

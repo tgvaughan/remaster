@@ -28,7 +28,7 @@ public class StochasticTrajectory extends AbstractTrajectory {
         events.clear();
 
         for (AbstractReaction reaction : reactions)
-            reaction.reset();
+            reaction.resetInterval();
 
         List<AbstractReaction> reactionsSortedByChangeTimes = new ArrayList<>(reactions);
         reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));

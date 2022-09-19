@@ -4,7 +4,6 @@ import beast.core.Function;
 import beast.core.Input;
 import beast.core.parameter.IntegerParameter;
 import beast.core.parameter.RealParameter;
-import beast.core.util.Log;
 import beast.evolution.tree.Node;
 import beast.util.Randomizer;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -14,14 +13,9 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.events.EventHandler;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
-import org.apache.commons.math3.ode.nonstiff.DormandPrince54Integrator;
-import org.apache.commons.math3.ode.nonstiff.HighamHall54Integrator;
-import org.apache.commons.math3.ode.sampling.StepHandler;
-import org.apache.commons.math3.ode.sampling.StepInterpolator;
 
 import java.io.PrintStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DeterministicTrajectory extends AbstractTrajectory {
 
@@ -33,6 +27,9 @@ public class DeterministicTrajectory extends AbstractTrajectory {
             "Integration time step length relative to to maxTime.",
             new RealParameter("1e-4"));
     FirstOrderIntegrator integrator;
+
+    public ContinuousOutputModel continuousOutputModel;
+    public double stopTime;
 
     @Override
     public void initAndValidate() {
@@ -48,8 +45,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         doSimulation();
     }
 
-    public ContinuousOutputModel continuousOutputModel;
-    public double stopTime;
+
 
     @Override
     public boolean doSimulation() {
@@ -90,7 +86,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
             public void init(double t0, double[] y0, double tf) {
                 Set<Double> changeTimeSet = new HashSet<>();
                 for (AbstractReaction reaction : reactions) {
-                    reaction.reset();
+                    reaction.resetInterval();
                     for (double t : reaction.getAllIntervalEndTimes())
                         changeTimeSet.add(t);
                 }
@@ -117,25 +113,28 @@ public class DeterministicTrajectory extends AbstractTrajectory {
 
             @Override
             public void resetState(double t, double[] y) {
-                AbstractReaction reaction = reactionsSortedByChangeTimes.get(0);
+                double eventTime = reactionsSortedByChangeTimes.get(0).getIntervalEndTime();
+                while (reactionsSortedByChangeTimes.get(0).getIntervalEndTime() == eventTime) {
+                    AbstractReaction reaction = reactionsSortedByChangeTimes.get(0);
 
-                if (reaction instanceof PunctualReaction) {
-                    PunctualReaction punctualReaction = (PunctualReaction) reaction;
+                    if (reaction instanceof PunctualReaction) {
+                        PunctualReaction punctualReaction = (PunctualReaction) reaction;
 
-                    System.arraycopy(y, 0, state.occupancies, 0, y.length);
-                    punctualReaction.implementEvent(state, false);
-                    System.arraycopy(state.occupancies, 0, y, 0, y.length);
+                        System.arraycopy(y, 0, state.occupancies, 0, y.length);
+                        punctualReaction.implementEvent(state, false);
+                        System.arraycopy(state.occupancies, 0, y, 0, y.length);
+                    }
+
+                    reaction.incrementInterval();
+                    reactionsSortedByChangeTimes
+                            .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
                 }
-
-                reaction.incrementInterval();;
-                reactionsSortedByChangeTimes
-                        .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
             }
         };
 
         integrator.addEventHandler(rateShiftHandler,
-                1e-2*maxTimeInput.get().getArrayValue(),
-                1e-5*maxTimeInput.get().getArrayValue(),
+                1e-2 * maxTimeInput.get().getArrayValue(),
+                1e-5 * maxTimeInput.get().getArrayValue(),
                 10);
 
         if (endCondition != null) {
@@ -182,6 +181,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
 
         if (acceptCondition != null && !acceptCondition.isMet()) {
             System.out.println("Trajectory acceptance condition not met: " + mustHaveInput.get());
+            return false;
         }
 
         state.setFinal();
@@ -196,10 +196,34 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         LineageFactory lineageFactory = new LineageFactory();
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
 
-        for (double t = stopTime; t>0; t-=dt) {
+        for (PunctualReaction reaction : punctualReactions)
+            reaction.resetIntervalToEnd();
+
+        List<PunctualReaction> sortedPunctualReactions = new ArrayList<>(punctualReactions);
+        sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+
+        while (!sortedPunctualReactions.isEmpty() && sortedPunctualReactions.get(0).getIntervalStartTime()>stopTime) {
+            sortedPunctualReactions.get(0).decrementInterval();
+            sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+        }
+
+        double t = stopTime;
+        while (t > 0.0) {
             continuousOutputModel.setInterpolatedTime(t);
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
                     state.occupancies, 0, state.occupancies.length);
+
+            while (!sortedPunctualReactions.isEmpty() &&
+                    sortedPunctualReactions.get(0).getIntervalStartTime()>t) {
+                PunctualReaction reaction = sortedPunctualReactions.get(0);
+                reaction.decrementInterval();
+                double n = reaction.implementEvent(state, true);
+                for (int i=0; i<n; i++) {
+                    reaction.incrementLineages(lineages, state, t, lineageFactory);
+                    reaction.reverseIncremementState(state, 1);
+                }
+                sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+            }
 
             for (Reaction reaction : continuousReactions) {
                 reaction.updatePropensity(state);
@@ -210,6 +234,9 @@ public class DeterministicTrajectory extends AbstractTrajectory {
                     reaction.incrementLineages(lineages, state, t, lineageFactory);
                 }
             }
+
+            t -= dt;
+
         }
 
         List<Lineage> rootLineages = new ArrayList<>();

@@ -13,7 +13,8 @@
             <reaction spec="Reaction" rate="0 1" changeTimes="2"> I -> R </reaction>
             <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
 
-            <reaction spec="PunctualReaction" n="5" times="3"> I -> sample </reaction>
+            <reaction spec="PunctualReaction" n="100" times="3"> I -> sample </reaction>
+            <reaction spec="PunctualReaction" p="0.5" times="5"> I -> sample </reaction>
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">

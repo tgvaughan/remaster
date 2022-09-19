@@ -13,7 +13,7 @@
                 <reaction spec="Reaction" rate="0.01"> S + I:a -> I:a + E:a </reaction>
                 <reaction spec="Reaction" rate="1"> E:a -> I:a </reaction>
                 <reaction spec="Reaction" rate="1"> I -> R </reaction>
-                <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
+                <reaction spec="PunctualReaction" n="5" times="5 6 7 8 9"> I -> sample </reaction>
             </trajectory>
         </simulate>
 
