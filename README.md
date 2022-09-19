@@ -24,6 +24,15 @@ https://tgvaughan.github.io/remaster/package.xml
 Development News
 ----------------
 
+### 2022-09-19
+
+I've added [a draft manual](https://tgvaughan.github.io/remaster),
+for those wanting to start using ReMASTER.
+
+Remember, this package is still under a fair bit of churn, so there's
+no guarantee that existing behaviour won't change substantially in
+the future.
+
 ### 2022-09-15
 
 Simulation of deterministic ODE equivalents of birth-death models
