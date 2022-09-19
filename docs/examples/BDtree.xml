@@ -1,0 +1,22 @@
+<beast version="2.0" namespace="beast.core.parameter:remaster">
+  <run spec="Simulator" nSims="1">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
+        <population id="X" spec="RealParameter" value="1"/>
+        <samplePopulation id="samp" spec="RealParameter" value="0"/>
+
+        <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
+        <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
+        <reaction spec="Reaction" rate="0.5"> X -> samp </reaction>
+      </trajectory>
+    </simulate>
+
+    <logger fileName="output.traj">
+      <log idref="trajectory"/>
+    </logger>
+
+    <logger fileName="output.trees">
+      <log idref="tree"/>
+    </logger>
+  </run>
+</beast>
