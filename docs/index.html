@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-19 Mon 09:51 -->
+<!-- 2022-09-19 Mon 13:59 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER Documentation</title>
@@ -25,40 +25,46 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7b953fb">1. Overview</a>
+<li><a href="#orgccdd327">1. Overview</a>
 <ul>
-<li><a href="#orgde21c53">1.1. The name</a></li>
-<li><a href="#org1eb1c6e">1.2. License</a></li>
+<li><a href="#org7cbc87a">1.1. The name</a></li>
+<li><a href="#org1444685">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#org083f772">2. Installation</a></li>
-<li><a href="#org91fcf0b">3. Model specification</a>
+<li><a href="#orgf5ad7e7">2. Installation</a></li>
+<li><a href="#org1e5e18d">3. Model specification</a>
 <ul>
-<li><a href="#org891a1b0">3.1. Populations</a></li>
-<li><a href="#org5349838">3.2. Reactions</a>
+<li><a href="#orgbac44f2">3.1. Populations</a></li>
+<li><a href="#org75d807c">3.2. Reactions</a>
 <ul>
-<li><a href="#org462b3a2">3.2.1. Continuous reactions</a></li>
-<li><a href="#org12ddd1b">3.2.2. Punctual reactions</a></li>
-<li><a href="#org46c55e2">3.2.3. Identifying parents and children</a></li>
+<li><a href="#orgaf5f4da">3.2.1. Continuous reactions</a></li>
+<li><a href="#org54278c0">3.2.2. Punctual reactions</a></li>
+<li><a href="#orgac4230b">3.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org42b7d05">4. Trajectory simulation</a>
+<li><a href="#org587f397">4. Trajectory simulation</a>
 <ul>
-<li><a href="#org967d9d9">4.1. Stochastic Trajectories</a></li>
-<li><a href="#org4170128">4.2. Deterministic Trajectories</a></li>
-<li><a href="#orgfb20f72">4.3. Placing conditions on trajectories</a></li>
-<li><a href="#org5c525a1">4.4. Self-contained trajectory simulation XMLs</a></li>
-<li><a href="#orgeffc6a6">4.5. Plotting simulated trajectories</a></li>
+<li><a href="#org2258d18">4.1. Stochastic Trajectories</a></li>
+<li><a href="#orgecb1b22">4.2. Deterministic Trajectories</a></li>
+<li><a href="#org490aefe">4.3. Placing conditions on trajectories</a></li>
+<li><a href="#org4e3d8f9">4.4. Self-contained trajectory simulation XMLs</a></li>
+<li><a href="#orgdf192b3">4.5. Plotting simulated trajectories</a></li>
 </ul>
 </li>
-<li><a href="#orgf98bc8e">5. Tree simulation</a></li>
-<li><a href="#org06a02a9">6. Integrating with BEAST</a></li>
-<li><a href="#orgf3b17b2">7. Examples</a></li>
-<li><a href="#org52b542f">8. Appendix</a>
+<li><a href="#org16deedf">5. Tree simulation</a>
 <ul>
-<li><a href="#orgeb34920">8.1. Condition syntax</a></li>
+<li><a href="#orgb8d3d86">5.1. Self-contained tree simulation XMLs</a></li>
+<li><a href="#org7ce50a0">5.2. Logging typed trees</a></li>
+<li><a href="#orgca654b9">5.3. Logging untyped trees</a></li>
+</ul>
+</li>
+<li><a href="#orgcbe2b9b">6. Integrating with BEAST</a></li>
+<li><a href="#org068cfc9">7. Examples</a></li>
+<li><a href="#orgf953a7e">8. Appendix</a>
+<ul>
+<li><a href="#org47608ae">8.1. Condition syntax</a></li>
 </ul>
 </li>
 </ul>
@@ -72,8 +78,8 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-org7b953fb" class="outline-2">
-<h2 id="org7b953fb"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orgccdd327" class="outline-2">
+<h2 id="orgccdd327"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 ReMASTER is a flexible tool for simulating trajectories
@@ -154,8 +160,8 @@ simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-orgde21c53" class="outline-3">
-<h3 id="orgde21c53"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-org7cbc87a" class="outline-3">
+<h3 id="org7cbc87a"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 "ReMASTER" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
@@ -165,8 +171,8 @@ of performing the simulation tasks for which MASTER itself is actually used.
 </div>
 </div>
 
-<div id="outline-container-org1eb1c6e" class="outline-3">
-<h3 id="org1eb1c6e"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-org1444685" class="outline-3">
+<h3 id="org1444685"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 ReMASTER is free software, and is made available under the terms of
@@ -178,8 +184,8 @@ official Github project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-org083f772" class="outline-2">
-<h2 id="org083f772"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-orgf5ad7e7" class="outline-2">
+<h2 id="orgf5ad7e7"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 ReMASTER is a BEAST 2 package and will eventually be available for installation
@@ -204,16 +210,16 @@ simulation.
 </div>
 </div>
 
-<div id="outline-container-org91fcf0b" class="outline-2">
-<h2 id="org91fcf0b"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-org1e5e18d" class="outline-2">
+<h2 id="org1e5e18d"><span class="section-number-2">3.</span> Model specification</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, ReMASTER defines models in terms of <a href="#org891a1b0">populations</a> and <a href="#org5349838">reactions</a>.
+Like MASTER, ReMASTER defines models in terms of <a href="#orgbac44f2">populations</a> and <a href="#org75d807c">reactions</a>.
 </p>
 </div>
 
-<div id="outline-container-org891a1b0" class="outline-3">
-<h3 id="org891a1b0"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-orgbac44f2" class="outline-3">
+<h3 id="orgbac44f2"><span class="section-number-3">3.1.</span> Populations</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 A population in ReMASTER is simply a <code>RealParameter</code> (or other
@@ -259,8 +265,8 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-org5349838" class="outline-3">
-<h3 id="org5349838"><span class="section-number-3">3.2.</span> Reactions</h3>
+<div id="outline-container-org75d807c" class="outline-3">
+<h3 id="org75d807c"><span class="section-number-3">3.2.</span> Reactions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
@@ -275,8 +281,8 @@ reactions and "punctual" reactions.
 </div>
 
 
-<div id="outline-container-org462b3a2" class="outline-4">
-<h4 id="org462b3a2"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
+<div id="outline-container-orgaf5f4da" class="outline-4">
+<h4 id="orgaf5f4da"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 As the name suggests, reactions are applied continuously throughout the
@@ -305,8 +311,8 @@ the following:
 </div>
 </div>
 
-<div id="outline-container-org12ddd1b" class="outline-4">
-<h4 id="org12ddd1b"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
+<div id="outline-container-org54278c0" class="outline-4">
+<h4 id="org54278c0"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -359,8 +365,8 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 
-<div id="outline-container-org46c55e2" class="outline-4">
-<h4 id="org46c55e2"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
+<div id="outline-container-orgac4230b" class="outline-4">
+<h4 id="orgac4230b"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 Although the reaction notation is intuitive, on its own it does not
@@ -425,8 +431,8 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 
-<div id="outline-container-org42b7d05" class="outline-2">
-<h2 id="org42b7d05"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div id="outline-container-org587f397" class="outline-2">
+<h2 id="org587f397"><span class="section-number-2">4.</span> Trajectory simulation</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Trajectories are simply realisations of the population process.  There are two
@@ -453,8 +459,8 @@ birth-death models.
 </p>
 </div>
 
-<div id="outline-container-org967d9d9" class="outline-3">
-<h3 id="org967d9d9"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
+<div id="outline-container-org2258d18" class="outline-3">
+<h3 id="org2258d18"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Once the population and reaction elements are specified, defining a
@@ -488,8 +494,8 @@ fire.)
 </div>
 </div>
 
-<div id="outline-container-org4170128" class="outline-3">
-<h3 id="org4170128"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
+<div id="outline-container-orgecb1b22" class="outline-3">
+<h3 id="orgecb1b22"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Defining deterministic trajectories is almost exactly the same as defining
@@ -515,8 +521,8 @@ with rate $\lamba-\mu=1.2-1.0=0.2$:
 </div>
 </div>
 
-<div id="outline-container-orgfb20f72" class="outline-3">
-<h3 id="orgfb20f72"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
+<div id="outline-container-org490aefe" class="outline-3">
+<h3 id="org490aefe"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 In addition to the rates and initial population sizes, conditions can
@@ -561,13 +567,13 @@ at the end of the simulation.
 </p>
 
 <p>
-The complete syntax for these predicates is specified in 
+The complete syntax for these predicates is specified in section <a href="#org47608ae">8.1</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org5c525a1" class="outline-3">
-<h3 id="org5c525a1"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
+<div id="outline-container-org4e3d8f9" class="outline-3">
+<h3 id="org4e3d8f9"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
@@ -578,7 +584,7 @@ ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&g
 <div class="org-src-container">
 <pre class="src src-xml">&lt;<span style="color: #ff1493;">beast</span> <span style="color: #ff69b4;">version</span>=<span style="color: #61CE3C;">"2.0"</span> <span style="color: #ff69b4;">namespace</span>=<span style="color: #61CE3C;">"beast.core.parameter:remaster"</span>&gt;
   &lt;<span style="color: #ff1493;">run</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Simulator"</span> <span style="color: #ff69b4;">nSims</span>=<span style="color: #61CE3C;">"100"</span>&gt;
-    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"trajectory"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
       &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
       &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.2"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
       &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
@@ -607,7 +613,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="org3c3a3df">
+<pre class="example" id="org15ecd28">
 $ beast BDtraj.xml
 </pre>
 
@@ -618,11 +624,11 @@ This should produce some screen output, together with a file
 </div>
 </div>
 
-<div id="outline-container-orgeffc6a6" class="outline-3">
-<h3 id="orgeffc6a6"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
+<div id="outline-container-orgdf192b3" class="outline-3">
+<h3 id="orgdf192b3"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
-In order to actually visualise the simulation output, we can make use of the script
+In order to actually visualize the simulation output, we can make use of the script
 <a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the ReMASTER repository
 to load the trajectories into a data frame:
 </p>
@@ -639,7 +645,7 @@ traj <span style="color: #96CBFE;">&lt;-</span> loadTrajectories(<span style="co
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org9f12dbe">
+<pre class="example" id="orge95c9c6">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -657,7 +663,7 @@ The resulting data frame has the following layout:
 # … with 8,029 more rows
 </pre>
 <p>
-Each row specifies the size of a particular population (and
+Each row specifies the size of a particular population (or
 subpopulation) at a particular time.  The "Sample" indicies
 indicate to which specific simulated trajectory the results belong.
 </p>
@@ -671,7 +677,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="org5e410b0">
+<figure id="orgc667f03">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -679,23 +685,244 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 </div>
 
-<div id="outline-container-orgf98bc8e" class="outline-2">
-<h2 id="orgf98bc8e"><span class="section-number-2">5.</span> Tree simulation</h2>
+<div id="outline-container-org16deedf" class="outline-2">
+<h2 id="org16deedf"><span class="section-number-2">5.</span> Tree simulation</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Once a trajectory simulation is configured, producing the corresponding trees
 is easy.  All that is required is to enclose the trajectory element
-(<code>DeterministicTrajectory</code> or <code>StochasticTrajectory</code>) in a <code>SimulatedTree</code> element.
+(<code>DeterministicTrajectory</code> or <code>StochasticTrajectory</code>) in a <code>SimulatedTree</code> element:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">tree</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"SimulatedTree"</span>&gt;
+  &lt;<span style="color: #ff1493;">trajectory</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span>
+              <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+    &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+    &lt;<span style="color: #ff1493;">samplePopulation</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"samp"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
+
+    &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.4"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+    &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+    &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; X -&gt; samp &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+  &lt;/<span style="color: #ff1493;">trajectory</span>&gt;
+&lt;/<span style="color: #ff1493;">tree</span>&gt;
+</pre>
+</div>
+
+<p>
+Besides <code>trajectory</code>, <code>SimulatedTree</code> takes one optional input: <code>maxRetries</code>.  This is
+the maximum number of times the simulator should attempt to produce a tree, in the
+event that the first simulated tree does not have exactly one root lineage.
+(Simulated trees may have more than one root lineage in the instance that not
+all sampled lineages find a common ancestor before the start of the simulation;
+a situation common for deterministic trajectories. It can also occur when the initial
+number of individuals in the sampled population is greater than 1.)
+</p>
+</div>
+
+<div id="outline-container-orgb8d3d86" class="outline-3">
+<h3 id="orgb8d3d86"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+A self-contained tree simulation XML is very similar to a self-contained trajectory
+simulation XML.  The only differences are that tree simulation XMLs have a <code>SimulatedTree</code>
+object for the <code>&lt;simulate&gt;</code> element, and generally have a logger which writes the
+simulated trees to a file.
+</p>
+
+<p>
+For example, here is a full XML description of a tree simulator which produces
+trees sampled from a linear birth-death-sampling model and saves them to a file
+named "output.trees":
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">beast</span> <span style="color: #ff69b4;">version</span>=<span style="color: #61CE3C;">"2.0"</span> <span style="color: #ff69b4;">namespace</span>=<span style="color: #61CE3C;">"beast.core.parameter:remaster"</span>&gt;
+  &lt;<span style="color: #ff1493;">run</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Simulator"</span> <span style="color: #ff69b4;">nSims</span>=<span style="color: #61CE3C;">"1"</span>&gt;
+    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"tree"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"SimulatedTree"</span>&gt;
+      &lt;<span style="color: #ff1493;">trajectory</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"trajectory"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+        &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+        &lt;<span style="color: #ff1493;">samplePopulation</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"samp"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
+
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.4"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; X -&gt; samp &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+      &lt;/<span style="color: #ff1493;">trajectory</span>&gt;
+    &lt;/<span style="color: #ff1493;">simulate</span>&gt;
+
+    &lt;<span style="color: #ff1493;">logger</span> <span style="color: #ff69b4;">fileName</span>=<span style="color: #61CE3C;">"output.traj"</span>&gt;
+      &lt;<span style="color: #ff1493;">log</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"trajectory"</span>/&gt;
+    &lt;/<span style="color: #ff1493;">logger</span>&gt;
+
+    &lt;<span style="color: #ff1493;">logger</span> <span style="color: #ff69b4;">fileName</span>=<span style="color: #61CE3C;">"output.trees"</span>&gt;
+      &lt;<span style="color: #ff1493;">log</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"tree"</span>/&gt;
+    &lt;/<span style="color: #ff1493;">logger</span>&gt;
+  &lt;/<span style="color: #ff1493;">run</span>&gt;
+&lt;/<span style="color: #ff1493;">beast</span>&gt;
+</pre>
+</div>
+
+<p>
+Note that in this example we have left the trajectory logger in place,
+so in fact this XML produces both <code>output.traj</code> and <code>output.tree</code>
+files.
+</p>
+
+<p>
+Loading the tree file in a phylogenetic tree viewer such as <a href="https://icytree.org">icytree</a> allows you
+to view the result:
+</p>
+
+
+<figure id="org48a564d">
+<img src="examples/BDtree_output.png" alt="BDtree_output.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-org7ce50a0" class="outline-3">
+<h3 id="org7ce50a0"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The example model in the previous section contained only one main population
+type (besides the sample population).  However, many interesting models
+involve multiple types and result in trees whose edges are associated with
+different populations.  The standard BEAST tree logger used in the previous
+example will not record this information in its output file.
+</p>
+
+<p>
+In order to include this information so that it can be shown on the tree,
+you'll need to use the <code>TypedTreeLogger</code> in place of the standard logger:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">beast</span> <span style="color: #ff69b4;">version</span>=<span style="color: #61CE3C;">"2.0"</span> <span style="color: #ff69b4;">namespace</span>=<span style="color: #61CE3C;">"beast.core.parameter:remaster"</span>&gt;
+  &lt;<span style="color: #ff1493;">run</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Simulator"</span> <span style="color: #ff69b4;">nSims</span>=<span style="color: #61CE3C;">"1"</span>&gt;
+    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"tree"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"SimulatedTree"</span>&gt;
+      &lt;<span style="color: #ff1493;">trajectory</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"trajectory"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+        &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+        &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"Y"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
+        &lt;<span style="color: #ff1493;">samplePopulation</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"samp"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"0"</span>/&gt;
+
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"1.4"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.1"</span>&gt; X -&gt; Y &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+        &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"0.5"</span>&gt; Y -&gt; samp &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+      &lt;/<span style="color: #ff1493;">trajectory</span>&gt;
+    &lt;/<span style="color: #ff1493;">simulate</span>&gt;
+
+    &lt;<span style="color: #ff1493;">logger</span> <span style="color: #ff69b4;">fileName</span>=<span style="color: #61CE3C;">"output.trees"</span> <span style="color: #ff69b4;">mode</span>=<span style="color: #61CE3C;">"tree"</span>&gt;
+      &lt;<span style="color: #ff1493;">log</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"TypedTreeLogger"</span> <span style="color: #ff69b4;">tree</span>=<span style="color: #61CE3C;">"@tree"</span>/&gt;
+    &lt;/<span style="color: #ff1493;">logger</span>&gt;
+  &lt;/<span style="color: #ff1493;">run</span>&gt;
+&lt;/<span style="color: #ff1493;">beast</span>&gt;
+</pre>
+</div>
+
+<p>
+By loading the resulting tree file into <a href="https://icytree.org">icytree</a> and colouring the edges using
+the "type" attribute produces a visualisation in which the tree edges are
+labeled by their corresponding population types:
+</p>
+
+
+<figure id="orgdf69b5f">
+<img src="examples/BD2type_output.png" alt="BD2type_output.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-orgca654b9" class="outline-3">
+<h3 id="orgca654b9"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Occasionally you really <b>do</b> want to log trees without any additional
+type annotation.  With single-population models this can be achieved
+as shown in <a href="#orgb8d3d86">5.1</a>.  However,
+multi-population models (or models with sub-populations) often produce
+trees with internal nodes representing type changes.  These nodes will
+appear in the output trees, even when the edge types are not recorded.
+This can also produce problems when using ReMASTER <code>SimulatedTree</code> objects
+to initialise standard BEAST MCMC analyses, as the extra nodes will not
+be properly understood.
+</p>
+
+<p>
+To avoid these problems, use <code>TypedTreeLogger</code> as in the previous
+section, but add the attribute <code>removeSingletonNodes="true"</code>. This
+will produce a tree in which the internal degree 3 nodes (one parent
+two children) are still annotated, but in which degree 2 nodes (one
+parent one child) are removed.  Such trees are fully compatable with
+the rest of BEAST.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org06a02a9" class="outline-2">
-<h2 id="org06a02a9"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 </div>
 
-<div id="outline-container-orgf3b17b2" class="outline-2">
-<h2 id="orgf3b17b2"><span class="section-number-2">7.</span> Examples</h2>
+<div id="outline-container-orgcbe2b9b" class="outline-2">
+<h2 id="orgcbe2b9b"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the following ways:
+</p>
+
+<ul class="org-ul">
+<li>trees are standard BEAST <code>Tree</code> objects,</li>
+<li>it uses standard <code>Logger</code> objects to produce output,</li>
+<li>it uses <code>RealParameter</code> or <code>Function</code> objects to define populations,</li>
+<li>the inputs defining reaction rates, times, probabilities or numbers
+expect generic <code>Function</code> inputs.</li>
+</ul>
+
+<p>
+This means that it is possible to use ReMASTER to initialise MCMC chains, to
+simulate sequence data, or to produce single-XML simulation studies which combine
+both simulation and inference.
+</p>
+
+<p>
+Furthermore, the copious use of <code>Function</code> input types means that one can use
+the <code>Function</code>-specific objects from the <a href="https://github.com/tgvaughan/feast">feast</a> package to create simulation XMLs
+in which parameters are transformed in moderately complex ways before being
+applied to the simulation.
+</p>
+
+<p>
+For instance, suppose one wishes to simulate a tree under an epidemiological model
+defined by a basic reproductive number $R=\lambda/\mu$ instead of a birth rate.
+One can easily do this as follows:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #ff1493;">beast</span> <span style="color: #ff69b4;">version</span>=<span style="color: #61CE3C;">"2.0"</span> <span style="color: #ff69b4;">namespace</span>=<span style="color: #61CE3C;">"beast.core.parameter:remaster"</span>&gt;
+  &lt;<span style="color: #ff1493;">param</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"R"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1.5"</span>/&gt;
+  &lt;<span style="color: #ff1493;">param</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"mu"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1.0"</span>/&gt;
+
+  &lt;<span style="color: #ff1493;">param</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"lambda"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"feast.expressions.ExpCalculator"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"R*mu"</span>&gt;
+    &lt;<span style="color: #ff1493;">arg</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"R"</span>/&gt;
+    &lt;<span style="color: #ff1493;">arg</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"mu"</span>/&gt;
+  &lt;/<span style="color: #ff1493;">param</span>&gt;
+
+  &lt;<span style="color: #ff1493;">run</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Simulator"</span> <span style="color: #ff69b4;">nSims</span>=<span style="color: #61CE3C;">"1"</span>&gt;
+    &lt;<span style="color: #ff1493;">simulate</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"trajectory"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"StochasticTrajectory"</span> <span style="color: #ff69b4;">maxTime</span>=<span style="color: #61CE3C;">"10"</span>&gt;
+      &lt;<span style="color: #ff1493;">population</span> <span style="color: #ff69b4;">id</span>=<span style="color: #61CE3C;">"X"</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"RealParameter"</span> <span style="color: #ff69b4;">value</span>=<span style="color: #61CE3C;">"1"</span>/&gt;
+      &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"@lambda"</span>&gt; X -&gt; 2X &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+      &lt;<span style="color: #ff1493;">reaction</span> <span style="color: #ff69b4;">spec</span>=<span style="color: #61CE3C;">"Reaction"</span> <span style="color: #ff69b4;">rate</span>=<span style="color: #61CE3C;">"@mu"</span>&gt; X -&gt; 0 &lt;/<span style="color: #ff1493;">reaction</span>&gt;
+    &lt;/<span style="color: #ff1493;">simulate</span>&gt;
+
+    &lt;<span style="color: #ff1493;">logger</span> <span style="color: #ff69b4;">fileName</span>=<span style="color: #61CE3C;">"output.traj"</span>&gt;
+      &lt;<span style="color: #ff1493;">log</span> <span style="color: #ff69b4;">idref</span>=<span style="color: #61CE3C;">"trajectory"</span>/&gt;
+    &lt;/<span style="color: #ff1493;">logger</span>&gt;
+  &lt;/<span style="color: #ff1493;">run</span>&gt;
+&lt;/<span style="color: #ff1493;">beast</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org068cfc9" class="outline-2">
+<h2 id="org068cfc9"><span class="section-number-2">7.</span> Examples</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 The <code>examples/</code> directory of the package repository contains a growing list of example
@@ -707,19 +934,19 @@ package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">ht
 </div>
 
 
-<div id="outline-container-org52b542f" class="outline-2">
-<h2 id="org52b542f"><span class="section-number-2">8.</span> Appendix</h2>
+<div id="outline-container-orgf953a7e" class="outline-2">
+<h2 id="orgf953a7e"><span class="section-number-2">8.</span> Appendix</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-orgeb34920" class="outline-3">
-<h3 id="orgeb34920"><span class="section-number-3">8.1.</span> Condition syntax</h3>
+<div id="outline-container-org47608ae" class="outline-3">
+<h3 id="org47608ae"><span class="section-number-3">8.1.</span> Condition syntax</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conform to the following
 grammar:
 </p>
 
-<pre class="example" id="org66afdda">
+<pre class="example" id="org6e07616">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -789,8 +1016,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2022-09-19 Mon 09:51</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2022-09-19 Mon 13:59</p>
 </div>
 </body>
 </html>

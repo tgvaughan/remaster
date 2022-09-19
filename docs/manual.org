@@ -345,7 +345,7 @@ Similarly, to define a condition on the finished simulation, use the
 specifies that the  "sample" population must contain at most 50 individuals
 at the end of the simulation.
 
-The complete syntax for these predicates is specified in 
+The complete syntax for these predicates is specified in section [[*Condition syntax]].
 
 ** Self-contained trajectory simulation XMLs
 
@@ -356,7 +356,7 @@ ReMASTER's =Simulator= object, which can be used as a =<run>= element as follows
 #+begin_src xml
   <beast version="2.0" namespace="beast.core.parameter:remaster">
     <run spec="Simulator" nSims="100">
-      <simulate spec="StochasticTrajectory" maxTime="10">
+      <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
         <population id="X" spec="RealParameter" value="1"/>
         <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
         <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
@@ -387,7 +387,7 @@ This should produce some screen output, together with a file
 
 ** Plotting simulated trajectories
 
-In order to actually visualise the simulation output, we can make use of the script
+In order to actually visualize the simulation output, we can make use of the script
 [[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the ReMASTER repository
 to load the trajectories into a data frame:
 
@@ -415,7 +415,7 @@ The resulting data frame has the following layout:
 10 1.95   X              0     4      1
 # … with 8,029 more rows
 #+end_example
-Each row specifies the size of a particular population (and
+Each row specifies the size of a particular population (or
 subpopulation) at a particular time.  The "Sample" indicies
 indicate to which specific simulated trajectory the results belong.
 
@@ -424,16 +424,186 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
   ggplot(traj, aes(t, value, group_by=factor(traj))) + geom_step(alpha=0.5)
 #+end_src
 
-#+ATTR_HTML: width="200"
 [[file:examples/BDtraj_output.png]]
 
 * Tree simulation
 
 Once a trajectory simulation is configured, producing the corresponding trees
 is easy.  All that is required is to enclose the trajectory element
-(=DeterministicTrajectory= or =StochasticTrajectory=) in a =SimulatedTree= element.
+(=DeterministicTrajectory= or =StochasticTrajectory=) in a =SimulatedTree= element:
+#+begin_src xml
+  <tree spec="SimulatedTree">
+    <trajectory spec="StochasticTrajectory"
+                maxTime="10">
+      <population id="X" spec="RealParameter" value="1"/>
+      <samplePopulation id="samp" spec="RealParameter" value="0"/>
+
+      <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
+      <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
+      <reaction spec="Reaction" rate="0.5"> X -> samp </reaction>
+    </trajectory>
+  </tree>
+#+end_src
+
+Besides =trajectory=, =SimulatedTree= takes one optional input: =maxRetries=.  This is
+the maximum number of times the simulator should attempt to produce a tree, in the
+event that the first simulated tree does not have exactly one root lineage.
+(Simulated trees may have more than one root lineage in the instance that not
+all sampled lineages find a common ancestor before the start of the simulation;
+a situation common for deterministic trajectories. It can also occur when the initial
+number of individuals in the sampled population is greater than 1.)
+
+** Self-contained tree simulation XMLs 
+
+A self-contained tree simulation XML is very similar to a self-contained trajectory
+simulation XML.  The only differences are that tree simulation XMLs have a =SimulatedTree=
+object for the =<simulate>= element, and generally have a logger which writes the
+simulated trees to a file.
+
+For example, here is a full XML description of a tree simulator which produces
+trees sampled from a linear birth-death-sampling model and saves them to a file
+named "output.trees":
+
+#+begin_src xml
+  <beast version="2.0" namespace="beast.core.parameter:remaster">
+    <run spec="Simulator" nSims="1">
+      <simulate id="tree" spec="SimulatedTree">
+        <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
+          <population id="X" spec="RealParameter" value="1"/>
+          <samplePopulation id="samp" spec="RealParameter" value="0"/>
+
+          <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
+          <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
+          <reaction spec="Reaction" rate="0.5"> X -> samp </reaction>
+        </trajectory>
+      </simulate>
+
+      <logger fileName="output.traj">
+        <log idref="trajectory"/>
+      </logger>
+
+      <logger fileName="output.trees">
+        <log idref="tree"/>
+      </logger>
+    </run>
+  </beast>
+#+end_src
+
+Note that in this example we have left the trajectory logger in place,
+so in fact this XML produces both =output.traj= and =output.tree=
+files.
+
+Loading the tree file in a phylogenetic tree viewer such as [[https://icytree.org][icytree]] allows you
+to view the result:
+
+[[file:examples/BDtree_output.png]]
+
+** Logging typed trees
+
+The example model in the previous section contained only one main population
+type (besides the sample population).  However, many interesting models
+involve multiple types and result in trees whose edges are associated with
+different populations.  The standard BEAST tree logger used in the previous
+example will not record this information in its output file.
+
+In order to include this information so that it can be shown on the tree,
+you'll need to use the =TypedTreeLogger= in place of the standard logger:
+
+#+begin_src xml
+  <beast version="2.0" namespace="beast.core.parameter:remaster">
+    <run spec="Simulator" nSims="1">
+      <simulate id="tree" spec="SimulatedTree">
+        <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
+          <population id="X" spec="RealParameter" value="1"/>
+          <population id="Y" spec="RealParameter" value="0"/>
+          <samplePopulation id="samp" spec="RealParameter" value="0"/>
+
+          <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
+          <reaction spec="Reaction" rate="0.1"> X -> Y </reaction>
+          <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
+          <reaction spec="Reaction" rate="0.5"> Y -> samp </reaction>
+        </trajectory>
+      </simulate>
+
+      <logger fileName="output.trees" mode="tree">
+        <log spec="TypedTreeLogger" tree="@tree"/>
+      </logger>
+    </run>
+  </beast>
+#+end_src
+
+By loading the resulting tree file into [[https://icytree.org][icytree]] and colouring the edges using
+the "type" attribute produces a visualisation in which the tree edges are
+labeled by their corresponding population types:
+
+[[file:examples/BD2type_output.png]]
+
+** Logging untyped trees
+
+Occasionally you really *do* want to log trees without any additional
+type annotation.  With single-population models this can be achieved
+as shown in [[*Self-contained tree simulation XMLs]].  However,
+multi-population models (or models with sub-populations) often produce
+trees with internal nodes representing type changes.  These nodes will
+appear in the output trees, even when the edge types are not recorded.
+This can also produce problems when using ReMASTER =SimulatedTree= objects
+to initialise standard BEAST MCMC analyses, as the extra nodes will not
+be properly understood.
+
+To avoid these problems, use =TypedTreeLogger= as in the previous
+section, but add the attribute ~removeSingletonNodes="true"~. This
+will produce a tree in which the internal degree 3 nodes (one parent
+two children) are still annotated, but in which degree 2 nodes (one
+parent one child) are removed.  Such trees are fully compatable with
+the rest of BEAST.
 
 * Integrating with BEAST
+
+
+
+Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the following ways:
+
+- trees are standard BEAST =Tree= objects,
+- it uses standard =Logger= objects to produce output,
+- it uses ~RealParameter~ or ~Function~ objects to define populations,
+- the inputs defining reaction rates, times, probabilities or numbers
+  expect generic ~Function~ inputs.
+
+This means that it is possible to use ReMASTER to initialise MCMC chains, to
+simulate sequence data, or to produce single-XML simulation studies which combine
+both simulation and inference.
+
+Furthermore, the copious use of =Function= input types means that one can use
+the =Function=-specific objects from the [[https://github.com/tgvaughan/feast][feast]] package to create simulation XMLs
+in which parameters are transformed in moderately complex ways before being
+applied to the simulation.
+
+For instance, suppose one wishes to simulate a tree under an epidemiological model
+defined by a basic reproductive number $R=\lambda/\mu$ instead of a birth rate.
+One can easily do this as follows:
+#+begin_src xml
+  <beast version="2.0" namespace="beast.core.parameter:remaster">
+    <param id="R" spec="RealParameter" value="1.5"/>
+    <param id="mu" spec="RealParameter" value="1.0"/>
+
+    <param id="lambda" spec="feast.expressions.ExpCalculator" value="R*mu">
+      <arg idref="R"/>
+      <arg idref="mu"/>
+    </param>
+
+    <run spec="Simulator" nSims="1">
+      <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
+        <population id="X" spec="RealParameter" value="1"/>
+        <reaction spec="Reaction" rate="@lambda"> X -> 2X </reaction>
+        <reaction spec="Reaction" rate="@mu"> X -> 0 </reaction>
+      </simulate>
+
+      <logger fileName="output.traj">
+        <log idref="trajectory"/>
+      </logger>
+    </run>
+  </beast>
+#+end_src
 
 * Examples
 
@@ -483,3 +653,6 @@ Relevant characters and their corresponding XML entities are as follows
 | &         | &amp;  |
 |-----------+--------|
 
+# Local Variables:
+# org-html-validation-link: nil
+# End:
