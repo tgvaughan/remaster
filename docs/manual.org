@@ -271,11 +271,11 @@ birth-death models.
 
 ** Stochastic Trajectories
 
-Once the population and reaction elements are specified, defining a stochastic trajectory
-in ReMASTER's XML is very easy.
+Once the population and reaction elements are specified, defining a
+stochastic trajectory in ReMASTER's XML is very easy.
 
-For example, the following represents a stochastic birth-death-sampling process
-trajectory with constant rates:
+For example, the following represents a stochastic
+birth-death-sampling process trajectory with constant rates:
 
 #+begin_src xml
   <trajectory spec="StochasticTrajectory"
@@ -287,12 +287,65 @@ trajectory with constant rates:
   </trajectory>
 #+end_src
 
-The =maxTime= attribute specifies the maximum end time of the simulation.  For stochastic trajectories
-this attribute is actually optional, since there are many birth-death processes (although not this one)
-are guaranteed to terminate in finite amount of time.  (ReMASTER always ceases the simulation once
-no reactions are able to fire.)
+The =maxTime= attribute specifies the maximum end time of the
+simulation.  For stochastic trajectories this attribute is actually
+optional, since there are many birth-death processes (although not
+this one) are guaranteed to terminate in finite amount of time.
+(ReMASTER always ceases the simulation once no reactions are able to
+fire.)
 
 ** Deterministic Trajectories
+
+Defining deterministic trajectories is almost exactly the same as defining
+a stochastic trajectory.  The only difference is that the =spec= attribute
+must be set to "DeterministicTrajectory" and the =maxTime= attribute is
+mandatory.
+
+For example, the following represents an exponentially growing population
+with rate $\lamba-\mu=1.2-1.0=0.2$:
+#+begin_src xml
+  <trajectory spec="DeterministicTrajectory"
+              maxTime="10">
+    <population id="X" spec="RealParameter" value="1"/>
+
+    <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
+    <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+  </trajectory>
+#+end_src
+
+** Placing conditions on trajectories
+
+In addition to the rates and initial population sizes, conditions can
+be placed on trajectory outcomes so that the simulation finishes
+when the population sizes reach some specified target or, in the case
+of stochastic trajectories, the resulting trajectory is only "accepted"
+when a particular condition is met.
+
+To define an early termination point, provide the =endsWhen= attribute
+to the trajectory element.  The value of the attribute should be a
+predicating which will cause the simulation to end when it becomes true.
+For instance
+#+begin_src xml
+  <trajectory spec="StochasticTrajectory"
+              endsWhen="X=100">
+  ...
+  </trajectory>
+#+end_src
+defines a trajectory whose simulation will be terminated the instant that
+the $X$ population contains exactly 100 individuals.
+
+Similarly, to define a condition on the finished simulation, use the
+=mustHave= attribute. For instance,
+#+begin_src xml
+  <trajectory spec="StochasticTrajectory"
+              mustHave="sample<=50">
+  ...
+  </trajectory>
+#+end_src
+specifies that the  "sample" population must contain at most 50 individuals
+at the end of the simulation.
+
+The complete syntax for these predicates is specified in 
 
 ** Self-contained trajectory simulation XMLs
 
@@ -376,6 +429,10 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 
 * Tree simulation
 
+Once a trajectory simulation is configured, producing the corresponding trees
+is easy.  All that is required is to enclose the trajectory element
+(=DeterministicTrajectory= or =StochasticTrajectory=) in a =SimulatedTree= element.
+
 * Integrating with BEAST
 
 * Examples
@@ -384,3 +441,45 @@ The =examples/= directory of the package repository contains a growing list of e
 ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
 You can also access these example scripts directly via the Github repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
+
+
+* Appendix
+
+** Condition syntax
+
+The expressions provided to =endsWhen= and =mustHave= conform to the following
+grammar:
+
+#+begin_example
+  expression :
+    '(' expression ')'
+    |   (SUM|MIN|MAX) '(' expression ')'
+    |   expression ('*'|'/'|'%') expression
+    |   expression ('+'|'-') expression
+    |   expression ('=='|'!='|'<'|'>'|'<='|'>=') expression
+    |   expression ('&&'|'||') expression
+    |   POP_ID
+    |   NUMBER
+    ;
+#+end_example
+
+Here SUM(), MIN() and MAX() are functions which take a population
+vector and compute the sum, minimum, or maximum, respectively.
+
+POP_ID is any population ID such as "X" or "I[0]".
+
+Beware when assembling these instructions that XML rules must be
+obeyed.  In particular, you must use XML entities for characters such
+as & and >, so that instead of writing ="X>2 && Y>10"= you must
+instead write ="X&gt;2 &amp;&amp; Y&gt;10"=.
+
+Relevant characters and their corresponding XML entities are as follows
+
+|-----------+--------|
+| Character | Entity |
+|-----------+--------|
+| >         | &gt;   |
+| <         | &lt;   |
+| &         | &amp;  |
+|-----------+--------|
+
