@@ -1,0 +1,20 @@
+<!-- Basic coalescent tree simulation -->
+<beast version="2.0"
+       namespace="beast.core.parameter:remaster">
+  <run spec="Simulator" nSims="10">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory id="traj" spec="DeterministicTrajectory" maxTime="10">
+        <population id="X" spec="RealParameter" value="100.0"/>
+        <samplePopulation id="sample" spec="RealParameter" value="0.0"/>
+
+        <reaction spec="Reaction" rate="50">X -> 2X</reaction>
+        <reaction spec="Reaction" rate="50">X -> 0</reaction>
+
+        <reaction spec="PunctualReaction" n="10" times="10">X -> sample</reaction>
+        <reaction spec="PunctualReaction" n="10" times="10">X -> 2X</reaction>
+      </trajectory>
+    </simulate>
+
+    <logger fileName="$(filebase).trees" log="@tree"/>
+  </run>
+</beast>
