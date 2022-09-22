@@ -403,3 +403,26 @@ html {
     }
 }
 
+
+/* Syntax highlighting */
+
+.org-nxml-attribute-local-name {
+    /* nxml-attribute-local-name */
+    color: blue;
+}
+.org-nxml-element-local-name {
+    /* nxml-element-local-name */
+    color: darkblue;
+}
+.org-nxml-tag-delimiter {
+}
+.org-nxml-tag-slash {
+}
+.org-nxml-text {
+    color: purple;
+}
+.org-string {
+    /* font-lock-string-face */
+    color: darkgreen;
+}
+

@@ -314,6 +314,10 @@ with rate $\lamba-\mu=1.2-1.0=0.2$:
   </trajectory>
 #+end_src
 
+Another minor difference is that the =endsWhen= condition can only
+include inequalities, since detecting equality in floating point
+numbers can be problematic.
+
 ** Placing conditions on trajectories
 
 In addition to the rates and initial population sizes, conditions can
@@ -636,7 +640,7 @@ grammar:
 Here SUM(), MIN() and MAX() are functions which take a population
 vector and compute the sum, minimum, or maximum, respectively.
 
-POP_ID is any population ID such as "X" or "I[0]".
+=POP_ID= is any population ID such as "X" or "I[0]".
 
 Beware when assembling these instructions that XML rules must be
 obeyed.  In particular, you must use XML entities for characters such
@@ -655,4 +659,5 @@ Relevant characters and their corresponding XML entities are as follows
 
 # Local Variables:
 # org-html-validation-link: nil
+# org-html-htmlize-output-type: css
 # End:
