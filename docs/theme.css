@@ -1,15 +1,39 @@
-html,button,input,select,textarea {
-     color: #484C66;
-}
 html {
-     font-size: 90%;
      line-height: 1.4;
 }
-*,*:before,*:after {
-     -moz-box-sizing: border-box;
-     -webkit-box-sizing: border-box;
-     box-sizing: border-box;
+
+body {
+     font-family: Lora, Palatino, Georgia, serif;
+     width: 92%;
+     max-width: 50em;
+     margin: 0 auto;
+     background-color: #FFF;
 }
+
+h1, h2, h3, h4, h5, h6 {
+     font-family: sans-serif;
+     color: #222;
+}
+
+h2 {
+     line-height: 1.62em;
+}
+
+.title {
+     line-height: 2em;
+     border-bottom: 5px solid #0A4C89;
+     text-align: center;
+}
+
+.subtitle {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+header {
+    margin: 0 0 2em 0;
+}
+
 a {
      white-space: pre;
      white-space: pre-wrap;
@@ -24,58 +48,10 @@ a {
 a:hover {
      color: #0A4C89;
 }
-::-moz-selection {
-     background: #0A4C89;
-     color: #FFF;
-     text-shadow: none;
-}
-::selection {
-     background: #0A4C89;
-     color: #FFF;
-     text-shadow: none;
-}
-hr {
-     display: block;
-     height: 1px;
-     border: 0;
-     border-top: 1px dashed #CCC;
-     margin: 1em 0;
-     padding: 0;
-}
+
+
 audio,canvas,img,video {
      vertical-align: middle;
-}
-fieldset {
-     border: 0;
-     margin: 0;
-     padding: 0;
-}
-textarea {
-     resize: vertical;
-}
-.todo,.done,.tag {
-     font-family: monospace;
-     padding: 0 0.3em;
-     background-color: #EEE;
-     border: 1px solid #CCC;
-}
-.todo {
-     color: #DD4433;
-}
-.done {
-     color: #44934B;
-}
-.tag {
-     font-size: 80%;
-     font-weight: normal;
-     margin: 0 0.3em;
-     display: none;
-}
-.timestamp {
-     color: #BEBEBE;
-}
-.timestamp-kwd {
-     color: #5F9EA0;
 }
 .right {
      margin-left: auto;
@@ -123,36 +99,6 @@ pre.src:before {
      padding: 4px;
      border: 1px solid #CCC;
 }
-pre.src-sh:before {
-     content: "Shell Script";
-}
-pre.src-bash:before {
-     content: "Bash Script";
-}
-pre.src-emacs-lisp:before {
-     content: "Emacs Lisp";
-}
-pre.src-R:before {
-     content: "R";
-}
-pre.src-perl:before {
-     content: "Perl";
-}
-pre.src-java:before {
-     content: "Java";
-}
-pre.src-sql:before {
-     content: "SQL";
-}
-pre.src-c:before {
-     content: "C";
-}
-pre.src-cpp:before {
-     content: "C++";
-}
-pre.src-html:before {
-     content: "HTML";
-}
 table {
      border-collapse: collapse;
      display: block;
@@ -190,16 +136,7 @@ td.center {
 dt {
      font-weight: bold;
 }
-#footnotes {
-     border-top: 5px solid #0A4C89;
-     margin-bottom: 5em;
-}
-#footnotes h2 {
-     display: none;
-}
-#text-footnotes {
-     margin-top: 1em;
-}
+
 .footpara:nth-child(2) {
      display: inline;
 }
@@ -225,12 +162,6 @@ figcaption {
      text-align: center;
      font-size: 0.8rem;
 }
-.inlinetask {
-     padding: 10px;
-     border: 2px solid gray;
-     margin: 10px;
-     background: #ffffcc;
-}
 #org-div-home-and-up {
      text-align: right;
      font-size: 70%;
@@ -239,24 +170,8 @@ figcaption {
 textarea {
      overflow-x: auto;
 }
-.linenr {
-     font-size: smaller;
-}
 .code-highlighted {
      background-color: #ffff00;
-}
-.org-info-js_info-navigation {
-     border-style: none;
-}
-#org-info-js_console-label {
-     font-size: 10px;
-     font-weight: bold;
-     white-space: nowrap;
-}
-.org-info-js_search-highlight {
-     background-color: #ffff00;
-     color: #000000;
-     font-weight: bold;
 }
 p.verse,blockquote {
      margin: 0;
@@ -264,37 +179,12 @@ p.verse,blockquote {
      padding-left: 3%;
      border-left: 5px solid #0A4C89;
 }
-body {
-     font-family: Lora, Palatino, Georgia, serif;
-     width: 92%;
-     max-width: 50em;
-     margin: 0 auto;
-     background-color: #FFF;
-}
-h2 {
-     line-height: 1.62em;
-}
-.title {
-     line-height: 2em;
-     border-bottom: 5px solid #0A4C89;
-     text-align: center;
-}
-.subtitle {
-    font-family: sans-serif;
-    text-align: center;
-}
-header {
-    margin: 0 0 2em 0;
-}
 #postamble {
      font-size: 80%;
      line-height: 1.4em;
      text-align: right;
 }
-h1, h2, h3, h4, h5, h6 {
-     font-family: sans-serif;
-     color: #222;
-}
+
 .outline-2 {
      margin-bottom: 4em;
 }
@@ -333,56 +223,6 @@ h1, h2, h3, h4, h5, h6 {
 @media print, (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
 }
 
-@media print {
-* {
-         background: transparent !important;
-         color: #000 !important;
-         box-shadow: none !important;
-         text-shadow: none !important;
-    }
-a, a:visited {
-         text-decoration: underline;
-    }
-a[href]:after {
-         content: " (" attr(href) ")";
-    }
-abbr[title]:after {
-         content: " (" attr(title) ")";
-    }
-.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
-         content: "";
-    }
-pre, blockquote {
-         page-break-inside: avoid;
-    }
-thead {
-         display: table-header-group;
-    }
-tr, img {
-         page-break-inside: avoid;
-    }
-img {
-         max-width: 100% !important;
-    }
-@page {
-         margin: 0.5cm;
-    }
-p, h2, h3 {
-         orphans: 3;
-         widows: 3;
-    }
-h2, h3 {
-         page-break-after: avoid;
-    }
-#table-of-contents {
-         display: block;
-         width: initial;
-         border: none;
-    }
-#table-of-contents a {
-         text-decoration: none;
-    }
-}
 @media screen and (min-width: 40rem) {
 html {
          font-size: 100%;
@@ -402,6 +242,7 @@ html {
          display: initial;
     }
 }
+*/
 
 
 /* Syntax highlighting */
