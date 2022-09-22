@@ -425,4 +425,37 @@ html {
     /* font-lock-string-face */
     color: darkgreen;
 }
-
+.org-comment {
+    /* font-lock-comment-face */
+    color: grey;
+    font-style: italic;
+}
+.org-comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: grey;
+    font-style: italic;
+}
+.org-ess-XopX {
+    /* ess-%op%-face */
+    color: blue;
+}
+.org-ess-assignment {
+    /* ess-assignment-face */
+    color: purple;
+}
+.org-ess-constant {
+    /* ess-constant-face */
+    color: darkgreen;
+}
+.org-ess-keyword {
+    /* ess-keyword-face */
+    color: purple;
+}
+.org-ess-modifiers {
+    /* ess-modifiers-face */
+    color: blue;
+}
+.org-function-name {
+    /* font-lock-function-name-face */
+    color: blue;
+}

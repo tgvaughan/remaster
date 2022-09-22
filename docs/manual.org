@@ -303,7 +303,7 @@ must be set to "DeterministicTrajectory" and the =maxTime= attribute is
 mandatory.
 
 For example, the following represents an exponentially growing population
-with rate $\lamba-\mu=1.2-1.0=0.2$:
+with rate $\lambda-\mu=1.2-1.0=0.2$:
 #+begin_src xml
   <trajectory spec="DeterministicTrajectory"
               maxTime="10">
