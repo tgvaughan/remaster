@@ -560,8 +560,6 @@ the rest of BEAST.
 
 * Integrating with BEAST
 
-
-
 Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 
 - trees are standard BEAST =Tree= objects,
@@ -579,9 +577,10 @@ the =Function=-specific objects from the [[https://github.com/tgvaughan/feast][f
 in which parameters are transformed in moderately complex ways before being
 applied to the simulation.
 
-For instance, suppose one wishes to simulate a tree under an epidemiological model
-defined by a basic reproductive number $R=\lambda/\mu$ instead of a birth rate.
-One can easily do this as follows:
+For instance, suppose one wishes to simulate a trajectory under an
+epidemiological model defined by a basic reproductive number
+$R=\lambda/\mu$ instead of a birth rate.  One can easily do this as
+follows:
 #+begin_src xml
   <beast version="2.0" namespace="beast.core.parameter:remaster">
     <param id="R" spec="RealParameter" value="1.5"/>
