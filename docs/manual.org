@@ -1,4 +1,5 @@
-#+title: ReMASTER Documentation
+#+title: Remaster
+#+subtitle: High-fidelity stochastic tree simulation for BEAST 2
 #+author: Tim Vaughan
 
 #+SETUPFILE: theme.org
@@ -10,11 +11,11 @@ GitHub Repository: https://github.com/tgvaughan/remaster
 
 * Overview
 
-ReMASTER is a flexible tool for simulating trajectories
+Remaster is a flexible tool for simulating trajectories
 and trees from birth-death and coalescent models commonly used in
 phylodynamic inference, as well as some less common models.
 
-ReMASTER defines stochastic population models using an intuitive
+Remaster defines stochastic population models using an intuitive
 "reaction" notation borrowed from Chemistry.  Using this notation,
 a simple birth-death process on the number of individuals of type $X$
 might be expressed using the following pair of reactions:
@@ -29,7 +30,7 @@ represents the rate (probability per unit time) at which the reaction
 fires for each available combination of reactants.
 
 In order to permit the simulation of reconstructed phylogenies corresponding
-to subsets of the whole population, ReMASTER allows users to specify that
+to subsets of the whole population, Remaster allows users to specify that
 one or more of the model populations are "sample" populations.  This means
 that sampling processes can be explicitly included in the simulation model.
 For instance, by adding the reaction
@@ -37,7 +38,7 @@ $$ X \overset{\psi}{\longrightarrow} S$$
 where $S$ is defined as a sample population, the birth-death model above becomes the
 linear birth-death-sampling model which is the basis of much modern phylodynamic inference.
 
-In addition, ReMASTER allows one to define "punctual" reactions which occur
+In addition, Remaster allows one to define "punctual" reactions which occur
 at pre-determined times and fire a fixed or stochastic number of times.
 Besides allowing models to include interesting discrete events, this allows
 users to pre-specify sample counts and times.
@@ -70,27 +71,27 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </beast>
 #+end_src
 
-ReMASTER is a [[https://www.beast2.org/][BEAST 2]] package, and integrates well with that platform.
-Simulated ReMASTER trees can be used directly inside of regular BEAST
+Remaster is a [[https://www.beast2.org/][BEAST 2]] package, and integrates well with that platform.
+Simulated Remaster trees can be used directly inside of regular BEAST
 XML analysis scripts to initialise MCMC states or construct
 simulation-based validation studies.
 
 ** The name
 
-"ReMASTER" is a play on the name of an earlier simulation tool, [[https://tgvaughan.github.io/MASTER][MASTER]].
-ReMASTER is a new implementation which is faster, leaner, and more capable
+"Remaster" is a play on the name of an earlier simulation tool, [[https://tgvaughan.github.io/MASTER][MASTER]].
+Remaster is a new implementation which is faster, leaner, and more capable
 of performing the simulation tasks for which MASTER itself is actually used.
 
 ** License
 
-ReMASTER is free software, and is made available under the terms of
+Remaster is free software, and is made available under the terms of
 version 3 of the GNU General Public License, the text of which is
 available [[https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING][here]].  The source code for the project can be found at the
 official Github project page: https://github.com/tgvaughan/remaster.
 
 * Installation
 
-ReMASTER is a BEAST 2 package and will eventually be available for installation
+Remaster is a BEAST 2 package and will eventually be available for installation
 directly from the standard BEAST 2 package repository.  However, while it is still
 in development, installation must be done as follows:
 
@@ -101,17 +102,17 @@ in development, installation must be done as follows:
 4. Press =Done= to return to the package list.
 5. Select "remaster" from the package list and press the =Install/Upgrade= button.
 
-ReMASTER should now be available on your system, and running beast
-with a ReMASTER input file should perform the corresponding
+Remaster should now be available on your system, and running beast
+with a Remaster input file should perform the corresponding
 simulation.
 
 * Model specification
 
-Like MASTER, ReMASTER defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
+Like MASTER, Remaster defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
 
 ** Populations
 
-A population in ReMASTER is simply a ~RealParameter~ (or other
+A population in Remaster is simply a ~RealParameter~ (or other
 ~Function~) with a specific ID.  The value of the ~RealParameter~ is
 used as its initial population size in the simulation.
 
@@ -143,7 +144,7 @@ external) in the resulting tree.
 ** Reactions
 
 Reactions connect zero or more *reactant* individuals with zero or
-more *product* individuals.  The dynamics that ReMASTER simulates are
+more *product* individuals.  The dynamics that Remaster simulates are
 simply the result of applying reactions at random or pre-determined times.
 
 There are two distinct kinds of reactions which can be specified: "continuous"
@@ -226,8 +227,8 @@ Specifying these relationships is necessary in order for trees composed
 of ancestral lineages can be built.
 
 There are two main ways to work around this limitation.  Firstly, one can
-rely on ReMASTER to automatically associate parents with children.
-By default, ReMASTER assumes that a product individual is considered to
+rely on Remaster to automatically associate parents with children.
+By default, Remaster assumes that a product individual is considered to
 be
 1. the child of the first reactant having the same population type, if one exists, or
 2. the child the first reactant listed, if one exists, or
@@ -237,7 +238,7 @@ These rules mean that, in the SIR reaction above, the two $I$ product individual
 would be regarded as children of the $I$ reactant, and that the $S$ would have no
 children.
 
-Alternatively, ReMASTER lets you explicitly specify parent-child relationships
+Alternatively, Remaster lets you explicitly specify parent-child relationships
 by appending ":label" tags to reaction elements identifying them as belonging
 to the same family.  If, for instance, we wanted the $S$ reactant to be the parent
 of the two $I$ products, we could write
@@ -246,13 +247,13 @@ of the two $I$ products, we could write
 <reaction spec="Reaction" rate="0.1"> S:a + I:b -> 2I:a </reaction>
 #+end_src
 
-Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
+Note that unlike MASTER, Remaster requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 
 * Trajectory simulation
 
 Trajectories are simply realisations of the population process.  There are two
-distinct types of trajectories in ReMASTER: *stochastic trajectories* and *deterministic trajectories*.
+distinct types of trajectories in Remaster: *stochastic trajectories* and *deterministic trajectories*.
 
 Stochastic trajectories are simulated using a standard Gillespie-style
 algorithm, and are exact realisations of the continuous-time
@@ -272,7 +273,7 @@ birth-death models.
 ** Stochastic Trajectories
 
 Once the population and reaction elements are specified, defining a
-stochastic trajectory in ReMASTER's XML is very easy.
+stochastic trajectory in Remaster's XML is very easy.
 
 For example, the following represents a stochastic
 birth-death-sampling process trajectory with constant rates:
@@ -291,7 +292,7 @@ The =maxTime= attribute specifies the maximum end time of the
 simulation.  For stochastic trajectories this attribute is actually
 optional, since there are many birth-death processes (although not
 this one) are guaranteed to terminate in finite amount of time.
-(ReMASTER always ceases the simulation once no reactions are able to
+(Remaster always ceases the simulation once no reactions are able to
 fire.)
 
 ** Deterministic Trajectories
@@ -351,7 +352,7 @@ The complete syntax for these predicates is specified in section [[*Condition sy
 
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
-ReMASTER's =Simulator= object, which can be used as a =<run>= element as follows:
+Remaster's =Simulator= object, which can be used as a =<run>= element as follows:
 
 #+begin_src xml
   <beast version="2.0" namespace="beast.core.parameter:remaster">
@@ -388,14 +389,14 @@ This should produce some screen output, together with a file
 ** Plotting simulated trajectories
 
 In order to actually visualize the simulation output, we can make use of the script
-[[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the ReMASTER repository
+[[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the Remaster repository
 to load the trajectories into a data frame:
 
 #+begin_src R
-  source("<PATH>/ReMASTER/scripts/trajTools.R")
+  source("<PATH>/Remaster/scripts/trajTools.R")
   traj <- loadTrajectories("output.traj")
 #+end_src
-(Here "<PATH>" is the path to the ReMASTER repository or package directory.)
+(Here "<PATH>" is the path to the Remaster repository or package directory.)
 
 The resulting data frame has the following layout:
 #+begin_example
@@ -546,7 +547,7 @@ as shown in [[*Self-contained tree simulation XMLs]].  However,
 multi-population models (or models with sub-populations) often produce
 trees with internal nodes representing type changes.  These nodes will
 appear in the output trees, even when the edge types are not recorded.
-This can also produce problems when using ReMASTER =SimulatedTree= objects
+This can also produce problems when using Remaster =SimulatedTree= objects
 to initialise standard BEAST MCMC analyses, as the extra nodes will not
 be properly understood.
 
@@ -561,7 +562,7 @@ the rest of BEAST.
 
 
 
-Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the following ways:
+Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 
 - trees are standard BEAST =Tree= objects,
 - it uses standard =Logger= objects to produce output,
@@ -569,7 +570,7 @@ Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the foll
 - the inputs defining reaction rates, times, probabilities or numbers
   expect generic ~Function~ inputs.
 
-This means that it is possible to use ReMASTER to initialise MCMC chains, to
+This means that it is possible to use Remaster to initialise MCMC chains, to
 simulate sequence data, or to produce single-XML simulation studies which combine
 both simulation and inference.
 
@@ -608,7 +609,7 @@ One can easily do this as follows:
 * Examples
 
 The =examples/= directory of the package repository contains a growing list of example
-ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
+Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
 You can also access these example scripts directly via the Github repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 

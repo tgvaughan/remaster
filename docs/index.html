@@ -1,70 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-19 Mon 13:59 -->
+<!-- 2022-09-22 Thu 10:33 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ReMASTER Documentation</title>
+<title>Remaster</title>
 <meta name="author" content="Tim Vaughan" />
 <meta name="generator" content="Org Mode" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="theme.css"/>
 <link rel="stylesheet" type="text/css" href="katex/katex.css" />
 <script defer type="text/javascript" src="katex/katex.js"></script>
 <script defer type="text/javascript" src="katex/contrib/auto-render.js"></script>
 <script> document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError : false});}); </script>
-<style type="text/css">
-html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  line-height: 1.4;}*,*:before,*:after {  -moz-box-sizing: border-box;  -webkit-box-sizing: border-box;  box-sizing: border-box;}a {  white-space: pre;  white-space: pre-wrap;  white-space: pre-line;  white-space: -pre-wrap;  white-space: -o-pre-wrap;  white-space: -moz-pre-wrap;  white-space: -hp-pre-wrap;  word-wrap: break-word;  text-decoration: none;}a:hover {  color: #0A4C89;}/* * Remove text-shadow in selection highlight: h5bp.com/i * These selection rule sets have to be separate. * Customize the background color to match your design. */::-moz-selection {  background: #0A4C89;  color: #FFF;  text-shadow: none;}::selection {  background: #0A4C89;  color: #FFF;  text-shadow: none;}/* * A better looking default horizontal rule */hr {  display: block;  height: 1px;  border: 0;  border-top: 1px dashed #CCC;  margin: 1em 0;  padding: 0;}/* * Remove the gap between images, videos, audio and canvas and the bottom of * their containers: h5bp.com/i/440 */audio,canvas,img,video {  vertical-align: middle;}/* * Remove default fieldset styles. */fieldset {  border: 0;  margin: 0;  padding: 0;}/* * Allow only vertical resizing of textareas. */textarea {  resize: vertical;}/* ==========================================================================   Author's custom styles   ========================================================================== */.todo,.done,.tag {  font-family: "Source Pro", Monaco, "Courier New", monospace;  padding: 0 0.3em;  background-color: #EEE;  border: 1px solid #CCC;}.todo {  color: #DD4433;}.done {  color: #44934B;}.tag {  font-size: 80%;  font-weight: normal;  margin: 0 0.3em;  display: none;}.timestamp {  color: #BEBEBE;}.timestamp-kwd {  color: #5F9EA0;}.right {  margin-left: auto;  margin-right: 0px;  text-align: right;}.left {  margin-left: 0px;  margin-right: auto;  text-align: left;}.center {  margin-left: auto;  margin-right: auto;  text-align: center;}.underline {  text-decoration: underline;}#postamble p,#preamble p {  font-size: 90%;  margin: .2em;}pre,code {  font-family: "Source Pro", Monaco, "Courier New", monospace;  padding-left: 0.3em;  padding-right: 0.3em;}pre {  font-size: 90%;  padding: 8pt;  overflow: auto;  white-space: pre;  word-wrap: normal;}pre.src {  position: relative;}pre.src:before {  display: none;  position: absolute;  background-color: #FFF;  top: 0.5em;  right: 0.5em;  padding: 4px;  border: 1px solid #CCC;}pre.src-sh:before {  content: "Shell Script";}pre.src-bash:before {  content: "Bash Script";}pre.src-emacs-lisp:before {  content: "Emacs Lisp";}pre.src-R:before {  content: "R";}pre.src-perl:before {  content: "Perl";}pre.src-java:before {  content: "Java";}pre.src-sql:before {  content: "SQL";}pre.src-c:before {  content: "C";}pre.src-cpp:before {  content: "C++";}pre.src-html:before {  content: "HTML";}table {  border-collapse: collapse;  display: block;  overflow-x: auto;}caption.t-above {  caption-side: top;}caption.t-bottom {  caption-side: bottom;}td, th {  vertical-align: top;  border: 1px solid #CCC;  padding: 0.5em;}th.right {  text-align: center;}th.left {  text-align: center;}th.center {  text-align: center;}td.right {  text-align: right;}td.left {  text-align: left;}td.center {  text-align: center;}dt {  font-weight: bold;}#footnotes {  border-top: 5px solid #0A4C89;  margin-bottom: 5em;}#footnotes h2 {  display: none;}#text-footnotes {  margin-top: 1em;}.footpara:nth-child(2) {  display: inline;}.footpara {  display: block;}.footdef sup:before {  content: "[";}.footdef sup:after {  content: "]";}.footdef p {  display: inline;}figure {  margin: 0;}figure img {  max-width: 100%;}figcaption {  text-align: center;  font-size: 0.8rem;}.inlinetask {  padding: 10px;  border: 2px solid gray;  margin: 10px;  background: #ffffcc;}#org-div-home-and-up {  text-align: right;  font-size: 70%;  white-space: nowrap;}textarea {  overflow-x: auto;}.linenr {  font-size: smaller;}.code-highlighted {  background-color: #ffff00;}.org-info-js_info-navigation {  border-style: none;}#org-info-js_console-label {  font-size: 10px;  font-weight: bold;  white-space: nowrap;}.org-info-js_search-highlight {  background-color: #ffff00;  color: #000000;  font-weight: bold;}p.verse,blockquote {  margin: 0;  padding: 0;  padding-left: 3%;  border-left: 5px solid #0A4C89;}body {  font-family: Lora, Palatino, Georgia, serif;  width: 92%;  max-width: 50em;  margin: 0 auto;  background-color: #FFF;}h2 {  line-height: 1.62em;}.title {  margin: 0 0 2em 0;  line-height: 2em;  border-bottom: 5px solid #0A4C89;  text-align: center;}#postamble {  font-size: 80%;  line-height: 1.4em;  text-align: right;}h1, h2, h3, h4, h5, h6 {  font-family: "Source Sans Pro", sans-serif;  color: #222;}.outline-2 {  margin-bottom: 4em;}.outline-2 h2 {  border-bottom: 1px solid #CCC;}.outline-text-2 code, pre {  background-color: #EEE;}#table-of-contents {  display: none;  margin-left: 0.5em;}#text-table-of-contents ul {  padding-left: 1.8em;}#text-table-of-contents li {  list-style-type: circle;  margin: 0.4em 0;}#text-table-of-contents ul ul {  margin: 0;}#text-table-of-contents li li {  font-weight: normal;  font-size: 90%;  margin: 0;}#content {  overflow: hidden;  *zoom: 1;}/* ==========================================================================   EXAMPLE Media Queries for Responsive Design.   These examples override the primary ('mobile first') styles.   Modify as content requires.   ========================================================================== */@media only screen and (min-width: 35em) {  /* Style adjustments for viewports that meet the condition */}@media print, (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {  /* Style adjustments for high resolution devices */}/* ==========================================================================   Print styles.   Inlined to avoid required HTTP connection: h5bp.com/r   ========================================================================== */@media print {  * {    background: transparent !important;    color: #000 !important;    /* Black prints faster: h5bp.com/s */    box-shadow: none !important;    text-shadow: none !important;  }  a,  a:visited {    text-decoration: underline;  }  a[href]:after {    content: " (" attr(href) ")";  }  abbr[title]:after {    content: " (" attr(title) ")";  }  /*   * Don't show links for images, or javascript/internal links   */  .ir a:after,  a[href^="javascript:"]:after,  a[href^="#"]:after {    content: "";  }  pre,  blockquote {    /* border: 1px solid #999; */    page-break-inside: avoid;  }  thead {    display: table-header-group;    /* h5bp.com/t */  }  tr,  img {    page-break-inside: avoid;  }  img {    max-width: 100% !important;  }  @page {    margin: 0.5cm;  }  p,  h2,  h3 {    orphans: 3;    widows: 3;  }  h2,  h3 {    page-break-after: avoid;  }  #table-of-contents {    display: block;    width: initial;    border: none;  }  #table-of-contents a {    text-decoration: none;  }}/* large screen */@media screen and (min-width: 40rem) {  html {    font-size: 100%;  }  #table-of-contents {    display: block;    padding: 1em;    width: 32%;    min-width: 18em;    float: right;    background-color: #EEE;    position: relative;    /* required by z-index */    z-index: 5000;    border: 1px solid #CCC;  }  .tag {    display: initial;  }}
-</style>
 </head>
 <body>
 <div id="content" class="content">
 <header>
-<h1 class="title">ReMASTER Documentation</h1>
+<h1 class="title">Remaster</h1>
+<p class="subtitle" role="doc-subtitle">High-fidelity stochastic tree simulation for BEAST 2</p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgccdd327">1. Overview</a>
+<li><a href="#org3f0cf9c">1. Overview</a>
 <ul>
-<li><a href="#org7cbc87a">1.1. The name</a></li>
-<li><a href="#org1444685">1.2. License</a></li>
+<li><a href="#org8fd99e1">1.1. The name</a></li>
+<li><a href="#orgc6c0e0d">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#orgf5ad7e7">2. Installation</a></li>
-<li><a href="#org1e5e18d">3. Model specification</a>
+<li><a href="#org65ff725">2. Installation</a></li>
+<li><a href="#org30e059a">3. Model specification</a>
 <ul>
-<li><a href="#orgbac44f2">3.1. Populations</a></li>
-<li><a href="#org75d807c">3.2. Reactions</a>
+<li><a href="#org81db7bc">3.1. Populations</a></li>
+<li><a href="#org7da11f0">3.2. Reactions</a>
 <ul>
-<li><a href="#orgaf5f4da">3.2.1. Continuous reactions</a></li>
-<li><a href="#org54278c0">3.2.2. Punctual reactions</a></li>
-<li><a href="#orgac4230b">3.2.3. Identifying parents and children</a></li>
+<li><a href="#orgf86ec40">3.2.1. Continuous reactions</a></li>
+<li><a href="#org7b40749">3.2.2. Punctual reactions</a></li>
+<li><a href="#org2af10ae">3.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org587f397">4. Trajectory simulation</a>
+<li><a href="#org2c66f77">4. Trajectory simulation</a>
 <ul>
-<li><a href="#org2258d18">4.1. Stochastic Trajectories</a></li>
-<li><a href="#orgecb1b22">4.2. Deterministic Trajectories</a></li>
-<li><a href="#org490aefe">4.3. Placing conditions on trajectories</a></li>
-<li><a href="#org4e3d8f9">4.4. Self-contained trajectory simulation XMLs</a></li>
-<li><a href="#orgdf192b3">4.5. Plotting simulated trajectories</a></li>
+<li><a href="#org96adb20">4.1. Stochastic Trajectories</a></li>
+<li><a href="#orgf2f0980">4.2. Deterministic Trajectories</a></li>
+<li><a href="#org3bea840">4.3. Placing conditions on trajectories</a></li>
+<li><a href="#org6c32e91">4.4. Self-contained trajectory simulation XMLs</a></li>
+<li><a href="#org240ae51">4.5. Plotting simulated trajectories</a></li>
 </ul>
 </li>
-<li><a href="#org16deedf">5. Tree simulation</a>
+<li><a href="#org3af90e8">5. Tree simulation</a>
 <ul>
-<li><a href="#orgb8d3d86">5.1. Self-contained tree simulation XMLs</a></li>
-<li><a href="#org7ce50a0">5.2. Logging typed trees</a></li>
-<li><a href="#orgca654b9">5.3. Logging untyped trees</a></li>
+<li><a href="#orgc993dbf">5.1. Self-contained tree simulation XMLs</a></li>
+<li><a href="#org137be97">5.2. Logging typed trees</a></li>
+<li><a href="#orgd5ac6ab">5.3. Logging untyped trees</a></li>
 </ul>
 </li>
-<li><a href="#orgcbe2b9b">6. Integrating with BEAST</a></li>
-<li><a href="#org068cfc9">7. Examples</a></li>
-<li><a href="#orgf953a7e">8. Appendix</a>
+<li><a href="#org75a8dcd">6. Integrating with BEAST</a></li>
+<li><a href="#org2be5141">7. Examples</a></li>
+<li><a href="#org9e8faa3">8. Appendix</a>
 <ul>
-<li><a href="#org47608ae">8.1. Condition syntax</a></li>
+<li><a href="#orga2d930c">8.1. Condition syntax</a></li>
 </ul>
 </li>
 </ul>
@@ -78,17 +77,17 @@ html,button,input,select,textarea {  color: #484C66;}html {  font-size: 90%;  li
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-orgccdd327" class="outline-2">
-<h2 id="orgccdd327"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org3f0cf9c" class="outline-2">
+<h2 id="org3f0cf9c"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-ReMASTER is a flexible tool for simulating trajectories
+Remaster is a flexible tool for simulating trajectories
 and trees from birth-death and coalescent models commonly used in
 phylodynamic inference, as well as some less common models.
 </p>
 
 <p>
-ReMASTER defines stochastic population models using an intuitive
+Remaster defines stochastic population models using an intuitive
 "reaction" notation borrowed from Chemistry.  Using this notation,
 a simple birth-death process on the number of individuals of type $X$
 might be expressed using the following pair of reactions:
@@ -105,7 +104,7 @@ fires for each available combination of reactants.
 
 <p>
 In order to permit the simulation of reconstructed phylogenies corresponding
-to subsets of the whole population, ReMASTER allows users to specify that
+to subsets of the whole population, Remaster allows users to specify that
 one or more of the model populations are "sample" populations.  This means
 that sampling processes can be explicitly included in the simulation model.
 For instance, by adding the reaction
@@ -115,7 +114,7 @@ linear birth-death-sampling model which is the basis of much modern phylodynamic
 </p>
 
 <p>
-In addition, ReMASTER allows one to define "punctual" reactions which occur
+In addition, Remaster allows one to define "punctual" reactions which occur
 at pre-determined times and fire a fixed or stochastic number of times.
 Besides allowing models to include interesting discrete events, this allows
 users to pre-specify sample counts and times.
@@ -153,29 +152,29 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </div>
 
 <p>
-ReMASTER is a <a href="https://www.beast2.org/">BEAST 2</a> package, and integrates well with that platform.
-Simulated ReMASTER trees can be used directly inside of regular BEAST
+Remaster is a <a href="https://www.beast2.org/">BEAST 2</a> package, and integrates well with that platform.
+Simulated Remaster trees can be used directly inside of regular BEAST
 XML analysis scripts to initialise MCMC states or construct
 simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-org7cbc87a" class="outline-3">
-<h3 id="org7cbc87a"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-org8fd99e1" class="outline-3">
+<h3 id="org8fd99e1"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-"ReMASTER" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
-ReMASTER is a new implementation which is faster, leaner, and more capable
+"Remaster" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
+Remaster is a new implementation which is faster, leaner, and more capable
 of performing the simulation tasks for which MASTER itself is actually used.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1444685" class="outline-3">
-<h3 id="org1444685"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-orgc6c0e0d" class="outline-3">
+<h3 id="orgc6c0e0d"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-ReMASTER is free software, and is made available under the terms of
+Remaster is free software, and is made available under the terms of
 version 3 of the GNU General Public License, the text of which is
 available <a href="https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING">here</a>.  The source code for the project can be found at the
 official Github project page: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>.
@@ -184,11 +183,11 @@ official Github project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-orgf5ad7e7" class="outline-2">
-<h2 id="orgf5ad7e7"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-org65ff725" class="outline-2">
+<h2 id="org65ff725"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-ReMASTER is a BEAST 2 package and will eventually be available for installation
+Remaster is a BEAST 2 package and will eventually be available for installation
 directly from the standard BEAST 2 package repository.  However, while it is still
 in development, installation must be done as follows:
 </p>
@@ -203,26 +202,26 @@ following URL: <a href="https://tgvaughan.github.io/remaster/package.xml">https:
 </ol>
 
 <p>
-ReMASTER should now be available on your system, and running beast
-with a ReMASTER input file should perform the corresponding
+Remaster should now be available on your system, and running beast
+with a Remaster input file should perform the corresponding
 simulation.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1e5e18d" class="outline-2">
-<h2 id="org1e5e18d"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-org30e059a" class="outline-2">
+<h2 id="org30e059a"><span class="section-number-2">3.</span> Model specification</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, ReMASTER defines models in terms of <a href="#orgbac44f2">populations</a> and <a href="#org75d807c">reactions</a>.
+Like MASTER, Remaster defines models in terms of <a href="#org81db7bc">populations</a> and <a href="#org7da11f0">reactions</a>.
 </p>
 </div>
 
-<div id="outline-container-orgbac44f2" class="outline-3">
-<h3 id="orgbac44f2"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-org81db7bc" class="outline-3">
+<h3 id="org81db7bc"><span class="section-number-3">3.1.</span> Populations</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
-A population in ReMASTER is simply a <code>RealParameter</code> (or other
+A population in Remaster is simply a <code>RealParameter</code> (or other
 <code>Function</code>) with a specific ID.  The value of the <code>RealParameter</code> is
 used as its initial population size in the simulation.
 </p>
@@ -265,12 +264,12 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-org75d807c" class="outline-3">
-<h3 id="org75d807c"><span class="section-number-3">3.2.</span> Reactions</h3>
+<div id="outline-container-org7da11f0" class="outline-3">
+<h3 id="org7da11f0"><span class="section-number-3">3.2.</span> Reactions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
-more <b>product</b> individuals.  The dynamics that ReMASTER simulates are
+more <b>product</b> individuals.  The dynamics that Remaster simulates are
 simply the result of applying reactions at random or pre-determined times.
 </p>
 
@@ -281,8 +280,8 @@ reactions and "punctual" reactions.
 </div>
 
 
-<div id="outline-container-orgaf5f4da" class="outline-4">
-<h4 id="orgaf5f4da"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
+<div id="outline-container-orgf86ec40" class="outline-4">
+<h4 id="orgf86ec40"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 As the name suggests, reactions are applied continuously throughout the
@@ -311,8 +310,8 @@ the following:
 </div>
 </div>
 
-<div id="outline-container-org54278c0" class="outline-4">
-<h4 id="org54278c0"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
+<div id="outline-container-org7b40749" class="outline-4">
+<h4 id="org7b40749"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -365,8 +364,8 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 
-<div id="outline-container-orgac4230b" class="outline-4">
-<h4 id="orgac4230b"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
+<div id="outline-container-org2af10ae" class="outline-4">
+<h4 id="org2af10ae"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 Although the reaction notation is intuitive, on its own it does not
@@ -394,8 +393,8 @@ of ancestral lineages can be built.
 
 <p>
 There are two main ways to work around this limitation.  Firstly, one can
-rely on ReMASTER to automatically associate parents with children.
-By default, ReMASTER assumes that a product individual is considered to
+rely on Remaster to automatically associate parents with children.
+By default, Remaster assumes that a product individual is considered to
 be
 </p>
 <ol class="org-ol">
@@ -411,7 +410,7 @@ children.
 </p>
 
 <p>
-Alternatively, ReMASTER lets you explicitly specify parent-child relationships
+Alternatively, Remaster lets you explicitly specify parent-child relationships
 by appending ":label" tags to reaction elements identifying them as belonging
 to the same family.  If, for instance, we wanted the $S$ reactant to be the parent
 of the two $I$ products, we could write
@@ -423,7 +422,7 @@ of the two $I$ products, we could write
 </div>
 
 <p>
-Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
+Note that unlike MASTER, Remaster requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 </p>
 </div>
@@ -431,12 +430,12 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 
-<div id="outline-container-org587f397" class="outline-2">
-<h2 id="org587f397"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div id="outline-container-org2c66f77" class="outline-2">
+<h2 id="org2c66f77"><span class="section-number-2">4.</span> Trajectory simulation</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Trajectories are simply realisations of the population process.  There are two
-distinct types of trajectories in ReMASTER: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
+distinct types of trajectories in Remaster: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
 </p>
 
 <p>
@@ -459,12 +458,12 @@ birth-death models.
 </p>
 </div>
 
-<div id="outline-container-org2258d18" class="outline-3">
-<h3 id="org2258d18"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
+<div id="outline-container-org96adb20" class="outline-3">
+<h3 id="org96adb20"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Once the population and reaction elements are specified, defining a
-stochastic trajectory in ReMASTER's XML is very easy.
+stochastic trajectory in Remaster's XML is very easy.
 </p>
 
 <p>
@@ -488,14 +487,14 @@ The <code>maxTime</code> attribute specifies the maximum end time of the
 simulation.  For stochastic trajectories this attribute is actually
 optional, since there are many birth-death processes (although not
 this one) are guaranteed to terminate in finite amount of time.
-(ReMASTER always ceases the simulation once no reactions are able to
+(Remaster always ceases the simulation once no reactions are able to
 fire.)
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgecb1b22" class="outline-3">
-<h3 id="orgecb1b22"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
+<div id="outline-container-orgf2f0980" class="outline-3">
+<h3 id="orgf2f0980"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Defining deterministic trajectories is almost exactly the same as defining
@@ -521,8 +520,8 @@ with rate $\lamba-\mu=1.2-1.0=0.2$:
 </div>
 </div>
 
-<div id="outline-container-org490aefe" class="outline-3">
-<h3 id="org490aefe"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
+<div id="outline-container-org3bea840" class="outline-3">
+<h3 id="org3bea840"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 In addition to the rates and initial population sizes, conditions can
@@ -567,18 +566,18 @@ at the end of the simulation.
 </p>
 
 <p>
-The complete syntax for these predicates is specified in section <a href="#org47608ae">8.1</a>.
+The complete syntax for these predicates is specified in section <a href="#orga2d930c">8.1</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4e3d8f9" class="outline-3">
-<h3 id="org4e3d8f9"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
+<div id="outline-container-org6c32e91" class="outline-3">
+<h3 id="org6c32e91"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
-ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&gt;</code> element as follows:
+Remaster's <code>Simulator</code> object, which can be used as a <code>&lt;run&gt;</code> element as follows:
 </p>
 
 <div class="org-src-container">
@@ -613,7 +612,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="org15ecd28">
+<pre class="example" id="org354cbf1">
 $ beast BDtraj.xml
 </pre>
 
@@ -624,28 +623,28 @@ This should produce some screen output, together with a file
 </div>
 </div>
 
-<div id="outline-container-orgdf192b3" class="outline-3">
-<h3 id="orgdf192b3"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
+<div id="outline-container-org240ae51" class="outline-3">
+<h3 id="org240ae51"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 In order to actually visualize the simulation output, we can make use of the script
-<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the ReMASTER repository
+<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the Remaster repository
 to load the trajectories into a data frame:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R"><span style="color: #96CBFE;">source</span>(<span style="color: #61CE3C;">"&lt;PATH&gt;/ReMASTER/scripts/trajTools.R"</span>)
+<pre class="src src-R"><span style="color: #96CBFE;">source</span>(<span style="color: #61CE3C;">"&lt;PATH&gt;/Remaster/scripts/trajTools.R"</span>)
 traj <span style="color: #96CBFE;">&lt;-</span> loadTrajectories(<span style="color: #61CE3C;">"output.traj"</span>)
 </pre>
 </div>
 <p>
-(Here "&lt;PATH&gt;" is the path to the ReMASTER repository or package directory.)
+(Here "&lt;PATH&gt;" is the path to the Remaster repository or package directory.)
 </p>
 
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orge95c9c6">
+<pre class="example" id="orgfcd92fe">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -677,7 +676,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="orgc667f03">
+<figure id="org812d2e8">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -685,8 +684,8 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 </div>
 
-<div id="outline-container-org16deedf" class="outline-2">
-<h2 id="org16deedf"><span class="section-number-2">5.</span> Tree simulation</h2>
+<div id="outline-container-org3af90e8" class="outline-2">
+<h2 id="org3af90e8"><span class="section-number-2">5.</span> Tree simulation</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Once a trajectory simulation is configured, producing the corresponding trees
@@ -719,8 +718,8 @@ number of individuals in the sampled population is greater than 1.)
 </p>
 </div>
 
-<div id="outline-container-orgb8d3d86" class="outline-3">
-<h3 id="orgb8d3d86"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
+<div id="outline-container-orgc993dbf" class="outline-3">
+<h3 id="orgc993dbf"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 A self-contained tree simulation XML is very similar to a self-contained trajectory
@@ -773,15 +772,15 @@ to view the result:
 </p>
 
 
-<figure id="org48a564d">
+<figure id="org6f07fbe">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-org7ce50a0" class="outline-3">
-<h3 id="org7ce50a0"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
+<div id="outline-container-org137be97" class="outline-3">
+<h3 id="org137be97"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 The example model in the previous section contained only one main population
@@ -827,24 +826,24 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgdf69b5f">
+<figure id="orgc70d05d">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-orgca654b9" class="outline-3">
-<h3 id="orgca654b9"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
+<div id="outline-container-orgd5ac6ab" class="outline-3">
+<h3 id="orgd5ac6ab"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Occasionally you really <b>do</b> want to log trees without any additional
 type annotation.  With single-population models this can be achieved
-as shown in <a href="#orgb8d3d86">5.1</a>.  However,
+as shown in <a href="#orgc993dbf">5.1</a>.  However,
 multi-population models (or models with sub-populations) often produce
 trees with internal nodes representing type changes.  These nodes will
 appear in the output trees, even when the edge types are not recorded.
-This can also produce problems when using ReMASTER <code>SimulatedTree</code> objects
+This can also produce problems when using Remaster <code>SimulatedTree</code> objects
 to initialise standard BEAST MCMC analyses, as the extra nodes will not
 be properly understood.
 </p>
@@ -861,11 +860,11 @@ the rest of BEAST.
 </div>
 </div>
 
-<div id="outline-container-orgcbe2b9b" class="outline-2">
-<h2 id="orgcbe2b9b"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+<div id="outline-container-org75a8dcd" class="outline-2">
+<h2 id="org75a8dcd"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the following ways:
+Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 </p>
 
 <ul class="org-ul">
@@ -877,7 +876,7 @@ expect generic <code>Function</code> inputs.</li>
 </ul>
 
 <p>
-This means that it is possible to use ReMASTER to initialise MCMC chains, to
+This means that it is possible to use Remaster to initialise MCMC chains, to
 simulate sequence data, or to produce single-XML simulation studies which combine
 both simulation and inference.
 </p>
@@ -921,12 +920,12 @@ One can easily do this as follows:
 </div>
 </div>
 
-<div id="outline-container-org068cfc9" class="outline-2">
-<h2 id="org068cfc9"><span class="section-number-2">7.</span> Examples</h2>
+<div id="outline-container-org2be5141" class="outline-2">
+<h2 id="org2be5141"><span class="section-number-2">7.</span> Examples</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 The <code>examples/</code> directory of the package repository contains a growing list of example
-ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
+Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
 You can also access these example scripts directly via the Github repository for the
 package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">https://github.com/tgvaughan/remaster/tree/master/examples</a>.
 </p>
@@ -934,19 +933,19 @@ package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">ht
 </div>
 
 
-<div id="outline-container-orgf953a7e" class="outline-2">
-<h2 id="orgf953a7e"><span class="section-number-2">8.</span> Appendix</h2>
+<div id="outline-container-org9e8faa3" class="outline-2">
+<h2 id="org9e8faa3"><span class="section-number-2">8.</span> Appendix</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-org47608ae" class="outline-3">
-<h3 id="org47608ae"><span class="section-number-3">8.1.</span> Condition syntax</h3>
+<div id="outline-container-orga2d930c" class="outline-3">
+<h3 id="orga2d930c"><span class="section-number-3">8.1.</span> Condition syntax</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conform to the following
 grammar:
 </p>
 
-<pre class="example" id="org6e07616">
+<pre class="example" id="orgd1e2a1c">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1016,7 +1015,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2022-09-19 Mon 13:59</p>
+<p class="date">Created: 2022-09-22 Thu 10:33</p>
 </div>
 </body>
 </html>
