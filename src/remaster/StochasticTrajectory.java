@@ -121,7 +121,7 @@ public class StochasticTrajectory extends AbstractTrajectory {
         for (TrajectoryEvent event : eventList) {
             for (long i=0; i<Math.round(event.multiplicity); i++) {
                 event.reaction.incrementLineages(lineages, state,
-                        event.time, lineageFactory);
+                        event.time, lineageFactory, false);
                 event.reaction.reverseIncremementState(state, 1);
             }
         }

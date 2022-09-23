@@ -261,15 +261,37 @@ public abstract class AbstractReaction extends BEASTObject {
 
     /**
      * Increment lineage state according to reaction.
+     *
+     * @param lineages current extant lineage population
+     * @param state current total population state
+     * @param eventTime time of reaction
+     * @param lineageFactory factory object for creating new lineages
+     * @param conditionOnInclusion increment lineages conditional on at least
+     *                             one sampled lineage being involved in the
+     *                             reaction.
      */
     public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, TrajectoryState state, double eventTime,
-                                  LineageFactory lineageFactory) {
-        if (lineages.isEmpty() && !producesSamples)
+                                  LineageFactory lineageFactory,
+                                  boolean conditionOnInclusion) {
+        if (lineages.isEmpty() && !producesSamples) {
+            if (conditionOnInclusion)
+                throw new IllegalStateException("incrementLineages: " +
+                        "conditionOnInclusion is true, but no lineages remain.");
             return;
+        }
 
         // Iterate over **products**
 
         double u = Randomizer.nextDouble();
+
+        double totalInclusionProb = 1.0;
+        if (conditionOnInclusion) {
+            totalInclusionProb = getLineageInclusionProbability(lineages, state);
+            if (totalInclusionProb == 0)
+                throw new IllegalStateException("incrementLineages: " +
+                        "conditionOnInclusion is true, but totalInclusionProb " +
+                        "is zero.");
+        }
 
         for (int i=0; i<children.size(); i++) {
             for (ReactElement el : children.get(i)) {
@@ -278,6 +300,8 @@ public abstract class AbstractReaction extends BEASTObject {
 
                 if (samplePopNames.contains(el.name)) {
                     toInclude.add(lineageFactory.createSample(parents.get(i), eventTime));
+                    conditionOnInclusion = false;
+                    totalInclusionProb = 1.0;
                     continue;
                 }
 
@@ -285,14 +309,21 @@ public abstract class AbstractReaction extends BEASTObject {
                         ? lineages.get(el).size()/(state.get(el) - seenElements.get(el))
                         : 0.0;
 
-                if (u < pInclude) {
-                    int lineageIdx = (int)Math.round(Math.floor(lineages.get(el).size()*(u/pInclude)));
+                if (u*totalInclusionProb < pInclude) {
+                    int lineageIdx = (int)Math.round(Math.floor(lineages.get(el).size()
+                            * (u*totalInclusionProb/pInclude)));
 
                     toInclude.add(lineages.get(el).remove(lineageIdx));
 
                     u = Randomizer.nextDouble();
-                } else if (pInclude>0.0)
-                    u = (u - pInclude)/(1.0 - pInclude);
+                    conditionOnInclusion = false;
+                    totalInclusionProb = 1.0;
+                } else if (pInclude>0.0) {
+                    u = (u*totalInclusionProb - pInclude) / (totalInclusionProb - pInclude);
+
+                    if (conditionOnInclusion)
+                        totalInclusionProb = (totalInclusionProb - pInclude)/(1 - pInclude);
+                }
 
                 seenElements.put(el, seenElements.get(el)+1);
             }
@@ -318,6 +349,45 @@ public abstract class AbstractReaction extends BEASTObject {
         }
 
         seenElements.clear();
+    }
+
+    /**
+     * Compute the probability that a reaction is included in the tree.
+     *
+     * @param lineages current extant lineage state
+     * @param state current total population state
+     * @return probability that reaction affects tree
+     */
+    public double getLineageInclusionProbability(Map<ReactElement, List<Lineage>> lineages,
+                                                 TrajectoryState state) {
+        if (lineages.isEmpty() && !producesSamples)
+            return 0;
+
+        if (producesSamples)
+            return 1.0;
+
+        // Iterate over **products**
+
+        double pNoInclude = 1.0;
+
+        for (int i=0; i<children.size(); i++) {
+            for (ReactElement el : children.get(i)) {
+                if (!seenElements.containsKey(el))
+                    seenElements.put(el, 0);
+
+                double pInclude = lineages.containsKey(el)
+                        ? lineages.get(el).size()/(state.get(el) - seenElements.get(el))
+                        : 0.0;
+
+                pNoInclude *= 1.0 - pInclude;
+
+                seenElements.put(el, seenElements.get(el)+1);
+            }
+        }
+
+        seenElements.clear();
+
+        return 1.0 - pNoInclude;
     }
 
     @Override

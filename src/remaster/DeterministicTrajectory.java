@@ -174,8 +174,6 @@ public class DeterministicTrajectory extends AbstractTrajectory {
         continuousOutputModel = new ContinuousOutputModel();
         integrator.addStepHandler(continuousOutputModel);
 
-//        integrator.setMaxEvaluations(100000);
-
         stopTime = integrator.integrate(system, 0, state.occupancies,
                 maxTimeInput.get().getArrayValue(), state.occupancies);
 
@@ -219,7 +217,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
                 reaction.decrementInterval();
                 double n = reaction.implementEvent(state, true);
                 for (int i=0; i<n; i++) {
-                    reaction.incrementLineages(lineages, state, t, lineageFactory);
+                    reaction.incrementLineages(lineages, state, t, lineageFactory, false);
                     reaction.reverseIncremementState(state, 1);
                 }
                 sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
@@ -227,12 +225,15 @@ public class DeterministicTrajectory extends AbstractTrajectory {
 
             for (Reaction reaction : continuousReactions) {
                 reaction.updatePropensity(state);
+                double totalInclusionProb =
+                        reaction.getLineageInclusionProbability(lineages, state);
 
-                long n = Randomizer.nextPoisson(reaction.currentPropensity*dt);
+                long n = Randomizer.nextPoisson(
+                        reaction.currentPropensity*totalInclusionProb*dt);
 
-                for (int i=0; i<n; i++) {
-                    reaction.incrementLineages(lineages, state, t, lineageFactory);
-                }
+                for (int i=0; i<n; i++)
+                    reaction.incrementLineages(lineages, state, t, lineageFactory,
+                            true);
             }
 
             t -= dt;
