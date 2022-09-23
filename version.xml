@@ -1,4 +1,3 @@
-<addon name="remaster" version="0.0.3">
+<addon name="remaster" version="1.0.0">
   <depends on="beast2" atleast="2.6.0"/>
 </addon>
-        
