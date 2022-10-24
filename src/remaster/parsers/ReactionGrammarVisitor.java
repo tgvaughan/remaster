@@ -1,4 +1,4 @@
-// Generated from ReactionGrammar.g4 by ANTLR 4.7.2
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.10.1
 package remaster.parsers;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

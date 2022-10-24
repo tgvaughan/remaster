@@ -1,7 +1,7 @@
 package remaster;
 
-import beast.core.Function;
-import beast.core.parameter.RealParameter;
+import beast.base.core.Function;
+import beast.base.inference.parameter.RealParameter;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -27,7 +27,7 @@ public class ConditionTest {
         samp.setID("samp");
         sampFuncs.add(samp);
 
-        TrajectoryState state = new TrajectoryState( popFuncs, sampFuncs);
+        TrajectoryState state = new TrajectoryState(popFuncs, sampFuncs);
 
         try (PrintStream ps = new PrintStream("out.txt")) {
             ps.println("x\tf");

@@ -1,8 +1,7 @@
 package remaster;
 
-import beast.core.Function;
-import beast.core.Input;
-import beast.util.Randomizer;
+import beast.base.core.Function;
+import beast.base.core.Input;
 
 import static remaster.Util.nextBinomial;
 

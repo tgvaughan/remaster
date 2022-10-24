@@ -1,6 +1,6 @@
 package remaster;
 
-import beast.evolution.tree.Node;
+import beast.base.evolution.tree.Node;
 
 /**
  * A class of objects representing "typed" lineages.

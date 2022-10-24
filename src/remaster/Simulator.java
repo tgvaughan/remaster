@@ -1,7 +1,9 @@
 package remaster;
 
-import beast.core.*;
-import beast.core.Runnable;
+import beast.base.core.BEASTObject;
+import beast.base.core.Input;
+import beast.base.inference.Logger;
+import beast.base.inference.Runnable;
 
 import java.util.*;
 

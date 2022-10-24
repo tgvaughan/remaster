@@ -51,7 +51,7 @@ simulating 100 trees under a the above birth-death sampling model with
 $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 
 #+begin_src xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference:beast.base.inference:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=10">
@@ -359,7 +359,7 @@ it needs to be embedded in a BEAST XML that produces output.  The most direct wa
 Remaster's =Simulator= object, which can be used as a =<run>= element as follows:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.core.parameter:remaster">
+  <beast version="2.0" namespace="beast.base.inference:remaster">
     <run spec="Simulator" nSims="100">
       <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
         <population id="X" spec="RealParameter" value="1"/>
@@ -470,7 +470,7 @@ trees sampled from a linear birth-death-sampling model and saves them to a file
 named "output.trees":
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.core.parameter:remaster">
+  <beast version="2.0" namespace="beast.base.inference:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
@@ -515,7 +515,7 @@ In order to include this information so that it can be shown on the tree,
 you'll need to use the =TypedTreeLogger= in place of the standard logger:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.core.parameter:remaster">
+  <beast version="2.0" namespace="beast.base.inference:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
@@ -586,7 +586,7 @@ epidemiological model defined by a basic reproductive number
 $R=\lambda/\mu$ instead of a birth rate.  One can easily do this as
 follows:
 #+begin_src xml
-  <beast version="2.0" namespace="beast.core.parameter:remaster">
+  <beast version="2.0" namespace="beast.base.inference:remaster">
     <param id="R" spec="RealParameter" value="1.5"/>
     <param id="mu" spec="RealParameter" value="1.0"/>
 

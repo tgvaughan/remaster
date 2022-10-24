@@ -1,8 +1,8 @@
 package remaster;
 
-import beast.core.Function;
-import beast.core.Input;
-import beast.math.Binomial;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.util.Binomial;
 
 import java.util.*;
 

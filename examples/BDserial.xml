@@ -1,4 +1,4 @@
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory"
@@ -21,7 +21,7 @@
         </logger>
 
         <logger spec="Logger">
-            <log spec="beast.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
+            <log spec="beast.base.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
         </logger>
     </run>
 </beast>

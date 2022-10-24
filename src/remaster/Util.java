@@ -1,7 +1,7 @@
 package remaster;
 
-import beast.math.GammaFunction;
-import beast.util.Randomizer;
+import beast.base.util.GammaFunction;
+import beast.base.util.Randomizer;
 
 public class Util {
 

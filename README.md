@@ -24,6 +24,10 @@ https://tgvaughan.github.io/remaster/package.xml
 Development News
 ----------------
 
+### 2022-10-24
+
+I've updated Remaster to work with BEAST 2.7. Expect a new release shortly.
+
 ### 2022-09-19
 
 I've added [a draft manual](https://tgvaughan.github.io/remaster),

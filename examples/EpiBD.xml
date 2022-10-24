@@ -1,6 +1,6 @@
 <!-- Demonstrates use of feast's ExpCalculator to simulate using
      epi parameters -->
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
 
     <param id="r0" spec="RealParameter" value="2"/>
     <param id="burate" spec="RealParameter" value="36"/>
@@ -42,7 +42,7 @@
         </logger>
 
         <logger spec="Logger">
-            <log spec="beast.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
+            <log spec="beast.base.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
         </logger>
     </run>
 </beast>

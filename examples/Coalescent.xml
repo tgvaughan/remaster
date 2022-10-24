@@ -1,6 +1,6 @@
 <!-- Basic coalescent tree simulation -->
 <beast version="2.0"
-       namespace="beast.core.parameter:remaster">
+       namespace="beast.base.inference.parameter:remaster">
   <run spec="Simulator" nSims="10">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="DeterministicTrajectory" maxTime="10">
