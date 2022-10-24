@@ -51,7 +51,7 @@
 
         <mkdir dir="${build}"/>
         <mkdir dir="${build-beast}"/>
-        <mkdir dir="${build-source-root}"/>
+        <mkdir dir="${beast-source-root}"/>
         <mkdir dir="${dist}"/>
     </target>
 
