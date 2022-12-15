@@ -187,7 +187,7 @@ public class DeterministicTrajectory extends AbstractTrajectory {
     }
 
     @Override
-    public Node simulateTree() throws TreeSimulationFailureException {
+    public Node simulateTree() throws SimulationFailureException {
 
         double dt = stopTime*relativeStepSizeInput.get().getArrayValue();
 
@@ -245,11 +245,11 @@ public class DeterministicTrajectory extends AbstractTrajectory {
             rootLineages.addAll(lineages.get(pop));
 
         if (rootLineages.isEmpty()) {
-            throw new TreeSimulationFailureException("No lineages remaining.");
+            throw new SimulationFailureException("No lineages remaining.");
         }
 
         if (rootLineages.size()>1) {
-            throw new TreeSimulationFailureException("Multiple lineages remaining.");
+            throw new SimulationFailureException("Multiple lineages remaining.");
         }
 
         lineageFactory.numberInternals(rootLineages.get(0));

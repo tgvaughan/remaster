@@ -13,7 +13,8 @@ public class SimulatedTree extends Tree {
 
     public Input<Integer> maxRetriesInput = new Input<>("maxRetries",
             "Maximum number of times to retry tree simulation after failure " +
-                    "to simulate tree with exactly one root lineage.", 10);
+                    "to simulate tree with at least one tip and exactly one " +
+                    "root lineage.", 10);
 
     AbstractTrajectory trajectory;
     int maxRetries;
@@ -32,23 +33,26 @@ public class SimulatedTree extends Tree {
 
         Node root = null;
 
-        int retries = 0;
-        while (root == null && retries <= maxRetries) {
+        int retries = maxRetries;
+        while (root == null && retries >= 0) {
             try {
                 root = trajectory.simulateTree();
-            } catch (AbstractTrajectory.TreeSimulationFailureException e) {
+            } catch (AbstractTrajectory.SimulationFailureException e) {
                 Log.err.print("Tree simulation error: " + e.getMessage());
-                retries += 1;
+                retries -= 1;
 
-                if (retries <= maxRetries)
+                if (retries >= 0) {
                     Log.err.print(" Retrying.");
+                    trajectory.initAndValidate();
+                }
                 Log.err.println();
             }
         }
 
         if (root == null) {
-            Log.err.println("Failed to simulate tree with exactly one root " +
-                    "lineage. (maxRetries = " + maxRetries + ")");
+            Log.err.println("Failed to simulate tree with at least one leaf " +
+                    "and exactly one root lineage. (maxRetries = " +
+                    maxRetries + ")");
             System.exit(1);
         }
 

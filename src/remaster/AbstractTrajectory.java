@@ -70,10 +70,10 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
 
     public abstract boolean doSimulation();
 
-    public abstract Node simulateTree() throws TreeSimulationFailureException;
+    public abstract Node simulateTree() throws SimulationFailureException;
 
-    public static class TreeSimulationFailureException extends Exception {
-        public TreeSimulationFailureException(String message) {
+    public static class SimulationFailureException extends Exception {
+        public SimulationFailureException(String message) {
             super(message);
         }
     }

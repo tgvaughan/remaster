@@ -1,5 +1,6 @@
 package remaster;
 
+import beast.base.core.Input;
 import beast.base.core.Log;
 import beast.base.evolution.tree.Node;
 import beast.base.util.Randomizer;
@@ -9,6 +10,10 @@ import java.util.*;
 
 public class StochasticTrajectory extends AbstractTrajectory {
 
+    public Input<Integer> maxRetriesInput = new Input<>("maxRetries",
+            "Maximum number of times to retry simulation after failure " +
+                    "to meet mustHave condition.", 100);
+
     List<TrajectoryEvent> events;
 
     @Override
@@ -17,8 +22,16 @@ public class StochasticTrajectory extends AbstractTrajectory {
 
         events = new ArrayList<>();
 
-        while (!doSimulation())
-            Log.info("Simulation rejected: retrying");
+        int retries = maxRetriesInput.get();
+        while (retries>=0 && !doSimulation()) {
+            retries -= 1;
+            if (retries >=0)
+                Log.info("Simulation rejected: retrying");
+            else
+                Log.err.println("Failed to simulate trajectory satisfying " +
+                        "mustHave condition. (maxRetires = " +
+                        maxTimeInput.get() + ")");
+        }
     }
 
 
@@ -103,11 +116,9 @@ public class StochasticTrajectory extends AbstractTrajectory {
     }
 
     @Override
-    public Node simulateTree() {
-        while(events.stream().noneMatch(e -> e.reaction.producesSamples)) {
-            Log.info("No sampling events in trajectory: regenerating.");
-            initAndValidate();
-        }
+    public Node simulateTree() throws SimulationFailureException {
+        if (events.stream().noneMatch(e -> e.reaction.producesSamples))
+            throw new SimulationFailureException("No samples produced.");
 
         List<TrajectoryEvent> eventList = new ArrayList<>(events);
         Collections.reverse(eventList);
@@ -132,11 +143,11 @@ public class StochasticTrajectory extends AbstractTrajectory {
 
         // Restrict reactions to ensure this is impossible
         if (rootLineages.isEmpty())
-            throw new IllegalStateException("No lineages remaining.");
+            throw new SimulationFailureException("No lineages remaining.");
 
         // Might allow this in future
         if (rootLineages.size()>1)
-            throw new IllegalStateException("Multiple lineages remaining.");
+            throw new SimulationFailureException("Multiple lineages remaining.");
 
         lineageFactory.numberInternals(rootLineages.get(0));
 
