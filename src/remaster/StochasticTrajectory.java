@@ -26,7 +26,7 @@ public class StochasticTrajectory extends AbstractTrajectory {
         while (retries>=0 && !doSimulation()) {
             retries -= 1;
             if (retries >=0)
-                Log.info("Simulation rejected: retrying");
+                Log.info("Trajectory simulation rejected: retrying");
             else
                 Log.err.println("Failed to simulate trajectory satisfying " +
                         "mustHave condition. (maxRetires = " +
