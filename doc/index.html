@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-12-15 Thu 18:02 -->
+<!-- 2023-01-04 Wed 13:04 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Remaster</title>
@@ -24,46 +24,46 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7a2be2b">1. Overview</a>
+<li><a href="#orgbcd70b8">1. Overview</a>
 <ul>
-<li><a href="#org00f556c">1.1. The name</a></li>
-<li><a href="#orga624dde">1.2. License</a></li>
+<li><a href="#org99d13bf">1.1. The name</a></li>
+<li><a href="#org6056a31">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#orgb9fe5da">2. Installation</a></li>
-<li><a href="#org01e62da">3. Model specification</a>
+<li><a href="#orgd6d8764">2. Installation</a></li>
+<li><a href="#org1abf04a">3. Model specification</a>
 <ul>
-<li><a href="#org162eb78">3.1. Populations</a></li>
-<li><a href="#org239aa6c">3.2. Reactions</a>
+<li><a href="#org6a1c2c6">3.1. Populations</a></li>
+<li><a href="#org0083910">3.2. Reactions</a>
 <ul>
-<li><a href="#orge8c4b68">3.2.1. Continuous reactions</a></li>
-<li><a href="#org1bb4cde">3.2.2. Punctual reactions</a></li>
-<li><a href="#org6762b4a">3.2.3. Identifying parents and children</a></li>
+<li><a href="#org51a572e">3.2.1. Continuous reactions</a></li>
+<li><a href="#org172436d">3.2.2. Punctual reactions</a></li>
+<li><a href="#org6ad083c">3.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd650cbb">4. Trajectory simulation</a>
+<li><a href="#org884677a">4. Trajectory simulation</a>
 <ul>
-<li><a href="#orgcdaedcb">4.1. Stochastic Trajectories</a></li>
-<li><a href="#org6e89331">4.2. Deterministic Trajectories</a></li>
-<li><a href="#org2c78815">4.3. Placing conditions on trajectories</a></li>
-<li><a href="#org63741e8">4.4. Self-contained trajectory simulation XMLs</a></li>
-<li><a href="#org3ff2873">4.5. Plotting simulated trajectories</a></li>
+<li><a href="#org67afacb">4.1. Stochastic Trajectories</a></li>
+<li><a href="#org98e5428">4.2. Deterministic Trajectories</a></li>
+<li><a href="#orgc8a3bf9">4.3. Placing conditions on trajectories</a></li>
+<li><a href="#org14eeb0b">4.4. Self-contained trajectory simulation XMLs</a></li>
+<li><a href="#org8dfad95">4.5. Plotting simulated trajectories</a></li>
 </ul>
 </li>
-<li><a href="#org30d3254">5. Tree simulation</a>
+<li><a href="#org16b1dbb">5. Tree simulation</a>
 <ul>
-<li><a href="#orgdeb8813">5.1. Self-contained tree simulation XMLs</a></li>
-<li><a href="#org20607df">5.2. Logging typed trees</a></li>
-<li><a href="#org56a2dac">5.3. Logging untyped trees</a></li>
+<li><a href="#org9f3bcaf">5.1. Self-contained tree simulation XMLs</a></li>
+<li><a href="#org4a4737f">5.2. Logging typed trees</a></li>
+<li><a href="#org671f626">5.3. Logging untyped trees</a></li>
 </ul>
 </li>
-<li><a href="#orgf697f17">6. Integrating with BEAST</a></li>
-<li><a href="#orgd6fdb4b">7. Examples</a></li>
-<li><a href="#org830f252">8. Appendix</a>
+<li><a href="#orgae18268">6. Integrating with BEAST</a></li>
+<li><a href="#orgb4eddb4">7. Examples</a></li>
+<li><a href="#org0c35a8d">8. Appendix</a>
 <ul>
-<li><a href="#orgab51171">8.1. Condition syntax</a></li>
+<li><a href="#org9345012">8.1. Condition syntax</a></li>
 </ul>
 </li>
 </ul>
@@ -77,8 +77,8 @@
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-org7a2be2b" class="outline-2">
-<h2 id="org7a2be2b"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orgbcd70b8" class="outline-2">
+<h2 id="orgbcd70b8"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Remaster is a flexible tool for simulating trajectories
@@ -159,8 +159,8 @@ simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-org00f556c" class="outline-3">
-<h3 id="org00f556c"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-org99d13bf" class="outline-3">
+<h3 id="org99d13bf"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 "Remaster" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
@@ -170,8 +170,8 @@ of performing the simulation tasks for which MASTER itself is actually used.
 </div>
 </div>
 
-<div id="outline-container-orga624dde" class="outline-3">
-<h3 id="orga624dde"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-org6056a31" class="outline-3">
+<h3 id="org6056a31"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Remaster is free software, and is made available under the terms of
@@ -183,8 +183,8 @@ official Github project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-orgb9fe5da" class="outline-2">
-<h2 id="orgb9fe5da"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-orgd6d8764" class="outline-2">
+<h2 id="orgd6d8764"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Remaster is a BEAST 2 package and will eventually be available for installation
@@ -209,16 +209,16 @@ simulation.
 </div>
 </div>
 
-<div id="outline-container-org01e62da" class="outline-2">
-<h2 id="org01e62da"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-org1abf04a" class="outline-2">
+<h2 id="org1abf04a"><span class="section-number-2">3.</span> Model specification</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, Remaster defines models in terms of <a href="#org162eb78">populations</a> and <a href="#org239aa6c">reactions</a>.
+Like MASTER, Remaster defines models in terms of <a href="#org6a1c2c6">populations</a> and <a href="#org0083910">reactions</a>.
 </p>
 </div>
 
-<div id="outline-container-org162eb78" class="outline-3">
-<h3 id="org162eb78"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-org6a1c2c6" class="outline-3">
+<h3 id="org6a1c2c6"><span class="section-number-3">3.1.</span> Populations</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 A population in Remaster is simply a <code>RealParameter</code> (or other
@@ -264,8 +264,8 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-org239aa6c" class="outline-3">
-<h3 id="org239aa6c"><span class="section-number-3">3.2.</span> Reactions</h3>
+<div id="outline-container-org0083910" class="outline-3">
+<h3 id="org0083910"><span class="section-number-3">3.2.</span> Reactions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
@@ -280,8 +280,8 @@ reactions and "punctual" reactions.
 </div>
 
 
-<div id="outline-container-orge8c4b68" class="outline-4">
-<h4 id="orge8c4b68"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
+<div id="outline-container-org51a572e" class="outline-4">
+<h4 id="org51a572e"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 As the name suggests, reactions are applied continuously throughout the
@@ -304,14 +304,14 @@ to specify that the rate should change from 2 to 1.4 at time 4, you can write
 the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"2 1"</span> <span class="org-nxml-attribute-local-name">changeTime</span>=<span class="org-string">"4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> S + I -&gt; 2I </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"2 1.4"</span> <span class="org-nxml-attribute-local-name">changeTime</span>=<span class="org-string">"4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> S + I -&gt; 2I </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1bb4cde" class="outline-4">
-<h4 id="org1bb4cde"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
+<div id="outline-container-org172436d" class="outline-4">
+<h4 id="org172436d"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -364,8 +364,8 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 
-<div id="outline-container-org6762b4a" class="outline-4">
-<h4 id="org6762b4a"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
+<div id="outline-container-org6ad083c" class="outline-4">
+<h4 id="org6ad083c"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 Although the reaction notation is intuitive, on its own it does not
@@ -430,8 +430,8 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 
-<div id="outline-container-orgd650cbb" class="outline-2">
-<h2 id="orgd650cbb"><span class="section-number-2">4.</span> Trajectory simulation</h2>
+<div id="outline-container-org884677a" class="outline-2">
+<h2 id="org884677a"><span class="section-number-2">4.</span> Trajectory simulation</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Trajectories are simply realisations of the population process.  There are two
@@ -458,8 +458,8 @@ birth-death models.
 </p>
 </div>
 
-<div id="outline-container-orgcdaedcb" class="outline-3">
-<h3 id="orgcdaedcb"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
+<div id="outline-container-org67afacb" class="outline-3">
+<h3 id="org67afacb"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Once the population and reaction elements are specified, defining a
@@ -493,8 +493,8 @@ fire.)
 </div>
 </div>
 
-<div id="outline-container-org6e89331" class="outline-3">
-<h3 id="org6e89331"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
+<div id="outline-container-org98e5428" class="outline-3">
+<h3 id="org98e5428"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Defining deterministic trajectories is almost exactly the same as defining
@@ -526,8 +526,8 @@ numbers can be problematic.
 </div>
 </div>
 
-<div id="outline-container-org2c78815" class="outline-3">
-<h3 id="org2c78815"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
+<div id="outline-container-orgc8a3bf9" class="outline-3">
+<h3 id="orgc8a3bf9"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 In addition to the rates and initial population sizes, conditions can
@@ -572,13 +572,13 @@ at the end of the simulation.
 </p>
 
 <p>
-The complete syntax for these predicates is specified in section <a href="#orgab51171">8.1</a>.
+The complete syntax for these predicates is specified in section <a href="#org9345012">8.1</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org63741e8" class="outline-3">
-<h3 id="org63741e8"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
+<div id="outline-container-org14eeb0b" class="outline-3">
+<h3 id="org14eeb0b"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
@@ -618,7 +618,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="org3ebc63d">
+<pre class="example" id="orga39df47">
 $ beast BDtraj.xml
 </pre>
 
@@ -629,8 +629,8 @@ This should produce some screen output, together with a file
 </div>
 </div>
 
-<div id="outline-container-org3ff2873" class="outline-3">
-<h3 id="org3ff2873"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
+<div id="outline-container-org8dfad95" class="outline-3">
+<h3 id="org8dfad95"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 In order to actually visualize the simulation output, we can make use of the script
@@ -650,7 +650,7 @@ traj <span class="org-ess-assignment">&lt;-</span> loadTrajectories(<span class=
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org731d5cd">
+<pre class="example" id="org14c298e">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -682,7 +682,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="org64919d5">
+<figure id="org53d52b6">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -690,8 +690,8 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 </div>
 
-<div id="outline-container-org30d3254" class="outline-2">
-<h2 id="org30d3254"><span class="section-number-2">5.</span> Tree simulation</h2>
+<div id="outline-container-org16b1dbb" class="outline-2">
+<h2 id="org16b1dbb"><span class="section-number-2">5.</span> Tree simulation</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Once a trajectory simulation is configured, producing the corresponding trees
@@ -724,8 +724,8 @@ number of individuals in the sampled population is greater than 1.)
 </p>
 </div>
 
-<div id="outline-container-orgdeb8813" class="outline-3">
-<h3 id="orgdeb8813"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
+<div id="outline-container-org9f3bcaf" class="outline-3">
+<h3 id="org9f3bcaf"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 A self-contained tree simulation XML is very similar to a self-contained trajectory
@@ -778,15 +778,15 @@ to view the result:
 </p>
 
 
-<figure id="orgc7181fd">
+<figure id="orgdfeee97">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-org20607df" class="outline-3">
-<h3 id="org20607df"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
+<div id="outline-container-org4a4737f" class="outline-3">
+<h3 id="org4a4737f"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 The example model in the previous section contained only one main population
@@ -832,20 +832,20 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgaa215c4">
+<figure id="org9787450">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-org56a2dac" class="outline-3">
-<h3 id="org56a2dac"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
+<div id="outline-container-org671f626" class="outline-3">
+<h3 id="org671f626"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Occasionally you really <b>do</b> want to log trees without any additional
 type annotation.  With single-population models this can be achieved
-as shown in <a href="#orgdeb8813">5.1</a>.  However,
+as shown in <a href="#org9f3bcaf">5.1</a>.  However,
 multi-population models (or models with sub-populations) often produce
 trees with internal nodes representing type changes.  These nodes will
 appear in the output trees, even when the edge types are not recorded.
@@ -866,8 +866,8 @@ the rest of BEAST.
 </div>
 </div>
 
-<div id="outline-container-orgf697f17" class="outline-2">
-<h2 id="orgf697f17"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
+<div id="outline-container-orgae18268" class="outline-2">
+<h2 id="orgae18268"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
@@ -927,8 +927,8 @@ follows:
 </div>
 </div>
 
-<div id="outline-container-orgd6fdb4b" class="outline-2">
-<h2 id="orgd6fdb4b"><span class="section-number-2">7.</span> Examples</h2>
+<div id="outline-container-orgb4eddb4" class="outline-2">
+<h2 id="orgb4eddb4"><span class="section-number-2">7.</span> Examples</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 The <code>examples/</code> directory of the package repository contains a growing list of example
@@ -940,19 +940,19 @@ package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">ht
 </div>
 
 
-<div id="outline-container-org830f252" class="outline-2">
-<h2 id="org830f252"><span class="section-number-2">8.</span> Appendix</h2>
+<div id="outline-container-org0c35a8d" class="outline-2">
+<h2 id="org0c35a8d"><span class="section-number-2">8.</span> Appendix</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-orgab51171" class="outline-3">
-<h3 id="orgab51171"><span class="section-number-3">8.1.</span> Condition syntax</h3>
+<div id="outline-container-org9345012" class="outline-3">
+<h3 id="org9345012"><span class="section-number-3">8.1.</span> Condition syntax</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conform to the following
 grammar:
 </p>
 
-<pre class="example" id="org9ca000c">
+<pre class="example" id="org697d6f5">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1022,7 +1022,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2022-12-15 Thu 18:02</p>
+<p class="date">Created: 2023-01-04 Wed 13:04</p>
 </div>
 </body>
 </html>

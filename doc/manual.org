@@ -167,7 +167,7 @@ The rate of a continuous reaction can change at one or more times.  For example,
 to specify that the rate should change from 2 to 1.4 at time 4, you can write
 the following:
 #+begin_src xml
-<reaction spec="Reaction" rate="2 1" changeTime="4"> S + I -> 2I </reaction>
+<reaction spec="Reaction" rate="2 1.4" changeTime="4"> S + I -> 2I </reaction>
 #+end_src
 
 *** Punctual reactions
