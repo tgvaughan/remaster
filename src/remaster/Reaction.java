@@ -30,7 +30,8 @@ public class Reaction extends AbstractReaction {
                 ? new double[0] : changeTimesInput.get().getDoubleValues();
 
         if (changeTimes.length != rates.length-1)
-            throw new IllegalArgumentException("Number of change times must equal number of rate shifts - 1.");
+            throw new IllegalArgumentException("Number of change times must " +
+                    "equal number of distinct rates - 1.");
 
         super.initAndValidate();
     }

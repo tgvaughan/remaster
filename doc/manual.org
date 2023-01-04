@@ -87,7 +87,7 @@ of performing the simulation tasks for which MASTER itself is actually used.
 Remaster is free software, and is made available under the terms of
 version 3 of the GNU General Public License, the text of which is
 available [[https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING][here]].  The source code for the project can be found at the
-official Github project page: https://github.com/tgvaughan/remaster.
+official GitHub project page: https://github.com/tgvaughan/remaster.
 
 * Installation
 
@@ -167,13 +167,13 @@ The rate of a continuous reaction can change at one or more times.  For example,
 to specify that the rate should change from 2 to 1.4 at time 4, you can write
 the following:
 #+begin_src xml
-<reaction spec="Reaction" rate="2 1.4" changeTime="4"> S + I -> 2I </reaction>
+<reaction spec="Reaction" rate="2 1.4" changeTimes="4"> S + I -> 2I </reaction>
 #+end_src
 
 *** Punctual reactions
 
 In contrast, punctual reactions are applied at one or more pre-defined
-/times/. At each of thes times, a punctual reaction may be applied
+/times/. At each of these times, a punctual reaction may be applied
 with some probability to each available combination of reactants
 (i.e. the number of times the reaction fires is still random) or it
 may be applied a pre-specified number of times.
@@ -182,21 +182,21 @@ To specify a punctual reaction which fires with a particular probability
 for each available reactant (here 0.5) and at a chosen time (here 10),
 use the following notation:
 #+begin_src xml
-<reaction spec="PunctualReaction" p="0.5" time="10"> I -> sample </reaction>
+<reaction spec="PunctualReaction" p="0.5" times="10"> I -> sample </reaction>
 #+end_src
 
 To instead configure the reaction to fire a fixed number of times (say
 5), replace the =p= attribute with a =n= attribute specifying the
 number:
 #+begin_src xml
-<reaction spec="PunctualReaction" n="5" time="10"> I -> sample </reaction>
+<reaction spec="PunctualReaction" n="5" times="10"> I -> sample </reaction>
 #+end_src
 
-Each of =p=, =n= and =time= can take more than one value. For instance,
+Each of =p=, =n= and =times= can take more than one value. For instance,
 to specify that the sampling reaction should fire 5 times at time 1.0,
 7 times at time 2.0 and 10 times at time 5.0, one could write
 #+begin_src xml
-<reaction spec="PunctualReaction" n="5 7 10" time="1.0 2.0 5.0"> I -> sample </reaction>
+<reaction spec="PunctualReaction" n="5 7 10" times="1.0 2.0 5.0"> I -> sample </reaction>
 #+end_src
 
 In the case that the number of elements provided to =n= or =p= and the
@@ -204,7 +204,7 @@ number provided to =time= do not match, elements of the shorter vector
 are reused.  Thus one could specify multiple $\rho$-sampling events
 each with the same sampling probability of $\rho=0.5$ by writing
 #+begin_src xml
-<reaction spec="PunctualReaction" p="0.5" time="1.0 2.0 5.0"> I -> sample </reaction>
+<reaction spec="PunctualReaction" p="0.5" times="1.0 2.0 5.0"> I -> sample </reaction>
 #+end_src
 
 *** Identifying parents and children
@@ -421,7 +421,7 @@ The resulting data frame has the following layout:
 # … with 8,029 more rows
 #+end_example
 Each row specifies the size of a particular population (or
-subpopulation) at a particular time.  The "Sample" indicies
+subpopulation) at a particular time.  The "Sample" indices
 indicate to which specific simulated trajectory the results belong.
 
 This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2]]:
@@ -559,7 +559,7 @@ To avoid these problems, use =TypedTreeLogger= as in the previous
 section, but add the attribute ~removeSingletonNodes="true"~. This
 will produce a tree in which the internal degree 3 nodes (one parent
 two children) are still annotated, but in which degree 2 nodes (one
-parent one child) are removed.  Such trees are fully compatable with
+parent one child) are removed.  Such trees are fully compatible with
 the rest of BEAST.
 
 * Integrating with BEAST
@@ -613,7 +613,7 @@ follows:
 
 The =examples/= directory of the package repository contains a growing list of example
 Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
-You can also access these example scripts directly via the Github repository for the
+You can also access these example scripts directly via the GitHub repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
 
