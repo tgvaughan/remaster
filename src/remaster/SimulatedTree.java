@@ -37,7 +37,7 @@ public class SimulatedTree extends Tree {
         while (root == null && retries >= 0) {
             try {
                 root = trajectory.simulateTree();
-            } catch (AbstractTrajectory.SimulationFailureException e) {
+            } catch (AbstractBDTrajectory.SimulationFailureException e) {
                 Log.err.print("Tree simulation error: " + e.getMessage());
                 retries -= 1;
 

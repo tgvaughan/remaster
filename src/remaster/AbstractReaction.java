@@ -159,8 +159,8 @@ public abstract class AbstractReaction extends BEASTObject {
     Set<String> samplePopNames;
     public boolean producesSamples = false;
 
-    public void markSamples(TrajectoryState state) {
-        samplePopNames = state.samplePopNames;
+    public void markSamples(Set<String> samplePopNames) {
+        this.samplePopNames = samplePopNames;
 
         for (ReactElement element : products.elementSet()) {
             if (samplePopNames.contains(element.name)) {
@@ -194,7 +194,7 @@ public abstract class AbstractReaction extends BEASTObject {
         }
     }
 
-    public boolean isValid(TrajectoryState state) {
+    public boolean isValid(TrajectoryState state, Set<String> samplePopNames) {
         for (ReactElement reactElement : Sets.union(reactants.elementSet(),
                 products.elementSet())) {
             if (!state.hasPopNamed(reactElement.name)) {
@@ -205,7 +205,7 @@ public abstract class AbstractReaction extends BEASTObject {
         }
 
         for (ReactElement reactElement : reactants.elementSet()) {
-            if (state.hasSamplePopNamed(reactElement.name)) {
+            if (samplePopNames.contains(reactElement.name)) {
                 Log.err("Reaction " + getID() + " (" + this
                         + ") contains sample population '" + reactElement.name
                         + "' as reactant.");

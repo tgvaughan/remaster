@@ -4,8 +4,6 @@ import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.util.Binomial;
 
-import java.util.*;
-
 /**
  * Class of continuous-time reactions.
  */

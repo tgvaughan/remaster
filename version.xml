@@ -4,11 +4,12 @@
 
   <service type="beast.base.core.BEASTInterface">
     <provider classname="remaster.Reaction"/>
-    <provider classname="remaster.DeterministicTrajectory"/>
     <provider classname="remaster.Simulator"/>
     <provider classname="remaster.TypedTreeLogger"/>
     <provider classname="remaster.PunctualReaction"/>
     <provider classname="remaster.SimulatedTree"/>
     <provider classname="remaster.StochasticTrajectory"/>
+    <provider classname="remaster.DeterministicTrajectory"/>
+    <provider classname="remaster.CoalescentTrajectory"/>
   </service>
 </addon>

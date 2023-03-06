@@ -14,11 +14,7 @@ public class TrajectoryState {
 
     public Set<String> samplePopNames = new HashSet<>();
 
-    public TrajectoryState(List<Function> popFuncs, List<Function> samplePopFuncs)  {
-
-
-        List<Function> allPops = new ArrayList<>(popFuncs);
-        allPops.addAll(samplePopFuncs);
+    public TrajectoryState(List<Function> allPops)  {
 
         int nextIdx = 0;
 
@@ -42,10 +38,6 @@ public class TrajectoryState {
         System.arraycopy(initialOccupancies, 0, occupancies, 0,
                 initialOccupancies.length);
 
-        for (Function popFunc : samplePopFuncs) {
-            String popName = ((BEASTObject) popFunc).getID().intern();
-            samplePopNames.add(popName);
-        }
     }
 
     public Set<String> getPopNames() {

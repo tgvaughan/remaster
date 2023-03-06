@@ -8,7 +8,7 @@ import beast.base.util.Randomizer;
 import java.io.PrintStream;
 import java.util.*;
 
-public class StochasticTrajectory extends AbstractTrajectory {
+public class StochasticTrajectory extends AbstractBDTrajectory {
 
     public Input<Integer> maxRetriesInput = new Input<>("maxRetries",
             "Maximum number of times to retry simulation after failure " +

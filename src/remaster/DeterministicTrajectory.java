@@ -17,7 +17,7 @@ import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 import java.io.PrintStream;
 import java.util.*;
 
-public class DeterministicTrajectory extends AbstractTrajectory {
+public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     public Input<Function> loggingGridSizeInput = new Input<>("loggingGridSize",
             "Number of grid points used to log trajectory.",
