@@ -87,26 +87,26 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             this.reaction = reaction;
         }
 
-        public double getNextReactionTime(double currentTime) {
-            double u = Randomizer.nextDouble();
-
-            if (popFunc != null) {
-                return PopulationFunction.Utils.getSimulatedInterval(popFunc, k, currentTime);
-            } else {
-                double prop = reaction.updatePropensity(state);
-                double dt = -Math.log(u)/prop;
-                double t = currentTime;
-                while (t+dt > reaction.getIntervalEndTime()) {
-                    u -= Math.exp(-(t - reaction.getIntervalEndTime()) * prop);
-                    t = reaction.getIntervalEndTime();
-                    reaction.incrementInterval();
-                    prop = reaction.updatePropensity(state);
-                    dt = -Math.log(u)/prop;
-                }
-
-                return t + dt;
-            }
-        }
+//        public double getNextReactionTime(double currentTime) {
+//            double u = Randomizer.nextDouble();
+//
+//            if (popFunc != null) {
+//                return PopulationFunction.Utils.getSimulatedInterval(popFunc, k, currentTime);
+//            } else {
+//                double prop = reaction.updatePropensity(state);
+//                double dt = -Math.log(u)/prop;
+//                double t = currentTime;
+//                while (t+dt > reaction.getIntervalEndTime()) {
+//                    u -= Math.exp(-(t - reaction.getIntervalEndTime()) * prop);
+//                    t = reaction.getIntervalEndTime();
+//                    reaction.incrementInterval();
+//                    prop = reaction.updatePropensity(state);
+//                    dt = -Math.log(u)/prop;
+//                }
+//
+//                return t + dt;
+//            }
+//        }
 
     }
 

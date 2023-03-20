@@ -36,6 +36,10 @@ import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 import java.io.PrintStream;
 import java.util.*;
 
+/**
+ * Class of objects representing deterministic approximations to birth-death
+ * trajectories.
+ */
 public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     public Input<Function> loggingGridSizeInput = new Input<>("loggingGridSize",
@@ -50,6 +54,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     public ContinuousOutputModel continuousOutputModel;
     public double stopTime;
 
+    HashMap<AbstractReaction, double[]> stoichiometryVectors;
+
     @Override
     public void initAndValidate() {
         super.initAndValidate();
@@ -61,9 +67,30 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 relativeStepSizeInput.get().getArrayValue()
                         *maxTimeInput.get().getArrayValue());
 
+        stoichiometryVectors = new HashMap<>();
+        for (AbstractReaction reaction : reactions)
+            stoichiometryVectors.put(reaction, computeStoichiometry(reaction, state));
+
         doSimulation();
     }
 
+    /**
+     * Compute stoichiometry vector.  Called on initialisation of
+     * trajectory.
+     *
+     * @param state Trajectory state instance
+     */
+    public double[] computeStoichiometry(AbstractReaction reaction, BDTrajectoryState state) {
+        double[] stoichiometryVector = new double[state.getTotalSubpopCount()];
+        for (ReactElement reactElement : reaction.reactants)
+            stoichiometryVector[state.getOffset(reactElement)] -= 1;
+
+        for (ReactElement reactElement : reaction.products) {
+            stoichiometryVector[state.getOffset(reactElement)] += 1;
+        }
+
+        return stoichiometryVector;
+    }
 
 
     @Override
@@ -86,7 +113,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 for (Reaction reaction : continuousReactions) {
 
                     reaction.updatePropensity(state);
-                    double[] v = reaction.stoichiometryVector;
+                    double[] v = stoichiometryVectors.get(reaction);
 
                     for (int i=0; i<state.occupancies.length; i++) {
                         ydot[i] += reaction.currentPropensity * v[i];
@@ -140,7 +167,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                         PunctualReaction punctualReaction = (PunctualReaction) reaction;
 
                         System.arraycopy(y, 0, state.occupancies, 0, y.length);
-                        punctualReaction.implementEvent(state, false);
+                        state.implementEvent(punctualReaction, false);
                         System.arraycopy(state.occupancies, 0, y, 0, y.length);
                     }
 
@@ -234,10 +261,10 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                     sortedPunctualReactions.get(0).getIntervalStartTime()>t) {
                 PunctualReaction reaction = sortedPunctualReactions.get(0);
                 reaction.decrementInterval();
-                double n = reaction.implementEvent(state, true);
+                double n = state.implementEvent(reaction, true);
                 for (int i=0; i<n; i++) {
-                    reaction.incrementLineages(lineages, state, t, lineageFactory, false);
-                    reaction.reverseIncremementState(state, 1);
+                    state.incrementLineages(lineages, reaction, t, lineageFactory, false);
+                    state.reverseIncremementState(reaction, 1);
                 }
                 sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
             }
@@ -245,13 +272,13 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             for (Reaction reaction : continuousReactions) {
                 reaction.updatePropensity(state);
                 double totalInclusionProb =
-                        reaction.getLineageInclusionProbability(lineages, state);
+                        state.getLineageInclusionProbability(lineages, reaction);
 
                 long n = Randomizer.nextPoisson(
                         reaction.currentPropensity*totalInclusionProb*dt);
 
                 for (int i=0; i<n; i++)
-                    reaction.incrementLineages(lineages, state, t, lineageFactory,
+                    state.incrementLineages(lineages, reaction, t, lineageFactory,
                             true);
             }
 

@@ -32,9 +32,6 @@ import java.util.List;
 
 public abstract class AbstractTrajectory extends CalculationNode implements Loggable {
 
-    public Input<List<Function>> populationsInput = new Input<>("population",
-            "Population or compartment", new ArrayList<>());
-
     public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
 

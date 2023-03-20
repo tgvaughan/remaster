@@ -19,11 +19,11 @@
 
 package remaster.parsers;
 
-import remaster.TrajectoryState;
+import remaster.BDTrajectoryState;
 
 public class ContinuousConditionVisitor extends ConditionVisitor {
 
-    public ContinuousConditionVisitor(TrajectoryState state) {
+    public ContinuousConditionVisitor(BDTrajectoryState state) {
         super(state);
     }
 

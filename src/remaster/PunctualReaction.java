@@ -92,45 +92,15 @@ public class PunctualReaction extends AbstractReaction {
         return times;
     }
 
-    public double getMaxReactCount(TrajectoryState state) {
-        double N = Double.POSITIVE_INFINITY;
-        for (ReactElement el : reactants.elementSet())
-            N = Math.min(Math.floor(state.get(el)/reactants.count(el)), N);
-
-        return N;
+    public boolean isPEvent() {
+        return ps != null;
     }
 
-    public double implementEvent(TrajectoryState state, boolean stochastic) {
-        if (ps != null)
-            return implementPEvent(state, stochastic);
-        else
-            return implementNEvent(state);
+    public double getNextP() {
+        return ps[currentInterval];
     }
 
-    private double implementPEvent(TrajectoryState state, boolean stochastic) {
-        double p = ps[currentInterval];
-        double n;
-        if (p == 0.0) {
-            n = 0.0;
-        } else {
-            double N = getMaxReactCount(state);
-            if (p == 1.0) {
-                n = N;
-            } else {
-                if (stochastic) {
-                    n =  nextBinomial(N, p);
-                } else
-                    n = p*N;
-            }
-        }
-
-        incrementState(state, n);
-        return n;
-    }
-
-    private double implementNEvent(TrajectoryState state) {
-        incrementState(state, ns[currentInterval]);
-
+    public double getNextN() {
         return ns[currentInterval];
     }
 }

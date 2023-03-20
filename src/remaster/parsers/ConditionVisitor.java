@@ -19,13 +19,13 @@
 
 package remaster.parsers;
 
-import remaster.TrajectoryState;
+import remaster.BDTrajectoryState;
 
 public class ConditionVisitor extends ConditionGrammarBaseVisitor<Double[]> {
 
-    TrajectoryState state;
+    BDTrajectoryState state;
 
-    public ConditionVisitor(TrajectoryState state) {
+    public ConditionVisitor(BDTrajectoryState state) {
         this.state = state;
     }
 

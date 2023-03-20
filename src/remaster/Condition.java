@@ -34,7 +34,7 @@ public class Condition {
     ConditionVisitor visitor;
     ContinuousConditionVisitor continuousVisitor;
 
-    public Condition(String conditionString, TrajectoryState state) {
+    public Condition(String conditionString, BDTrajectoryState state) {
 
         CharStream input = CharStreams.fromString(conditionString);
         ConditionGrammarLexer lexer = new ConditionGrammarLexer(input);

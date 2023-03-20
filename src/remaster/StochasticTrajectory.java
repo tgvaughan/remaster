@@ -33,7 +33,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
             "Maximum number of times to retry simulation after failure " +
                     "to meet mustHave condition.", 100);
 
-    List<TrajectoryEvent> events;
+    List<BDTrajectoryEvent> events;
 
     @Override
     public void initAndValidate() {
@@ -84,9 +84,9 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
                 if (updatedReaction instanceof PunctualReaction) {
                     // Implement punctual reaction
-                    double multiplicity = ((PunctualReaction) updatedReaction).implementEvent(state, true);
+                    double multiplicity = state.implementEvent((PunctualReaction) updatedReaction, true);
                     if (multiplicity>0)
-                        events.add(new TrajectoryEvent(t, updatedReaction, multiplicity));
+                        events.add(new BDTrajectoryEvent(t, updatedReaction, multiplicity));
                 }
 
                 updatedReaction.incrementInterval();
@@ -116,8 +116,8 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
             if (thisReaction == null)
                 throw new IllegalStateException("Reaction selection loop fell through.");
 
-            events.add(new TrajectoryEvent(t, thisReaction, 1));
-            thisReaction.incrementState(state, 1);
+            events.add(new BDTrajectoryEvent(t, thisReaction, 1));
+            state.incrementState(thisReaction, 1);
 
             if (endCondition != null && endCondition.isMet()) {
                 System.out.println("Trajectory termination condition met: " + endsWhenInput.get());
@@ -136,10 +136,10 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
     @Override
     public Node simulateTree() throws SimulationFailureException {
-        if (events.stream().noneMatch(e -> e.reaction.producesSamples))
+        if (events.stream().noneMatch(e -> state.producesSamples(e.reaction)))
             throw new SimulationFailureException("No samples produced.");
 
-        List<TrajectoryEvent> eventList = new ArrayList<>(events);
+        List<BDTrajectoryEvent> eventList = new ArrayList<>(events);
         Collections.reverse(eventList);
 
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
@@ -148,11 +148,11 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
         LineageFactory lineageFactory = new LineageFactory();
 
-        for (TrajectoryEvent event : eventList) {
+        for (BDTrajectoryEvent event : eventList) {
             for (long i=0; i<Math.round(event.multiplicity); i++) {
-                event.reaction.incrementLineages(lineages, state,
+                state.incrementLineages(lineages, event.reaction,
                         event.time, lineageFactory, false);
-                event.reaction.reverseIncremementState(state, 1);
+                state.incrementState(event.reaction, 1);
             }
         }
 
@@ -180,10 +180,10 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         out.print("t=0");
         out.print(state);
 
-        for (TrajectoryEvent event : events) {
+        for (BDTrajectoryEvent event : events) {
             out.print(";");
             out.print("t=" + event.time);
-            event.reaction.incrementState(state, event.multiplicity);
+            state.incrementState(event.reaction, event.multiplicity);
             out.print(state);
         }
 

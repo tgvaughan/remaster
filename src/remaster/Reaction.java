@@ -77,7 +77,7 @@ public class Reaction extends AbstractReaction {
      * @param state trajectory state
      * @return calculated propensity
      */
-    public double updatePropensity(TrajectoryState state) {
+    public double updatePropensity(BDTrajectoryState state) {
         currentPropensity = rates[currentInterval];
         for (ReactElement reactElement : reactants.elementSet()) {
             currentPropensity *= Binomial.choose(state.get(reactElement),
