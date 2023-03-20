@@ -220,15 +220,6 @@ public class BDTrajectoryState {
                     multiplicity*reaction.products.count(reactElement));
     }
 
-    /**
-     * Increment state in reverse according to reaction
-     * @param reaction
-     * @param multiplicity
-     */
-    public void reverseIncremementState(AbstractReaction reaction, double multiplicity) {
-        incrementState(reaction, -multiplicity);
-    }
-
     public double getMaxReactCount(AbstractReaction reaction) {
         double N = Double.POSITIVE_INFINITY;
         for (ReactElement el : reaction.reactants.elementSet())

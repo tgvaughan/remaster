@@ -264,7 +264,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 double n = state.implementEvent(reaction, true);
                 for (int i=0; i<n; i++) {
                     state.incrementLineages(lineages, reaction, t, lineageFactory, false);
-                    state.reverseIncremementState(reaction, 1);
+                    state.incrementState(reaction, -1);
                 }
                 sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
             }
