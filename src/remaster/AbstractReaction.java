@@ -42,11 +42,6 @@ public abstract class AbstractReaction extends BEASTObject {
     public List<ReactElement> reactantList, productList;
     public List<String> reactantIDList, productIDList;
 
-    // These fields are used to record the parent-child relationships between
-    // reactants and products:
-    public List<ReactElement> parents;
-    public List<Multiset<ReactElement>> children;
-
     @Override
     public void initAndValidate() {
         parseReactionString(reactionStringInput.get());

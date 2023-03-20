@@ -49,8 +49,6 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
 
     BDTrajectoryState state;
 
-    boolean reactionsProcessed = false;
-
     @Override
     public void initAndValidate() {
         super.initAndValidate();
@@ -72,14 +70,10 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
             acceptCondition = new Condition(mustHaveInput.get(), state);
 
 
-        if (!reactionsProcessed) {
-            for (AbstractReaction reaction : reactions) {
-                if (!state.processAndValidateReaction(reaction))
-                    throw new IllegalStateException("Invalid reaction detected.");
+        for (AbstractReaction reaction : reactions) {
+            if (!state.processAndValidateReaction(reaction))
+                throw new IllegalStateException("Invalid reaction detected.");
 
-            }
-
-            reactionsProcessed = true;
         }
     }
 

@@ -24,6 +24,7 @@ import beast.base.core.Function;
 import beast.base.core.Log;
 import beast.base.util.Randomizer;
 import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import com.google.common.collect.Sets;
 
 import java.util.*;
@@ -44,6 +45,8 @@ public class BDTrajectoryState {
     public Set<String> samplePopNames;
 
     public Set<AbstractReaction> sampleProducingReactions;
+    public Map<AbstractReaction, List<ReactElement>> reactionParents;
+    public Map<AbstractReaction, List<Multiset<ReactElement>>> reactionChildren;
 
     public BDTrajectoryState(List<Function> allPops, Set<String> samplePopNames)  {
 
@@ -72,18 +75,12 @@ public class BDTrajectoryState {
         this.samplePopNames = samplePopNames;
         sampleProducingReactions = new HashSet<>();
 
-    }
-
-    public Set<String> getPopNames() {
-        return popIndices.keySet();
+        reactionChildren = new HashMap<>();
+        reactionParents = new HashMap<>();
     }
 
     public boolean hasPopNamed(String string) {
         return popIndices.containsKey(string);
-    }
-
-    public boolean hasSamplePopNamed(String string) {
-        return samplePopNames.contains(string);
     }
 
     public double get(String popName, int idx) {
@@ -134,15 +131,18 @@ public class BDTrajectoryState {
      */
     public boolean processAndValidateReaction(AbstractReaction reaction) {
 
-        reaction.parents = new ArrayList<>();
-        reaction.children = new ArrayList<>();
+        List<ReactElement> parents = new ArrayList<>();
+        reactionParents.put(reaction, parents);
+
+        List<Multiset<ReactElement>> children = new ArrayList<>();
+        reactionChildren.put(reaction, children);
 
         Map<String, Integer> parentIDs = new HashMap<>();
 
         for (int i=0; i<reaction.reactantList.size(); i++) {
             ReactElement el  = reaction.reactantList.get(i);
-            reaction.parents.add(el);
-            reaction.children.add(HashMultiset.create());
+            parents.add(el);
+            children.add(HashMultiset.create());
 
             String reactID = reaction.reactantIDList.get(i);
             if (reactID != null) {
@@ -166,14 +166,14 @@ public class BDTrajectoryState {
                             "' the product ID " + "'" + prodID +
                             "' is not associated with a reactant.");
                 parentIndex = parentIDs.get(prodID);
-            } else if (reaction.parents.stream().anyMatch(p -> p.name.equals(el.name))) {
+            } else if (parents.stream().anyMatch(p -> p.name.equals(el.name))) {
                 // Find first parent with same population
-                while (parentIndex < reaction.parents.size() && !reaction.parents.get(parentIndex).name.equals(el.name))
+                while (parentIndex < parents.size() && !parents.get(parentIndex).name.equals(el.name))
                     parentIndex += 1;
             }
 
-            if (parentIndex < reaction.parents.size())
-                reaction.children.get(parentIndex).add(el);
+            if (parentIndex < parents.size())
+                children.get(parentIndex).add(el);
         }
 
         for (ReactElement element : reaction.products.elementSet()) {
@@ -315,13 +315,16 @@ public class BDTrajectoryState {
                         "is zero.");
         }
 
-        for (int i=0; i<reaction.children.size(); i++) {
-            for (ReactElement el : reaction.children.get(i)) {
+        List<ReactElement> parents = reactionParents.get(reaction);
+        List<Multiset<ReactElement>> children = reactionChildren.get(reaction);
+
+        for (int i=0; i<children.size(); i++) {
+            for (ReactElement el : children.get(i)) {
                 if (!seenElements.containsKey(el))
                     seenElements.put(el, 0);
 
                 if (samplePopNames.contains(el.name)) {
-                    toInclude.add(lineageFactory.createSample(reaction.parents.get(i), eventTime));
+                    toInclude.add(lineageFactory.createSample(parents.get(i), eventTime));
                     conditionOnInclusion = false;
                     totalInclusionProb = 1.0;
                     continue;
@@ -354,10 +357,10 @@ public class BDTrajectoryState {
                 continue;
 
             Lineage parent;
-            if (toInclude.size()==1 && toInclude.get(0).reactElement.equals(reaction.parents.get(i))) {
+            if (toInclude.size()==1 && toInclude.get(0).reactElement.equals(parents.get(i))) {
                 parent = toInclude.get(0);
             } else {
-                parent = lineageFactory.createInternal(reaction.parents.get(i), eventTime);
+                parent = lineageFactory.createInternal(parents.get(i), eventTime);
                 for (Lineage child : toInclude) {
                     parent.addChild(child);
                 }
@@ -392,8 +395,11 @@ public class BDTrajectoryState {
 
         double pNoInclude = 1.0;
 
-        for (int i=0; i<reaction.children.size(); i++) {
-            for (ReactElement el : reaction.children.get(i)) {
+        List<ReactElement> parents = reactionParents.get(reaction);
+        List<Multiset<ReactElement>> children = reactionChildren.get(reaction);
+
+        for (int i=0; i<children.size(); i++) {
+            for (ReactElement el : children.get(i)) {
                 if (!seenElements.containsKey(el))
                     seenElements.put(el, 0);
 
