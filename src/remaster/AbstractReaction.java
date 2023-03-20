@@ -46,7 +46,6 @@ public abstract class AbstractReaction extends BEASTObject {
     // reactants and products:
     public List<ReactElement> parents;
     public List<Multiset<ReactElement>> children;
-    public List<List<Lineage>> childLineages;
 
     @Override
     public void initAndValidate() {
@@ -107,10 +106,6 @@ public abstract class AbstractReaction extends BEASTObject {
         productList = new ArrayList<>();
         reactantIDList = new ArrayList<>();
         productIDList = new ArrayList<>();
-
-        parents = new ArrayList<>();
-        children = new ArrayList<>();
-        childLineages = new ArrayList<>();
 
         parseTreeWalker.walk(new ReactionGrammarBaseListener() {
             @Override

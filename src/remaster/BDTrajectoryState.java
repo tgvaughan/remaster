@@ -134,6 +134,9 @@ public class BDTrajectoryState {
      */
     public boolean processAndValidateReaction(AbstractReaction reaction) {
 
+        reaction.parents = new ArrayList<>();
+        reaction.children = new ArrayList<>();
+
         Map<String, Integer> parentIDs = new HashMap<>();
 
         for (int i=0; i<reaction.reactantList.size(); i++) {
@@ -281,8 +284,8 @@ public class BDTrajectoryState {
     /**
      * Increment lineage state according to reaction.
      *
-     * @param reaction to apply
      * @param lineages current extant lineage population
+     * @param reaction to apply
      * @param eventTime time of reaction
      * @param lineageFactory factory object for creating new lineages
      * @param conditionOnInclusion increment lineages conditional on at least
