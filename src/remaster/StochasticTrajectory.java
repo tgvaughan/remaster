@@ -152,7 +152,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
             for (long i=0; i<Math.round(event.multiplicity); i++) {
                 state.incrementLineages(lineages, event.reaction,
                         event.time, lineageFactory, false);
-                state.incrementState(event.reaction, 1);
+                state.incrementState(event.reaction, -1);
             }
         }
 
