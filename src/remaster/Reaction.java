@@ -21,7 +21,6 @@ package remaster;
 
 import beast.base.core.Function;
 import beast.base.core.Input;
-import beast.base.util.Binomial;
 
 /**
  * Class of continuous-time reactions.
@@ -66,27 +65,9 @@ public class Reaction extends AbstractReaction {
         return changeTimes;
     }
 
-    /**
-     * Current propensity.
-     */
-    public double currentPropensity;
-
-    /**
-     * Update current propensity using the provided state.
-     *
-     * @param state trajectory state
-     * @return calculated propensity
-     */
-    public double updatePropensity(BDTrajectoryState state) {
-        currentPropensity = rates[currentInterval];
-        for (ReactElement reactElement : reactants.elementSet()) {
-            currentPropensity *= Binomial.choose(state.get(reactElement),
-                    reactants.count(reactElement));
-        }
-
-        return currentPropensity;
+    public double getIntervalRate() {
+        return rates[currentInterval];
     }
-
 
     // Main method for debugging
     public static void main(String[] args) {

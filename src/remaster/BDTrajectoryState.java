@@ -22,6 +22,7 @@ package remaster;
 import beast.base.core.BEASTObject;
 import beast.base.core.Function;
 import beast.base.core.Log;
+import beast.base.util.Binomial;
 import beast.base.util.Randomizer;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
@@ -33,7 +34,12 @@ import static remaster.Util.nextBinomial;
 
 /**
  * Class of objects representing the state of birth death trajectories
- * (both exact and deterministic approximations)
+ * (both exact and deterministic approximations)<br>
+ * <br>
+ * Note to the reader: This class contains fields that would usually be
+ * kept with AbstractReaction.  However, because I want to use the same
+ * Reaction and PunctualReaction classes for both the BD and coalescent
+ * simulations, the BD-specific reaction logic is kept here for now.
  */
 public class BDTrajectoryState {
 
@@ -47,6 +53,7 @@ public class BDTrajectoryState {
     public Set<AbstractReaction> sampleProducingReactions;
     public Map<AbstractReaction, List<ReactElement>> reactionParents;
     public Map<AbstractReaction, List<Multiset<ReactElement>>> reactionChildren;
+    public Map<Reaction, Double> currentReactionPropensities;
 
     public BDTrajectoryState(List<Function> allPops, Set<String> samplePopNames)  {
 
@@ -77,6 +84,7 @@ public class BDTrajectoryState {
 
         reactionChildren = new HashMap<>();
         reactionParents = new HashMap<>();
+        currentReactionPropensities = new HashMap<>();
     }
 
     public boolean hasPopNamed(String string) {
@@ -205,6 +213,34 @@ public class BDTrajectoryState {
 
     public boolean producesSamples(AbstractReaction reaction) {
         return sampleProducingReactions.contains(reaction);
+    }
+
+
+    /**
+     * Update current propensity corresponding to the given reaction.
+     *
+     * @param reaction reaction of which to compute propensity
+     * @return calculated propensity
+     */
+    public double updateReactionPropensity(Reaction reaction) {
+        double currentPropensity = reaction.getIntervalRate();
+        for (ReactElement reactElement : reaction.reactants.elementSet()) {
+            currentPropensity *= Binomial.choose(get(reactElement),
+                    reaction.reactants.count(reactElement));
+        }
+
+        currentReactionPropensities.put(reaction, currentPropensity);
+        return currentPropensity;
+    }
+
+    /**
+     * Retrieve most recently calculated propensity of given reaction.
+     *
+     * @param reaction reaction for which to retrieve propensity
+     * @return most recently calculated propensity
+     */
+    public double getCurrentReactionPropensity(Reaction reaction) {
+        return currentReactionPropensities.get(reaction);
     }
 
     /**
