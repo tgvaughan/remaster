@@ -70,7 +70,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         while (true) {
             double a0 = 0.0;
             for (Reaction reaction : continuousReactions)
-                a0 += reaction.updatePropensity(state);
+                a0 += state.updateReactionPropensity(reaction);
 
             double delta = a0 == 0 ? Double.POSITIVE_INFINITY : Randomizer.nextExponential(a0);
             t += delta;
@@ -106,11 +106,11 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
             Reaction thisReaction = null;
             for (Reaction reaction : continuousReactions) {
-                if (u < reaction.currentPropensity) {
+                if (u < state.getCurrentReactionPropensity(reaction)) {
                     thisReaction = reaction;
                     break;
                 } else
-                    u -= reaction.currentPropensity;
+                    u -= state.getCurrentReactionPropensity(reaction);
             }
 
             if (thisReaction == null)
