@@ -29,10 +29,10 @@ import beast.base.evolution.tree.Node;
 public class Lineage extends Node {
     public ReactElement reactElement;
 
-    public Lineage(ReactElement reactElement, double height) {
+    public Lineage(ReactElement reactElement, double time) {
         super();
         this.reactElement = reactElement;
-        setHeight(height);
-        metaDataString = "type=\"" + reactElement + "\"";
+        this.height = time;
+        metaDataString = "type=\"" + reactElement + "\"," + "time=" + time;
     }
 }

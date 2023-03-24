@@ -5,16 +5,19 @@
   <run spec="Simulator" nSims="10">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="CoalescentTrajectory">
-        <populationModel id="L" spec="ConstantPopulation" popSize="1.0"/>
-        <populationModel id="S" spec="ConstantPopulation" popSize="0.1"/>
+        <population id="L" spec="ConstantPopulation" popSize="1.0"/>
+        <population id="S" spec="ConstantPopulation" popSize="0.1"/>
 
-        <reaction spec="Reaction" rate="1.0"> L -> S</reaction>
-        <reaction spec="Reaction" rate="1.0"> S -> L</reaction>
+        <reaction spec="Reaction" rate="1.0"> L:1 -> S:1</reaction>
+        <reaction spec="Reaction" rate="1.0"> S:1 -> L:1</reaction>
 
         <reaction spec="PunctualReaction" n="10" times="0">0 -> L</reaction>
+        <reaction spec="PunctualReaction" n="10" times="1">0 -> S</reaction>
       </trajectory>
     </simulate>
 
-    <logger fileName="$(filebase).trees" log="@tree"/>
+    <logger fileName="$(filebase).trees" mode="tree">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
   </run>
 </beast>

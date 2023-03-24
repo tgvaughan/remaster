@@ -22,8 +22,6 @@ package remaster;
 import beast.base.core.Function;
 import beast.base.core.Input;
 
-import static remaster.Util.nextBinomial;
-
 /**
  * Class of reactions which occur at pre-determined times.
  */
@@ -92,7 +90,7 @@ public class PunctualReaction extends AbstractReaction {
         return times;
     }
 
-    public boolean isPEvent() {
+    public boolean isPReaction() {
         return ps != null;
     }
 

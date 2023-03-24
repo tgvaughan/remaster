@@ -268,7 +268,7 @@ public class BDTrajectoryState {
     }
 
     public double implementEvent(PunctualReaction reaction, boolean stochastic) {
-        if (reaction.isPEvent())
+        if (reaction.isPReaction())
             return implementPEvent(reaction, stochastic);
         else
             return implementNEvent(reaction);

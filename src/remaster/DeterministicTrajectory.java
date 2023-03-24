@@ -112,11 +112,11 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
                 for (Reaction reaction : continuousReactions) {
 
-                    reaction.updatePropensity(state);
+                    state.updateReactionPropensity(reaction);
                     double[] v = stoichiometryVectors.get(reaction);
 
                     for (int i=0; i<state.occupancies.length; i++) {
-                        ydot[i] += reaction.currentPropensity * v[i];
+                        ydot[i] += state.getCurrentReactionPropensity(reaction) * v[i];
                     }
                 }
             }
@@ -270,12 +270,13 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             }
 
             for (Reaction reaction : continuousReactions) {
-                reaction.updatePropensity(state);
+                state.updateReactionPropensity(reaction);
                 double totalInclusionProb =
                         state.getLineageInclusionProbability(lineages, reaction);
 
                 long n = Randomizer.nextPoisson(
-                        reaction.currentPropensity*totalInclusionProb*dt);
+                        state.getCurrentReactionPropensity(reaction)
+                                *totalInclusionProb*dt);
 
                 for (int i=0; i<n; i++)
                     state.incrementLineages(lineages, reaction, t, lineageFactory,
@@ -299,6 +300,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         }
 
         lineageFactory.numberInternals(rootLineages.get(0));
+        lineageFactory.computeAgesFromTimes(rootLineages.get(0));
 
         return rootLineages.get(0);
     }

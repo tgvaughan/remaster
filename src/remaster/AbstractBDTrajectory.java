@@ -24,6 +24,7 @@ import beast.base.core.BEASTObject;
 import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.core.Log;
+import beast.base.inference.parameter.RealParameter;
 import com.google.common.collect.Sets;
 
 import java.util.ArrayList;
@@ -44,6 +45,9 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
 
     public Input<String> mustHaveInput = new Input<>("mustHave",
             "Acceptance predicate.");
+
+    public Input<Function> maxTimeInput = new Input<>("maxTime",
+            "Maximum length of simulation", new RealParameter("Infinity"));
 
     Condition endCondition, acceptCondition;
 

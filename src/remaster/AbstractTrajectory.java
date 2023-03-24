@@ -35,9 +35,6 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
     public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
             "Reaction", new ArrayList<>());
 
-    public Input<Function> maxTimeInput = new Input<>("maxTime",
-            "Maximum length of simulation", new RealParameter("Infinity"));
-
     List<AbstractReaction> reactions;
     List<Reaction> continuousReactions;
     List<PunctualReaction> punctualReactions;
