@@ -88,6 +88,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             }
 
             if (nextReactionTime > punctualReactionsByChangeTime.get(0).getReactionTime()) {
+                t = punctualReactionsByChangeTime.get(0).getReactionTime();
                 PunctualCoalescentReaction punctualReaction = punctualReactionsByChangeTime.get(0);
                 punctualReaction.applyReaction(lineages, lineageFactory);
                 punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReaction::getReactionTime));
