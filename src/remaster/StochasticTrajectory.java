@@ -169,6 +169,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
             throw new SimulationFailureException("Multiple lineages remaining.");
 
         lineageFactory.numberInternals(rootLineages.get(0));
+        lineageFactory.computeAgesFromTimes(rootLineages.get(0));
 
         return rootLineages.get(0);
     }
