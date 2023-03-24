@@ -9,7 +9,8 @@ It aims to address the following problems with MASTER:
 1. slow and memory-intensive tree simulation,
 2. awkward coalescent simulation,
 3. difficult to configure sampling in BD models,
-4. inflexible design.
+4. poor integration with BEAST,
+5. inflexible design.
 
 Remaster is still in development and not suitable for production use.
 However, some of these goals have already been addressed and, at
@@ -24,6 +25,53 @@ https://tgvaughan.github.io/remaster/package.xml
 Development News
 ----------------
 
+### 2022-03-24
+
+After a big refactor (which I'm not too happy about, and may play with
+further), I've implemented true coalescent simulation.  With this you
+can use standard BEAST 2 `PopulationFunction`s to represent time-dependent
+effective population sizes and combine these with reactions which are
+applied directly to the extant lineages backwards in time.
+
+For example, the following produces samples from a 2-deme structured
+coalescent model with asymmetric migration and one of the two demes
+growing exponentially toward the present:
+
+```xml
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent">
+  <run spec="Simulator" nSims="10">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory id="traj" spec="CoalescentTrajectory">
+        <population id="C" spec="ConstantPopulation" popSize="10.0"/>
+        <population id="E" spec="ExponentialGrowth"
+                    popSize="100.0" growthRate="1"/>
+
+        <reaction spec="Reaction" rate="0.1"> C:1 -> E:1</reaction>
+
+        <reaction spec="PunctualReaction" n="5" times="0">0 -> C</reaction>
+        <reaction spec="PunctualReaction" n="5" times="0">0 -> E</reaction>
+      </trajectory>
+    </simulate>
+
+    <logger fileName="$(filebase).trees" mode="tree">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
+  </run>
+</beast>
+
+```
+
+Note that "time" in a `CoalescentTrajectory` increases toward the past
+rather than toward the present, and that reactions apply directly to
+coalescent tree lineages. (There's no concept of a "sample" population here.)
+Also see that, while reactions are included for migration and generating
+leaves, the coalescent reactions themselves in each of the compartments
+are not explicitly stated: they are implied by the coalescent model itself
+and occur at rates goverened by the effective population sizes encoded in
+the `PopulationFunction` objects.
+
 ### 2022-10-24
 
 I've updated Remaster to work with BEAST 2.7. Expect a new release shortly.
@@ -31,7 +79,7 @@ I've updated Remaster to work with BEAST 2.7. Expect a new release shortly.
 ### 2022-09-19
 
 I've added [a draft manual](https://tgvaughan.github.io/remaster),
-for those wanting to start using ReMASTER.
+for those wanting to start using Remaster.
 
 Remember, this package is still under a fair bit of churn, so there's
 no guarantee that existing behaviour won't change substantially in

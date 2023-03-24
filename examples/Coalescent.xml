@@ -5,14 +5,8 @@
   <run spec="Simulator" nSims="10">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="CoalescentTrajectory">
-        <population id="L" spec="ConstantPopulation" popSize="1.0"/>
-        <population id="S" spec="ConstantPopulation" popSize="0.1"/>
-
-        <reaction spec="Reaction" rate="1.0"> L:1 -> S:1</reaction>
-        <reaction spec="Reaction" rate="1.0"> S:1 -> L:1</reaction>
-
-        <reaction spec="PunctualReaction" n="10" times="0">0 -> L</reaction>
-        <reaction spec="PunctualReaction" n="10" times="1">0 -> S</reaction>
+        <population id="pop" spec="ConstantPopulation" popSize="1.0"/>
+        <reaction spec="PunctualReaction" n="10" times="0">0 -> pop</reaction>
       </trajectory>
     </simulate>
 
