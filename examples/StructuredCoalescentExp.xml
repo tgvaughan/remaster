@@ -2,9 +2,9 @@
 <beast version="2.0"
        namespace="beast.base.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
-  <run spec="Simulator" nSims="10">
+  <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
-      <trajectory id="traj" spec="CoalescentTrajectory">
+      <trajectory id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
         <population id="C" spec="ConstantPopulation" popSize="10.0"/>
         <population id="E" spec="ExponentialGrowth"
                     popSize="100.0" growthRate="1"/>
@@ -19,5 +19,7 @@
     <logger fileName="$(filebase).trees" mode="tree">
       <log spec="TypedTreeLogger" tree="@tree"/>
     </logger>
+
+    <logger fileName="$(filebase).traj" log="@traj"/>
   </run>
 </beast>

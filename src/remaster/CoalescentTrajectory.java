@@ -35,7 +35,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
     public Input<Double> maxTrajLogAgeInput = new Input<>("maxTrajLogAge",
             "Maximum age for logging population dynamics.");
 
-    public Input<Integer> trajLogSampleCountInput = new Input<>("trajLogSamplecount",
+    public Input<Integer> trajLogSampleCountInput = new Input<>("trajLogSampleCount",
             "Number of evenly spaced samples used to log population dynamics.",
             101);
 
