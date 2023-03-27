@@ -29,13 +29,15 @@ public abstract class CoalescentReaction {
     List<ReactElement> parents = new ArrayList<>();
     List<Multiset<ReactElement>> children = new ArrayList<>();
 
+    public boolean generatesLeaves = false;
+
     public void processAndValidate(AbstractReaction reaction, Set<ReactElement> popElements) {
 
         Map<String, Integer> parentIDs = new HashMap<>();
 
         // Process products
 
-        for (int i=0; i<reaction.productList.size(); i++) {
+        for (int i = 0; i < reaction.productList.size(); i++) {
             ReactElement el = reaction.productList.get(i);
             if (!popElements.contains(el))
                 throw new IllegalArgumentException("Population '" + el.toString() + "' unknown.");
@@ -52,7 +54,7 @@ public abstract class CoalescentReaction {
 
         // Process reactants:
 
-        for (int i=0; i<reaction.reactantList.size(); i++) {
+        for (int i = 0; i < reaction.reactantList.size(); i++) {
             ReactElement el = reaction.reactantList.get(i);
             if (!popElements.contains(el))
                 throw new IllegalArgumentException("Population '" + el.toString() + "' unknown.");
@@ -73,6 +75,12 @@ public abstract class CoalescentReaction {
             if (parentIndex < parents.size())
                 children.get(parentIndex).add(el);
         }
-    }
 
+        for (int i = 0; i < parents.size(); i++) {
+            if (children.get(i).isEmpty()) {
+                generatesLeaves = true;
+                break;
+            }
+        }
+    }
 }

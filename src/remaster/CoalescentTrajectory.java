@@ -56,7 +56,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
     }
 
     @Override
-    public Node simulateTree() throws SimulationFailureException {
+    public Node simulateTree() {
 
         for (AbstractReaction reaction : reactions)
             reaction.resetInterval();
@@ -70,14 +70,15 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReaction::getReactionTime));
 
         double t = 0.0;
-        while (punctualReactionsByChangeTime.get(0).getReactionTime() < Double.POSITIVE_INFINITY
-                    || lineages.values().stream().mapToInt(List::size).sum()>1) {
 
+        while (true) {
 
             // Sample time increment
 
             double nextReactionTime = Double.POSITIVE_INFINITY;
             ContinuousCoalescentReaction nextReaction = null;
+
+            boolean leavesToCome = false;
 
             for (ContinuousCoalescentReaction reaction : continousCoalReactions) {
                 double thisReactionTime = reaction.getNextReactionTime(t, lineages);
@@ -85,6 +86,9 @@ public class CoalescentTrajectory extends AbstractTrajectory {
                     nextReactionTime = thisReactionTime;
                     nextReaction = reaction;
                 }
+
+                if (reaction.generatesLeaves && thisReactionTime < Double.POSITIVE_INFINITY)
+                    leavesToCome = true;
             }
 
             if (nextReactionTime > punctualReactionsByChangeTime.get(0).getReactionTime()) {
@@ -95,12 +99,13 @@ public class CoalescentTrajectory extends AbstractTrajectory {
                 continue;
             }
 
-            if (nextReaction == null)
+            if (nextReaction == null
+                    || (lineages.values().stream().mapToInt(List::size).sum() == 1)
+                    && !leavesToCome)
                 break;
 
             // Select and implement reaction
             nextReaction.applyReaction(nextReactionTime, lineages, lineageFactory);
-
 
             t = nextReactionTime;
         }
