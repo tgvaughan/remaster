@@ -32,6 +32,13 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         "Population represented by a beast PopulationFunction object",
         new ArrayList<>());
 
+    public Input<Double> maxTrajLogAgeInput = new Input<>("maxTrajLogAge",
+            "Maximum age for logging population dynamics.");
+
+    public Input<Integer> trajLogSampleCountInput = new Input<>("trajLogSamplecount",
+            "Number of evenly spaced samples used to log population dynamics.",
+            101);
+
     Set<ReactElement> popElements;
     List<ContinuousCoalescentReaction> continousCoalReactions;
     List<PunctualCoalescentReaction> punctualCoalReactions;
@@ -124,8 +131,25 @@ public class CoalescentTrajectory extends AbstractTrajectory {
 
     @Override
     public void log(long sample, PrintStream out) {
-        // TODO
-        out.println("NA\t");
+        if (maxTrajLogAgeInput.get() == null)
+            throw new IllegalArgumentException("Cannot log CoalescentTrajectory without" +
+                    "specifying maxTrajLogAge.");
+
+        double maxAge = maxTrajLogAgeInput.get();
+        double sampleCount = trajLogSampleCountInput.get();
+
+        for (int i=0; i<trajLogSampleCountInput.get(); i++) {
+            if (i>0)
+                out.print(";");
+
+            double t = i*maxAge/(sampleCount - 1);
+
+            out.print("t=" + t);
+            for (PopulationFunction.Abstract pop : popFuncInput.get())
+                out.print(":" + pop.getID() + "=" + pop.getPopSize(t));
+        }
+
+        out.print("\t");
     }
 
 }
