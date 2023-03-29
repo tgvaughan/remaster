@@ -35,7 +35,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
     public Input<Double> maxTrajLogAgeInput = new Input<>("maxTrajLogAge",
             "Maximum age for logging population dynamics.");
 
-    public Input<Integer> trajLogSampleCountInput = new Input<>("trajLogSampleCount",
+    public Input<Integer> loggingGridSizeInput = new Input<>("loggingGridSize",
             "Number of evenly spaced samples used to log population dynamics.",
             101);
 
@@ -136,9 +136,9 @@ public class CoalescentTrajectory extends AbstractTrajectory {
                     "specifying maxTrajLogAge.");
 
         double maxAge = maxTrajLogAgeInput.get();
-        double sampleCount = trajLogSampleCountInput.get();
+        double sampleCount = loggingGridSizeInput.get();
 
-        for (int i=0; i<trajLogSampleCountInput.get(); i++) {
+        for (int i = 0; i< loggingGridSizeInput.get(); i++) {
             if (i>0)
                 out.print(";");
 
