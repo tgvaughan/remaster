@@ -1,6 +1,6 @@
 <packages>
-  <package name="remaster" version="1.0.0"
-           url="https://github.com/tgvaughan/remaster/releases/download/v1.0.0/remaster.v1.0.0.zip"
+  <package name="remaster" version="2.0.0"
+           url="https://github.com/tgvaughan/remaster/releases/download/v2.0.0/remaster.v2.0.0.zip"
            projectURL="https://github.com/tgvaughan/remaster"
            description="Phylogenetic simulator" >
     <depends on="BEAST.base" atleast="2.7.0" atmost="2.7.9"/>
