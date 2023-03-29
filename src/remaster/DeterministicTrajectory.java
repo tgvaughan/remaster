@@ -46,9 +46,14 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             "Number of grid points used to log trajectory.",
             new IntegerParameter("101"));
 
-    public Input<Function> relativeStepSizeInput = new Input<>("relativeStepSize",
+    public Input<Function> forwardRelativeStepSizeInput = new Input<>("forwardRelativeStepSize",
             "Integration time step length relative to to maxTime.",
             new RealParameter("1e-4"));
+
+    public Input<Function> backwardRelativeStepSizeInput = new Input<>("backwardRelativeStepSize",
+            "Integration time step length relative to to maxTime.",
+            new RealParameter("1e-3"));
+
     FirstOrderIntegrator integrator;
 
     public ContinuousOutputModel continuousOutputModel;
@@ -64,8 +69,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             throw new IllegalArgumentException("Must specify finite maxTime for deterministic trajectories.");
 
         integrator = new ClassicalRungeKuttaIntegrator(
-                relativeStepSizeInput.get().getArrayValue()
-                        *maxTimeInput.get().getArrayValue());
+                maxTimeInput.get().getArrayValue()*
+                                forwardRelativeStepSizeInput.get().getArrayValue());
 
         stoichiometryVectors = new HashMap<>();
         for (AbstractReaction reaction : reactions)
@@ -235,7 +240,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     @Override
     public Node simulateTree() throws SimulationFailureException {
 
-        double dt = stopTime*relativeStepSizeInput.get().getArrayValue();
+        int Nt = (int)Math.round(1/backwardRelativeStepSizeInput.get().getArrayValue());
 
         LineageFactory lineageFactory = new LineageFactory();
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
@@ -252,6 +257,10 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         }
 
         double t = stopTime;
+        double dt = stopTime/Nt;
+
+        double u = Randomizer.nextDouble();
+
         while (t > 0.0) {
             continuousOutputModel.setInterpolatedTime(t);
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
@@ -269,22 +278,26 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
             }
 
+            boolean reactionFired = false;
             for (Reaction reaction : continuousReactions) {
                 state.updateReactionPropensity(reaction);
                 double totalInclusionProb =
                         state.getLineageInclusionProbability(lineages, reaction);
 
-                long n = Randomizer.nextPoisson(
-                        state.getCurrentReactionPropensity(reaction)
-                                *totalInclusionProb*dt);
+                double prob = state.getCurrentReactionPropensity(reaction)*totalInclusionProb*dt;
 
-                for (int i=0; i<n; i++)
-                    state.incrementLineages(lineages, reaction, t, lineageFactory,
-                            true);
+                if (u < prob) {
+                    state.incrementLineages(lineages, reaction, t, lineageFactory, true);
+                    u = Randomizer.nextDouble();
+                    dt = t/Nt;
+                    reactionFired = true;
+                    break;
+                } else
+                    u -= prob;
             }
 
-            t -= dt;
-
+            if (!reactionFired)
+                t -= dt;
         }
 
         List<Lineage> rootLineages = new ArrayList<>();
