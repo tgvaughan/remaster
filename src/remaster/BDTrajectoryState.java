@@ -330,11 +330,12 @@ public class BDTrajectoryState {
      */
     public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, AbstractReaction reaction, double eventTime,
                                   LineageFactory lineageFactory,
-                                  boolean conditionOnInclusion) {
+                                  boolean conditionOnInclusion) throws AbstractTrajectory.SimulationFailureException {
         if (lineages.isEmpty() && !sampleProducingReactions.contains(reaction)) {
             if (conditionOnInclusion)
-                throw new IllegalStateException("incrementLineages: " +
-                        "conditionOnInclusion is true, but no lineages remain.");
+                throw new AbstractTrajectory.SimulationFailureException("incrementLineages: " +
+                        "conditionOnInclusion is true, but no lineages remain. " +
+                        "(Try reducing the integration step size.)");
             return;
         }
 
@@ -346,9 +347,9 @@ public class BDTrajectoryState {
         if (conditionOnInclusion) {
             totalInclusionProb = getLineageInclusionProbability(lineages, reaction);
             if (totalInclusionProb == 0)
-                throw new IllegalStateException("incrementLineages: " +
+                throw new AbstractTrajectory.SimulationFailureException("incrementLineages: " +
                         "conditionOnInclusion is true, but totalInclusionProb " +
-                        "is zero.");
+                        "is zero. (Try reducing the integration step size.)");
         }
 
         List<ReactElement> parents = reactionParents.get(reaction);
