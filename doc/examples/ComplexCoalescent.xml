@@ -1,0 +1,27 @@
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent
+                  :feast.popmodels">
+  <run spec="Simulator" nSims="1">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory id="traj" spec="CoalescentTrajectory"
+                  maxTrajLogAge="10" trajLogSampleCount="1000">
+        <population id="pop" spec="CompoundPopulationModel" changeTimes="2.0 2.2 3.0">
+          <populationModel spec="ConstantPopulation" popSize="100.0"/>
+          <populationModel spec="ConstantPopulation" popSize="1.0"/>
+          <populationModel spec="ConstantPopulation" popSize="100.0"/>
+          <populationModel spec="ExponentialGrowth" popSize="100.0" growthRate="1"/>
+        </population>
+
+        <reaction spec="PunctualReaction" n="100" times="0">0 -> pop</reaction>
+
+      </trajectory>
+    </simulate>
+
+    <logger fileName="$(filebase).trees" mode="tree">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
+
+    <logger fileName="$(filebase).traj" log="@traj"/>
+  </run>
+</beast>

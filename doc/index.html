@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-01-04 Wed 13:28 -->
+<!-- 2023-03-29 Wed 12:08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Remaster</title>
@@ -24,46 +24,62 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org960f380">1. Overview</a>
+<li><a href="#orgb9088bc">1. Overview</a>
 <ul>
-<li><a href="#org5ee6c80">1.1. The name</a></li>
-<li><a href="#org304f7ed">1.2. License</a></li>
+<li><a href="#org9d1eb9c">1.1. The name</a></li>
+<li><a href="#org8d5c7d1">1.2. License</a></li>
 </ul>
 </li>
-<li><a href="#org31bbe00">2. Installation</a></li>
-<li><a href="#org8a2b39c">3. Model specification</a>
+<li><a href="#org79121f0">2. Installation</a></li>
+<li><a href="#org226f8d1">3. Birth-death simulations</a>
 <ul>
-<li><a href="#org6a4a219">3.1. Populations</a></li>
-<li><a href="#orgdb6762e">3.2. Reactions</a>
+<li><a href="#org663805f">3.1. Model specification</a>
 <ul>
-<li><a href="#org281b669">3.2.1. Continuous reactions</a></li>
-<li><a href="#org028ba47">3.2.2. Punctual reactions</a></li>
-<li><a href="#orgf7c4004">3.2.3. Identifying parents and children</a></li>
+<li><a href="#orgd4fcec0">3.1.1. Populations</a></li>
+<li><a href="#org260164e">3.1.2. Reactions</a>
+<ul>
+<li><a href="#org513d795">3.1.2.1. Continuous reactions</a></li>
+<li><a href="#orge8645e8">3.1.2.2. Punctual reactions</a></li>
+<li><a href="#org7f4c43d">3.1.2.3. Identifying parents and children</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgdf144ee">4. Trajectory simulation</a>
+<li><a href="#org411766e">3.2. Trajectory simulation</a>
 <ul>
-<li><a href="#org2235d0e">4.1. Stochastic Trajectories</a></li>
-<li><a href="#orgaaee6da">4.2. Deterministic Trajectories</a></li>
-<li><a href="#orgf024f97">4.3. Placing conditions on trajectories</a></li>
-<li><a href="#org2789342">4.4. Self-contained trajectory simulation XMLs</a></li>
-<li><a href="#org5ddcacc">4.5. Plotting simulated trajectories</a></li>
+<li><a href="#org658fd3f">3.2.1. Stochastic Trajectories</a></li>
+<li><a href="#org52ff091">3.2.2. Deterministic Trajectories</a></li>
+<li><a href="#org3e65619">3.2.3. Placing conditions on trajectories</a></li>
+<li><a href="#orgce81966">3.2.4. Self-contained trajectory simulation XMLs</a></li>
+<li><a href="#org7a00eef">3.2.5. Plotting simulated trajectories</a></li>
 </ul>
 </li>
-<li><a href="#orgc06b530">5. Tree simulation</a>
+<li><a href="#orgd9fb819">3.3. Tree simulation</a>
 <ul>
-<li><a href="#orgc67c543">5.1. Self-contained tree simulation XMLs</a></li>
-<li><a href="#orgbf6e5d0">5.2. Logging typed trees</a></li>
-<li><a href="#org4f29621">5.3. Logging untyped trees</a></li>
+<li><a href="#orga92f4ec">3.3.1. Self-contained tree simulation XMLs</a></li>
+<li><a href="#orge45888c">3.3.2. Logging typed trees</a></li>
+<li><a href="#org0ed1235">3.3.3. Logging untyped trees</a></li>
 </ul>
 </li>
-<li><a href="#org11ccff7">6. Integrating with BEAST</a></li>
-<li><a href="#org26b4897">7. Examples</a></li>
-<li><a href="#org9f2ae62">8. Appendix</a>
+</ul>
+</li>
+<li><a href="#org7b5e332">4. Coalescent simulations</a>
 <ul>
-<li><a href="#orga1a3a56">8.1. Condition syntax</a></li>
+<li><a href="#org76be63e">4.1. Model specification</a>
+<ul>
+<li><a href="#orgd776d73">4.1.1. Parents and children in coalescent reactions</a></li>
+</ul>
+</li>
+<li><a href="#org2a2da23">4.2. Trajectory simulation</a></li>
+<li><a href="#orgfdc4329">4.3. Tree simulation</a></li>
+<li><a href="#orgf0eb5eb">4.4. More complex coalescent models</a></li>
+</ul>
+</li>
+<li><a href="#orgdf8e7d2">5. Integrating with BEAST</a></li>
+<li><a href="#orgf978d08">6. Examples</a></li>
+<li><a href="#org1303a30">7. Appendix</a>
+<ul>
+<li><a href="#orgaf3b16a">7.1. Condition syntax</a></li>
 </ul>
 </li>
 </ul>
@@ -77,18 +93,18 @@
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
 
-<div id="outline-container-org960f380" class="outline-2">
-<h2 id="org960f380"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orgb9088bc" class="outline-2">
+<h2 id="orgb9088bc"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Remaster is a flexible tool for simulating trajectories
-and trees from birth-death and coalescent models commonly used in
+and trees from the birth-death and coalescent models commonly employed in
 phylodynamic inference, as well as some less common models.
 </p>
 
 <p>
-Remaster defines stochastic population models using an intuitive
-"reaction" notation borrowed from Chemistry.  Using this notation,
+Remaster defines birth-death population models using an intuitive
+"reaction" notation borrowed from chemistry.  Using this notation,
 a simple birth-death process on the number of individuals of type $X$
 might be expressed using the following pair of reactions:
 $$X \overset{\lambda}{\longrightarrow} 2X$$
@@ -121,7 +137,7 @@ users to pre-specify sample counts and times.
 </p>
 
 <p>
-Setting up a model in master involves composing an XML input file
+Setting up a birth-death model in master involves composing an XML input file
 describing initial population sizes and the set of reactions governing
 their dynamics.  The input file format is quite readable and concise.
 For example, the following is a complete XML input file for 
@@ -152,6 +168,14 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </div>
 
 <p>
+For coalescent tree simulation, Remaster uses a similar approach to model
+specification but relies on BEAST 2 <code>PopulationFunction</code> objects (such as
+<code>ConstantPopulation</code> and <code>ExponentialGrowth</code>) to condition on population
+dynamics, together with reactions which are directly applied to coalescent
+tree lineages as they evolve backward in time.
+</p>
+
+<p>
 Remaster is a <a href="https://www.beast2.org/">BEAST 2</a> package, and integrates well with that platform.
 Simulated Remaster trees can be used directly inside of regular BEAST
 XML analysis scripts to initialise MCMC states or construct
@@ -159,8 +183,8 @@ simulation-based validation studies.
 </p>
 </div>
 
-<div id="outline-container-org5ee6c80" class="outline-3">
-<h3 id="org5ee6c80"><span class="section-number-3">1.1.</span> The name</h3>
+<div id="outline-container-org9d1eb9c" class="outline-3">
+<h3 id="org9d1eb9c"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 "Remaster" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
@@ -170,8 +194,8 @@ of performing the simulation tasks for which MASTER itself is actually used.
 </div>
 </div>
 
-<div id="outline-container-org304f7ed" class="outline-3">
-<h3 id="org304f7ed"><span class="section-number-3">1.2.</span> License</h3>
+<div id="outline-container-org8d5c7d1" class="outline-3">
+<h3 id="org8d5c7d1"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Remaster is free software, and is made available under the terms of
@@ -183,8 +207,8 @@ official GitHub project page: <a href="https://github.com/tgvaughan/remaster">ht
 </div>
 </div>
 
-<div id="outline-container-org31bbe00" class="outline-2">
-<h2 id="org31bbe00"><span class="section-number-2">2.</span> Installation</h2>
+<div id="outline-container-org79121f0" class="outline-2">
+<h2 id="org79121f0"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Remaster is a BEAST 2 package and will eventually be available for installation
@@ -209,17 +233,27 @@ simulation.
 </div>
 </div>
 
-<div id="outline-container-org8a2b39c" class="outline-2">
-<h2 id="org8a2b39c"><span class="section-number-2">3.</span> Model specification</h2>
+<div id="outline-container-org226f8d1" class="outline-2">
+<h2 id="org226f8d1"><span class="section-number-2">3.</span> Birth-death simulations</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Like MASTER, Remaster defines models in terms of <a href="#org6a4a219">populations</a> and <a href="#orgdb6762e">reactions</a>.
+Birth-death simulations are the bread and butter of Remaster.  Unlike
+MASTER, Remaster is built from the ground up to make simulating
+birth-death trajectories and trees as easy and flexible as possible.
 </p>
 </div>
 
-<div id="outline-container-org6a4a219" class="outline-3">
-<h3 id="org6a4a219"><span class="section-number-3">3.1.</span> Populations</h3>
+<div id="outline-container-org663805f" class="outline-3">
+<h3 id="org663805f"><span class="section-number-3">3.1.</span> Model specification</h3>
 <div class="outline-text-3" id="text-3-1">
+<p>
+Like MASTER, Remaster defines models in terms of <a href="#orgd4fcec0">populations</a> and <a href="#org260164e">reactions</a>.
+</p>
+</div>
+
+<div id="outline-container-orgd4fcec0" class="outline-4">
+<h4 id="orgd4fcec0"><span class="section-number-4">3.1.1.</span> Populations</h4>
+<div class="outline-text-4" id="text-3-1-1">
 <p>
 A population in Remaster is simply a <code>RealParameter</code> (or other
 <code>Function</code>) with a specific ID.  The value of the <code>RealParameter</code> is
@@ -264,9 +298,9 @@ external) in the resulting tree.
 </div>
 </div>
 
-<div id="outline-container-orgdb6762e" class="outline-3">
-<h3 id="orgdb6762e"><span class="section-number-3">3.2.</span> Reactions</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-org260164e" class="outline-4">
+<h4 id="org260164e"><span class="section-number-4">3.1.2.</span> Reactions</h4>
+<div class="outline-text-4" id="text-3-1-2">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
 more <b>product</b> individuals.  The dynamics that Remaster simulates are
@@ -280,9 +314,9 @@ reactions and "punctual" reactions.
 </div>
 
 
-<div id="outline-container-org281b669" class="outline-4">
-<h4 id="org281b669"><span class="section-number-4">3.2.1.</span> Continuous reactions</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-org513d795" class="outline-5">
+<h5 id="org513d795"><span class="section-number-5">3.1.2.1.</span> Continuous reactions</h5>
+<div class="outline-text-5" id="text-3-1-2-1">
 <p>
 As the name suggests, reactions are applied continuously throughout the
 simulation at particular <i>rates</i> which determine the probability per
@@ -310,9 +344,9 @@ the following:
 </div>
 </div>
 
-<div id="outline-container-org028ba47" class="outline-4">
-<h4 id="org028ba47"><span class="section-number-4">3.2.2.</span> Punctual reactions</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-orge8645e8" class="outline-5">
+<h5 id="orge8645e8"><span class="section-number-5">3.1.2.2.</span> Punctual reactions</h5>
+<div class="outline-text-5" id="text-3-1-2-2">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
 <i>times</i>. At each of these times, a punctual reaction may be applied
@@ -364,9 +398,9 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 
-<div id="outline-container-orgf7c4004" class="outline-4">
-<h4 id="orgf7c4004"><span class="section-number-4">3.2.3.</span> Identifying parents and children</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<div id="outline-container-org7f4c43d" class="outline-5">
+<h5 id="org7f4c43d"><span class="section-number-5">3.1.2.3.</span> Identifying parents and children</h5>
+<div class="outline-text-5" id="text-3-1-2-3">
 <p>
 Although the reaction notation is intuitive, on its own it does not
 specify the parent/child relationships between reactants and products.
@@ -430,9 +464,9 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 
-<div id="outline-container-orgdf144ee" class="outline-2">
-<h2 id="orgdf144ee"><span class="section-number-2">4.</span> Trajectory simulation</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org411766e" class="outline-3">
+<h3 id="org411766e"><span class="section-number-3">3.2.</span> Trajectory simulation</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Trajectories are simply realisations of the population process.  There are two
 distinct types of trajectories in Remaster: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
@@ -453,14 +487,14 @@ dynamics generated are essentially the limiting behaviour of the
 stochastic trajectories when the population sizes are very large and
 the relative impact of the demographic stochasticity becomes
 vanishingly small.  These are the trajectories you'll want to use to
-simulate trees under coalescent models or coalescent approximations of
+simulate trees under coalescent approximations of
 birth-death models.
 </p>
 </div>
 
-<div id="outline-container-org2235d0e" class="outline-3">
-<h3 id="org2235d0e"><span class="section-number-3">4.1.</span> Stochastic Trajectories</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org658fd3f" class="outline-4">
+<h4 id="org658fd3f"><span class="section-number-4">3.2.1.</span> Stochastic Trajectories</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <p>
 Once the population and reaction elements are specified, defining a
 stochastic trajectory in Remaster's XML is very easy.
@@ -493,9 +527,9 @@ fire.)
 </div>
 </div>
 
-<div id="outline-container-orgaaee6da" class="outline-3">
-<h3 id="orgaaee6da"><span class="section-number-3">4.2.</span> Deterministic Trajectories</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-org52ff091" class="outline-4">
+<h4 id="org52ff091"><span class="section-number-4">3.2.2.</span> Deterministic Trajectories</h4>
+<div class="outline-text-4" id="text-3-2-2">
 <p>
 Defining deterministic trajectories is almost exactly the same as defining
 a stochastic trajectory.  The only difference is that the <code>spec</code> attribute
@@ -526,9 +560,9 @@ numbers can be problematic.
 </div>
 </div>
 
-<div id="outline-container-orgf024f97" class="outline-3">
-<h3 id="orgf024f97"><span class="section-number-3">4.3.</span> Placing conditions on trajectories</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-org3e65619" class="outline-4">
+<h4 id="org3e65619"><span class="section-number-4">3.2.3.</span> Placing conditions on trajectories</h4>
+<div class="outline-text-4" id="text-3-2-3">
 <p>
 In addition to the rates and initial population sizes, conditions can
 be placed on trajectory outcomes so that the simulation finishes
@@ -572,14 +606,14 @@ at the end of the simulation.
 </p>
 
 <p>
-The complete syntax for these predicates is specified in section <a href="#orga1a3a56">8.1</a>.
+The complete syntax for these predicates is specified in section <a href="#orgaf3b16a">7.1</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2789342" class="outline-3">
-<h3 id="org2789342"><span class="section-number-3">4.4.</span> Self-contained trajectory simulation XMLs</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgce81966" class="outline-4">
+<h4 id="orgce81966"><span class="section-number-4">3.2.4.</span> Self-contained trajectory simulation XMLs</h4>
+<div class="outline-text-4" id="text-3-2-4">
 <p>
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
@@ -618,7 +652,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="org4283cbd">
+<pre class="example" id="org9b48e03">
 $ beast BDtraj.xml
 </pre>
 
@@ -629,9 +663,9 @@ This should produce some screen output, together with a file
 </div>
 </div>
 
-<div id="outline-container-org5ddcacc" class="outline-3">
-<h3 id="org5ddcacc"><span class="section-number-3">4.5.</span> Plotting simulated trajectories</h3>
-<div class="outline-text-3" id="text-4-5">
+<div id="outline-container-org7a00eef" class="outline-4">
+<h4 id="org7a00eef"><span class="section-number-4">3.2.5.</span> Plotting simulated trajectories</h4>
+<div class="outline-text-4" id="text-3-2-5">
 <p>
 In order to actually visualize the simulation output, we can make use of the script
 <a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the Remaster repository
@@ -650,7 +684,7 @@ traj <span class="org-ess-assignment">&lt;-</span> loadTrajectories(<span class=
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orga54690b">
+<pre class="example" id="org5188ce2">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -682,7 +716,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="orgd541cab">
+<figure id="orgaf04204">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -690,9 +724,9 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 </div>
 
-<div id="outline-container-orgc06b530" class="outline-2">
-<h2 id="orgc06b530"><span class="section-number-2">5.</span> Tree simulation</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgd9fb819" class="outline-3">
+<h3 id="orgd9fb819"><span class="section-number-3">3.3.</span> Tree simulation</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 Once a trajectory simulation is configured, producing the corresponding trees
 is easy.  All that is required is to enclose the trajectory element
@@ -714,19 +748,30 @@ is easy.  All that is required is to enclose the trajectory element
 </div>
 
 <p>
-Besides <code>trajectory</code>, <code>SimulatedTree</code> takes one optional input: <code>maxRetries</code>.  This is
-the maximum number of times the simulator should attempt to produce a tree, in the
-event that the first simulated tree does not have exactly one root lineage.
-(Simulated trees may have more than one root lineage in the instance that not
-all sampled lineages find a common ancestor before the start of the simulation;
-a situation common for deterministic trajectories. It can also occur when the initial
-number of individuals in the sampled population is greater than 1.)
+For trajectories generated using <code>StochasticTrajectory</code>, trees are
+exact realisations of the reconstructed phylogeny under the
+corresponding branching process.  For trajectories generated using
+<code>DeterministicTrajectory</code>, trees can be considered samples from a
+diffusion approximation to the branching process.  (For details on this
+kind of approximation, see <a href="https://doi.org/10.1534/genetics.111.134627">Volz et al., Genetics, 2012</a>.)
+</p>
+
+<p>
+Besides <code>trajectory</code>, <code>SimulatedTree</code> takes one optional input:
+<code>maxRetries</code>.  This is the maximum number of times the simulator
+should attempt to produce a tree, in the event that the first
+simulated tree does not have exactly one root lineage.  (Simulated
+trees may have more than one root lineage in the instance that not all
+sampled lineages find a common ancestor before the start of the
+simulation; a situation common for deterministic trajectories. It can
+also occur when the initial number of individuals in the sampled
+population is greater than 1.)
 </p>
 </div>
 
-<div id="outline-container-orgc67c543" class="outline-3">
-<h3 id="orgc67c543"><span class="section-number-3">5.1.</span> Self-contained tree simulation XMLs</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orga92f4ec" class="outline-4">
+<h4 id="orga92f4ec"><span class="section-number-4">3.3.1.</span> Self-contained tree simulation XMLs</h4>
+<div class="outline-text-4" id="text-3-3-1">
 <p>
 A self-contained tree simulation XML is very similar to a self-contained trajectory
 simulation XML.  The only differences are that tree simulation XMLs have a <code>SimulatedTree</code>
@@ -778,16 +823,16 @@ to view the result:
 </p>
 
 
-<figure id="org3b85530">
+<figure id="org6fa0bfc">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-orgbf6e5d0" class="outline-3">
-<h3 id="orgbf6e5d0"><span class="section-number-3">5.2.</span> Logging typed trees</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orge45888c" class="outline-4">
+<h4 id="orge45888c"><span class="section-number-4">3.3.2.</span> Logging typed trees</h4>
+<div class="outline-text-4" id="text-3-3-2">
 <p>
 The example model in the previous section contained only one main population
 type (besides the sample population).  However, many interesting models
@@ -832,20 +877,20 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgff36046">
+<figure id="orgbdf37b4">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
 </div>
 </div>
 
-<div id="outline-container-org4f29621" class="outline-3">
-<h3 id="org4f29621"><span class="section-number-3">5.3.</span> Logging untyped trees</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-org0ed1235" class="outline-4">
+<h4 id="org0ed1235"><span class="section-number-4">3.3.3.</span> Logging untyped trees</h4>
+<div class="outline-text-4" id="text-3-3-3">
 <p>
 Occasionally you really <b>do</b> want to log trees without any additional
 type annotation.  With single-population models this can be achieved
-as shown in <a href="#orgc67c543">5.1</a>.  However,
+as shown in <a href="#orga92f4ec">3.3.1</a>.  However,
 multi-population models (or models with sub-populations) often produce
 trees with internal nodes representing type changes.  These nodes will
 appear in the output trees, even when the edge types are not recorded.
@@ -865,10 +910,310 @@ the rest of BEAST.
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org11ccff7" class="outline-2">
-<h2 id="org11ccff7"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org7b5e332" class="outline-2">
+<h2 id="org7b5e332"><span class="section-number-2">4.</span> Coalescent simulations</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+While birth-death simulations (both exact and approximate) are the
+prime focus of Remaster, it is also possible to perform a variety
+of coalescent simulations.
+</p>
+</div>
+
+<div id="outline-container-org76be63e" class="outline-3">
+<h3 id="org76be63e"><span class="section-number-3">4.1.</span> Model specification</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Like birth-death model specifications, coalescent model specifications
+are composed of <code>&lt;population/&gt;</code> and <code>&lt;reaction/&gt;</code> elements.  However,
+Coalescent model specification differs from the specification of
+birth-death models in three important ways.
+</p>
+
+<p>
+Firstly, time increases into the past and thus represents age before the "present".
+</p>
+
+<p>
+Secondly, instead of allowing population dynamics to be a realisation
+of a stochastic process, coalescent models operate under the
+assumption that the effective population sizes and how they vary in time are
+known at the outset. Pairs of tree lineages associated with these populations
+coalesce at a rate $1/N_e(t)$ where $N_e(t)$ is the effective population size
+at time $t$.  (Note that in Remaster and BEAST 2 in general,
+"effective population size" is simply the inverse
+pairwise coalescent rate, and therefore has units of "time".)
+For this reason, <code>&lt;population/&gt;</code> elements are associated with BEAST 2 <code>PopulationFunction</code> objects
+rather than regular <code>Function</code> objects. For instance, the following element
+introduces a constant-size population with $N_e(t)=10$:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"pop"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+<p>
+(Like population elements in birth-death models, these population
+elements must be marked with an <code>id</code> attribute.)
+</p>
+
+<p>
+Thirdly, <code>&lt;reaction/&gt;</code> elements are interpreted "backward in time" and
+apply directly to sampled phylogenetic tree lineages.  Because of
+this, there is no concept of a "sampled" population or lineage.  As
+usual though, reactions can be either continuous or punctual.  They're
+useful for two main things: creating new lineages (i.e. samples/tips)
+and transitioning lineages between populations (e.g.  migration events
+in structured coalescent models). For instance, the following punctual
+reaction generates 10 lineages associated with the population "pop" at
+time 0:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"10"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> 0 -&gt; pop </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd776d73" class="outline-4">
+<h4 id="orgd776d73"><span class="section-number-4">4.1.1.</span> Parents and children in coalescent reactions</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+Since coalescent reactions are applied to lineages backward in time, the
+meaning of parents and children is reversed.
+</p>
+
+<p>
+For instance, in reaction
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> S -&gt; L </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+<p>
+(which might appear in a structured coalescent model)
+applies to all lineages currently associated with the <code>S</code> population.  The
+"parent" in this reaction is the product <code>L</code>, while the child is the reactant <code>S</code>.
+</p>
+
+<p>
+Note that, despite the switch in direction, coalescent reactions
+follow the same rules as birth-death reactions for assigning parents
+to children.  The ":id" suffix can be applied to both reactant
+and product to force a parent-child relationship where the default
+assignment is not correct.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2a2da23" class="outline-3">
+<h3 id="org2a2da23"><span class="section-number-3">4.2.</span> Trajectory simulation</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+While there's no real concept of a population-level trajectory simulation in the context
+of a coalescent model that conditions on population dynamics, Remaster still 
+requires that you wrap your coalescent model specification in a <code>CoalescentTrajectory</code>
+object, which is analogous to the birth-death trajectory objects.
+</p>
+
+<p>
+For example, the <code>CoalescentTrajectory</code> object in the following XML
+represents a two-deme structured coalescent model in which one of the
+populations is growing exponentially toward the present:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
+<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span>  <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTrajLogAge</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"C"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"10.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"E"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ExponentialGrowth"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"100.0"</span> <span class="org-nxml-attribute-local-name">growthRate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> C -&gt; E </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"50"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">0 -&gt; C</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"50"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">0 -&gt; E</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.traj"</span> <span class="org-nxml-attribute-local-name">log</span>=<span class="org-string">"@traj"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">run</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+<b>Important:</b> Note the addition of ":beast.base.evolution.tree.coalescent" to the
+<code>namespace</code> attribute.  This is necessary to avoid errors due to BEAST not being
+able to find the <code>ConstantPopulation</code> and <code>ExponentialGrowth</code> classes, which are
+part of BEAST 2 itself, not Remaster.
+</p>
+
+<p>
+When coalescent trajectories are logged, as in the above example, the
+output is simply a set of regularly-spaced samples of the effective
+population size on which the model is conditioned.  (The maximum time
+recorded is fixed by the value of the optional <code>maxTrajLogAge</code>
+attribute of <code>CoalescentTrajectory</code>, which here is set to 10. The sampling
+frequency can be set using another optional attribute, <code>trajLogSampleCount</code>, but
+defaults to 100 samples.)
+</p>
+
+<p>
+For example, loading the trajectory file generated by the above XML into R and plotting
+it yields:
+</p>
+<div class="org-src-container">
+<pre class="src src-R">loadTrajectories(<span class="org-string">"output.traj"</span>) <span class="org-ess-XopX">%&gt;%</span> ggplot(aes(t, value, col=population)) + geom_line()
+</pre>
+</div>
+
+
+<figure id="org582637a">
+<img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
+
+</figure>
+
+<p>
+Because the population size dynamics are fixed, reactions described by
+<code>&lt;reaction&gt;</code> elements have no effect on this output.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfdc4329" class="outline-3">
+<h3 id="orgfdc4329"><span class="section-number-3">4.3.</span> Tree simulation</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+As for birth-death models, we can simulate trees by wrapping the <code>CoalescentTrajectory</code>
+object in a <code>SimulatedTree</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
+<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span>  <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTrajLogAge</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"C"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"10.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"E"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ExponentialGrowth"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"100.0"</span> <span class="org-nxml-attribute-local-name">growthRate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.5"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> C -&gt; E </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"50"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">0 -&gt; C</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"50"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">0 -&gt; E</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.tree"</span> <span class="org-nxml-attribute-local-name">mode</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">log</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"TypedTreeLogger"</span> <span class="org-nxml-attribute-local-name">tree</span>=<span class="org-string">"@tree"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">logger</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">run</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+In the generated tree we see how the continuous reaction enables
+one-way migration from <code>C</code> to <code>E</code>, while the two punctual reactions
+produce 50 tips in each of the two populations at time zero:
+</p>
+
+
+<figure id="org954cbca">
+<img src="examples/Ctree_output.png" alt="Ctree_output.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-orgf0eb5eb" class="outline-3">
+<h3 id="orgf0eb5eb"><span class="section-number-3">4.4.</span> More complex coalescent models</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+The kinds of population dynamics which can be expressed in Remaster is dictated
+by the kinds of <code>PopulationFunction</code> classes which are available.  In BEAST itself,
+only <code>ConstantPopulation</code> and <code>ExponentialGrowth</code> are provided, which limits the
+utility of the simulator.
+</p>
+
+<p>
+One approach to producing more complex scenarios is to use the <code>CompoundPopulationModel</code>
+class available in the <a href="https://tgvaughan.github.io/feast">feast</a> package to combine these BEAST's primitive population
+models in piecewise fashion.
+</p>
+
+<p>
+For instance, the following XML simulates trees under a population model with a
+strong population bottleneck between times 5 and 5.1, and an eventual exponential
+decline into the past (growth into the future):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
+<span class="org-string">                  :beast.base.evolution.tree.coalescent</span>
+<span class="org-string">                  :feast.popmodels"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span>
+                  <span class="org-nxml-attribute-local-name">maxTrajLogAge</span>=<span class="org-string">"10"</span> <span class="org-nxml-attribute-local-name">trajLogSampleCount</span>=<span class="org-string">"1000"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"pop"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CompoundPopulationModel"</span> <span class="org-nxml-attribute-local-name">changeTimes</span>=<span class="org-string">"2.0 2.2 3.0"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">populationModel</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"100.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">populationModel</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">populationModel</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"100.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">populationModel</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ExponentialGrowth"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"100.0"</span> <span class="org-nxml-attribute-local-name">growthRate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">population</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"100"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">0 -&gt; pop</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.trees"</span> <span class="org-nxml-attribute-local-name">mode</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">log</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"TypedTreeLogger"</span> <span class="org-nxml-attribute-local-name">tree</span>=<span class="org-string">"@tree"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">logger</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.traj"</span> <span class="org-nxml-attribute-local-name">log</span>=<span class="org-string">"@traj"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">run</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+
+<p>
+Plotting the trajectory yields a visualisation of the compound model:
+</p>
+<div class="org-src-container">
+<pre class="src src-R">loadTrajectories(<span class="org-string">"output.traj"</span>) <span class="org-ess-XopX">%&gt;%</span> ggplot(aes(t,value,col=population)) + geom_line()
+</pre>
+</div>
+
+<figure id="org686b224">
+<img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
+
+</figure>
+
+<p>
+The following is an example output tree:
+<img src="examples/ComplexCoalescent_tree.png" alt="ComplexCoalescent_tree.png">
+</p>
+
+<p>
+Keep in mind that complex coalescent scenarios are sometimes better
+treated using the diffusion-limit birth-death approximation framework
+provided by <code>DeterministicTrajectory</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdf8e7d2" class="outline-2">
+<h2 id="orgdf8e7d2"><span class="section-number-2">5.</span> Integrating with BEAST</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 </p>
@@ -876,7 +1221,8 @@ Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the foll
 <ul class="org-ul">
 <li>trees are standard BEAST <code>Tree</code> objects,</li>
 <li>it uses standard <code>Logger</code> objects to produce output,</li>
-<li>it uses <code>RealParameter</code> or <code>Function</code> objects to define populations,</li>
+<li>it uses <code>RealParameter</code> or <code>Function</code> objects to define birth-death populations,</li>
+<li>it uses <code>PopulationFunction</code> objects to define coalescent populations,</li>
 <li>the inputs defining reaction rates, times, probabilities or numbers
 expect generic <code>Function</code> inputs.</li>
 </ul>
@@ -889,7 +1235,7 @@ both simulation and inference.
 
 <p>
 Furthermore, the copious use of <code>Function</code> input types means that one can use
-the <code>Function</code>-specific objects from the <a href="https://github.com/tgvaughan/feast">feast</a> package to create simulation XMLs
+the <code>Function</code>-specific objects from the <a href="https://tgvaughan.github.io/feast">feast</a> package to create simulation XMLs
 in which parameters are transformed in moderately complex ways before being
 applied to the simulation.
 </p>
@@ -927,9 +1273,9 @@ follows:
 </div>
 </div>
 
-<div id="outline-container-org26b4897" class="outline-2">
-<h2 id="org26b4897"><span class="section-number-2">7.</span> Examples</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgf978d08" class="outline-2">
+<h2 id="orgf978d08"><span class="section-number-2">6.</span> Examples</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 The <code>examples/</code> directory of the package repository contains a growing list of example
 Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
@@ -940,19 +1286,19 @@ package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">ht
 </div>
 
 
-<div id="outline-container-org9f2ae62" class="outline-2">
-<h2 id="org9f2ae62"><span class="section-number-2">8.</span> Appendix</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org1303a30" class="outline-2">
+<h2 id="org1303a30"><span class="section-number-2">7.</span> Appendix</h2>
+<div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-orga1a3a56" class="outline-3">
-<h3 id="orga1a3a56"><span class="section-number-3">8.1.</span> Condition syntax</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgaf3b16a" class="outline-3">
+<h3 id="orgaf3b16a"><span class="section-number-3">7.1.</span> Condition syntax</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conform to the following
 grammar:
 </p>
 
-<pre class="example" id="orgbf6ec31">
+<pre class="example" id="org535d9f0">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1022,7 +1368,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-01-04 Wed 13:28</p>
+<p class="date">Created: 2023-03-29 Wed 12:08</p>
 </div>
 </body>
 </html>

@@ -12,11 +12,11 @@ GitHub Repository: https://github.com/tgvaughan/remaster
 * Overview
 
 Remaster is a flexible tool for simulating trajectories
-and trees from birth-death and coalescent models commonly used in
+and trees from the birth-death and coalescent models commonly employed in
 phylodynamic inference, as well as some less common models.
 
-Remaster defines stochastic population models using an intuitive
-"reaction" notation borrowed from Chemistry.  Using this notation,
+Remaster defines birth-death population models using an intuitive
+"reaction" notation borrowed from chemistry.  Using this notation,
 a simple birth-death process on the number of individuals of type $X$
 might be expressed using the following pair of reactions:
 $$X \overset{\lambda}{\longrightarrow} 2X$$
@@ -43,7 +43,7 @@ at pre-determined times and fire a fixed or stochastic number of times.
 Besides allowing models to include interesting discrete events, this allows
 users to pre-specify sample counts and times.
 
-Setting up a model in master involves composing an XML input file
+Setting up a birth-death model in master involves composing an XML input file
 describing initial population sizes and the set of reactions governing
 their dynamics.  The input file format is quite readable and concise.
 For example, the following is a complete XML input file for 
@@ -70,6 +70,12 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
     </run>
 </beast>
 #+end_src
+
+For coalescent tree simulation, Remaster uses a similar approach to model
+specification but relies on BEAST 2 ~PopulationFunction~ objects (such as
+~ConstantPopulation~ and ~ExponentialGrowth~) to condition on population
+dynamics, together with reactions which are directly applied to coalescent
+tree lineages as they evolve backward in time.
 
 Remaster is a [[https://www.beast2.org/][BEAST 2]] package, and integrates well with that platform.
 Simulated Remaster trees can be used directly inside of regular BEAST
@@ -106,11 +112,17 @@ Remaster should now be available on your system, and running beast
 with a Remaster input file should perform the corresponding
 simulation.
 
-* Model specification
+* Birth-death simulations
+
+Birth-death simulations are the bread and butter of Remaster.  Unlike
+MASTER, Remaster is built from the ground up to make simulating
+birth-death trajectories and trees as easy and flexible as possible.
+
+** Model specification
 
 Like MASTER, Remaster defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
 
-** Populations
+*** Populations
 
 A population in Remaster is simply a ~RealParameter~ (or other
 ~Function~) with a specific ID.  The value of the ~RealParameter~ is
@@ -141,7 +153,7 @@ special meaning when trees are simulated, however, as the production
 of a sample corresponds to the creation of a node (internal or
 external) in the resulting tree.
 
-** Reactions
+*** Reactions
 
 Reactions connect zero or more *reactant* individuals with zero or
 more *product* individuals.  The dynamics that Remaster simulates are
@@ -151,7 +163,7 @@ There are two distinct kinds of reactions which can be specified: "continuous"
 reactions and "punctual" reactions.
 
 
-*** Continuous reactions
+**** Continuous reactions
 
 As the name suggests, reactions are applied continuously throughout the
 simulation at particular /rates/ which determine the probability per
@@ -170,7 +182,7 @@ the following:
 <reaction spec="Reaction" rate="2 1.4" changeTimes="4"> S + I -> 2I </reaction>
 #+end_src
 
-*** Punctual reactions
+**** Punctual reactions
 
 In contrast, punctual reactions are applied at one or more pre-defined
 /times/. At each of these times, a punctual reaction may be applied
@@ -207,7 +219,7 @@ each with the same sampling probability of $\rho=0.5$ by writing
 <reaction spec="PunctualReaction" p="0.5" times="1.0 2.0 5.0"> I -> sample </reaction>
 #+end_src
 
-*** Identifying parents and children
+**** Identifying parents and children
 
 Although the reaction notation is intuitive, on its own it does not
 specify the parent/child relationships between reactants and products.
@@ -250,7 +262,7 @@ of the two $I$ products, we could write
 Note that unlike MASTER, Remaster requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 
-* Trajectory simulation
+** Trajectory simulation
 
 Trajectories are simply realisations of the population process.  There are two
 distinct types of trajectories in Remaster: *stochastic trajectories* and *deterministic trajectories*.
@@ -267,10 +279,10 @@ dynamics generated are essentially the limiting behaviour of the
 stochastic trajectories when the population sizes are very large and
 the relative impact of the demographic stochasticity becomes
 vanishingly small.  These are the trajectories you'll want to use to
-simulate trees under coalescent models or coalescent approximations of
+simulate trees under coalescent approximations of
 birth-death models.
 
-** Stochastic Trajectories
+*** Stochastic Trajectories
 
 Once the population and reaction elements are specified, defining a
 stochastic trajectory in Remaster's XML is very easy.
@@ -295,7 +307,7 @@ this one) are guaranteed to terminate in finite amount of time.
 (Remaster always ceases the simulation once no reactions are able to
 fire.)
 
-** Deterministic Trajectories
+*** Deterministic Trajectories
 
 Defining deterministic trajectories is almost exactly the same as defining
 a stochastic trajectory.  The only difference is that the =spec= attribute
@@ -318,7 +330,7 @@ Another minor difference is that the =endsWhen= condition can only
 include inequalities, since detecting equality in floating point
 numbers can be problematic.
 
-** Placing conditions on trajectories
+*** Placing conditions on trajectories
 
 In addition to the rates and initial population sizes, conditions can
 be placed on trajectory outcomes so that the simulation finishes
@@ -352,7 +364,7 @@ at the end of the simulation.
 
 The complete syntax for these predicates is specified in section [[*Condition syntax]].
 
-** Self-contained trajectory simulation XMLs
+*** Self-contained trajectory simulation XMLs
 
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
@@ -390,7 +402,7 @@ $ beast BDtraj.xml
 This should produce some screen output, together with a file
 "output.traj" containing the simulated trajectories.
 
-** Plotting simulated trajectories
+*** Plotting simulated trajectories
 
 In order to actually visualize the simulation output, we can make use of the script
 [[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the Remaster repository
@@ -431,7 +443,7 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 
 [[file:examples/BDtraj_output.png]]
 
-* Tree simulation
+** Tree simulation
 
 Once a trajectory simulation is configured, producing the corresponding trees
 is easy.  All that is required is to enclose the trajectory element
@@ -450,15 +462,24 @@ is easy.  All that is required is to enclose the trajectory element
   </tree>
 #+end_src
 
-Besides =trajectory=, =SimulatedTree= takes one optional input: =maxRetries=.  This is
-the maximum number of times the simulator should attempt to produce a tree, in the
-event that the first simulated tree does not have exactly one root lineage.
-(Simulated trees may have more than one root lineage in the instance that not
-all sampled lineages find a common ancestor before the start of the simulation;
-a situation common for deterministic trajectories. It can also occur when the initial
-number of individuals in the sampled population is greater than 1.)
+For trajectories generated using =StochasticTrajectory=, trees are
+exact realisations of the reconstructed phylogeny under the
+corresponding branching process.  For trajectories generated using
+=DeterministicTrajectory=, trees can be considered samples from a
+diffusion approximation to the branching process.  (For details on this
+kind of approximation, see [[https://doi.org/10.1534/genetics.111.134627][Volz et al., Genetics, 2012]].)
 
-** Self-contained tree simulation XMLs 
+Besides =trajectory=, =SimulatedTree= takes one optional input:
+=maxRetries=.  This is the maximum number of times the simulator
+should attempt to produce a tree, in the event that the first
+simulated tree does not have exactly one root lineage.  (Simulated
+trees may have more than one root lineage in the instance that not all
+sampled lineages find a common ancestor before the start of the
+simulation; a situation common for deterministic trajectories. It can
+also occur when the initial number of individuals in the sampled
+population is greater than 1.)
+
+*** Self-contained tree simulation XMLs 
 
 A self-contained tree simulation XML is very similar to a self-contained trajectory
 simulation XML.  The only differences are that tree simulation XMLs have a =SimulatedTree=
@@ -503,7 +524,7 @@ to view the result:
 
 [[file:examples/BDtree_output.png]]
 
-** Logging typed trees
+*** Logging typed trees
 
 The example model in the previous section contained only one main population
 type (besides the sample population).  However, many interesting models
@@ -543,7 +564,7 @@ labeled by their corresponding population types:
 
 [[file:examples/BD2type_output.png]]
 
-** Logging untyped trees
+*** Logging untyped trees
 
 Occasionally you really *do* want to log trees without any additional
 type annotation.  With single-population models this can be achieved
@@ -562,13 +583,227 @@ two children) are still annotated, but in which degree 2 nodes (one
 parent one child) are removed.  Such trees are fully compatible with
 the rest of BEAST.
 
+* Coalescent simulations
+
+While birth-death simulations (both exact and approximate) are the
+prime focus of Remaster, it is also possible to perform a variety
+of coalescent simulations.
+
+** Model specification
+
+Like birth-death model specifications, coalescent model specifications
+are composed of ~<population/>~ and ~<reaction/>~ elements.  However,
+Coalescent model specification differs from the specification of
+birth-death models in three important ways.
+
+Firstly, time increases into the past and thus represents age before the "present".
+
+Secondly, instead of allowing population dynamics to be a realisation
+of a stochastic process, coalescent models operate under the
+assumption that the effective population sizes and how they vary in time are
+known at the outset. Pairs of tree lineages associated with these populations
+coalesce at a rate $1/N_e(t)$ where $N_e(t)$ is the effective population size
+at time $t$.  (Note that in Remaster and BEAST 2 in general,
+"effective population size" is simply the inverse
+pairwise coalescent rate, and therefore has units of "time".)
+For this reason, ~<population/>~ elements are associated with BEAST 2 ~PopulationFunction~ objects
+rather than regular ~Function~ objects. For instance, the following element
+introduces a constant-size population with $N_e(t)=10$:
+#+begin_src xml
+<population id="pop" spec="ConstantPopulation" popSize="10"/>
+#+end_src
+(Like population elements in birth-death models, these population
+elements must be marked with an ~id~ attribute.)
+
+Thirdly, ~<reaction/>~ elements are interpreted "backward in time" and
+apply directly to sampled phylogenetic tree lineages.  Because of
+this, there is no concept of a "sampled" population or lineage.  As
+usual though, reactions can be either continuous or punctual.  They're
+useful for two main things: creating new lineages (i.e. samples/tips)
+and transitioning lineages between populations (e.g.  migration events
+in structured coalescent models). For instance, the following punctual
+reaction generates 10 lineages associated with the population "pop" at
+time 0:
+#+begin_src xml
+<reaction spec="PunctualReaction" n="10" times="0"> 0 -> pop </reaction>
+#+end_src
+
+*** Parents and children in coalescent reactions
+
+Since coalescent reactions are applied to lineages backward in time, the
+meaning of parents and children is reversed.
+
+For instance, in reaction
+#+begin_src xml
+<reaction spec="Reaction" rate="1"> S -> L </reaction>
+#+end_src
+(which might appear in a structured coalescent model)
+applies to all lineages currently associated with the =S= population.  The
+"parent" in this reaction is the product =L=, while the child is the reactant =S=.
+
+Note that, despite the switch in direction, coalescent reactions
+follow the same rules as birth-death reactions for assigning parents
+to children.  The ":id" suffix can be applied to both reactant
+and product to force a parent-child relationship where the default
+assignment is not correct.
+
+** Trajectory simulation
+
+While there's no real concept of a population-level trajectory simulation in the context
+of a coalescent model that conditions on population dynamics, Remaster still 
+requires that you wrap your coalescent model specification in a ~CoalescentTrajectory~
+object, which is analogous to the birth-death trajectory objects.
+
+For example, the ~CoalescentTrajectory~ object in the following XML
+represents a two-deme structured coalescent model in which one of the
+populations is growing exponentially toward the present:
+
+#+begin_src xml
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent">
+  <run spec="Simulator" nSims="1">
+    <simulate  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
+      <population id="C" spec="ConstantPopulation" popSize="10.0"/>
+      <population id="E" spec="ExponentialGrowth" popSize="100.0" growthRate="1"/>
+
+      <reaction spec="Reaction" rate="0.1"> C -> E </reaction>
+
+      <reaction spec="PunctualReaction" n="50" times="0">0 -> C</reaction>
+      <reaction spec="PunctualReaction" n="50" times="0">0 -> E</reaction>
+    </simulate >
+
+    <logger fileName="output.traj" log="@traj"/>
+  </run>
+</beast>
+#+end_src
+
+*Important:* Note the addition of ":beast.base.evolution.tree.coalescent" to the
+~namespace~ attribute.  This is necessary to avoid errors due to BEAST not being
+able to find the ~ConstantPopulation~ and ~ExponentialGrowth~ classes, which are
+part of BEAST 2 itself, not Remaster.
+
+When coalescent trajectories are logged, as in the above example, the
+output is simply a set of regularly-spaced samples of the effective
+population size on which the model is conditioned.  (The maximum time
+recorded is fixed by the value of the optional ~maxTrajLogAge~
+attribute of ~CoalescentTrajectory~, which here is set to 10. The sampling
+frequency can be set using another optional attribute, ~trajLogSampleCount~, but
+defaults to 100 samples.)
+
+For example, loading the trajectory file generated by the above XML into R and plotting
+it yields:
+#+begin_src R
+loadTrajectories("output.traj") %>% ggplot(aes(t, value, col=population)) + geom_line()
+#+end_src
+
+file:examples/Ctraj_output.png
+
+Because the population size dynamics are fixed, reactions described by
+~<reaction>~ elements have no effect on this output.
+
+** Tree simulation
+
+As for birth-death models, we can simulate trees by wrapping the ~CoalescentTrajectory~
+object in a ~SimulatedTree~:
+
+#+begin_src xml
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent">
+  <run spec="Simulator" nSims="1">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
+        <population id="C" spec="ConstantPopulation" popSize="10.0"/>
+        <population id="E" spec="ExponentialGrowth" popSize="100.0" growthRate="1"/>
+
+        <reaction spec="Reaction" rate="0.5"> C -> E </reaction>
+
+        <reaction spec="PunctualReaction" n="50" times="0">0 -> C</reaction>
+        <reaction spec="PunctualReaction" n="50" times="0">0 -> E</reaction>
+      </trajectory >
+    </simulate>
+
+    <logger fileName="output.tree" mode="tree">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
+  </run>
+</beast>
+#+end_src
+
+In the generated tree we see how the continuous reaction enables
+one-way migration from =C= to =E=, while the two punctual reactions
+produce 50 tips in each of the two populations at time zero:
+
+file:examples/Ctree_output.png
+
+** More complex coalescent models
+
+The kinds of population dynamics which can be expressed in Remaster is dictated
+by the kinds of ~PopulationFunction~ classes which are available.  In BEAST itself,
+only ~ConstantPopulation~ and ~ExponentialGrowth~ are provided, which limits the
+utility of the simulator.
+
+One approach to producing more complex scenarios is to use the ~CompoundPopulationModel~
+class available in the [[https://tgvaughan.github.io/feast][feast]] package to combine these BEAST's primitive population
+models in piecewise fashion.
+
+For instance, the following XML simulates trees under a population model with a
+strong population bottleneck between times 5 and 5.1, and an eventual exponential
+decline into the past (growth into the future):
+
+#+begin_src xml
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent
+                  :feast.popmodels">
+  <run spec="Simulator" nSims="1">
+    <simulate id="tree" spec="SimulatedTree">
+      <trajectory id="traj" spec="CoalescentTrajectory"
+                  maxTrajLogAge="10" trajLogSampleCount="1000">
+        <population id="pop" spec="CompoundPopulationModel" changeTimes="2.0 2.2 3.0">
+          <populationModel spec="ConstantPopulation" popSize="100.0"/>
+          <populationModel spec="ConstantPopulation" popSize="1.0"/>
+          <populationModel spec="ConstantPopulation" popSize="100.0"/>
+          <populationModel spec="ExponentialGrowth" popSize="100.0" growthRate="1"/>
+        </population>
+
+        <reaction spec="PunctualReaction" n="100" times="0">0 -> pop</reaction>
+
+      </trajectory>
+    </simulate>
+
+    <logger fileName="output.trees" mode="tree">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
+
+    <logger fileName="output.traj" log="@traj"/>
+  </run>
+</beast>
+#+end_src
+
+
+Plotting the trajectory yields a visualisation of the compound model:
+#+begin_src R
+loadTrajectories("output.traj") %>% ggplot(aes(t,value,col=population)) + geom_line()
+#+end_src
+file:examples/ComplexCoalescent_traj.png
+
+The following is an example output tree:
+file:examples/ComplexCoalescent_tree.png
+
+Keep in mind that complex coalescent scenarios are sometimes better
+treated using the diffusion-limit birth-death approximation framework
+provided by ~DeterministicTrajectory~.
+
 * Integrating with BEAST
 
 Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 
 - trees are standard BEAST =Tree= objects,
 - it uses standard =Logger= objects to produce output,
-- it uses ~RealParameter~ or ~Function~ objects to define populations,
+- it uses ~RealParameter~ or ~Function~ objects to define birth-death populations,
+- it uses ~PopulationFunction~ objects to define coalescent populations,
 - the inputs defining reaction rates, times, probabilities or numbers
   expect generic ~Function~ inputs.
 
@@ -577,7 +812,7 @@ simulate sequence data, or to produce single-XML simulation studies which combin
 both simulation and inference.
 
 Furthermore, the copious use of =Function= input types means that one can use
-the =Function=-specific objects from the [[https://github.com/tgvaughan/feast][feast]] package to create simulation XMLs
+the =Function=-specific objects from the [[https://tgvaughan.github.io/feast][feast]] package to create simulation XMLs
 in which parameters are transformed in moderately complex ways before being
 applied to the simulation.
 

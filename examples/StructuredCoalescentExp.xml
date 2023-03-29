@@ -9,7 +9,7 @@
         <population id="E" spec="ExponentialGrowth"
                     popSize="100.0" growthRate="1"/>
 
-        <reaction spec="Reaction" rate="0.1"> C:1 -> E:1</reaction>
+        <reaction spec="Reaction" rate="0.1"> C -> E </reaction>
 
         <reaction spec="PunctualReaction" n="500" times="0">0 -> C</reaction>
         <reaction spec="PunctualReaction" n="500" times="0">0 -> E</reaction>
