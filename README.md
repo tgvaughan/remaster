@@ -13,17 +13,30 @@ It aims to address the following problems with MASTER:
 5. inflexible design.
 
 Remaster is still in development and not suitable for production use.
-However, some of these goals have already been addressed and, at
-least in the author's opinion, it is in some ways already much nicer
-to use than MASTER.  If you'd like to play with it and perhaps try
-out some of the examples below (all of which are also contained in
-the `examples/` directory of this repository), use the following
-package repository to install it via BEAUti's package manager:
+If you'd like to play with it and perhaps try out some of the examples
+below (all of which are also contained in the `examples/` directory of
+this repository), use the following package repository to install it
+via BEAUti's package manager:
 
 https://tgvaughan.github.io/remaster/package.xml
 
+
+License
+-------
+
+Remaster is free (as in freedom) software, and is released under the
+terms of version 3 or later of the GNU General Public License. A copy
+of this license can be found in this directory in the file named COPYING.
+
+
 Development News
 ----------------
+
+### 2022-03-29
+
+Remaster version 2.0 is out!  While copious bug fixes and some minor
+improvements will inevitibly follow, I don't intend to add any more
+major features at this point: I regard this as a "finished" project.
 
 ### 2022-03-24
 
@@ -48,7 +61,7 @@ growing exponentially toward the present:
         <population id="E" spec="ExponentialGrowth"
                     popSize="100.0" growthRate="1"/>
 
-        <reaction spec="Reaction" rate="0.1"> C:1 -> E:1</reaction>
+        <reaction spec="Reaction" rate="0.1"> C -> E</reaction>
 
         <reaction spec="PunctualReaction" n="5" times="0">0 -> C</reaction>
         <reaction spec="PunctualReaction" n="5" times="0">0 -> E</reaction>
@@ -69,7 +82,7 @@ coalescent tree lineages. (There's no concept of a "sample" population here.)
 Also see that, while reactions are included for migration and generating
 leaves, the coalescent reactions themselves in each of the compartments
 are not explicitly stated: they are implied by the coalescent model itself
-and occur at rates goverened by the effective population sizes encoded in
+and occur at rates governed by the effective population sizes encoded in
 the `PopulationFunction` objects.
 
 ### 2022-10-24
@@ -93,7 +106,7 @@ is now possible, simply by replacing `StochasticTrajectory` with
 are supported, including those containing rate shifts or punctual reactions.
 
 ```xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="DeterministicTrajectory" id="SIRTrajectory"
                   maxTime="20"
@@ -130,7 +143,7 @@ For example, the following will ensure the number of samples lies
 between 10 and 20:
 
 ```xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="traj"
@@ -174,7 +187,7 @@ For example, the following produces a birth-death-sampling tree using
 the first 10 samples produced by the process.
 
 ```xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory"
@@ -220,7 +233,7 @@ Here's an example BD simulation XML which produces trees containing exactly
 with probability 0.2:
 
 ```xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
@@ -268,7 +281,7 @@ but in some ways it is already more flexible and capable than MASTER. Here is an
 example SEIR simulation XML with a finite sampling window:
 
 ```xml
-<beast version="2.0" namespace="beast.core.parameter:beast.core:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
@@ -304,9 +317,3 @@ implementing `Function` to specify these.
 And yes, `SimulatedTree` is an actual BEAST tree.
 
 
-License
--------
-
-Remaster is free software, and is released under the terms of version
-3 of the GNU General Public License, which can be found in this
-directory in the file named COPYING.
