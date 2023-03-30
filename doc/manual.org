@@ -454,7 +454,7 @@ indicate to which specific simulated trajectory the results belong.
 
 This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2]]:
 #+begin_src R
-  ggplot(traj, aes(t, value, group_by=factor(traj))) + geom_step(alpha=0.5)
+  ggplot(traj, aes(t, value, group_by=factor(Sample))) + geom_step(alpha=0.5)
 #+end_src
 
 [[file:examples/BDtraj_output.png]]
