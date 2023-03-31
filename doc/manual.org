@@ -459,6 +459,23 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 
 [[file:examples/BDtraj_output.png]]
 
+*** Logging stochastic trajectory statistics
+
+In addition to logging full trajectories, you can log basic statistics of simulated trajectories using
+the =StochasticTrajectoryStatsLogger= logger, which can be added using an XML fragment like this:
+
+#+begin_src xml
+<logger fileName="traj_stats.log">
+  <log spec="StochasticTrajectoryStatsLogger" traj="@traj"/>
+</logger>
+#+end_src
+
+This will write things like the total event count and the final population states to columns of the
+output file.  Although all of this information is contained in the full trajectory log, occasionally
+it is useful to log only a few basic statistics instead - the full trajectory logs can be very big.
+
+(Additional statistics may be added to this logger in future.)
+
 ** Tree simulation
 
 Once a trajectory simulation is configured, producing the corresponding trees

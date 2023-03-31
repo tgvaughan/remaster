@@ -68,6 +68,8 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
     public void init(PrintStream out) {
         if (getID() != null)
             out.print(getID() + "\t");
+        else
+            out.print("trajectory\t");
     }
 
     @Override
