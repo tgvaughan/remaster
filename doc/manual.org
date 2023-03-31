@@ -51,10 +51,10 @@ simulating 100 trees under a the above birth-death sampling model with
 $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 
 #+begin_src xml
-<beast version="2.0" namespace="beast.base.inference:beast.base.inference:remaster">
+<beast version="2.0" namespace="beast.base.inference:base.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
-            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=10">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="S>=10">
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="S" value="0"/>
 
@@ -387,7 +387,7 @@ it needs to be embedded in a BEAST XML that produces output.  The most direct wa
 Remaster's =Simulator= object, which can be used as a =<run>= element as follows:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:remaster">
+  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
       <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
         <population id="X" spec="RealParameter" value="1"/>
@@ -507,7 +507,7 @@ trees sampled from a linear birth-death-sampling model and saves them to a file
 named "output.trees":
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:remaster">
+  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
@@ -552,7 +552,7 @@ In order to include this information so that it can be shown on the tree,
 you'll need to use the =TypedTreeLogger= in place of the standard logger:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:remaster">
+  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
@@ -676,7 +676,7 @@ populations is growing exponentially toward the present:
 
 #+begin_src xml
 <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+       namespace="beast.base.inference:beast.base.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="1">
     <simulate  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
@@ -725,7 +725,7 @@ object in a ~SimulatedTree~:
 
 #+begin_src xml
 <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+       namespace="beast.base.inference:beast.base.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
