@@ -1,0 +1,31 @@
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+  <run spec="Simulator" nSims="1">
+    <simulate spec="feast.simulation.SimulatedAlignment"
+              outputFileName="$(filebase).nexus" sequenceLength="2000">
+      <siteModel spec="beast.base.evolution.sitemodel.SiteModel">
+        <substModel spec="beast.base.evolution.substitutionmodel.JukesCantor"/>
+      </siteModel>
+      <tree spec="SimulatedTree" id="tree">
+        <trajectory spec="StochasticTrajectory" id="traj"
+                    endsWhen="sample==10">
+          <population spec="RealParameter" id="X" value="1"/>
+          <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+          <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+          <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+          <reaction spec="Reaction" rate="0.1"> X -> sample </reaction>
+        </trajectory>
+      </tree>
+    </simulate>
+
+    <logger spec="Logger" fileName="$(filebase).traj" log="@traj"/>
+
+    <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+      <log spec="TypedTreeLogger" tree="@tree"/>
+    </logger>
+
+    <logger spec="Logger">
+      <log spec="beast.base.evolution.tree.TreeStatLogger" tree="@tree"/>
+    </logger>
+  </run>
+</beast>
