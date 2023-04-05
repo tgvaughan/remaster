@@ -21,6 +21,8 @@ https://tgvaughan.github.io/remaster
 
 Happy simulating!
 
+[![Build Status](https://github.com/tgvaughan/remaster/workflows/Unit%2Fintegration%20tests/badge.svg)](https://github.com/tgvaughan/remaster/actions?query=workflow%3A%22Unit%2Fintegration+tests%22)
+
 License
 -------
 
