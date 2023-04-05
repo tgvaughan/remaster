@@ -17,30 +17,34 @@
  * along with remaster. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package remaster;
+package remaster.reactionboxes;
 
 import beast.base.evolution.tree.coalescent.PopulationFunction;
 import beast.base.util.Binomial;
 import beast.base.util.Randomizer;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import remaster.Lineage;
+import remaster.LineageFactory;
+import remaster.ReactElement;
+import remaster.Reaction;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ContinuousCoalescentReaction extends CoalescentReaction {
+public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
 
     Reaction reaction;
     PopulationFunction popFunc;
     ReactElement popEl;
 
-    public ContinuousCoalescentReaction(Reaction reaction, Set<ReactElement> popElements) {
+    public ContinuousCoalescentReactionBox(Reaction reaction, Set<ReactElement> popElements) {
         this.reaction = reaction;
         processAndValidate(reaction, popElements);
     }
 
-    public ContinuousCoalescentReaction(PopulationFunction.Abstract popFunc) {
+    public ContinuousCoalescentReactionBox(PopulationFunction.Abstract popFunc) {
         this.popFunc = popFunc;
         popEl = new ReactElement(popFunc.getID(), 0);
 

@@ -17,19 +17,23 @@
  * along with remaster. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package remaster;
+package remaster.reactionboxes;
 
 import beast.base.util.Randomizer;
+import remaster.Lineage;
+import remaster.LineageFactory;
+import remaster.PunctualReaction;
+import remaster.ReactElement;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PunctualCoalescentReaction extends CoalescentReaction {
+public class PunctualCoalescentReactionBox extends CoalescentReactionBox {
 
     PunctualReaction reaction;
 
-    public PunctualCoalescentReaction(PunctualReaction reaction, Set<ReactElement> popElements) {
+    public PunctualCoalescentReactionBox(PunctualReaction reaction, Set<ReactElement> popElements) {
         this.reaction = reaction;
         processAndValidate(reaction, popElements);
 

@@ -23,6 +23,9 @@ import beast.base.core.Input;
 import beast.base.core.Log;
 import beast.base.evolution.tree.Node;
 import beast.base.util.Randomizer;
+import remaster.reactionboxes.BDReactionBox;
+import remaster.reactionboxes.ContinuousBDReactionBox;
+import remaster.reactionboxes.PunctualBDReactionBox;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -59,39 +62,39 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         state.resetToInitial();
         events.clear();
 
-        for (AbstractReaction reaction : reactions)
-            reaction.resetInterval();
+        for (BDReactionBox reactionBox : reactionBoxes)
+            reactionBox.resetInterval();
 
-        List<AbstractReaction> reactionsSortedByChangeTimes = new ArrayList<>(reactions);
-        reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
+        List<BDReactionBox> reactionBoxesSortedByChangeTimes = new ArrayList<>(reactionBoxes);
+        reactionBoxesSortedByChangeTimes.sort(Comparator.comparingDouble(BDReactionBox::getIntervalEndTime));
 
         double t=0.0;
 
         while (true) {
             double a0 = 0.0;
-            for (Reaction reaction : continuousReactions)
-                a0 += state.updateReactionPropensity(reaction);
+            for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes)
+                a0 += reactionBox.updatePropensity(state);
 
             double delta = a0 == 0 ? Double.POSITIVE_INFINITY : Randomizer.nextExponential(a0);
             t += delta;
 
-            AbstractReaction updatedReaction = reactionsSortedByChangeTimes.get(0);
-            if (maxTimeInput.get().getArrayValue() < updatedReaction.getIntervalEndTime()) {
+            BDReactionBox updatedReactionBox = reactionBoxesSortedByChangeTimes.get(0);
+            if (maxTimeInput.get().getArrayValue() < updatedReactionBox.getIntervalEndTime()) {
                 if (t > maxTimeInput.get().getArrayValue())
                     break;
-            } else if (t > updatedReaction.getIntervalEndTime()) {
-                t = updatedReaction.getIntervalEndTime();
+            } else if (t > updatedReactionBox.getIntervalEndTime()) {
+                t = updatedReactionBox.getIntervalEndTime();
 
-                if (updatedReaction instanceof PunctualReaction) {
+                if (updatedReactionBox instanceof PunctualBDReactionBox) {
                     // Implement punctual reaction
-                    double multiplicity = state.implementEvent((PunctualReaction) updatedReaction, true);
+                    double multiplicity = ((PunctualBDReactionBox) updatedReactionBox).implementEvent(state, true);
                     if (multiplicity>0)
-                        events.add(new BDTrajectoryEvent(t, updatedReaction, multiplicity));
+                        events.add(new BDTrajectoryEvent(t, updatedReactionBox, multiplicity));
                 }
 
-                updatedReaction.incrementInterval();
-                reactionsSortedByChangeTimes
-                        .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
+                updatedReactionBox.incrementInterval();
+                reactionBoxesSortedByChangeTimes
+                        .sort(Comparator.comparingDouble(BDReactionBox::getIntervalEndTime));
 
                 if (!state.isValid())
                     return false;
@@ -104,20 +107,20 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
             double u = Randomizer.nextDouble()*a0;
 
-            Reaction thisReaction = null;
-            for (Reaction reaction : continuousReactions) {
-                if (u < state.getCurrentReactionPropensity(reaction)) {
-                    thisReaction = reaction;
+            ContinuousBDReactionBox thisReactionBox = null;
+            for (ContinuousBDReactionBox reaction : continuousReactionBoxes) {
+                if (u < reaction.currentPropensity) {
+                    thisReactionBox = reaction;
                     break;
                 } else
-                    u -= state.getCurrentReactionPropensity(reaction);
+                    u -= reaction.currentPropensity;
             }
 
-            if (thisReaction == null)
+            if (thisReactionBox == null)
                 throw new IllegalStateException("Reaction selection loop fell through.");
 
-            events.add(new BDTrajectoryEvent(t, thisReaction, 1));
-            state.incrementState(thisReaction, 1);
+            events.add(new BDTrajectoryEvent(t, thisReactionBox, 1));
+            thisReactionBox.incrementState(state, 1);
 
             if (endCondition != null && endCondition.isMet()) {
                 System.out.println("Trajectory termination condition met: " + endsWhenInput.get());
@@ -136,7 +139,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
     @Override
     public Node simulateTree() throws SimulationFailureException {
-        if (events.stream().noneMatch(e -> state.producesSamples(e.reaction)))
+        if (events.stream().noneMatch(e -> e.reactionBox.producesSamples))
             throw new SimulationFailureException("No samples produced.");
 
         List<BDTrajectoryEvent> eventList = new ArrayList<>(events);
@@ -150,9 +153,9 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
         for (BDTrajectoryEvent event : eventList) {
             for (long i=0; i<Math.round(event.multiplicity); i++) {
-                state.incrementLineages(lineages, event.reaction,
-                        event.time, lineageFactory, false);
-                state.incrementState(event.reaction, -1);
+                event.reactionBox.incrementLineages(lineages, state, event.time,
+                        lineageFactory, false);
+                event.reactionBox.incrementState(state, -1);
             }
         }
 
@@ -184,7 +187,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         for (BDTrajectoryEvent event : events) {
             out.print(";");
             out.print("t=" + event.time);
-            state.incrementState(event.reaction, event.multiplicity);
+            event.reactionBox.incrementState(state, event.multiplicity);
             out.print(state);
         }
 

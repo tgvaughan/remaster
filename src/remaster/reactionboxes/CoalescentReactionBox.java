@@ -17,14 +17,16 @@
  * along with remaster. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package remaster;
+package remaster.reactionboxes;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import remaster.AbstractReaction;
+import remaster.ReactElement;
 
 import java.util.*;
 
-public abstract class CoalescentReaction {
+public abstract class CoalescentReactionBox {
 
     List<ReactElement> parents = new ArrayList<>();
     List<Multiset<ReactElement>> children = new ArrayList<>();

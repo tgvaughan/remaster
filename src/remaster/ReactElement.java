@@ -25,8 +25,8 @@ import java.util.Objects;
  * Class for reactants and products of reaction
  */
 public class ReactElement {
-    String name;
-    int idx;
+    public String name;
+    public int idx;
 
     public ReactElement(String name, int idx) {
         this.name = name.intern();

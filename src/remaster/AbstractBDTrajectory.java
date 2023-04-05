@@ -23,9 +23,10 @@ package remaster;
 import beast.base.core.BEASTObject;
 import beast.base.core.Function;
 import beast.base.core.Input;
-import beast.base.core.Log;
 import beast.base.inference.parameter.RealParameter;
-import com.google.common.collect.Sets;
+import remaster.reactionboxes.BDReactionBox;
+import remaster.reactionboxes.ContinuousBDReactionBox;
+import remaster.reactionboxes.PunctualBDReactionBox;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,6 +53,9 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
     Condition endCondition, acceptCondition;
 
     BDTrajectoryState state;
+    List<ContinuousBDReactionBox> continuousReactionBoxes;
+    List<PunctualBDReactionBox> punctualReactionBoxes;
+    List<BDReactionBox> reactionBoxes;
 
     @Override
     public void initAndValidate() {
@@ -73,12 +77,17 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
         if (mustHaveInput.get() != null)
             acceptCondition = new Condition(mustHaveInput.get(), state);
 
+        continuousReactionBoxes = new ArrayList<>();
+        for (Reaction reaction : continuousReactions)
+            continuousReactionBoxes.add(new ContinuousBDReactionBox(reaction, samplePopNames, state));
 
-        for (AbstractReaction reaction : reactions) {
-            if (!state.processAndValidateReaction(reaction))
-                throw new IllegalStateException("Invalid reaction detected.");
+        punctualReactionBoxes = new ArrayList<>();
+        for (PunctualReaction reaction : punctualReactions)
+            punctualReactionBoxes.add(new PunctualBDReactionBox(reaction, samplePopNames, state));
 
-        }
+        reactionBoxes = new ArrayList<>();
+        reactionBoxes.addAll(continuousReactionBoxes);
+        reactionBoxes.addAll(punctualReactionBoxes);
     }
 
 

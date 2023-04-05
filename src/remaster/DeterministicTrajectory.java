@@ -32,6 +32,9 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.events.EventHandler;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
+import remaster.reactionboxes.BDReactionBox;
+import remaster.reactionboxes.ContinuousBDReactionBox;
+import remaster.reactionboxes.PunctualBDReactionBox;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -59,8 +62,6 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     public ContinuousOutputModel continuousOutputModel;
     public double stopTime;
 
-    HashMap<AbstractReaction, double[]> stoichiometryVectors;
-
     @Override
     public void initAndValidate() {
         super.initAndValidate();
@@ -72,31 +73,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 maxTimeInput.get().getArrayValue()*
                                 forwardRelativeStepSizeInput.get().getArrayValue());
 
-        stoichiometryVectors = new HashMap<>();
-        for (AbstractReaction reaction : reactions)
-            stoichiometryVectors.put(reaction, computeStoichiometry(reaction, state));
-
         doSimulation();
     }
-
-    /**
-     * Compute stoichiometry vector.  Called on initialisation of
-     * trajectory.
-     *
-     * @param state Trajectory state instance
-     */
-    public double[] computeStoichiometry(AbstractReaction reaction, BDTrajectoryState state) {
-        double[] stoichiometryVector = new double[state.getTotalSubpopCount()];
-        for (ReactElement reactElement : reaction.reactants)
-            stoichiometryVector[state.getOffset(reactElement)] -= 1;
-
-        for (ReactElement reactElement : reaction.products) {
-            stoichiometryVector[state.getOffset(reactElement)] += 1;
-        }
-
-        return stoichiometryVector;
-    }
-
 
     @Override
     public boolean doSimulation() {
@@ -115,13 +93,11 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 Arrays.fill(ydot, 0.0);
                 System.arraycopy(y, 0, state.occupancies, 0, y.length);
 
-                for (Reaction reaction : continuousReactions) {
-
-                    state.updateReactionPropensity(reaction);
-                    double[] v = stoichiometryVectors.get(reaction);
+                for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes) {
+                    reactionBox.updatePropensity(state);
 
                     for (int i=0; i<state.occupancies.length; i++) {
-                        ydot[i] += state.getCurrentReactionPropensity(reaction) * v[i];
+                        ydot[i] += reactionBox.currentPropensity * reactionBox.stoichiometryVector[i];
                     }
                 }
             }
@@ -130,22 +106,22 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
         EventHandler rateShiftHandler = new EventHandler() {
 
-            List<AbstractReaction> reactionsSortedByChangeTimes;
+            List<BDReactionBox> reactionBoxesSortedByChangeTimes;
             Double[] changeTimes;
 
             @Override
             public void init(double t0, double[] y0, double tf) {
                 Set<Double> changeTimeSet = new HashSet<>();
-                for (AbstractReaction reaction : reactions) {
-                    reaction.resetInterval();
-                    for (double t : reaction.getAllIntervalEndTimes())
+                for (BDReactionBox reactionBox : reactionBoxes) {
+                    reactionBox.resetInterval();
+                    for (double t : reactionBox.getAllIntervalEndTimes())
                         changeTimeSet.add(t);
                 }
 
                 changeTimes = changeTimeSet.toArray(new Double[0]);
 
-                reactionsSortedByChangeTimes = new ArrayList<>(reactions);
-                reactionsSortedByChangeTimes.sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
+                reactionBoxesSortedByChangeTimes = new ArrayList<>(reactionBoxes);
+                reactionBoxesSortedByChangeTimes.sort(Comparator.comparingDouble(BDReactionBox::getIntervalEndTime));
             }
 
             @Override
@@ -164,21 +140,21 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
             @Override
             public void resetState(double t, double[] y) {
-                double eventTime = reactionsSortedByChangeTimes.get(0).getIntervalEndTime();
-                while (reactionsSortedByChangeTimes.get(0).getIntervalEndTime() == eventTime) {
-                    AbstractReaction reaction = reactionsSortedByChangeTimes.get(0);
+                double eventTime = reactionBoxesSortedByChangeTimes.get(0).getIntervalEndTime();
+                while (reactionBoxesSortedByChangeTimes.get(0).getIntervalEndTime() == eventTime) {
+                    BDReactionBox reactionBox = reactionBoxesSortedByChangeTimes.get(0);
 
-                    if (reaction instanceof PunctualReaction) {
-                        PunctualReaction punctualReaction = (PunctualReaction) reaction;
+                    if (reactionBox instanceof PunctualBDReactionBox) {
+                        PunctualBDReactionBox punctualReaction = (PunctualBDReactionBox) reactionBox;
 
                         System.arraycopy(y, 0, state.occupancies, 0, y.length);
-                        state.implementEvent(punctualReaction, false);
+                        punctualReaction.implementEvent(state, false);
                         System.arraycopy(state.occupancies, 0, y, 0, y.length);
                     }
 
-                    reaction.incrementInterval();
-                    reactionsSortedByChangeTimes
-                            .sort(Comparator.comparingDouble(AbstractReaction::getIntervalEndTime));
+                    reactionBox.incrementInterval();
+                    reactionBoxesSortedByChangeTimes
+                            .sort(Comparator.comparingDouble(BDReactionBox::getIntervalEndTime));
                 }
             }
         };
@@ -245,15 +221,19 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         LineageFactory lineageFactory = new LineageFactory();
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
 
-        for (PunctualReaction reaction : punctualReactions)
-            reaction.resetIntervalToEnd();
+        for (PunctualBDReactionBox reactionBox : punctualReactionBoxes)
+            reactionBox.resetIntervalToEnd();
 
-        List<PunctualReaction> sortedPunctualReactions = new ArrayList<>(punctualReactions);
-        sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+        List<PunctualBDReactionBox> sortedPunctualReactionsBoxes =
+                new ArrayList<>(punctualReactionBoxes);
+        sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
+                PunctualBDReactionBox::getIntervalStartTime).reversed());
 
-        while (!sortedPunctualReactions.isEmpty() && sortedPunctualReactions.get(0).getIntervalStartTime()>stopTime) {
-            sortedPunctualReactions.get(0).decrementInterval();
-            sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+        while (!sortedPunctualReactionsBoxes.isEmpty()
+                && sortedPunctualReactionsBoxes.get(0).getIntervalStartTime()>stopTime) {
+            sortedPunctualReactionsBoxes.get(0).decrementInterval();
+            sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
+                    PunctualBDReactionBox::getIntervalStartTime).reversed());
         }
 
         double t = stopTime;
@@ -266,28 +246,31 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
                     state.occupancies, 0, state.occupancies.length);
 
-            while (!sortedPunctualReactions.isEmpty() &&
-                    sortedPunctualReactions.get(0).getIntervalStartTime()>t) {
-                PunctualReaction reaction = sortedPunctualReactions.get(0);
-                reaction.decrementInterval();
-                double n = state.implementEvent(reaction, true);
+            while (!sortedPunctualReactionsBoxes.isEmpty() &&
+                    sortedPunctualReactionsBoxes.get(0).getIntervalStartTime()>t) {
+                PunctualBDReactionBox reactionBox = sortedPunctualReactionsBoxes.get(0);
+                reactionBox.decrementInterval();
+                double n = reactionBox.implementEvent(state, true);
                 for (int i=0; i<n; i++) {
-                    state.incrementLineages(lineages, reaction, t, lineageFactory, false);
-                    state.incrementState(reaction, -1);
+                    reactionBox.incrementLineages(lineages, state, t,
+                            lineageFactory, false);
+                    reactionBox.incrementState(state, -1);
                 }
-                sortedPunctualReactions.sort(Comparator.comparingDouble(PunctualReaction::getIntervalStartTime).reversed());
+                sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
+                        PunctualBDReactionBox::getIntervalStartTime).reversed());
             }
 
             boolean reactionFired = false;
-            for (Reaction reaction : continuousReactions) {
-                state.updateReactionPropensity(reaction);
+            for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes) {
+                reactionBox.updatePropensity(state);
                 double totalInclusionProb =
-                        state.getLineageInclusionProbability(lineages, reaction);
+                        reactionBox.getLineageInclusionProbability(lineages, state);
 
-                double prob = state.getCurrentReactionPropensity(reaction)*totalInclusionProb*dt;
+                double prob = reactionBox.currentPropensity*totalInclusionProb*dt;
 
                 if (u < prob) {
-                    state.incrementLineages(lineages, reaction, t, lineageFactory, true);
+                    reactionBox.incrementLineages(lineages, state, t,
+                            lineageFactory, true);
                     u = Randomizer.nextDouble();
                     dt = t/Nt;
                     reactionFired = true;

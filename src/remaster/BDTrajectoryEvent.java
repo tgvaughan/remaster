@@ -19,23 +19,25 @@
 
 package remaster;
 
+import remaster.reactionboxes.BDReactionBox;
+
 /**
  * Events produced by birth-death trajectories.
  */
 public class BDTrajectoryEvent {
     public double time;
     public double multiplicity;
-    public AbstractReaction reaction;
+    public BDReactionBox reactionBox;
 
-    public BDTrajectoryEvent(double time, AbstractReaction reaction, double multiplicity) {
+    public BDTrajectoryEvent(double time, BDReactionBox reactionBox, double multiplicity) {
         this.time = time;
-        this.reaction = reaction;
+        this.reactionBox = reactionBox;
         this.multiplicity = multiplicity;
     }
 
     @Override
     public String toString() {
-        return reaction.toString() + " at t=" + time
+        return reactionBox.toString() + " at t=" + time
                 + " (multiplicity " + multiplicity + ")";
     }
 }

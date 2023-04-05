@@ -22,6 +22,8 @@ package remaster;
 import beast.base.core.Input;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.coalescent.PopulationFunction;
+import remaster.reactionboxes.ContinuousCoalescentReactionBox;
+import remaster.reactionboxes.PunctualCoalescentReactionBox;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -40,8 +42,8 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             101);
 
     Set<ReactElement> popElements;
-    List<ContinuousCoalescentReaction> continousCoalReactions;
-    List<PunctualCoalescentReaction> punctualCoalReactions;
+    List<ContinuousCoalescentReactionBox> continousCoalReactions;
+    List<PunctualCoalescentReactionBox> punctualCoalReactions;
 
     @Override
     public void initAndValidate() {
@@ -53,13 +55,13 @@ public class CoalescentTrajectory extends AbstractTrajectory {
 
         continousCoalReactions = new ArrayList<>();
         for (PopulationFunction.Abstract popFunc : popFuncInput.get())
-            continousCoalReactions.add(new ContinuousCoalescentReaction(popFunc));
+            continousCoalReactions.add(new ContinuousCoalescentReactionBox(popFunc));
         for (Reaction reaction : continuousReactions)
-            continousCoalReactions.add(new ContinuousCoalescentReaction(reaction, popElements));
+            continousCoalReactions.add(new ContinuousCoalescentReactionBox(reaction, popElements));
 
         punctualCoalReactions = new ArrayList<>();
         for (PunctualReaction reaction : punctualReactions)
-            punctualCoalReactions.add(new PunctualCoalescentReaction(reaction, popElements));
+            punctualCoalReactions.add(new PunctualCoalescentReactionBox(reaction, popElements));
     }
 
     @Override
@@ -73,8 +75,8 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         for (ReactElement popEl : popElements)
             lineages.put(popEl, new ArrayList<>());
 
-        List<PunctualCoalescentReaction> punctualReactionsByChangeTime = new ArrayList<>(punctualCoalReactions);
-        punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReaction::getReactionTime));
+        List<PunctualCoalescentReactionBox> punctualReactionsByChangeTime = new ArrayList<>(punctualCoalReactions);
+        punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReactionBox::getReactionTime));
 
         double t = 0.0;
 
@@ -83,11 +85,11 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             // Sample time increment
 
             double nextReactionTime = Double.POSITIVE_INFINITY;
-            ContinuousCoalescentReaction nextReaction = null;
+            ContinuousCoalescentReactionBox nextReaction = null;
 
             boolean leavesToCome = false;
 
-            for (ContinuousCoalescentReaction reaction : continousCoalReactions) {
+            for (ContinuousCoalescentReactionBox reaction : continousCoalReactions) {
                 double thisReactionTime = reaction.getNextReactionTime(t, lineages);
                 if (thisReactionTime < nextReactionTime) {
                     nextReactionTime = thisReactionTime;
@@ -100,9 +102,9 @@ public class CoalescentTrajectory extends AbstractTrajectory {
 
             if (nextReactionTime > punctualReactionsByChangeTime.get(0).getReactionTime()) {
                 t = punctualReactionsByChangeTime.get(0).getReactionTime();
-                PunctualCoalescentReaction punctualReaction = punctualReactionsByChangeTime.get(0);
+                PunctualCoalescentReactionBox punctualReaction = punctualReactionsByChangeTime.get(0);
                 punctualReaction.applyReaction(lineages, lineageFactory);
-                punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReaction::getReactionTime));
+                punctualReactionsByChangeTime.sort(Comparator.comparingDouble(PunctualCoalescentReactionBox::getReactionTime));
                 continue;
             }
 

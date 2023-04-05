@@ -19,12 +19,10 @@
 
 package remaster;
 
-import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.core.Loggable;
 import beast.base.evolution.tree.Node;
 import beast.base.inference.CalculationNode;
-import beast.base.inference.parameter.RealParameter;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
