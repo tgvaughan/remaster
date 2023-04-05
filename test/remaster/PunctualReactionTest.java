@@ -24,34 +24,35 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ReactionTest {
+public class PunctualReactionTest {
 
     @Test
     public void test() {
 
-        Reaction reaction = new Reaction();
-        reaction.initByName("value", "S[1] + I[0] -> I[0] + I[1]",
-                "rate", "1 2 3",
-                "changeTimes", "5 10");
+        PunctualReaction reaction = new PunctualReaction();
+        reaction.initByName("value", "I[0] -> sample",
+                "n", "10 20",
+                "times", "8 9 10");
 
-        assertEquals(2, reaction.reactants.size());
-        assertTrue(reaction.reactants.contains(new ReactElement("S", 1)));
+        assertEquals(1, reaction.reactants.size());
         assertTrue(reaction.reactants.contains(new ReactElement("I", 0)));
 
-        assertEquals(2, reaction.products.size());
-        assertTrue(reaction.products.contains(new ReactElement("I", 0)));
-        assertTrue(reaction.products.contains(new ReactElement("I", 1)));
+        assertEquals(1, reaction.products.size());
+        assertTrue(reaction.products.contains(new ReactElement("sample", 0)));
 
         reaction.resetInterval();
-        assertEquals(5.0, reaction.getIntervalEndTime(), 1e-14);
-        assertEquals(1.0, reaction.getIntervalRate(), 1e-14);
+        assertEquals(8.0, reaction.getIntervalEndTime(), 1e-14);
+        assertEquals(10, reaction.getNextN(), 1e-14);
+
+        reaction.incrementInterval();
+        assertEquals(9.0, reaction.getIntervalEndTime(), 1e-14);
+        assertEquals(20, reaction.getNextN(), 1e-14);
 
         reaction.incrementInterval();
         assertEquals(10.0, reaction.getIntervalEndTime(), 1e-14);
-        assertEquals(2.0, reaction.getIntervalRate(), 1e-14);
+        assertEquals(10, reaction.getNextN(), 1e-14);
 
         reaction.incrementInterval();
         assertEquals(Double.POSITIVE_INFINITY, reaction.getIntervalEndTime(), 1e-14);
-        assertEquals(3.0, reaction.getIntervalRate(), 1e-14);
     }
 }

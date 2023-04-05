@@ -50,7 +50,7 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
     public Input<Function> maxTimeInput = new Input<>("maxTime",
             "Maximum length of simulation", new RealParameter("Infinity"));
 
-    Condition endCondition, acceptCondition;
+    BDCondition endCondition, acceptCondition;
 
     BDTrajectoryState state;
     List<ContinuousBDReactionBox> continuousReactionBoxes;
@@ -72,10 +72,10 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
         state = new BDTrajectoryState(allPops, samplePopNames);
 
         if (endsWhenInput.get() != null)
-            endCondition = new Condition(endsWhenInput.get(), state);
+            endCondition = new BDCondition(endsWhenInput.get(), state);
 
         if (mustHaveInput.get() != null)
-            acceptCondition = new Condition(mustHaveInput.get(), state);
+            acceptCondition = new BDCondition(mustHaveInput.get(), state);
 
         continuousReactionBoxes = new ArrayList<>();
         for (Reaction reaction : continuousReactions)

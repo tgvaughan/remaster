@@ -28,13 +28,13 @@ import remaster.parsers.ConditionGrammarParser;
 import remaster.parsers.ConditionVisitor;
 import remaster.parsers.ContinuousConditionVisitor;
 
-public class Condition {
+public class BDCondition {
 
     ParseTree parseTree;
     ConditionVisitor visitor;
     ContinuousConditionVisitor continuousVisitor;
 
-    public Condition(String conditionString, BDTrajectoryState state) {
+    public BDCondition(String conditionString, BDTrajectoryState state) {
 
         CharStream input = CharStreams.fromString(conditionString);
         ConditionGrammarLexer lexer = new ConditionGrammarLexer(input);
