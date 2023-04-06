@@ -7,7 +7,7 @@
       </siteModel>
       <tree spec="SimulatedTree" id="tree">
         <trajectory spec="StochasticTrajectory" id="traj"
-                    endsWhen="sample==10">
+                    endsWhen="sample==10" mustHave="sample==10">
           <population spec="RealParameter" id="X" value="1"/>
           <samplePopulation spec="RealParameter" id="sample" value="0"/>
 

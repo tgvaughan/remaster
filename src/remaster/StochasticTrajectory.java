@@ -73,7 +73,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         while (true) {
             double a0 = 0.0;
             for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes)
-                a0 += reactionBox.updatePropensity(state);
+                a0 += reactionBox.updatePropensity();
 
             double delta = a0 == 0 ? Double.POSITIVE_INFINITY : Randomizer.nextExponential(a0);
             t += delta;
@@ -87,7 +87,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
                 if (updatedReactionBox instanceof PunctualBDReactionBox) {
                     // Implement punctual reaction
-                    double multiplicity = ((PunctualBDReactionBox) updatedReactionBox).implementEvent(state, true);
+                    double multiplicity = ((PunctualBDReactionBox) updatedReactionBox).implementEvent(true);
                     if (multiplicity>0)
                         events.add(new BDTrajectoryEvent(t, updatedReactionBox, multiplicity));
                 }
@@ -153,7 +153,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
         for (BDTrajectoryEvent event : eventList) {
             for (long i=0; i<Math.round(event.multiplicity); i++) {
-                event.reactionBox.incrementLineages(lineages, state, event.time,
+                event.reactionBox.incrementLineages(lineages, event.time,
                         lineageFactory, false);
                 event.reactionBox.incrementState(state, -1);
             }

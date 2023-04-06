@@ -39,10 +39,9 @@ public class ContinuousBDReactionBox extends BDReactionBox {
     /**
      * Update current propensity corresponding to the given reaction.
      *
-     * @param state state with which to compute propensity
      * @return calculated propensity
      */
-    public double updatePropensity(BDTrajectoryState state) {
+    public double updatePropensity() {
         currentPropensity = reaction.getIntervalRate();
         for (ReactElement reactElement : reaction.reactants.elementSet()) {
             currentPropensity *= Binomial.choose(state.get(reactElement),

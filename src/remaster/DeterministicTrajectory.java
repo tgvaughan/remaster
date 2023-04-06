@@ -94,7 +94,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 System.arraycopy(y, 0, state.occupancies, 0, y.length);
 
                 for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes) {
-                    reactionBox.updatePropensity(state);
+                    reactionBox.updatePropensity();
 
                     for (int i=0; i<state.occupancies.length; i++) {
                         ydot[i] += reactionBox.currentPropensity * reactionBox.stoichiometryVector[i];
@@ -148,7 +148,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                         PunctualBDReactionBox punctualReaction = (PunctualBDReactionBox) reactionBox;
 
                         System.arraycopy(y, 0, state.occupancies, 0, y.length);
-                        punctualReaction.implementEvent(state, false);
+                        punctualReaction.implementEvent(false);
                         System.arraycopy(state.occupancies, 0, y, 0, y.length);
                     }
 
@@ -250,9 +250,9 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                     sortedPunctualReactionsBoxes.get(0).getIntervalStartTime()>t) {
                 PunctualBDReactionBox reactionBox = sortedPunctualReactionsBoxes.get(0);
                 reactionBox.decrementInterval();
-                double n = reactionBox.implementEvent(state, true);
+                double n = reactionBox.implementEvent(true);
                 for (int i=0; i<n; i++) {
-                    reactionBox.incrementLineages(lineages, state, t,
+                    reactionBox.incrementLineages(lineages, t,
                             lineageFactory, false);
                     reactionBox.incrementState(state, -1);
                 }
@@ -262,14 +262,14 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
             boolean reactionFired = false;
             for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes) {
-                reactionBox.updatePropensity(state);
+                reactionBox.updatePropensity();
                 double totalInclusionProb =
-                        reactionBox.getLineageInclusionProbability(lineages, state);
+                        reactionBox.getLineageInclusionProbability(lineages);
 
                 double prob = reactionBox.currentPropensity*totalInclusionProb*dt;
 
                 if (u < prob) {
-                    reactionBox.incrementLineages(lineages, state, t,
+                    reactionBox.incrementLineages(lineages, t,
                             lineageFactory, true);
                     u = Randomizer.nextDouble();
                     dt = t/Nt;

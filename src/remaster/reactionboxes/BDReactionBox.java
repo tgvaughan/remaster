@@ -32,6 +32,8 @@ import java.util.*;
  */
 public abstract class BDReactionBox {
 
+    BDTrajectoryState state;
+
     List<ReactElement> parents = new ArrayList<>();
     List<Multiset<ReactElement>> children = new ArrayList<>();
 
@@ -45,6 +47,7 @@ public abstract class BDReactionBox {
     public BDReactionBox(AbstractReaction reaction, Set<String> samplePopNames, BDTrajectoryState state) {
         this.reaction = reaction;
         this.samplePopNames = samplePopNames;
+        this.state = state;
 
         Map<String, Integer> parentIDs = new HashMap<>();
 
@@ -157,14 +160,13 @@ public abstract class BDReactionBox {
      * Increment lineage state according to reaction.
      *
      * @param lineages current extant lineage population
-     * @param state to apply reaction to
      * @param eventTime time of reaction
      * @param lineageFactory factory object for creating new lineages
      * @param conditionOnInclusion increment lineages conditional on at least
      *                             one sampled lineage being involved in the
      *                             reaction.
      */
-    public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, BDTrajectoryState state, double eventTime,
+    public void incrementLineages(Map<ReactElement, List<Lineage>> lineages, double eventTime,
                                   LineageFactory lineageFactory,
                                   boolean conditionOnInclusion) throws AbstractTrajectory.SimulationFailureException {
         if (lineages.isEmpty() && !producesSamples) {
@@ -181,7 +183,7 @@ public abstract class BDReactionBox {
 
         double totalInclusionProb = 1.0;
         if (conditionOnInclusion) {
-            totalInclusionProb = getLineageInclusionProbability(lineages, state);
+            totalInclusionProb = getLineageInclusionProbability(lineages);
             if (totalInclusionProb == 0)
                 throw new AbstractTrajectory.SimulationFailureException("incrementLineages: " +
                         "conditionOnInclusion is true, but totalInclusionProb " +
@@ -250,11 +252,9 @@ public abstract class BDReactionBox {
      * Compute the probability that a reaction is included in the tree.
      *
      * @param lineages current extant lineage state
-     * @param state birth-death trajectory state
      * @return probability that reaction affects tree
      */
-    public double getLineageInclusionProbability(Map<ReactElement, List<Lineage>> lineages,
-                                                 BDTrajectoryState state) {
+    public double getLineageInclusionProbability(Map<ReactElement, List<Lineage>> lineages) {
         if (lineages.isEmpty() && !producesSamples)
             return 0;
 
