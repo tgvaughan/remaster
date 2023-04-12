@@ -10,6 +10,9 @@
 GitHub Repository: https://github.com/tgvaughan/remaster
 
 * Overview
+:PROPERTIES:
+:CUSTOM_ID: id-1-Overview
+:END:
 
 Remaster is a flexible tool for simulating trajectories
 and trees from the birth-death and coalescent models commonly employed in
@@ -83,12 +86,18 @@ XML analysis scripts to initialise MCMC states or construct
 simulation-based validation studies.
 
 ** The name
+:PROPERTIES:
+:CUSTOM_ID: id-2-The-name
+:END:
 
 "Remaster" is a play on the name of an earlier simulation tool, [[https://tgvaughan.github.io/MASTER][MASTER]].
 Remaster is a new implementation which is faster, leaner, and more capable
 of performing the simulation tasks for which MASTER itself is actually used.
 
 ** License
+:PROPERTIES:
+:CUSTOM_ID: id-2-License
+:END:
 
 Remaster is free software, and is made available under the terms of
 version 3 of the GNU General Public License, the text of which is
@@ -96,6 +105,9 @@ available [[https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING]
 official GitHub project page: https://github.com/tgvaughan/remaster.
 
 * Installation
+:PROPERTIES:
+:CUSTOM_ID: id-1-Installation
+:END:
 
 Remaster is a BEAST 2 package and will eventually be available for installation
 directly from the standard BEAST 2 package repository.  However, while it is still
@@ -113,16 +125,25 @@ with a Remaster input file should perform the corresponding
 simulation.
 
 * Birth-death simulations
+:PROPERTIES:
+:CUSTOM_ID: id-1-Birth-death-simulations
+:END:
 
 Birth-death simulations are the bread and butter of Remaster.  Unlike
 MASTER, Remaster is built from the ground up to make simulating
 birth-death trajectories and trees as easy and flexible as possible.
 
 ** Model specification
+:PROPERTIES:
+:CUSTOM_ID: id-2-Model-specification
+:END:
 
 Like MASTER, Remaster defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
 
 *** Populations
+:PROPERTIES:
+:CUSTOM_ID: id-3-Populations
+:END:
 
 A population in Remaster is simply a ~RealParameter~ (or other
 ~Function~) with a specific ID.  The value of the ~RealParameter~ is
@@ -154,6 +175,9 @@ of a sample corresponds to the creation of a node (internal or
 external) in the resulting tree.
 
 *** Reactions
+:PROPERTIES:
+:CUSTOM_ID: id-3-Reactions
+:END:
 
 Reactions connect zero or more *reactant* individuals with zero or
 more *product* individuals.  The dynamics that Remaster simulates are
@@ -164,6 +188,9 @@ reactions and "punctual" reactions.
 
 
 **** Continuous reactions
+:PROPERTIES:
+:CUSTOM_ID: id-4-Continuous-reactions
+:END:
 
 As the name suggests, reactions are applied continuously throughout the
 simulation at particular /rates/ which determine the probability per
@@ -183,6 +210,9 @@ the following:
 #+end_src
 
 **** Punctual reactions
+:PROPERTIES:
+:CUSTOM_ID: id-4-Punctual-reactions
+:END:
 
 In contrast, punctual reactions are applied at one or more pre-defined
 /times/. At each of these times, a punctual reaction may be applied
@@ -220,6 +250,9 @@ each with the same sampling probability of $\rho=0.5$ by writing
 #+end_src
 
 **** Identifying parents and children
+:PROPERTIES:
+:CUSTOM_ID: id-4-Identifying-parents-and-children
+:END:
 
 Although the reaction notation is intuitive, on its own it does not
 specify the parent/child relationships between reactants and products.
@@ -263,6 +296,9 @@ Note that unlike MASTER, Remaster requires each child have at most one parent, e
 that the resulting relationships are tree-like.
 
 ** Trajectory simulation
+:PROPERTIES:
+:CUSTOM_ID: id-2-Trajectory-simulation
+:END:
 
 Trajectories are simply realisations of the population process.  There are two
 distinct types of trajectories in Remaster: *stochastic trajectories* and *deterministic trajectories*.
@@ -283,6 +319,9 @@ simulate trees under coalescent approximations of
 birth-death models.
 
 *** Stochastic Trajectories
+:PROPERTIES:
+:CUSTOM_ID: id-3-Stochastic-Trajectories
+:END:
 
 Once the population and reaction elements are specified, defining a
 stochastic trajectory in Remaster's XML is very easy.
@@ -308,6 +347,9 @@ this one) are guaranteed to terminate in finite amount of time.
 fire.)
 
 *** Deterministic Trajectories
+:PROPERTIES:
+:CUSTOM_ID: id-3-Deterministic-Trajectories
+:END:
 
 Defining deterministic trajectories is almost exactly the same as defining
 a stochastic trajectory.  The only difference is that the =spec= attribute
@@ -347,6 +389,9 @@ errors in certain situations. (These sometimes manifest in the form of
 changing very quickly are particularly susceptible to such problems.
 
 *** Placing conditions on trajectories
+:PROPERTIES:
+:CUSTOM_ID: id-3-Placing-conditions-on-trajectories
+:END:
 
 In addition to the rates and initial population sizes, conditions can
 be placed on trajectory outcomes so that the simulation finishes
@@ -381,6 +426,9 @@ at the end of the simulation.
 The complete syntax for these predicates is specified in section [[*Condition syntax]].
 
 *** Self-contained trajectory simulation XMLs
+:PROPERTIES:
+:CUSTOM_ID: id-3-Self-contained-trajectory-simulation-XMLs
+:END:
 
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
@@ -419,6 +467,9 @@ This should produce some screen output, together with a file
 "output.traj" containing the simulated trajectories.
 
 *** Plotting simulated trajectories
+:PROPERTIES:
+:CUSTOM_ID: id-3-Plotting-simulated-trajectories
+:END:
 
 In order to actually visualize the simulation output, we can make use of the script
 [[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the Remaster repository
@@ -460,6 +511,9 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 [[file:examples/BDtraj_output.png]]
 
 *** Logging stochastic trajectory statistics
+:PROPERTIES:
+:CUSTOM_ID: id-3-Logging-stochastic-trajectory-statistics
+:END:
 
 In addition to logging full trajectories, you can log basic statistics of simulated trajectories using
 the =StochasticTrajectoryStatsLogger= logger, which can be added using an XML fragment like this:
@@ -477,6 +531,9 @@ it is useful to log only a few basic statistics instead - the full trajectory lo
 (Additional statistics may be added to this logger in future.)
 
 ** Tree simulation
+:PROPERTIES:
+:CUSTOM_ID: id-2-Tree-simulation
+:END:
 
 Once a trajectory simulation is configured, producing the corresponding trees
 is easy.  All that is required is to enclose the trajectory element
@@ -513,6 +570,9 @@ also occur when the initial number of individuals in the sampled
 population is greater than 1.)
 
 *** Self-contained tree simulation XMLs 
+:PROPERTIES:
+:CUSTOM_ID: id-3-Self-contained-tree-simulation-XMLs
+:END:
 
 A self-contained tree simulation XML is very similar to a self-contained trajectory
 simulation XML.  The only differences are that tree simulation XMLs have a =SimulatedTree=
@@ -558,6 +618,9 @@ to view the result:
 [[file:examples/BDtree_output.png]]
 
 *** Logging typed trees
+:PROPERTIES:
+:CUSTOM_ID: id-3-Logging-typed-trees
+:END:
 
 The example model in the previous section contained only one main population
 type (besides the sample population).  However, many interesting models
@@ -598,6 +661,9 @@ labeled by their corresponding population types:
 [[file:examples/BD2type_output.png]]
 
 *** Logging untyped trees
+:PROPERTIES:
+:CUSTOM_ID: id-3-Logging-untyped-trees
+:END:
 
 Occasionally you really *do* want to log trees without any additional
 type annotation.  With single-population models this can be achieved
@@ -617,12 +683,18 @@ parent one child) are removed.  Such trees are fully compatible with
 the rest of BEAST.
 
 * Coalescent simulations
+:PROPERTIES:
+:CUSTOM_ID: id-1-Coalescent-simulations
+:END:
 
 While birth-death simulations (both exact and approximate) are the
 prime focus of Remaster, it is also possible to perform a variety
 of coalescent simulations.
 
 ** Model specification
+:PROPERTIES:
+:CUSTOM_ID: id-2-Model-specification
+:END:
 
 Like birth-death model specifications, coalescent model specifications
 are composed of ~<population/>~ and ~<reaction/>~ elements.  However,
@@ -662,6 +734,9 @@ time 0:
 #+end_src
 
 *** Parents and children in coalescent reactions
+:PROPERTIES:
+:CUSTOM_ID: id-3-Parents-and-children-in-coalescent-reactions
+:END:
 
 Since coalescent reactions are applied to lineages backward in time, the
 meaning of parents and children is reversed.
@@ -681,6 +756,9 @@ and product to force a parent-child relationship where the default
 assignment is not correct.
 
 ** Trajectory simulation
+:PROPERTIES:
+:CUSTOM_ID: id-2-Trajectory-simulation
+:END:
 
 While there's no real concept of a population-level trajectory simulation in the context
 of a coalescent model that conditions on population dynamics, Remaster still 
@@ -736,6 +814,9 @@ Because the population size dynamics are fixed, reactions described by
 ~<reaction>~ elements have no effect on this output.
 
 ** Tree simulation
+:PROPERTIES:
+:CUSTOM_ID: id-2-Tree-simulation
+:END:
 
 As for birth-death models, we can simulate trees by wrapping the ~CoalescentTrajectory~
 object in a ~SimulatedTree~:
@@ -771,6 +852,9 @@ produce 50 tips in each of the two populations at time zero:
 file:examples/Ctree_output.png
 
 ** More complex coalescent models
+:PROPERTIES:
+:CUSTOM_ID: id-2-More-complex-coalescent-models
+:END:
 
 The kinds of population dynamics which can be expressed in Remaster is dictated
 by the kinds of ~PopulationFunction~ classes which are available.  In BEAST itself,
@@ -830,6 +914,9 @@ treated using the diffusion-limit birth-death approximation framework
 provided by ~DeterministicTrajectory~.
 
 * Integrating with BEAST
+:PROPERTIES:
+:CUSTOM_ID: id-1-Integrating-with-BEAST
+:END:
 
 Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
 
@@ -878,6 +965,9 @@ follows:
 #+end_src
 
 * Examples
+:PROPERTIES:
+:CUSTOM_ID: id-1-Examples
+:END:
 
 The =examples/= directory of the package repository contains a growing list of example
 Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
@@ -886,8 +976,14 @@ package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
 
 * Appendix
+:PROPERTIES:
+:CUSTOM_ID: id-1-Appendix
+:END:
 
 ** Condition syntax
+:PROPERTIES:
+:CUSTOM_ID: id-2-Condition-syntax
+:END:
 
 The expressions provided to =endsWhen= and =mustHave= conform to the following
 grammar:
@@ -924,6 +1020,18 @@ Relevant characters and their corresponding XML entities are as follows
 | <         | &lt;   |
 | &         | &amp;  |
 |-----------+--------|
+
+# Evaluate the following block to update section IDs
+#
+#+begin_src emacs-lisp :cache no :exports none :results none
+(org-map-entries
+   (lambda ()
+     (pcase (org-heading-components)
+       (`(,level ,_ ,_ ,_ ,title ,_)
+        (org-set-property "CUSTOM_ID"
+                          (format "id-%d-%s" level (string-replace " " "-" title)))
+        (format "%s %s" level title)))))
+#+end_src
 
 # Local Variables:
 # org-html-validation-link: nil
