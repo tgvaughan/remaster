@@ -1,0 +1,55 @@
+<!-- Basic coalescent inference simulation study -->
+
+<!-- Uses Remaster to simulate a tree under a coalescent model with
+     constant population size 2.0, then uses BEAST to infer the population
+     size from the tree. -->
+
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.inference
+                  :beast.base.evolution
+                  :beast.base.evolution.tree">
+
+
+  <run spec="MCMC" chainLength="1000000">
+    <state>
+      <stateNode spec="RealParameter" id="inferredPopSize" value="1.0"/>
+    </state>
+
+    <distribution spec="CompoundDistribution">
+      <distribution spec="coalescent.Coalescent">
+        <treeIntervals spec="tree.TreeIntervals">
+
+          <!-- Simulated tree -->
+          <tree id="tree" spec="SimulatedTree">
+            <trajectory id="traj" spec="CoalescentTrajectory">
+              <population id="pop" spec="coalescent.ConstantPopulation" popSize="2.0"/>
+              <reaction spec="PunctualReaction" n="100" times="0">0 -> pop</reaction>
+            </trajectory>
+          </tree>
+
+        </treeIntervals>
+
+        <populationModel spec="coalescent.ConstantPopulation" popSize="@inferredPopSize"/>
+      </distribution>
+
+      <distribution spec="distribution.Prior" x="@inferredPopSize">
+        <distr spec="distribution.OneOnX"/>
+      </distribution>
+    </distribution>
+
+    <operator spec="operator.ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
+              parameter="@inferredPopSize" weight="1.0"/>
+
+    <!-- File log -->
+    <logger fileName="$(filebase).log" logEvery="100">
+      <log idref="inferredPopSize"/>
+    </logger>
+
+    <!-- Screen log -->
+    <logger logEvery="10000">
+      <log idref="inferredPopSize"/>
+    </logger>
+    
+  </run>
+</beast>
