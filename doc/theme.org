@@ -19,3 +19,6 @@
 #+HTML_HEAD: <script defer type="text/javascript" src="js/katex.min.js"></script>
 #+HTML_HEAD: <script defer type="text/javascript" src="js/katex-auto-render.min.js"></script>
 #+HTML_HEAD: <script> document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError : false});}); </script>
+
+# Include logo
+#+HTML_HEAD: <style>h1.title {display:none}</style>

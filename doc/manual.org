@@ -2,8 +2,13 @@
 #+subtitle: High-fidelity stochastic tree simulation for BEAST 2
 #+author: Tim Vaughan
 
+#+options: title:nil
+[[file:logos/remaster_logo.svg]]
+
 #+export_file_name: index.html
 #+setupfile: theme.org
+
+@@html:<p class="subtitle" role="doc-subtitle">High-fidelity stochastic tree simulation for BEAST 2</p>@@
 
 **Warning: Remaster is still in development and not yet suitable for production use.**
 
