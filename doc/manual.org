@@ -2,8 +2,8 @@
 #+subtitle: High-fidelity stochastic tree simulation for BEAST 2
 #+author: Tim Vaughan
 
-#+SETUPFILE: theme.org
-#+EXPORT_FILE_NAME: index.html
+#+export_file_name: index.html
+#+setupfile: theme.org
 
 **Warning: Remaster is still in development and not yet suitable for production use.**
 
@@ -87,7 +87,7 @@ simulation-based validation studies.
 
 ** The name
 :PROPERTIES:
-:CUSTOM_ID: id-2-The-name
+:CUSTOM_ID: id-2-Overview-The-name
 :END:
 
 "Remaster" is a play on the name of an earlier simulation tool, [[https://tgvaughan.github.io/MASTER][MASTER]].
@@ -96,7 +96,7 @@ of performing the simulation tasks for which MASTER itself is actually used.
 
 ** License
 :PROPERTIES:
-:CUSTOM_ID: id-2-License
+:CUSTOM_ID: id-2-Overview-License
 :END:
 
 Remaster is free software, and is made available under the terms of
@@ -135,14 +135,14 @@ birth-death trajectories and trees as easy and flexible as possible.
 
 ** Model specification
 :PROPERTIES:
-:CUSTOM_ID: id-2-Model-specification
+:CUSTOM_ID: id-2-Birth-death-simulations-Model-specification
 :END:
 
 Like MASTER, Remaster defines models in terms of [[*Populations][populations]] and [[*Reactions][reactions]].
 
 *** Populations
 :PROPERTIES:
-:CUSTOM_ID: id-3-Populations
+:CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Populations
 :END:
 
 A population in Remaster is simply a ~RealParameter~ (or other
@@ -176,7 +176,7 @@ external) in the resulting tree.
 
 *** Reactions
 :PROPERTIES:
-:CUSTOM_ID: id-3-Reactions
+:CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Reactions
 :END:
 
 Reactions connect zero or more *reactant* individuals with zero or
@@ -186,10 +186,9 @@ simply the result of applying reactions at random or pre-determined times.
 There are two distinct kinds of reactions which can be specified: "continuous"
 reactions and "punctual" reactions.
 
-
 **** Continuous reactions
 :PROPERTIES:
-:CUSTOM_ID: id-4-Continuous-reactions
+:CUSTOM_ID: id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions
 :END:
 
 As the name suggests, reactions are applied continuously throughout the
@@ -211,7 +210,7 @@ the following:
 
 **** Punctual reactions
 :PROPERTIES:
-:CUSTOM_ID: id-4-Punctual-reactions
+:CUSTOM_ID: id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions
 :END:
 
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -251,7 +250,7 @@ each with the same sampling probability of $\rho=0.5$ by writing
 
 **** Identifying parents and children
 :PROPERTIES:
-:CUSTOM_ID: id-4-Identifying-parents-and-children
+:CUSTOM_ID: id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children
 :END:
 
 Although the reaction notation is intuitive, on its own it does not
@@ -297,7 +296,7 @@ that the resulting relationships are tree-like.
 
 ** Trajectory simulation
 :PROPERTIES:
-:CUSTOM_ID: id-2-Trajectory-simulation
+:CUSTOM_ID: id-2-Birth-death-simulations-Trajectory-simulation
 :END:
 
 Trajectories are simply realisations of the population process.  There are two
@@ -320,7 +319,7 @@ birth-death models.
 
 *** Stochastic Trajectories
 :PROPERTIES:
-:CUSTOM_ID: id-3-Stochastic-Trajectories
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories
 :END:
 
 Once the population and reaction elements are specified, defining a
@@ -348,7 +347,7 @@ fire.)
 
 *** Deterministic Trajectories
 :PROPERTIES:
-:CUSTOM_ID: id-3-Deterministic-Trajectories
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories
 :END:
 
 Defining deterministic trajectories is almost exactly the same as defining
@@ -390,7 +389,7 @@ changing very quickly are particularly susceptible to such problems.
 
 *** Placing conditions on trajectories
 :PROPERTIES:
-:CUSTOM_ID: id-3-Placing-conditions-on-trajectories
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories
 :END:
 
 In addition to the rates and initial population sizes, conditions can
@@ -427,7 +426,7 @@ The complete syntax for these predicates is specified in section [[*Condition sy
 
 *** Self-contained trajectory simulation XMLs
 :PROPERTIES:
-:CUSTOM_ID: id-3-Self-contained-trajectory-simulation-XMLs
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs
 :END:
 
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
@@ -468,7 +467,7 @@ This should produce some screen output, together with a file
 
 *** Plotting simulated trajectories
 :PROPERTIES:
-:CUSTOM_ID: id-3-Plotting-simulated-trajectories
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories
 :END:
 
 In order to actually visualize the simulation output, we can make use of the script
@@ -512,7 +511,7 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 
 *** Logging stochastic trajectory statistics
 :PROPERTIES:
-:CUSTOM_ID: id-3-Logging-stochastic-trajectory-statistics
+:CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics
 :END:
 
 In addition to logging full trajectories, you can log basic statistics of simulated trajectories using
@@ -532,7 +531,7 @@ it is useful to log only a few basic statistics instead - the full trajectory lo
 
 ** Tree simulation
 :PROPERTIES:
-:CUSTOM_ID: id-2-Tree-simulation
+:CUSTOM_ID: id-2-Birth-death-simulations-Tree-simulation
 :END:
 
 Once a trajectory simulation is configured, producing the corresponding trees
@@ -571,7 +570,7 @@ population is greater than 1.)
 
 *** Self-contained tree simulation XMLs 
 :PROPERTIES:
-:CUSTOM_ID: id-3-Self-contained-tree-simulation-XMLs
+:CUSTOM_ID: id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs
 :END:
 
 A self-contained tree simulation XML is very similar to a self-contained trajectory
@@ -619,7 +618,7 @@ to view the result:
 
 *** Logging typed trees
 :PROPERTIES:
-:CUSTOM_ID: id-3-Logging-typed-trees
+:CUSTOM_ID: id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees
 :END:
 
 The example model in the previous section contained only one main population
@@ -662,7 +661,7 @@ labeled by their corresponding population types:
 
 *** Logging untyped trees
 :PROPERTIES:
-:CUSTOM_ID: id-3-Logging-untyped-trees
+:CUSTOM_ID: id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees
 :END:
 
 Occasionally you really *do* want to log trees without any additional
@@ -693,7 +692,7 @@ of coalescent simulations.
 
 ** Model specification
 :PROPERTIES:
-:CUSTOM_ID: id-2-Model-specification
+:CUSTOM_ID: id-2-Coalescent-simulations-Model-specification
 :END:
 
 Like birth-death model specifications, coalescent model specifications
@@ -735,7 +734,7 @@ time 0:
 
 *** Parents and children in coalescent reactions
 :PROPERTIES:
-:CUSTOM_ID: id-3-Parents-and-children-in-coalescent-reactions
+:CUSTOM_ID: id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions
 :END:
 
 Since coalescent reactions are applied to lineages backward in time, the
@@ -757,7 +756,7 @@ assignment is not correct.
 
 ** Trajectory simulation
 :PROPERTIES:
-:CUSTOM_ID: id-2-Trajectory-simulation
+:CUSTOM_ID: id-2-Coalescent-simulations-Trajectory-simulation
 :END:
 
 While there's no real concept of a population-level trajectory simulation in the context
@@ -815,7 +814,7 @@ Because the population size dynamics are fixed, reactions described by
 
 ** Tree simulation
 :PROPERTIES:
-:CUSTOM_ID: id-2-Tree-simulation
+:CUSTOM_ID: id-2-Coalescent-simulations-Tree-simulation
 :END:
 
 As for birth-death models, we can simulate trees by wrapping the ~CoalescentTrajectory~
@@ -853,7 +852,7 @@ file:examples/Ctree_output.png
 
 ** More complex coalescent models
 :PROPERTIES:
-:CUSTOM_ID: id-2-More-complex-coalescent-models
+:CUSTOM_ID: id-2-Coalescent-simulations-More-complex-coalescent-models
 :END:
 
 The kinds of population dynamics which can be expressed in Remaster is dictated
@@ -898,7 +897,6 @@ decline into the past (growth into the future):
   </run>
 </beast>
 #+end_src
-
 
 Plotting the trajectory yields a visualisation of the compound model:
 #+begin_src R
@@ -974,7 +972,6 @@ Remaster scripts.  These are installed alongside the package when you install it
 You can also access these example scripts directly via the GitHub repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
-
 * Appendix
 :PROPERTIES:
 :CUSTOM_ID: id-1-Appendix
@@ -982,7 +979,7 @@ package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
 ** Condition syntax
 :PROPERTIES:
-:CUSTOM_ID: id-2-Condition-syntax
+:CUSTOM_ID: id-2-Appendix-Condition-syntax
 :END:
 
 The expressions provided to =endsWhen= and =mustHave= conform to the following
@@ -1024,13 +1021,17 @@ Relevant characters and their corresponding XML entities are as follows
 # Evaluate the following block to update section IDs
 #
 #+begin_src emacs-lisp :cache no :exports none :results none
-(org-map-entries
-   (lambda ()
-     (pcase (org-heading-components)
-       (`(,level ,_ ,_ ,_ ,title ,_)
-        (org-set-property "CUSTOM_ID"
-                          (format "id-%d-%s" level (string-replace " " "-" title)))
-        (format "%s %s" level title)))))
+  (org-map-entries
+     (lambda ()
+       (pcase (org-heading-components)
+         (`(,level ,_ ,_ ,_ ,title ,_)
+          (org-set-property "CUSTOM_ID"
+                            (string-replace " " "-"
+                             (string-join `("id"
+                                            ,(number-to-string level)
+                                            ,@(reverse (org-get-outline-path))
+                                            ,title)
+                                          "-")))))))
 #+end_src
 
 # Local Variables:
