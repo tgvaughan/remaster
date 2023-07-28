@@ -19,6 +19,7 @@
 
 package remaster;
 
+import beast.base.evolution.tree.Node;
 import beast.base.util.GammaFunction;
 import beast.base.util.Randomizer;
 
@@ -58,4 +59,33 @@ public class Util {
 
         return n;
     }
+
+
+    /**
+     * Transform tree with given root into new tree in which singleton
+     * nodes (one parent, one child) have been removed.
+     * @param root Root node of tree to transform
+     * @return Root node of transformed tree
+     */
+    public static Node getSingletonFreeTree(Node root) {
+
+        while (root.getChildren().size() == 1) {
+            root = root.getChild(0);
+        }
+
+        Node newRoot = new Node();
+        newRoot.setHeight(root.getHeight());
+        newRoot.metaDataString = root.metaDataString;
+
+        if (root.isLeaf()) {
+            newRoot.setNr(root.getNr());
+            newRoot.setID(newRoot.getID());
+        }
+
+        for (Node child : root.getChildren())
+            newRoot.addChild(getSingletonFreeTree(child));
+
+        return newRoot;
+    }
+
 }

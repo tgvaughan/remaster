@@ -50,34 +50,13 @@ public class TypedTreeLogger extends BEASTObject implements Loggable {
         tree.init(out);
     }
 
-    Node getSingletonFreeTree(Node root) {
-
-        while (root.getChildren().size() == 1) {
-            root = root.getChild(0);
-        }
-
-        Node newRoot = new Node();
-        newRoot.setHeight(root.getHeight());
-        newRoot.metaDataString = root.metaDataString;
-
-        if (root.isLeaf()) {
-            newRoot.setNr(root.getNr());
-            newRoot.setID(newRoot.getID());
-        }
-
-        for (Node child : root.getChildren())
-            newRoot.addChild(getSingletonFreeTree(child));
-
-        return newRoot;
-    }
-
     @Override
     public void log(long sample, PrintStream out) {
         out.print("tree STATE_" + sample + " = ");
         // Don't sort, this can confuse CalculationNodes relying on the tree
 
         Node root = removeSingletonsInput.get()
-                ? getSingletonFreeTree(tree.getRoot())
+                ? Util.getSingletonFreeTree(tree.getRoot())
                 : tree.getRoot();
 
         final int[] dummy = new int[1];

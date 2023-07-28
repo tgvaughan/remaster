@@ -404,7 +404,7 @@ of stochastic trajectories, the resulting trajectory is only "accepted"
 when a particular condition is met.
 
 To define an early termination point, provide the =endsWhen= attribute
-to the trajectory element.  The value of the attribute should be a
+to the trajectory element.  The value of the attribute should be an expression
 predicating which will cause the simulation to end when it becomes true.
 For instance
 #+begin_src xml
@@ -563,15 +563,21 @@ corresponding branching process.  For trajectories generated using
 diffusion approximation to the branching process.  (For details on this
 kind of approximation, see [[https://doi.org/10.1534/genetics.111.134627][Volz et al., Genetics, 2012]].)
 
-Besides =trajectory=, =SimulatedTree= takes one optional input:
-=maxRetries=.  This is the maximum number of times the simulator
-should attempt to produce a tree, in the event that the first
-simulated tree does not have exactly one root lineage.  (Simulated
-trees may have more than one root lineage in the instance that not all
-sampled lineages find a common ancestor before the start of the
-simulation; a situation common for deterministic trajectories. It can
-also occur when the initial number of individuals in the sampled
-population is greater than 1.)
+=SimulatedTree= takes an optional input, =maxRetries=.  This is the
+maximum number of times (default 10) that the simulator should attempt
+to produce a tree, in the event that the first simulated tree does not
+have exactly one root lineage.  (Simulated trees may have more than
+one root lineage in the instance that not all sampled lineages find a
+common ancestor before the start of the simulation; a situation common
+for deterministic trajectories. It can also occur when the initial
+number of individuals in the sampled population is greater than 1.)
+
+Additionally, the boolean input =removeSingletonNodes= (default false)
+can be used to specify that single child nodes representing type changes
+(if present) should be removed after the simulation is complete.
+This is sometimes useful if the tree is to be used as the basis or
+starting point for inference or sequence simulation, as not all BEAST 2 
+classes know how to handle such nodes.
 
 *** Self-contained tree simulation XMLs 
 :PROPERTIES:
@@ -658,7 +664,7 @@ you'll need to use the =TypedTreeLogger= in place of the standard logger:
   </beast>
 #+end_src
 
-By loading the resulting tree file into [[https://icytree.org][icytree]] and colouring the edges using
+Loading the resulting tree file into [[https://icytree.org][icytree]] and colouring the edges using
 the "type" attribute produces a visualisation in which the tree edges are
 labeled by their corresponding population types:
 
@@ -679,12 +685,22 @@ This can also produce problems when using Remaster =SimulatedTree= objects
 to initialise standard BEAST MCMC analyses, as the extra nodes will not
 be properly understood.
 
-To avoid these problems, use =TypedTreeLogger= as in the previous
+To log output trees with these nodes removed, use =TypedTreeLogger= as in the previous
 section, but add the attribute ~removeSingletonNodes="true"~. This
 will produce a tree in which the internal degree 3 nodes (one parent
 two children) are still annotated, but in which degree 2 nodes (one
 parent one child) are removed.  Such trees are fully compatible with
 the rest of BEAST.
+
+Alternatively, as mentioned at the start of this section, one can add
+the same attribute ~removeSingletonNodes="true"~ to the
+=SimulatedTree= element, causing these nodes to be stripped from the
+simulated tree itself.  One can then use the standard tree logger as
+in [[*Self-contained tree simulation XMLs]].  This allows one to use the
+simulated tree directly to initialise an MCMC analysis or to simulate
+sequences, but has the drawback that the original multi-type tree is
+lost.
+
 
 * Coalescent simulations
 :PROPERTIES:

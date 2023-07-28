@@ -35,6 +35,12 @@ public class SimulatedTree extends Tree {
                     "to simulate tree with at least one tip and exactly one " +
                     "root lineage.", 10);
 
+    public Input<Boolean> removeSingletonsInput = new Input<>(
+            "removeSingletonNodes",
+            "Remove nodes with exactly one parent and one child. " +
+                    "(Default false.)",
+            false);
+
     AbstractTrajectory trajectory;
     int maxRetries;
 
@@ -74,6 +80,9 @@ public class SimulatedTree extends Tree {
                     maxRetries + ")");
             System.exit(1);
         }
+
+        if (removeSingletonsInput.get())
+            root = Util.getSingletonFreeTree(root);
 
         assignFromWithoutID(new Tree(root));
     }
