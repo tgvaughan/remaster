@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-07-28 Fri 14:48 -->
+<!-- 2023-08-03 Thu 15:21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Remaster</title>
@@ -18,6 +18,7 @@
 <script defer type="text/javascript" src="js/katex.min.js"></script>
 <script defer type="text/javascript" src="js/katex-auto-render.min.js"></script>
 <script> document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError : false});}); </script>
+<link rel="stylesheet" type="text/css" href="css/syntaxhl.css" />
 <style>h1.title {display:none}</style>
 </head>
 <body>
@@ -59,7 +60,7 @@
 </div>
 </nav>
 
-<figure id="orge590b5d">
+<figure id="orgb82ecc2">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -652,7 +653,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="orge4880fb">
+<pre class="example" id="org0e5af92">
 $ beast BDtraj.xml
 </pre>
 
@@ -684,7 +685,7 @@ traj <span class="org-ess-assignment">&lt;-</span> loadTrajectories(<span class=
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org214d197">
+<pre class="example" id="org2335994">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -716,7 +717,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="orgb838a85">
+<figure id="org15da41c">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -858,7 +859,7 @@ to view the result:
 </p>
 
 
-<figure id="org766c24e">
+<figure id="org0536702">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -912,7 +913,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgbd777fd">
+<figure id="orgbfe0a78">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1118,7 +1119,7 @@ it yields:
 </div>
 
 
-<figure id="org0c71b81">
+<figure id="org16784e0">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1170,7 +1171,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org87951f3">
+<figure id="org9e4aa88">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1238,7 +1239,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org96d19f0">
+<figure id="orgec88e69">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1344,7 +1345,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgbfb8401">
+<pre class="example" id="org2105aa3">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1414,7 +1415,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-07-28 Fri 14:48</p>
+<p class="date">Created: 2023-08-03 Thu 15:21</p>
 </div>
 </body>
 </html>

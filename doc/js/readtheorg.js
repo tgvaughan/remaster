@@ -96,9 +96,6 @@ $( document ).ready(function() {
                                         // a Bootstrap nav component.
     $('body').scrollspy({target: '#text-table-of-contents'});
 
-    // DON'T add sticky table headers (Fix issue #69?)
-    // $('table').stickyTableHeaders();
-
     // set the height of tableOfContents
     var $postamble = $('#postamble');
     var $tableOfContents = $('#table-of-contents');
