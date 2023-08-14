@@ -10,8 +10,6 @@
 
 @@html:<p class="subtitle" role="doc-subtitle">High-fidelity stochastic tree simulation for BEAST 2</p>@@
 
-**Warning: Remaster is still in development and not yet suitable for production use.**
-
 GitHub Repository: https://github.com/tgvaughan/remaster
 
 * Overview
@@ -475,15 +473,19 @@ This should produce some screen output, together with a file
 :CUSTOM_ID: id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories
 :END:
 
-In order to actually visualize the simulation output, we can make use of the script
-[[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= directory of the Remaster repository
-to load the trajectories into a data frame:
+In order to actually visualize the simulation output, we need to load the R script
+[[https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R][trajTools.R]] which one can find in the =scripts/= subdirectory of the Remaster package directory.
+The precise command to load this file  depends on where BEAST installs packages on your
+system:
+- For MacOS :: ~source("~/Library/Application Support/BEAST/2.7/remaster/scripts/trajTools.R")~
+- For Linux :: ~source("~/.beast/2.7/remaster/scripts/trajTools.R")~
+- Windows :: ~source("C:\Users\<YourName>\BEAST\2.7\remaster\scripts\trajTools.R")~
+  where "<YourName>" should be replaced with your Windows user name.
 
+Once the script is loaded, use the following command to load the trajectories into a data frame:
 #+begin_src R
-  source("<PATH>/Remaster/scripts/trajTools.R")
   traj <- loadTrajectories("output.traj")
 #+end_src
-(Here "<PATH>" is the path to the Remaster repository or package directory.)
 
 The resulting data frame has the following layout:
 #+begin_example
@@ -513,6 +515,15 @@ This format is ideal for plotting using [[https://ggplot2.tidyverse.org][ggplot2
 #+end_src
 
 [[file:examples/BDtraj_output.png]]
+
+Replacing =StochasticTrajectory= with =DeterministicTrajectory= in the simulation XML
+(and setting ~nSims="1"~) produces an output file which, when plotted,
+displays the following figure depicting the expected population size dynamics:
+
+[[file:examples/DetBDtraj_output.png]]
+
+(The deterministic model gives the true expected population size dynamics only for
+linear models.)
 
 *** Logging stochastic trajectory statistics
 :PROPERTIES:
@@ -622,8 +633,8 @@ Note that in this example we have left the trajectory logger in place,
 so in fact this XML produces both =output.traj= and =output.tree=
 files.
 
-Loading the tree file in a phylogenetic tree viewer such as [[https://icytree.org][icytree]] allows you
-to view the result:
+Loading the tree file in a phylogenetic tree viewer such as [[https://icytree.org][icytree]], 
+[[http://tree.bio.ed.ac.uk/software/Figtree/][FigTree]] or into R using [[https://bioconductor.org/packages/release/bioc/html/ggtree.html][ggtree]] allows you to view the result:
 
 [[file:examples/BDtree_output.png]]
 
