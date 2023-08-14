@@ -1,4 +1,4 @@
-<beast version="2.0" namespace="beast.core.parameter:remaster">
+<beast version="2.0" namespace="beast.base.inference.parameter:remaster">
   <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
