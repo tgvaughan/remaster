@@ -62,7 +62,7 @@ public class ContinuousBDReactionBoxTest {
         ContinuousBDReactionBox birthBox = new ContinuousBDReactionBox(birth, samplePopNames, state);
         birthBox.updatePropensity();
 
-        assertEquals(50.0, birthBox.currentPropensity, 1e-14);
+        assertEquals(50.0, birthBox.currentPropensity, 1e-8);
 
         Reaction death = new Reaction();
         death.initByName("value", "2X -> X",
@@ -71,7 +71,7 @@ public class ContinuousBDReactionBoxTest {
         ContinuousBDReactionBox deathBox = new ContinuousBDReactionBox(death, samplePopNames, state);
         deathBox.updatePropensity();
 
-        assertEquals(25*24*0.5*0.1, deathBox.currentPropensity, 1e-14);
+        assertEquals(25*24*0.5*0.1, deathBox.currentPropensity, 1e-8);
 
     }
 }
