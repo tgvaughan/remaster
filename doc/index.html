@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-08-03 Thu 15:21 -->
+<!-- 2023-08-14 Mon 16:13 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Remaster</title>
@@ -60,17 +60,13 @@
 </div>
 </nav>
 
-<figure id="orgb82ecc2">
+<figure id="orgd7423a1">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
 
 <p>
 <p class="subtitle" role="doc-subtitle">High-fidelity stochastic tree simulation for BEAST 2</p>
-</p>
-
-<p>
-<b><b>Warning: Remaster is still in development and not yet suitable for production use.</b></b>
 </p>
 
 <p>
@@ -653,7 +649,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="org0e5af92">
+<pre class="example" id="orga772f6f">
 $ beast BDtraj.xml
 </pre>
 
@@ -668,24 +664,30 @@ This should produce some screen output, together with a file
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories"><span class="section-number-4">3.2.5.</span> Plotting simulated trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories">
 <p>
-In order to actually visualize the simulation output, we can make use of the script
-<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> directory of the Remaster repository
-to load the trajectories into a data frame:
+In order to actually visualize the simulation output, we need to load the R script
+<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> subdirectory of the Remaster package directory.
+The precise command to load this file  depends on where BEAST installs packages on your
+system:
 </p>
+<dl class="org-dl">
+<dt>For MacOS</dt><dd><code>source("~/Library/Application Support/BEAST/2.7/remaster/scripts/trajTools.R")</code></dd>
+<dt>For Linux</dt><dd><code>source("~/.beast/2.7/remaster/scripts/trajTools.R")</code></dd>
+<dt>Windows</dt><dd><code>source("C:\Users\&lt;YourName&gt;\BEAST\2.7\remaster\scripts\trajTools.R")</code>
+where "&lt;YourName&gt;" should be replaced with your Windows user name.</dd>
+</dl>
 
+<p>
+Once the script is loaded, use the following command to load the trajectories into a data frame:
+</p>
 <div class="org-src-container">
-<pre class="src src-R"><span class="org-ess-modifiers">source</span>(<span class="org-string">"&lt;PATH&gt;/Remaster/scripts/trajTools.R"</span>)
-traj <span class="org-ess-assignment">&lt;-</span> loadTrajectories(<span class="org-string">"output.traj"</span>)
+<pre class="src src-R">traj <span class="org-ess-assignment">&lt;-</span> loadTrajectories(<span class="org-string">"output.traj"</span>)
 </pre>
 </div>
-<p>
-(Here "&lt;PATH&gt;" is the path to the Remaster repository or package directory.)
-</p>
 
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org2335994">
+<pre class="example" id="org418005e">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -717,10 +719,27 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="org15da41c">
+<figure id="orga9681f2">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
+
+<p>
+Replacing <code>StochasticTrajectory</code> with <code>DeterministicTrajectory</code> in the simulation XML
+(and setting <code>nSims="1"</code>) produces an output file which, when plotted,
+displays the following figure depicting the expected population size dynamics:
+</p>
+
+
+<figure id="org6c2c443">
+<img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
+
+</figure>
+
+<p>
+(The deterministic model gives the true expected population size dynamics only for
+linear models.)
+</p>
 </div>
 </div>
 
@@ -854,12 +873,12 @@ files.
 </p>
 
 <p>
-Loading the tree file in a phylogenetic tree viewer such as <a href="https://icytree.org">icytree</a> allows you
-to view the result:
+Loading the tree file in a phylogenetic tree viewer such as <a href="https://icytree.org">icytree</a>, 
+<a href="http://tree.bio.ed.ac.uk/software/Figtree/">FigTree</a> or into R using <a href="https://bioconductor.org/packages/release/bioc/html/ggtree.html">ggtree</a> allows you to view the result:
 </p>
 
 
-<figure id="org0536702">
+<figure id="orga7bbf05">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -913,7 +932,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgbfe0a78">
+<figure id="org10f6be3">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1119,7 +1138,7 @@ it yields:
 </div>
 
 
-<figure id="org16784e0">
+<figure id="orgca9be30">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1171,7 +1190,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org9e4aa88">
+<figure id="orgd727d5e">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1239,7 +1258,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orgec88e69">
+<figure id="org3672af1">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1345,7 +1364,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org2105aa3">
+<pre class="example" id="orgef409e2">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1415,7 +1434,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-08-03 Thu 15:21</p>
+<p class="date">Created: 2023-08-14 Mon 16:13</p>
 </div>
 </body>
 </html>
