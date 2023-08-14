@@ -19,12 +19,13 @@
 
 package remaster.reactionboxes;
 
-import beast.base.util.Binomial;
 import remaster.BDTrajectoryState;
 import remaster.ReactElement;
 import remaster.Reaction;
 
 import java.util.Set;
+
+import static remaster.Util.logChoose;
 
 public class ContinuousBDReactionBox extends BDReactionBox {
     Reaction reaction;
@@ -44,8 +45,8 @@ public class ContinuousBDReactionBox extends BDReactionBox {
     public double updatePropensity() {
         currentPropensity = reaction.getIntervalRate();
         for (ReactElement reactElement : reaction.reactants.elementSet()) {
-            currentPropensity *= Binomial.choose(state.get(reactElement),
-                    reaction.reactants.count(reactElement));
+            currentPropensity *= Math.exp(logChoose(state.get(reactElement),
+                    reaction.reactants.count(reactElement)));
         }
 
         return currentPropensity;
