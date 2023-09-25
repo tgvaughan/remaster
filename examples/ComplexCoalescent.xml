@@ -6,7 +6,7 @@
                   :feast.popmodels">
   <run spec="Simulator" nSims="10">
     <simulate id="tree" spec="SimulatedTree">
-      <trajectory id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10" trajLogSampleCount="1000">
+      <trajectory id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10" loggingGridSize="1000">
         <population id="pop" spec="CompoundPopulationModel" changeTimes="2.0 2.2">
           <populationModel spec="ConstantPopulation" popSize="100.0"/>
           <populationModel spec="ConstantPopulation" popSize="1.0"/>

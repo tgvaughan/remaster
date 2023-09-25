@@ -8,12 +8,12 @@ using Remaster.
 To run these examples, first follow the installation instructions for Remaster
 found at https://tgvaughan.github.io/remaster/#id-1-Installation. Then
 simply run BEAST 2 and select one of the examples as the input file.)
-
 Once the simulation is complete, output files will be left in the directory
 containing the input file.  (If launching BEAST from the command line,
 output files will be written to the current working directory.)
 
-Here is a brief summary of the examples contained in this directory:
+Here is a list of the example scripts contained in this directory, together
+with brief summaries of the simulations they perform:
 
 * `BDcontemp.xml`
   Simulates birth-death trajectories and trees conditioned on

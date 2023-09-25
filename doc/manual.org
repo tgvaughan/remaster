@@ -1004,6 +1004,73 @@ Remaster scripts.  These are installed alongside the package when you install it
 You can also access these example scripts directly via the GitHub repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
+Here is a list of the example scripts contained in that directory, together
+with brief summaries of the simulations they perform:
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/BDcontemp.xml][=BDcontemp.xml=]] ::
+  Simulates birth-death trajectories and trees conditioned on
+  having 5 contemporaneous samples at time 5, and 5 more at time 6.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/BDserial.xml][=BDserial.xml=]] ::
+  Simulates birth-death-sampling trajectories and trees.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/Coalescent.xml][=Coalescent.xml=]] ::
+  Simulates coalescent trees with 10 leaves under a constant
+  effective population size of 1.0.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/ComplexCoalescent.xml][=ComplexCoalescent.xml=]] ::
+  Simulates coalescent trees under a more complex (piecewise constant
+  and exponential) population model. Also writes .traj file
+  summarizing the deterministic population dynamics.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInference.xml][=CoalescentInference.xml=]] ::
+  Simple self-contained coalescent inference simulation study XML.
+  Uses Remaster to simulate a tree under a coalescent model with a
+  true constant population size of 2.0, then uses BEAST to infer the
+  population size from that tree.
+  
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/StructuredCoalescent.xml][=StructuredCoalescent.xml=]] ::
+  Simple 2-deme structured coalescent simulation with constant
+  population sizes and contemporaneously-sampled leaves.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/StructuredCoalescentExp.xml][=StructuredCoalescentExp.xml=]] ::
+  Simple 2-deme structured coalescent simulation with one constant
+  and one exponentially growing population, having 1000
+  contemporaneously-sampled leaves.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/EpiBD.xml][=EpiBD.xml=]] ::
+  Simple birth-death-sampling simulation parameterized in terms of
+  epidemiological parameters: basic reproductive number (R0),
+  becoming-uninfectious rate and sampling proportion, as defined
+  in [[https://doi.org/10.1073/pnas.1207965110][Stadler et al., 2013]].
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SIR.xml][=SIR.xml=]] ::
+  Simulates stochastic Susceptible-Infectious-Removed (SIR) trajectories.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SIRdet.xml][=SIRdet.xml=]] ::
+  Produces a trajectory file containing the numerically-integrated solution
+  to the deterministic SIR ODEs. (In this case, the ODEs are treated as
+  an approximation to the stochastic process.)
+  This example also demonstrates the use of an end condition to terminate
+  the numerical integration.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SEIR_tree.xml][=SEIR_tree.xml=]] ::
+  Simulates a tree under the stochastic
+  Susceptible-Exposed-Infectious-Removed (SEIR) model, under a continuous
+  sampling process which only activates after 5 time units.
+
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SEIRdet_tree.xml][=SEIRdet_tree.xml=]] ::
+  Simulates a tree using a coalescent approximation to the stochastic
+  Susceptible-Exposed-Infectious-Removed (SEIR) model with an explicit
+  termination condition and punctual sampling reactions.
+
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SimulatedBDAlignment.xml][=SimulatedBDAlignment.xml=]] ::
+  Simulates a tree under a birth-death-sampling model, then simulates
+  sequence evolution under a basic Jukes-Cantor substitution model to
+  produce a corresponding simulated alignment.
+
+
 * Appendix
 :PROPERTIES:
 :CUSTOM_ID: id-1-Appendix

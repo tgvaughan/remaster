@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-08-14 Mon 16:13 -->
+<!-- 2023-09-25 Mon 14:48 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Remaster</title>
@@ -60,7 +60,7 @@
 </div>
 </nav>
 
-<figure id="orgd7423a1">
+<figure id="org52a70c8">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -649,7 +649,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="orga772f6f">
+<pre class="example" id="orge8576f9">
 $ beast BDtraj.xml
 </pre>
 
@@ -687,7 +687,7 @@ Once the script is loaded, use the following command to load the trajectories in
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org418005e">
+<pre class="example" id="orgf683715">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -719,7 +719,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="orga9681f2">
+<figure id="orge198c1d">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -731,7 +731,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org6c2c443">
+<figure id="orgfde2036">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -878,7 +878,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orga7bbf05">
+<figure id="org59505e3">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -932,7 +932,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org10f6be3">
+<figure id="org1551571">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1138,7 +1138,7 @@ it yields:
 </div>
 
 
-<figure id="orgca9be30">
+<figure id="org1a973f6">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1190,7 +1190,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="orgd727d5e">
+<figure id="org3c154b3">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1258,7 +1258,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org3672af1">
+<figure id="org117e026">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1348,8 +1348,68 @@ Remaster scripts.  These are installed alongside the package when you install it
 You can also access these example scripts directly via the GitHub repository for the
 package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">https://github.com/tgvaughan/remaster/tree/master/examples</a>.
 </p>
+
+<p>
+Here is a list of the example scripts contained in that directory, together
+with brief summaries of the simulations they perform:
+</p>
+
+<dl class="org-dl">
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/BDcontemp.xml"><code>BDcontemp.xml</code></a></dt><dd>Simulates birth-death trajectories and trees conditioned on
+having 5 contemporaneous samples at time 5, and 5 more at time 6.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/BDserial.xml"><code>BDserial.xml</code></a></dt><dd>Simulates birth-death-sampling trajectories and trees.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/Coalescent.xml"><code>Coalescent.xml</code></a></dt><dd>Simulates coalescent trees with 10 leaves under a constant
+effective population size of 1.0.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/ComplexCoalescent.xml"><code>ComplexCoalescent.xml</code></a></dt><dd>Simulates coalescent trees under a more complex (piecewise constant
+and exponential) population model. Also writes .traj file
+summarizing the deterministic population dynamics.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInference.xml"><code>CoalescentInference.xml</code></a></dt><dd>Simple self-contained coalescent inference simulation study XML.
+Uses Remaster to simulate a tree under a coalescent model with a
+true constant population size of 2.0, then uses BEAST to infer the
+population size from that tree.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/StructuredCoalescent.xml"><code>StructuredCoalescent.xml</code></a></dt><dd>Simple 2-deme structured coalescent simulation with constant
+population sizes and contemporaneously-sampled leaves.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/StructuredCoalescentExp.xml"><code>StructuredCoalescentExp.xml</code></a></dt><dd>Simple 2-deme structured coalescent simulation with one constant
+and one exponentially growing population, having 1000
+contemporaneously-sampled leaves.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/EpiBD.xml"><code>EpiBD.xml</code></a></dt><dd>Simple birth-death-sampling simulation parameterized in terms of
+epidemiological parameters: basic reproductive number (R0),
+becoming-uninfectious rate and sampling proportion, as defined
+in <a href="https://doi.org/10.1073/pnas.1207965110">Stadler et al., 2013</a>.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SIR.xml"><code>SIR.xml</code></a></dt><dd>Simulates stochastic Susceptible-Infectious-Removed (SIR) trajectories.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SIRdet.xml"><code>SIRdet.xml</code></a></dt><dd>Produces a trajectory file containing the numerically-integrated solution
+to the deterministic SIR ODEs. (In this case, the ODEs are treated as
+an approximation to the stochastic process.)
+This example also demonstrates the use of an end condition to terminate
+the numerical integration.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SEIR_tree.xml"><code>SEIR_tree.xml</code></a></dt><dd>Simulates a tree under the stochastic
+Susceptible-Exposed-Infectious-Removed (SEIR) model, under a continuous
+sampling process which only activates after 5 time units.</dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SEIRdet_tree.xml"><code>SEIRdet_tree.xml</code></a></dt><dd>Simulates a tree using a coalescent approximation to the stochastic
+Susceptible-Exposed-Infectious-Removed (SEIR) model with an explicit
+termination condition and punctual sampling reactions.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SimulatedBDAlignment.xml"><code>SimulatedBDAlignment.xml</code></a></dt><dd>Simulates a tree under a birth-death-sampling model, then simulates
+sequence evolution under a basic Jukes-Cantor substitution model to
+produce a corresponding simulated alignment.</dd>
+</dl>
 </div>
 </div>
+
 
 <div id="outline-container-id-1-Appendix" class="outline-2">
 <h2 id="id-1-Appendix"><span class="section-number-2">7.</span> Appendix</h2>
@@ -1364,7 +1424,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgef409e2">
+<pre class="example" id="orgf772b5d">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1434,7 +1494,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-08-14 Mon 16:13</p>
+<p class="date">Created: 2023-09-25 Mon 14:48</p>
 </div>
 </body>
 </html>
