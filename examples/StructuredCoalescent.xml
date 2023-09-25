@@ -1,4 +1,5 @@
 <!-- Basic structured coalescent tree simulation -->
+
 <beast version="2.0"
        namespace="beast.base.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">

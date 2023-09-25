@@ -1,7 +1,9 @@
+<!-- Basic birth-death simulation with two contemporanous uniform sampling events. -->
+
 <beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
     <run spec="Simulator" nSims="100">
-        <simulate spec="SimulatedTree" id="SIRTree">
-            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" maxTime="6">
+        <simulate spec="SimulatedTree" id="tree">
+            <trajectory spec="StochasticTrajectory" id="traj" maxTime="6">
                 <population spec="RealParameter" id="X" value="1"/>
                 <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
@@ -12,15 +14,15 @@
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">
-            <log idref="SIRTrajectory"/>
+            <log idref="traj"/>
         </logger>
 
         <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
-            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+            <log spec="TypedTreeLogger" tree="@tree"/>
         </logger>
 
         <logger spec="Logger">
-            <log spec="beast.base.evolution.tree.TreeStatLogger" tree="@SIRTree"/>
+            <log spec="beast.base.evolution.tree.TreeStatLogger" tree="@tree"/>
         </logger>
     </run>
 </beast>

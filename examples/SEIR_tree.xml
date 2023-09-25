@@ -2,8 +2,8 @@
 
 <beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
     <run spec="Simulator" nSims="1">
-        <simulate spec="SimulatedTree" id="SIRTree">
-            <trajectory spec="StochasticTrajectory" id="SIRTrajectory">
+        <simulate spec="SimulatedTree" id="tree">
+            <trajectory spec="StochasticTrajectory" id="traj">
                 <population spec="RealParameter" id="S" value="10000"/>
                 <population spec="RealParameter" id="E" value="0"/>
                 <population spec="RealParameter" id="I" value="1"/>
@@ -18,11 +18,11 @@
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">
-            <log idref="SIRTrajectory"/>
+            <log idref="traj"/>
         </logger>
 
         <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
-            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+            <log spec="TypedTreeLogger" tree="@tree"/>
         </logger>
     </run>
 </beast>

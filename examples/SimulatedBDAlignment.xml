@@ -1,3 +1,6 @@
+<!-- Simulate a tree under a birth-death-sampling model, and use this tree
+     to simulate a sequence alignment. -->
+
 <beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
   <run spec="Simulator" nSims="1">
     <simulate spec="feast.simulation.SimulatedAlignment"

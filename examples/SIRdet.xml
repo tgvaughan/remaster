@@ -1,3 +1,5 @@
+<!-- Deterministic SIR approximation of -->
+
 <beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
     <run spec="Simulator" nSims="1">
         <simulate spec="DeterministicTrajectory" id="SIRTrajectory"
@@ -7,14 +9,9 @@
             <population spec="RealParameter" id="S" value="1000"/>
             <population spec="RealParameter" id="I" value="1"/>
             <population spec="RealParameter" id="R" value="0"/>
-            <samplePopulation spec="RealParameter" id="sample" value="0"/>
 
             <reaction spec="Reaction" rate="0.01"> S + I -> 2I </reaction>
             <reaction spec="Reaction" rate="0 1" changeTimes="2"> I -> R </reaction>
-            <reaction spec="Reaction" rate="0.1"> I -> sample</reaction>
-
-            <reaction spec="PunctualReaction" n="100" times="3"> I -> sample </reaction>
-            <reaction spec="PunctualReaction" p="0.5" times="5"> I -> sample </reaction>
         </simulate>
 
         <logger spec="Logger" fileName="$(filebase).traj">

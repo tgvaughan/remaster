@@ -1,8 +1,9 @@
 <!-- Basic coalescent tree simulation -->
+
 <beast version="2.0"
        namespace="beast.base.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
-  <run spec="Simulator" nSims="10">
+  <run spec="Simulator" nSims="100">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="CoalescentTrajectory">
         <population id="pop" spec="ConstantPopulation" popSize="1.0"/>
