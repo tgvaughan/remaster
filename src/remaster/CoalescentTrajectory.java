@@ -100,7 +100,8 @@ public class CoalescentTrajectory extends AbstractTrajectory {
                     leavesToCome = true;
             }
 
-            if (nextReactionTime > punctualReactionsByChangeTime.get(0).getReactionTime()) {
+            if (!punctualReactionsByChangeTime.isEmpty()
+                    && nextReactionTime > punctualReactionsByChangeTime.get(0).getReactionTime()) {
                 t = punctualReactionsByChangeTime.get(0).getReactionTime();
                 PunctualCoalescentReactionBox punctualReaction = punctualReactionsByChangeTime.get(0);
                 punctualReaction.applyReaction(lineages, lineageFactory);
