@@ -21,6 +21,7 @@ package remaster;
 
 import beast.base.core.BEASTObject;
 import beast.base.core.Input;
+import beast.base.core.Log;
 import beast.base.inference.Logger;
 import beast.base.inference.Runnable;
 
@@ -58,6 +59,8 @@ public class Simulator extends Runnable {
             logger.init();
         }
 
+        Log.info.println("Starting ReMASTER simulation.");
+
         Set<BEASTObject> alreadySeen = new HashSet<>();
         for (int i=0; i<nSimsInput.get(); i++) {
 
@@ -76,6 +79,9 @@ public class Simulator extends Runnable {
         // Finalize loggers
         for (Logger logger : loggersInput.get())
             logger.close();
+
+        Log.info.println("ReMASTER simulation complete.");
+
     }
 
     /**
