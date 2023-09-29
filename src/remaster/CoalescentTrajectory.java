@@ -42,7 +42,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             101);
 
     Set<ReactElement> popElements;
-    List<ContinuousCoalescentReactionBox> continousCoalReactions;
+    List<ContinuousCoalescentReactionBox> continuousCoalReactions;
     List<PunctualCoalescentReactionBox> punctualCoalReactions;
 
     @Override
@@ -53,11 +53,11 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         for (PopulationFunction.Abstract popFunc : popFuncInput.get())
             popElements.add(new ReactElement(popFunc.getID(), 0));
 
-        continousCoalReactions = new ArrayList<>();
+        continuousCoalReactions = new ArrayList<>();
         for (PopulationFunction.Abstract popFunc : popFuncInput.get())
-            continousCoalReactions.add(new ContinuousCoalescentReactionBox(popFunc));
+            continuousCoalReactions.add(new ContinuousCoalescentReactionBox(popFunc));
         for (Reaction reaction : continuousReactions)
-            continousCoalReactions.add(new ContinuousCoalescentReactionBox(reaction, popElements));
+            continuousCoalReactions.add(new ContinuousCoalescentReactionBox(reaction, popElements));
 
         punctualCoalReactions = new ArrayList<>();
         for (PunctualReaction reaction : punctualReactions)
@@ -89,7 +89,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
 
             boolean leavesToCome = false;
 
-            for (ContinuousCoalescentReactionBox reaction : continousCoalReactions) {
+            for (ContinuousCoalescentReactionBox reaction : continuousCoalReactions) {
                 double thisReactionTime = reaction.getNextReactionTime(t, lineages);
                 if (thisReactionTime < nextReactionTime) {
                     nextReactionTime = thisReactionTime;
