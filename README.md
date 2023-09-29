@@ -1,7 +1,7 @@
 Remaster
 ========
 
-Remaster is a rewrite of the
+Remaster is a complete rewrite of the
 [MASTER](https://tgvaughan.github.io/MASTER) tree simulation package
 for [BEAST 2](https://beast2.org).
 
@@ -12,10 +12,8 @@ It aims to address the following problems with MASTER:
 4. poor integration with BEAST,
 5. inflexible design.
 
-While Remaster is feature-complete, it has not yet been extensively
-tested, and thus is not yet ready for production use.  If that doesn't
-scare you and you'd still like to try it, refer to the following
-online manual for installation and usage instructions:
+For further information including installation, step-by-step usage
+instructions and examples, refer to the online user manual:
 
 https://tgvaughan.github.io/remaster
 
