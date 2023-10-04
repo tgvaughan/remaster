@@ -1,13 +1,13 @@
 Development News
 ----------------
 
-### 2022-03-29
+### 2023-03-29
 
 Remaster version 2.0 is out!  While copious bug fixes and some minor
 improvements will inevitibly follow, I don't intend to add any more
 major features at this point: I regard this as a "finished" project.
 
-### 2022-03-24
+### 2023-03-24
 
 After a big refactor (which I'm not too happy about, and may play with
 further), I've implemented true coalescent simulation.  With this you
