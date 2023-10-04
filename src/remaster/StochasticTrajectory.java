@@ -140,7 +140,7 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
     @Override
     public Node simulateTree() throws SimulationFailureException {
         if (events.stream().noneMatch(e -> e.reactionBox.producesSamples))
-            throw new SimulationFailureException("No samples produced.");
+            throw new SimulationFailureException("Trajectory contains no samples.");
 
         List<BDTrajectoryEvent> eventList = new ArrayList<>(events);
         Collections.reverse(eventList);

@@ -67,10 +67,10 @@ public class SimulatedTree extends Tree {
                 retries -= 1;
 
                 if (retries >= 0) {
-                    Log.err.print(" Retrying.");
+                    Log.err.println(" Retrying.");
                     trajectory.initAndValidate();
-                }
-                Log.err.println();
+                } else
+                    Log.err.println();
             }
         }
 

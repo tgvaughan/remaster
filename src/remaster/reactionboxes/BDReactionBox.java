@@ -64,6 +64,10 @@ public abstract class BDReactionBox {
                             "' reactants cannot share an ID.");
                 parentIDs.put(reactID, i);
             }
+
+            // Hack: mark scalar reaction elements as such:
+            if (state.popDims.get(el.name)==1)
+                el.isScalar = true;
         }
 
         for (int i=0; i<reaction.productList.size(); i++) {
@@ -86,6 +90,11 @@ public abstract class BDReactionBox {
 
             if (parentIndex < parents.size())
                 children.get(parentIndex).add(el);
+
+
+            // Hack: mark scalar reaction elements as such:
+            if (state.popDims.get(el.name)==1)
+                el.isScalar = true;
         }
 
         for (ReactElement element : reaction.products.elementSet()) {

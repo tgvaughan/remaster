@@ -51,7 +51,7 @@ public class CoalescentTrajectory extends AbstractTrajectory {
 
         popElements = new HashSet<>();
         for (PopulationFunction.Abstract popFunc : popFuncInput.get())
-            popElements.add(new ReactElement(popFunc.getID(), 0));
+            popElements.add(new ReactElement(popFunc.getID(), 0, true));
 
         continuousCoalReactions = new ArrayList<>();
         for (PopulationFunction.Abstract popFunc : popFuncInput.get())

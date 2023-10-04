@@ -46,7 +46,7 @@ public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
 
     public ContinuousCoalescentReactionBox(PopulationFunction.Abstract popFunc) {
         this.popFunc = popFunc;
-        popEl = new ReactElement(popFunc.getID(), 0);
+        popEl = new ReactElement(popFunc.getID(), 0, true);
 
         parents.add(popEl);
 

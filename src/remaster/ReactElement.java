@@ -27,15 +27,21 @@ import java.util.Objects;
 public class ReactElement {
     public String name;
     public int idx;
+    public boolean isScalar;
 
-    public ReactElement(String name, int idx) {
+    public ReactElement(String name, int idx, boolean isScalar) {
         this.name = name.intern();
         this.idx = idx;
+        this.isScalar = isScalar;
+    }
+
+    public ReactElement(String name, int idx) {
+        this(name, idx, false);
     }
 
     @Override
     public String toString() {
-        return name + "{" + idx + "}";
+        return isScalar ? name : name + "{" + idx + "}";
     }
 
     @Override
