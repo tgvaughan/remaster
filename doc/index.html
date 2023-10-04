@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-09-25 Mon 14:48 -->
+<!-- 2023-10-04 Wed 10:42 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Remaster</title>
+<title>ReMASTER</title>
 <meta name="author" content="Tim Vaughan" />
 <meta name="generator" content="Org Mode" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,33 +34,34 @@
 </ul>
 </li>
 <li><a href="#id-1-Installation">2. Installation</a></li>
-<li><a href="#id-1-Birth-death-simulations">3. Birth-death simulations</a>
+<li><a href="#org000294b">3. Using ReMASTER: General overview</a></li>
+<li><a href="#id-1-Birth-death-simulations">4. Birth-death simulations</a>
 <ul>
-<li><a href="#id-2-Birth-death-simulations-Model-specification">3.1. Model specification</a></li>
-<li><a href="#id-2-Birth-death-simulations-Trajectory-simulation">3.2. Trajectory simulation</a></li>
-<li><a href="#id-2-Birth-death-simulations-Tree-simulation">3.3. Tree simulation</a></li>
+<li><a href="#id-2-Birth-death-simulations-Model-specification">4.1. Model specification</a></li>
+<li><a href="#id-2-Birth-death-simulations-Trajectory-simulation">4.2. Trajectory simulation</a></li>
+<li><a href="#id-2-Birth-death-simulations-Tree-simulation">4.3. Tree simulation</a></li>
 </ul>
 </li>
-<li><a href="#id-1-Coalescent-simulations">4. Coalescent simulations</a>
+<li><a href="#id-1-Coalescent-simulations">5. Coalescent simulations</a>
 <ul>
-<li><a href="#id-2-Coalescent-simulations-Model-specification">4.1. Model specification</a></li>
-<li><a href="#id-2-Coalescent-simulations-Trajectory-simulation">4.2. Trajectory simulation</a></li>
-<li><a href="#id-2-Coalescent-simulations-Tree-simulation">4.3. Tree simulation</a></li>
-<li><a href="#id-2-Coalescent-simulations-More-complex-coalescent-models">4.4. More complex coalescent models</a></li>
+<li><a href="#id-2-Coalescent-simulations-Model-specification">5.1. Model specification</a></li>
+<li><a href="#id-2-Coalescent-simulations-Trajectory-simulation">5.2. Trajectory simulation</a></li>
+<li><a href="#id-2-Coalescent-simulations-Tree-simulation">5.3. Tree simulation</a></li>
+<li><a href="#id-2-Coalescent-simulations-More-complex-coalescent-models">5.4. More complex coalescent models</a></li>
 </ul>
 </li>
-<li><a href="#id-1-Integrating-with-BEAST">5. Integrating with BEAST</a></li>
-<li><a href="#id-1-Examples">6. Examples</a></li>
-<li><a href="#id-1-Appendix">7. Appendix</a>
+<li><a href="#id-1-Integrating-with-BEAST">6. Integrating with BEAST</a></li>
+<li><a href="#id-1-Examples">7. Examples</a></li>
+<li><a href="#id-1-Appendix">8. Appendix</a>
 <ul>
-<li><a href="#id-2-Appendix-Condition-syntax">7.1. Condition syntax</a></li>
+<li><a href="#id-2-Appendix-Condition-syntax">8.1. Condition syntax</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
 
-<figure id="org52a70c8">
+<figure id="org22815b9">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -77,13 +78,13 @@ GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://githu
 <h2 id="id-1-Overview"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-id-1-Overview">
 <p>
-Remaster is a flexible tool for simulating trajectories
+ReMASTER is a flexible tool for simulating trajectories
 and trees from the birth-death and coalescent models commonly employed in
 phylodynamic inference, as well as some less common models.
 </p>
 
 <p>
-Remaster defines birth-death population models using an intuitive
+ReMASTER defines birth-death population models using an intuitive
 "reaction" notation borrowed from chemistry.  Using this notation,
 a simple birth-death process on the number of individuals of type $X$
 might be expressed using the following pair of reactions:
@@ -100,7 +101,7 @@ fires for each available combination of reactants.
 
 <p>
 In order to permit the simulation of reconstructed phylogenies corresponding
-to subsets of the whole population, Remaster allows users to specify that
+to subsets of the whole population, ReMASTER allows users to specify that
 one or more of the model populations are "sample" populations.  This means
 that sampling processes can be explicitly included in the simulation model.
 For instance, by adding the reaction
@@ -110,7 +111,7 @@ linear birth-death-sampling model which is the basis of much modern phylodynamic
 </p>
 
 <p>
-In addition, Remaster allows one to define "punctual" reactions which occur
+In addition, ReMASTER allows one to define "punctual" reactions which occur
 at pre-determined times and fire a fixed or stochastic number of times.
 Besides allowing models to include interesting discrete events, this allows
 users to pre-specify sample counts and times.
@@ -148,7 +149,7 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </div>
 
 <p>
-For coalescent tree simulation, Remaster uses a similar approach to model
+For coalescent tree simulation, ReMASTER uses a similar approach to model
 specification but relies on BEAST 2 <code>PopulationFunction</code> objects (such as
 <code>ConstantPopulation</code> and <code>ExponentialGrowth</code>) to condition on population
 dynamics, together with reactions which are directly applied to coalescent
@@ -156,8 +157,8 @@ tree lineages as they evolve backward in time.
 </p>
 
 <p>
-Remaster is a <a href="https://www.beast2.org/">BEAST 2</a> package, and integrates well with that platform.
-Simulated Remaster trees can be used directly inside of regular BEAST
+ReMASTER is a <a href="https://www.beast2.org/">BEAST 2</a> package, and integrates well with that platform.
+Simulated ReMASTER trees can be used directly inside of regular BEAST
 XML analysis scripts to initialise MCMC states or construct
 simulation-based validation studies.
 </p>
@@ -167,8 +168,8 @@ simulation-based validation studies.
 <h3 id="id-2-Overview-The-name"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-id-2-Overview-The-name">
 <p>
-"Remaster" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
-Remaster is a new implementation which is faster, leaner, and more capable
+"ReMASTER" is a play on the name of an earlier simulation tool, <a href="https://tgvaughan.github.io/MASTER">MASTER</a>.
+ReMASTER is a new implementation which is faster, leaner, and more capable
 of performing the simulation tasks for which MASTER itself is actually used.
 </p>
 </div>
@@ -178,7 +179,7 @@ of performing the simulation tasks for which MASTER itself is actually used.
 <h3 id="id-2-Overview-License"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-id-2-Overview-License">
 <p>
-Remaster is free software, and is made available under the terms of
+ReMASTER is free software, and is made available under the terms of
 version 3 of the GNU General Public License, the text of which is
 available <a href="https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING">here</a>.  The source code for the project can be found at the
 official GitHub project page: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>.
@@ -191,51 +192,69 @@ official GitHub project page: <a href="https://github.com/tgvaughan/remaster">ht
 <h2 id="id-1-Installation"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-id-1-Installation">
 <p>
-Remaster is a BEAST 2 package and will eventually be available for installation
-directly from the standard BEAST 2 package repository.  However, while it is still
-in development, installation must be done as follows:
+ReMASTER is a BEAST 2 package.  To install it, you'll first need to ensure a
+recent version of BEAST 2 (version 2.7 or later) is available on your system.
+If not, go to <a href="https://beast2.org">https://beast2.org</a> and follow the instructions.
+</p>
+
+<p>
+Once BEAST 2 is installed, ReMASTER can be installed directly from the
+standard BEAST 2 package repository.  To do this, follow these steps:
 </p>
 
 <ol class="org-ol">
 <li>Open BEAUti,</li>
 <li>Open the <code>File</code> menu and select <code>Manage packages</code>.</li>
-<li>Press the <code>Package repositories</code> button at the bottom of the dialog box, then add the
-following URL: <a href="https://tgvaughan.github.io/remaster/package.xml">https://tgvaughan.github.io/remaster/package.xml</a></li>
-<li>Press <code>Done</code> to return to the package list.</li>
-<li>Select "remaster" from the package list and press the <code>Install/Upgrade</code> button.</li>
+<li>Select "ReMASTER" from the package list and press the
+<code>Install/Upgrade</code> button.</li>
 </ol>
 
+
+<figure id="org966d7ad">
+<img src="figures/install.png" alt="install.png">   
+
+</figure>
+
 <p>
-Remaster should now be available on your system, and running beast
-with a Remaster input file should perform the corresponding
-simulation.
+The ReMASTER package should now be available on your system!
 </p>
 </div>
 </div>
 
+<div id="outline-container-org000294b" class="outline-2">
+<h2 id="org000294b"><span class="section-number-2">3.</span> Using ReMASTER: General overview</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+running beast with a ReMASTER input file should perform the
+corresponding simulation.
+</p>
+</div>
+</div>
+
+
 <div id="outline-container-id-1-Birth-death-simulations" class="outline-2">
-<h2 id="id-1-Birth-death-simulations"><span class="section-number-2">3.</span> Birth-death simulations</h2>
+<h2 id="id-1-Birth-death-simulations"><span class="section-number-2">4.</span> Birth-death simulations</h2>
 <div class="outline-text-2" id="text-id-1-Birth-death-simulations">
 <p>
-Birth-death simulations are the bread and butter of Remaster.  Unlike
-MASTER, Remaster is built from the ground up to make simulating
+Birth-death simulations are the bread and butter of ReMASTER.  Unlike
+MASTER, ReMASTER is built from the ground up to make simulating
 birth-death trajectories and trees as easy and flexible as possible.
 </p>
 </div>
 
 <div id="outline-container-id-2-Birth-death-simulations-Model-specification" class="outline-3">
-<h3 id="id-2-Birth-death-simulations-Model-specification"><span class="section-number-3">3.1.</span> Model specification</h3>
+<h3 id="id-2-Birth-death-simulations-Model-specification"><span class="section-number-3">4.1.</span> Model specification</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Model-specification">
 <p>
-Like MASTER, Remaster defines models in terms of <a href="#id-3-Model-specification-Birth-death-simulations-Populations">populations</a> and <a href="#id-3-Model-specification-Birth-death-simulations-Reactions">reactions</a>.
+Like MASTER, ReMASTER defines models in terms of <a href="#id-3-Model-specification-Birth-death-simulations-Populations">populations</a> and <a href="#id-3-Model-specification-Birth-death-simulations-Reactions">reactions</a>.
 </p>
 </div>
 
 <div id="outline-container-id-3-Model-specification-Birth-death-simulations-Populations" class="outline-4">
-<h4 id="id-3-Model-specification-Birth-death-simulations-Populations"><span class="section-number-4">3.1.1.</span> Populations</h4>
+<h4 id="id-3-Model-specification-Birth-death-simulations-Populations"><span class="section-number-4">4.1.1.</span> Populations</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Birth-death-simulations-Populations">
 <p>
-A population in Remaster is simply a <code>RealParameter</code> (or other
+A population in ReMASTER is simply a <code>RealParameter</code> (or other
 <code>Function</code>) with a specific ID.  The value of the <code>RealParameter</code> is
 used as its initial population size in the simulation.
 </p>
@@ -279,11 +298,11 @@ external) in the resulting tree.
 </div>
 
 <div id="outline-container-id-3-Model-specification-Birth-death-simulations-Reactions" class="outline-4">
-<h4 id="id-3-Model-specification-Birth-death-simulations-Reactions"><span class="section-number-4">3.1.2.</span> Reactions</h4>
+<h4 id="id-3-Model-specification-Birth-death-simulations-Reactions"><span class="section-number-4">4.1.2.</span> Reactions</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Birth-death-simulations-Reactions">
 <p>
 Reactions connect zero or more <b>reactant</b> individuals with zero or
-more <b>product</b> individuals.  The dynamics that Remaster simulates are
+more <b>product</b> individuals.  The dynamics that ReMASTER simulates are
 simply the result of applying reactions at random or pre-determined times.
 </p>
 
@@ -294,7 +313,7 @@ reactions and "punctual" reactions.
 </div>
 
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions" class="outline-5">
-<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions"><span class="section-number-5">3.1.2.1.</span> Continuous reactions</h5>
+<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions"><span class="section-number-5">4.1.2.1.</span> Continuous reactions</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions">
 <p>
 As the name suggests, reactions are applied continuously throughout the
@@ -324,7 +343,7 @@ the following:
 </div>
 
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions" class="outline-5">
-<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions"><span class="section-number-5">3.1.2.2.</span> Punctual reactions</h5>
+<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions"><span class="section-number-5">4.1.2.2.</span> Punctual reactions</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions">
 <p>
 In contrast, punctual reactions are applied at one or more pre-defined
@@ -378,7 +397,7 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children" class="outline-5">
-<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children"><span class="section-number-5">3.1.2.3.</span> Identifying parents and children</h5>
+<h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children"><span class="section-number-5">4.1.2.3.</span> Identifying parents and children</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children">
 <p>
 Although the reaction notation is intuitive, on its own it does not
@@ -406,8 +425,8 @@ of ancestral lineages can be built.
 
 <p>
 There are two main ways to work around this limitation.  Firstly, one can
-rely on Remaster to automatically associate parents with children.
-By default, Remaster assumes that a product individual is considered to
+rely on ReMASTER to automatically associate parents with children.
+By default, ReMASTER assumes that a product individual is considered to
 be
 </p>
 <ol class="org-ol">
@@ -423,7 +442,7 @@ children.
 </p>
 
 <p>
-Alternatively, Remaster lets you explicitly specify parent-child relationships
+Alternatively, ReMASTER lets you explicitly specify parent-child relationships
 by appending ":label" tags to reaction elements identifying them as belonging
 to the same family.  If, for instance, we wanted the $S$ reactant to be the parent
 of the two $I$ products, we could write
@@ -435,7 +454,7 @@ of the two $I$ products, we could write
 </div>
 
 <p>
-Note that unlike MASTER, Remaster requires each child have at most one parent, ensuring
+Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 </p>
 </div>
@@ -444,11 +463,11 @@ that the resulting relationships are tree-like.
 </div>
 
 <div id="outline-container-id-2-Birth-death-simulations-Trajectory-simulation" class="outline-3">
-<h3 id="id-2-Birth-death-simulations-Trajectory-simulation"><span class="section-number-3">3.2.</span> Trajectory simulation</h3>
+<h3 id="id-2-Birth-death-simulations-Trajectory-simulation"><span class="section-number-3">4.2.</span> Trajectory simulation</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Trajectory-simulation">
 <p>
 Trajectories are simply realisations of the population process.  There are two
-distinct types of trajectories in Remaster: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
+distinct types of trajectories in ReMASTER: <b>stochastic trajectories</b> and <b>deterministic trajectories</b>.
 </p>
 
 <p>
@@ -472,11 +491,11 @@ birth-death models.
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories"><span class="section-number-4">3.2.1.</span> Stochastic Trajectories</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories"><span class="section-number-4">4.2.1.</span> Stochastic Trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories">
 <p>
 Once the population and reaction elements are specified, defining a
-stochastic trajectory in Remaster's XML is very easy.
+stochastic trajectory in ReMASTER's XML is very easy.
 </p>
 
 <p>
@@ -500,14 +519,14 @@ The <code>maxTime</code> attribute specifies the maximum end time of the
 simulation.  For stochastic trajectories this attribute is actually
 optional, since there are many birth-death processes (although not
 this one) are guaranteed to terminate in finite amount of time.
-(Remaster always ceases the simulation once no reactions are able to
+(ReMASTER always ceases the simulation once no reactions are able to
 fire.)
 </p>
 </div>
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories"><span class="section-number-4">3.2.2.</span> Deterministic Trajectories</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories"><span class="section-number-4">4.2.2.</span> Deterministic Trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories">
 <p>
 Defining deterministic trajectories is almost exactly the same as defining
@@ -558,7 +577,7 @@ changing very quickly are particularly susceptible to such problems.
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories"><span class="section-number-4">3.2.3.</span> Placing conditions on trajectories</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories"><span class="section-number-4">4.2.3.</span> Placing conditions on trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories">
 <p>
 In addition to the rates and initial population sizes, conditions can
@@ -603,18 +622,18 @@ at the end of the simulation.
 </p>
 
 <p>
-The complete syntax for these predicates is specified in section <a href="#id-2-Appendix-Condition-syntax">7.1</a>.
+The complete syntax for these predicates is specified in section <a href="#id-2-Appendix-Condition-syntax">8.1</a>.
 </p>
 </div>
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs"><span class="section-number-4">3.2.4.</span> Self-contained trajectory simulation XMLs</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs"><span class="section-number-4">4.2.4.</span> Self-contained trajectory simulation XMLs</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs">
 <p>
 While the above XML fragments are sufficient to represent a simulated trajectory, in order to actually be useful
 it needs to be embedded in a BEAST XML that produces output.  The most direct way to do this is via
-Remaster's <code>Simulator</code> object, which can be used as a <code>&lt;run&gt;</code> element as follows:
+ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&gt;</code> element as follows:
 </p>
 
 <div class="org-src-container">
@@ -649,7 +668,7 @@ This input can take multiple values, one for each output file.
 To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through BEAST:
 </p>
-<pre class="example" id="orge8576f9">
+<pre class="example" id="orgcfbc49f">
 $ beast BDtraj.xml
 </pre>
 
@@ -661,11 +680,11 @@ This should produce some screen output, together with a file
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories"><span class="section-number-4">3.2.5.</span> Plotting simulated trajectories</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories"><span class="section-number-4">4.2.5.</span> Plotting simulated trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories">
 <p>
 In order to actually visualize the simulation output, we need to load the R script
-<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> subdirectory of the Remaster package directory.
+<a href="https://github.com/tgvaughan/remaster/blob/master/scripts/trajTools.R">trajTools.R</a> which one can find in the <code>scripts/</code> subdirectory of the ReMASTER package directory.
 The precise command to load this file  depends on where BEAST installs packages on your
 system:
 </p>
@@ -687,7 +706,7 @@ Once the script is loaded, use the following command to load the trajectories in
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orgf683715">
+<pre class="example" id="org798a7c7">
 &gt; traj
 # A tibble: 8,039 × 5
         t population index value Sample
@@ -719,7 +738,7 @@ This format is ideal for plotting using <a href="https://ggplot2.tidyverse.org">
 </div>
 
 
-<figure id="orge198c1d">
+<figure id="orgbece13c">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -731,7 +750,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgfde2036">
+<figure id="org2a12ac5">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -744,7 +763,7 @@ linear models.)
 </div>
 
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics" class="outline-4">
-<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics"><span class="section-number-4">3.2.6.</span> Logging stochastic trajectory statistics</h4>
+<h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics"><span class="section-number-4">4.2.6.</span> Logging stochastic trajectory statistics</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics">
 <p>
 In addition to logging full trajectories, you can log basic statistics of simulated trajectories using
@@ -772,7 +791,7 @@ it is useful to log only a few basic statistics instead - the full trajectory lo
 </div>
 
 <div id="outline-container-id-2-Birth-death-simulations-Tree-simulation" class="outline-3">
-<h3 id="id-2-Birth-death-simulations-Tree-simulation"><span class="section-number-3">3.3.</span> Tree simulation</h3>
+<h3 id="id-2-Birth-death-simulations-Tree-simulation"><span class="section-number-3">4.3.</span> Tree simulation</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Tree-simulation">
 <p>
 Once a trajectory simulation is configured, producing the corresponding trees
@@ -825,7 +844,7 @@ classes know how to handle such nodes.
 </div>
 
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs" class="outline-4">
-<h4 id="id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs"><span class="section-number-4">3.3.1.</span> Self-contained tree simulation XMLs</h4>
+<h4 id="id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs"><span class="section-number-4">4.3.1.</span> Self-contained tree simulation XMLs</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">
 <p>
 A self-contained tree simulation XML is very similar to a self-contained trajectory
@@ -878,7 +897,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org59505e3">
+<figure id="orgc08ef79">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -886,7 +905,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </div>
 
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees" class="outline-4">
-<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees"><span class="section-number-4">3.3.2.</span> Logging typed trees</h4>
+<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees"><span class="section-number-4">4.3.2.</span> Logging typed trees</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees">
 <p>
 The example model in the previous section contained only one main population
@@ -932,7 +951,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org1551571">
+<figure id="org02f0e9e">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -940,16 +959,16 @@ labeled by their corresponding population types:
 </div>
 
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees" class="outline-4">
-<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees"><span class="section-number-4">3.3.3.</span> Logging untyped trees</h4>
+<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees"><span class="section-number-4">4.3.3.</span> Logging untyped trees</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees">
 <p>
 Occasionally you really <b>do</b> want to log trees without any additional
 type annotation.  With single-population models this can be achieved
-as shown in <a href="#id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">3.3.1</a>.  However,
+as shown in <a href="#id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">4.3.1</a>.  However,
 multi-population models (or models with sub-populations) often produce
 trees with internal nodes representing type changes.  These nodes will
 appear in the output trees, even when the edge types are not recorded.
-This can also produce problems when using Remaster <code>SimulatedTree</code> objects
+This can also produce problems when using ReMASTER <code>SimulatedTree</code> objects
 to initialise standard BEAST MCMC analyses, as the extra nodes will not
 be properly understood.
 </p>
@@ -968,7 +987,7 @@ Alternatively, as mentioned at the start of this section, one can add
 the same attribute <code>removeSingletonNodes="true"</code> to the
 <code>SimulatedTree</code> element, causing these nodes to be stripped from the
 simulated tree itself.  One can then use the standard tree logger as
-in <a href="#id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">3.3.1</a>.  This allows one to use the
+in <a href="#id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">4.3.1</a>.  This allows one to use the
 simulated tree directly to initialise an MCMC analysis or to simulate
 sequences, but has the drawback that the original multi-type tree is
 lost.
@@ -980,17 +999,17 @@ lost.
 
 
 <div id="outline-container-id-1-Coalescent-simulations" class="outline-2">
-<h2 id="id-1-Coalescent-simulations"><span class="section-number-2">4.</span> Coalescent simulations</h2>
+<h2 id="id-1-Coalescent-simulations"><span class="section-number-2">5.</span> Coalescent simulations</h2>
 <div class="outline-text-2" id="text-id-1-Coalescent-simulations">
 <p>
 While birth-death simulations (both exact and approximate) are the
-prime focus of Remaster, it is also possible to perform a variety
+prime focus of ReMASTER, it is also possible to perform a variety
 of coalescent simulations.
 </p>
 </div>
 
 <div id="outline-container-id-2-Coalescent-simulations-Model-specification" class="outline-3">
-<h3 id="id-2-Coalescent-simulations-Model-specification"><span class="section-number-3">4.1.</span> Model specification</h3>
+<h3 id="id-2-Coalescent-simulations-Model-specification"><span class="section-number-3">5.1.</span> Model specification</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Model-specification">
 <p>
 Like birth-death model specifications, coalescent model specifications
@@ -1009,7 +1028,7 @@ of a stochastic process, coalescent models operate under the
 assumption that the effective population sizes and how they vary in time are
 known at the outset. Pairs of tree lineages associated with these populations
 coalesce at a rate $1/N_e(t)$ where $N_e(t)$ is the effective population size
-at time $t$.  (Note that in Remaster and BEAST 2 in general,
+at time $t$.  (Note that in ReMASTER and BEAST 2 in general,
 "effective population size" is simply the inverse
 pairwise coalescent rate, and therefore has units of "time".)
 For this reason, <code>&lt;population/&gt;</code> elements are associated with BEAST 2 <code>PopulationFunction</code> objects
@@ -1043,7 +1062,7 @@ time 0:
 </div>
 
 <div id="outline-container-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions" class="outline-4">
-<h4 id="id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions"><span class="section-number-4">4.1.1.</span> Parents and children in coalescent reactions</h4>
+<h4 id="id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions"><span class="section-number-4">5.1.1.</span> Parents and children in coalescent reactions</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions">
 <p>
 Since coalescent reactions are applied to lineages backward in time, the
@@ -1075,11 +1094,11 @@ assignment is not correct.
 </div>
 
 <div id="outline-container-id-2-Coalescent-simulations-Trajectory-simulation" class="outline-3">
-<h3 id="id-2-Coalescent-simulations-Trajectory-simulation"><span class="section-number-3">4.2.</span> Trajectory simulation</h3>
+<h3 id="id-2-Coalescent-simulations-Trajectory-simulation"><span class="section-number-3">5.2.</span> Trajectory simulation</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Trajectory-simulation">
 <p>
 While there's no real concept of a population-level trajectory simulation in the context
-of a coalescent model that conditions on population dynamics, Remaster still 
+of a coalescent model that conditions on population dynamics, ReMASTER still 
 requires that you wrap your coalescent model specification in a <code>CoalescentTrajectory</code>
 object, which is analogous to the birth-death trajectory objects.
 </p>
@@ -1115,7 +1134,7 @@ populations is growing exponentially toward the present:
 <b>Important:</b> Note the addition of ":beast.base.evolution.tree.coalescent" to the
 <code>namespace</code> attribute.  This is necessary to avoid errors due to BEAST not being
 able to find the <code>ConstantPopulation</code> and <code>ExponentialGrowth</code> classes, which are
-part of BEAST 2 itself, not Remaster.
+part of BEAST 2 itself, not ReMASTER.
 </p>
 
 <p>
@@ -1138,7 +1157,7 @@ it yields:
 </div>
 
 
-<figure id="org1a973f6">
+<figure id="orgc35b154">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1151,7 +1170,7 @@ Because the population size dynamics are fixed, reactions described by
 </div>
 
 <div id="outline-container-id-2-Coalescent-simulations-Tree-simulation" class="outline-3">
-<h3 id="id-2-Coalescent-simulations-Tree-simulation"><span class="section-number-3">4.3.</span> Tree simulation</h3>
+<h3 id="id-2-Coalescent-simulations-Tree-simulation"><span class="section-number-3">5.3.</span> Tree simulation</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Tree-simulation">
 <p>
 As for birth-death models, we can simulate trees by wrapping the <code>CoalescentTrajectory</code>
@@ -1190,7 +1209,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org3c154b3">
+<figure id="org3691dcb">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1198,10 +1217,10 @@ produce 50 tips in each of the two populations at time zero:
 </div>
 
 <div id="outline-container-id-2-Coalescent-simulations-More-complex-coalescent-models" class="outline-3">
-<h3 id="id-2-Coalescent-simulations-More-complex-coalescent-models"><span class="section-number-3">4.4.</span> More complex coalescent models</h3>
+<h3 id="id-2-Coalescent-simulations-More-complex-coalescent-models"><span class="section-number-3">5.4.</span> More complex coalescent models</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-More-complex-coalescent-models">
 <p>
-The kinds of population dynamics which can be expressed in Remaster is dictated
+The kinds of population dynamics which can be expressed in ReMASTER is dictated
 by the kinds of <code>PopulationFunction</code> classes which are available.  In BEAST itself,
 only <code>ConstantPopulation</code> and <code>ExponentialGrowth</code> are provided, which limits the
 utility of the simulator.
@@ -1258,7 +1277,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org117e026">
+<figure id="org26a874f">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1278,10 +1297,10 @@ provided by <code>DeterministicTrajectory</code>.
 </div>
 
 <div id="outline-container-id-1-Integrating-with-BEAST" class="outline-2">
-<h2 id="id-1-Integrating-with-BEAST"><span class="section-number-2">5.</span> Integrating with BEAST</h2>
+<h2 id="id-1-Integrating-with-BEAST"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 <div class="outline-text-2" id="text-id-1-Integrating-with-BEAST">
 <p>
-Unlike MASTER, Remaster is tightly integrated with the rest of BEAST in the following ways:
+Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the following ways:
 </p>
 
 <ul class="org-ul">
@@ -1294,7 +1313,7 @@ expect generic <code>Function</code> inputs.</li>
 </ul>
 
 <p>
-This means that it is possible to use Remaster to initialise MCMC chains, to
+This means that it is possible to use ReMASTER to initialise MCMC chains, to
 simulate sequence data, or to produce single-XML simulation studies which combine
 both simulation and inference.
 </p>
@@ -1340,11 +1359,11 @@ follows:
 </div>
 
 <div id="outline-container-id-1-Examples" class="outline-2">
-<h2 id="id-1-Examples"><span class="section-number-2">6.</span> Examples</h2>
+<h2 id="id-1-Examples"><span class="section-number-2">7.</span> Examples</h2>
 <div class="outline-text-2" id="text-id-1-Examples">
 <p>
 The <code>examples/</code> directory of the package repository contains a growing list of example
-Remaster scripts.  These are installed alongside the package when you install it via BEAUti.
+ReMASTER scripts.  These are installed alongside the package when you install it via BEAUti.
 You can also access these example scripts directly via the GitHub repository for the
 package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">https://github.com/tgvaughan/remaster/tree/master/examples</a>.
 </p>
@@ -1368,7 +1387,7 @@ and exponential) population model. Also writes .traj file
 summarizing the deterministic population dynamics.</dd>
 
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInference.xml"><code>CoalescentInference.xml</code></a></dt><dd>Simple self-contained coalescent inference simulation study XML.
-Uses Remaster to simulate a tree under a coalescent model with a
+Uses ReMASTER to simulate a tree under a coalescent model with a
 true constant population size of 2.0, then uses BEAST to infer the
 population size from that tree.</dd>
 
@@ -1412,19 +1431,19 @@ produce a corresponding simulated alignment.</dd>
 
 
 <div id="outline-container-id-1-Appendix" class="outline-2">
-<h2 id="id-1-Appendix"><span class="section-number-2">7.</span> Appendix</h2>
+<h2 id="id-1-Appendix"><span class="section-number-2">8.</span> Appendix</h2>
 <div class="outline-text-2" id="text-id-1-Appendix">
 </div>
 
 <div id="outline-container-id-2-Appendix-Condition-syntax" class="outline-3">
-<h3 id="id-2-Appendix-Condition-syntax"><span class="section-number-3">7.1.</span> Condition syntax</h3>
+<h3 id="id-2-Appendix-Condition-syntax"><span class="section-number-3">8.1.</span> Condition syntax</h3>
 <div class="outline-text-3" id="text-id-2-Appendix-Condition-syntax">
 <p>
 The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conform to the following
 grammar:
 </p>
 
-<pre class="example" id="orgf772b5d">
+<pre class="example" id="orgd2e3d41">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1494,7 +1513,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-09-25 Mon 14:48</p>
+<p class="date">Created: 2023-10-04 Wed 10:42</p>
 </div>
 </body>
 </html>
