@@ -52,6 +52,9 @@ public abstract class CoalescentReactionBox {
                     throw new IllegalArgumentException("Products cannot share an ID.");
                 parentIDs.put(prodID, i);
             }
+
+            // Hack: mark reaction elements as scalar:
+            el.isScalar = true;
         }
 
         // Process reactants:
@@ -76,6 +79,9 @@ public abstract class CoalescentReactionBox {
 
             if (parentIndex < parents.size())
                 children.get(parentIndex).add(el);
+
+            // Hack: mark reaction elements as scalar:
+            el.isScalar = true;
         }
 
         for (int i = 0; i < parents.size(); i++) {
