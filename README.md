@@ -8,7 +8,7 @@ for [BEAST 2](https://beast2.org).
 It aims to address the following problems with MASTER:
 1. slow and memory-intensive tree simulation,
 2. awkward coalescent simulation,
-3. difficult to configure sampling in BD models,
+3. difficult-to-configure sampling in BD models,
 4. poor integration with BEAST,
 5. inflexible design.
 

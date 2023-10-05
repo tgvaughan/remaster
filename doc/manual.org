@@ -124,15 +124,39 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 3. Select "ReMASTER" from the package list and press the
    =Install/Upgrade= button.
 
-[[file:figures/install.png]]   
+file:figures/install.png
 
 The ReMASTER package should now be available on your system!
 
 * Using ReMASTER: General overview
+:PROPERTIES:
+:CUSTOM_ID: id-1-Using-ReMASTER:-General-overview
+:END:
 
-running beast with a ReMASTER input file should perform the
-corresponding simulation.
+As mentioned in the [[*Overview][overview]] above, the general approach to using
+ReMASTER is involves (1) model conception, (2) XML input file
+creation, (3) running BEAST 2 (and hence, ReMASTER) on this input
+file, and (4) visualising or post-processing the generated output
+files. This workflow is summarized in the following figure:
 
+file:figures/usage.svg
+@@html: <br>@@
+
+The following sections will guide you through the process of defining
+birth-death and coalescent phylodynamic models, setting up the XML
+input files which describe them, as well as running the simulations and
+analysing the results of birth-death and coalescent simulations.
+
+** How to read this manual
+:PROPERTIES:
+:CUSTOM_ID: id-2-Using-ReMASTER:-General-overview-How-to-read-this-manual
+:END:
+
+While it is organised in a structured way, this manual is designed to
+be read directly from start to finish.  Thus, even if you are only
+interested in coalescent simulation, please read the [[*Birth-death simulations][Birth-death
+simulations]] chapter first---it introduces in detail several key
+concepts shared by all simulation types.
 
 * Birth-death simulations
 :PROPERTIES:
@@ -206,16 +230,32 @@ simulation at particular /rates/ which determine the probability per
 unit time for the reaction firing on each of the possible combinations
 of reactant individuals.
 
-Use the following notation to specify a continuous reaction with a fixed rate in the XML:
+Use the following notation to specify a continuous reaction with a
+fixed rate (per reactant configuration) in the XML:
 #+begin_src xml
 <reaction spec="Reaction" rate="2"> S + I -> 2I </reaction>
 #+end_src
+This reaction takes one $S$ individual and one $I$ individual and replaces them with two
+individuals of population $I$, and occurs with rate 2 between every compatible pair of
+individuals.  That is, the overall rate at which the reaction occurs in the whole
+population is
+$$ (\text{number of $S$ and $I$ pairs}) \times 2 = 2N_SN_I $$
+per unit time.
 
-The rate of a continuous reaction can change at one or more times.  For example,
-to specify that the rate should change from 2 to 1.4 at time 4, you can write
-the following:
+The per-configuration rate of a continuous reaction can change at one
+or more times.  For example, to specify that the rate should change
+from 2 to 1.4 at time 4, you can write the following:
 #+begin_src xml
 <reaction spec="Reaction" rate="2 1.4" changeTimes="4"> S + I -> 2I </reaction>
+#+end_src
+
+For reactions involving populations with multiple subpopulations,
+members of those subpopulations can be referenced using square bracket
+notation.  For instance, a birth reaction specific to one of the two
+subpopulations of population $Y$ defined in the last section could be
+written:
+#+begin_src xml
+<reaction spec="Reaction" rate="0.5"> Y[0] -> Y[0] + Y[1] </reaction>
 #+end_src
 
 **** Punctual reactions
@@ -310,7 +350,8 @@ that the resulting relationships are tree-like.
 :END:
 
 Trajectories are simply realisations of the population process.  There are two
-distinct types of trajectories in ReMASTER: *stochastic trajectories* and *deterministic trajectories*.
+distinct types of birth-death trajectories in ReMASTER:
+*stochastic trajectories* and *deterministic trajectories*.
 
 Stochastic trajectories are simulated using a standard Gillespie-style
 algorithm, and are exact realisations of the continuous-time
@@ -425,14 +466,17 @@ Similarly, to define a condition on the finished simulation, use the
 =mustHave= attribute. For instance,
 #+begin_src xml
   <trajectory spec="StochasticTrajectory"
-              mustHave="sample<=50">
+              mustHave="sample>=50">
   ...
   </trajectory>
 #+end_src
-specifies that the  "sample" population must contain at most 50 individuals
+specifies that the  "sample" population must contain at least 50 individuals
 at the end of the simulation.
 
 The complete syntax for these predicates is specified in section [[*Condition syntax]].
+Beware that XML (unfortunately) forbids use of characters such as =<=
+and =&= in attribute values, so to use them you'll need to use the
+escaped versions =&lt;= and =&amp;=.
 
 *** Self-contained trajectory simulation XMLs
 :PROPERTIES:
@@ -467,13 +511,16 @@ The =Simulator= takes the following inputs:
   (In this case we only produce one output file, containing a representation of the whole simulated trajectory.)
 
 To run the simulation and produce the output, copy the above XML into
-a file named something like "BDtraj.xml" and then run it through BEAST:
+a file named something like "BDtraj.xml" and then run it through
+BEAST, either via the command line:
 #+begin_example
 $ beast BDtraj.xml
 #+end_example
+or by running BEAST and selecting the "BDtraj.xml" file using the
+graphical file choose which appears on startup.
 
 This should produce some screen output, together with a file
-"output.traj" containing the simulated trajectories.
+"output.traj" in the same directory containing the simulated trajectories.
 
 *** Plotting simulated trajectories
 :PROPERTIES:
