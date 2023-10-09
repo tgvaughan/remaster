@@ -1058,6 +1058,10 @@ ReMASTER scripts.  These are installed alongside the package when you install it
 You can also access these example scripts directly via the GitHub repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
+**Note**: Some of these examples also require the BEAST 2 package =feast= to be installed.
+This can be installed directly using the package manager in BEAUti in the same way that
+you installed ReMASTER.
+
 Here is a list of the example scripts contained in that directory, together
 with brief summaries of the simulations they perform:
 
