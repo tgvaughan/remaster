@@ -38,6 +38,8 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
 
     List<BDTrajectoryEvent> events;
 
+    public boolean currentTrajectoryValid;
+
     @Override
     public void initAndValidate() {
         super.initAndValidate();
@@ -45,14 +47,14 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
         events = new ArrayList<>();
 
         int retries = maxRetriesInput.get();
-        while (retries>=0 && !doSimulation()) {
+        while (retries>=0 && !(currentTrajectoryValid = doSimulation())) {
             retries -= 1;
             if (retries >=0)
                 Log.info("Trajectory simulation rejected: retrying");
             else
                 Log.err.println("Failed to simulate trajectory satisfying " +
-                        "mustHave condition. (maxRetires = " +
-                        maxTimeInput.get() + ")");
+                        "mustHave condition. (maxRetries = " +
+                        maxRetriesInput.get() + ")");
         }
     }
 
@@ -141,6 +143,10 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
     public Node simulateTree() throws SimulationFailureException {
         if (events.stream().noneMatch(e -> e.reactionBox.producesSamples))
             throw new SimulationFailureException("Trajectory contains no samples.");
+
+        if (!currentTrajectoryValid)
+            throw new SimulationFailureException(
+                    "Refusing to simulate tree from trajectory failing mustHave condition.");
 
         List<BDTrajectoryEvent> eventList = new ArrayList<>(events);
         Collections.reverse(eventList);
