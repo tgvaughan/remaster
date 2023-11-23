@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-11-23 Thu 16:39 -->
+<!-- 2023-11-23 Thu 18:55 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -65,7 +65,7 @@
 </div>
 </nav>
 
-<figure id="orgae571ef">
+<figure id="orgd47b016">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -215,7 +215,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org0d63e15">
+<figure id="org33dd42c">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -726,7 +726,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org6b6b0a8">
+<pre class="example" id="orgc60a276">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -773,7 +773,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org63f107a">
+<pre class="example" id="orgadf609f">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -819,7 +819,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="orgbb1d55d">
+<figure id="orgecc853a">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -831,7 +831,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgeb203f6">
+<figure id="orgd08a625">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -978,7 +978,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org87c2c64">
+<figure id="org642f108">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1032,7 +1032,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org47f0673">
+<figure id="org880c415">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1238,7 +1238,7 @@ it yields:
 </div>
 
 
-<figure id="orgfb8e45a">
+<figure id="org5466202">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1290,7 +1290,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org23fc2d3">
+<figure id="org976f7e3">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1358,7 +1358,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org7d4447f">
+<figure id="orgf79aec3">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1469,14 +1469,23 @@ having 5 contemporaneous samples at time 5, and 5 more at time 6.</dd>
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/Coalescent.xml"><code>Coalescent.xml</code></a></dt><dd>Simulates coalescent trees with 10 leaves under a constant
 effective population size of 1.0.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/ComplexCoalescent.xml"><code>ComplexCoalescent.xml</code></a></dt><dd>Simulates coalescent trees under a more complex (piecewise constant
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/ComplexCoalescent.xml"><code>ComplexCoalescent.xml</code></a> (requires feast)</dt><dd>Simulates coalescent trees under a more complex (piecewise constant
 and exponential) population model. Also writes .traj file
 summarizing the deterministic population dynamics.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInference.xml"><code>CoalescentInference.xml</code></a></dt><dd>Simple self-contained coalescent inference simulation study XML.
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInferenceTree.xml"><code>CoalescentInferenceTree.xml</code></a></dt><dd>Simple self-contained coalescent inference simulation study XML.
 Uses ReMASTER to simulate a tree under a coalescent model with a
 true constant population size of 2.0, then uses BEAST to infer the
 population size from that tree.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInferenceAlignment.xml"><code>CoalescentInferenceAlignment.xml</code></a> (requires feast)</dt><dd>A more complex self-contained coalescent inference simulation study
+XML.  Uses Remaster to simulate a tree under a coalescent model with
+a true constant population size of 2.0.  Sequence evolution is then
+simulated down the tree using the sequence simulator from the <a href="https://tgvaugahn.github.io/feast">feast</a>
+package under a Jukes-Cantor model with strict clock rate of 0.05
+substitutions/site/time. Finally, the XML runs a BEAST MCMC analysis
+to jointly infer the tree, clock rate and population size from the
+simulated sequence data.</dd>
 
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/StructuredCoalescent.xml"><code>StructuredCoalescent.xml</code></a></dt><dd>Simple 2-deme structured coalescent simulation with constant
 population sizes and contemporaneously-sampled leaves.</dd>
@@ -1485,7 +1494,7 @@ population sizes and contemporaneously-sampled leaves.</dd>
 and one exponentially growing population, having 1000
 contemporaneously-sampled leaves.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/EpiBD.xml"><code>EpiBD.xml</code></a></dt><dd>Simple birth-death-sampling simulation parameterized in terms of
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/EpiBD.xml"><code>EpiBD.xml</code></a> (requires feast)</dt><dd>Simple birth-death-sampling simulation parameterized in terms of
 epidemiological parameters: basic reproductive number (R0),
 becoming-uninfectious rate and sampling proportion, as defined
 in <a href="https://doi.org/10.1073/pnas.1207965110">Stadler et al., 2013</a>.</dd>
@@ -1530,7 +1539,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org7244415">
+<pre class="example" id="org36d6164">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1600,7 +1609,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-11-23 Thu 16:39</p>
+<p class="date">Created: 2023-11-23 Thu 18:55</p>
 </div>
 </body>
 </html>
