@@ -3,7 +3,7 @@ Example Simulation Scripts for Remaster
 
 This directory contains several example scripts which demonstrate
 different kinds of phylodynamic simulations which can be performed
-using Remaster.
+using ReMASTER.
 
 To run these examples, first follow the installation instructions for Remaster
 found at https://tgvaughan.github.io/remaster/#id-1-Installation. Then
@@ -31,11 +31,21 @@ with brief summaries of the simulations they perform:
   and exponential) population model. Also writes .traj file
   summarizing the deterministic population dynamics.
 
-* `CoalescentInference.xml`
+* `CoalescentInferenceTree.xml`
   Simple self-contained coalescent inference simulation study XML.
   Uses Remaster to simulate a tree under a coalescent model with a
   true constant population size of 2.0, then uses BEAST to infer the
   population size from that tree.
+  
+* `CoalescentInferenceAlignment.xml`
+  A more complex self-contained coalescent inference simulation study XML.
+  Uses Remaster to simulate a tree under a coalescent model with a
+  true constant population size of 2.0.  Sequence evolution is then
+  simulated down the tree using the sequence simulator from the
+  [feast](https://tgvaugahn.github.io/feast) package under a Jukes-Cantor
+  model with strict clock rate of 0.05 substitutions/site/time. Finally,
+  the XML runs a BEAST MCMC analysis to jointly infer the tree, clock
+  rate and population size from the simulated sequence data.
   
 * `StructuredCoalescent.xml`
   Simple 2-deme structured coalescent simulation with constant

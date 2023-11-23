@@ -1,0 +1,105 @@
+<!-- Basic coalescent inference simulation study -->
+
+<!-- Uses Remaster to simulate a non-ultrametric tree under a coalescent model with
+     constant population size 2.0, simulates sequence evolution down the tree at
+     a fixed rate of 0.05/site/time then uses BEAST to jointly infer the population
+     size and the substitution rate from the resulting sequence alignment. -->
+
+<beast version="2.0"
+       namespace="beast.base.inference.parameter:remaster
+                  :beast.base.inference
+                  :beast.base.evolution
+                  :beast.base.evolution.tree
+                  :beast.base.evolution.alignment
+                  :beast.base.evolution.likelihood
+                  :beast.base.evolution.operator
+                  :feast.simulation.SimulatedAlignment">
+
+  <!-- Simulated tree -->
+  <tree id="trueTree" spec="SimulatedTree">
+    <trajectory id="traj" spec="CoalescentTrajectory">
+      <population id="pop" spec="coalescent.ConstantPopulation" popSize="2.0"/>
+      <reaction spec="Reaction" rate="100 0" changeTimes="1">0 -> pop</reaction>
+    </trajectory>
+  </tree>
+
+  <!-- Simulated alignment -->
+  <data id="alignment" spec="feast.simulation.SimulatedAlignment" sequenceLength="2000">
+    <tree idref="trueTree"/>
+    <siteModel spec="sitemodel.SiteModel" mutationRate="0.05">
+      <substModel spec="substitutionmodel.JukesCantor"/>
+    </siteModel>
+  </data>
+  <traitset id="tipDates" spec="feast.fileio.TipDatesFromTree" tree="@trueTree">
+    <taxa id="taxonSet" spec="TaxonSet" alignment="@alignment"/>
+  </traitset>
+
+  <!-- Inference -->
+  <run spec="MCMC" chainLength="1000000">
+    <state>
+      <stateNode spec="RealParameter" id="inferredPopSize" value="1.0"/>
+      <stateNode spec="Tree" id="tree">
+        <taxonset idref="taxonSet"/>
+        <trait idref="tipDates"/>
+      </stateNode>
+      <stateNode spec="RealParameter" id="inferredMutationRate" value="0.1"/>
+    </state>
+
+    <distribution id="posterior" spec="CompoundDistribution">
+
+      <distribution id="likelihood" spec="TreeLikelihood">
+        <data idref="alignment"/>
+        <tree idref="tree"/>
+        <siteModel spec="sitemodel.SiteModel" mutationRate="@inferredMutationRate">
+          <substModel spec="substitutionmodel.JukesCantor"/>
+        </siteModel>
+      </distribution>
+
+      <distribution id="treePrior" spec="coalescent.Coalescent">
+        <treeIntervals spec="tree.TreeIntervals" tree="@tree"/>
+        <populationModel spec="coalescent.ConstantPopulation" popSize="@inferredPopSize"/>
+      </distribution>
+
+      <distribution id="popSizePrior" spec="distribution.Prior" x="@inferredPopSize">
+        <distr spec="distribution.OneOnX"/>
+      </distribution>
+      <distribution id="mutationRatePrior" spec="distribution.Prior" x="@inferredMutationRate">
+        <distr spec="distribution.OneOnX"/>
+      </distribution>
+    </distribution>
+
+    <operator spec="operator.ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
+              parameter="@inferredPopSize" weight="1.0"/>
+    <operator spec="operator.ScaleOperator" id="mutationRateScaler" scaleFactor="0.8"
+              parameter="@inferredMutationRate" weight="1.0"/>
+
+    <operator id='treeScaler' spec='ScaleOperator' scaleFactor="0.5" tree="@tree" weight="1"/>
+    <operator spec='Uniform' tree="@tree" weight="10"/>
+    <operator spec='SubtreeSlide' gaussian="true" size="1.0" tree="@tree" weight="5"/>
+    <operator id='narrow' spec='Exchange' isNarrow='true' tree="@tree" weight="1"/>
+    <operator id='wide' spec='Exchange' isNarrow='false' tree="@tree" weight="1"/>
+    <operator spec='WilsonBalding' tree="@tree" weight="1"/>
+
+
+    <!-- File log -->
+    <logger fileName="$(filebase).log" logEvery="100">
+      <log idref="inferredPopSize"/>
+      <log idref="inferredMutationRate"/>
+    </logger>
+
+    <logger fileName="$(filebase).trees" logEvery="10000">
+      <log idref="tree"/>
+    </logger>
+
+    <logger fileName="$(filebase)_true.trees" logEvery="10000">
+      <log idref="trueTree"/>
+    </logger>
+
+
+    <!-- Screen log -->
+    <logger logEvery="10000">
+      <log idref="inferredPopSize"/>
+    </logger>
+    
+  </run>
+</beast>
