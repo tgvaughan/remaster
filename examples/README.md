@@ -12,6 +12,10 @@ Once the simulation is complete, output files will be left in the directory
 containing the input file.  (If launching BEAST from the command line,
 output files will be written to the current working directory.)
 
+Note that a couple of these scripts also require the BEAST 2 package
+[feast](https://tgvaughan.github.io/feast) to be installed.  These are
+marked with "requires feast".
+
 Here is a list of the example scripts contained in this directory, together
 with brief summaries of the simulations they perform:
 
@@ -26,7 +30,7 @@ with brief summaries of the simulations they perform:
   Simulates coalescent trees with 10 leaves under a constant
   effective population size of 1.0.
 
-* `ComplexCoalescent.xml`
+* `ComplexCoalescent.xml` (requires feast)
   Simulates coalescent trees under a more complex (piecewise constant
   and exponential) population model. Also writes .traj file
   summarizing the deterministic population dynamics.
@@ -37,7 +41,7 @@ with brief summaries of the simulations they perform:
   true constant population size of 2.0, then uses BEAST to infer the
   population size from that tree.
   
-* `CoalescentInferenceAlignment.xml`
+* `CoalescentInferenceAlignment.xml` (requires feast)
   A more complex self-contained coalescent inference simulation study XML.
   Uses Remaster to simulate a tree under a coalescent model with a
   true constant population size of 2.0.  Sequence evolution is then
@@ -56,7 +60,7 @@ with brief summaries of the simulations they perform:
   and one exponentially growing population, having 1000
   contemporaneously-sampled leaves.
 
-* `EpiBD.xml`
+* `EpiBD.xml` (requires feast)
   Simple birth-death-sampling simulation parameterized in terms of
   epidemiological parameters: basic reproductive number (R0),
   becoming-uninfectious rate and sampling proportion, as defined
@@ -83,7 +87,7 @@ with brief summaries of the simulations they perform:
   Susceptible-Exposed-Infectious-Removed (SEIR) model with an explicit
   termination condition and punctual sampling reactions.
 
-* `SimulatedBDAlignment.xml`
+* `SimulatedBDAlignment.xml` (requires feast)
   Simulates a tree under a birth-death-sampling model, then simulates
   sequence evolution under a basic Jukes-Cantor substitution model to
   produce a corresponding simulated alignment.
