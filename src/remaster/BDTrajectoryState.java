@@ -22,6 +22,7 @@ package remaster;
 import beast.base.core.BEASTObject;
 import beast.base.core.Function;
 
+import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -141,6 +142,31 @@ public class BDTrajectoryState {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Method used to construct trajectory log files which can be directly
+     * read into R without the need for custom parsing code.
+     *
+     * @param ps
+     * @param sample
+     * @param time
+     * @param isFirst
+     */
+    public void addToLog(PrintStream ps, long sample, double time, boolean isFirst) {
+        for (String popName : popIndices.keySet()) {
+            int baseIndex = popIndices.get(popName);
+            for (int i=0; i<popDims.get(popName); i++) {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    ps.print("\n" + sample + "\t");
+                ps.print(time + "\t");
+                ps.print(popName + "\t");
+                ps.print(i + "\t");
+                ps.print(occupancies[i+baseIndex]);
+            }
+        }
     }
 
 }

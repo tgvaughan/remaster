@@ -19,6 +19,7 @@
 
 package remaster;
 
+import beast.base.core.Description;
 import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.evolution.tree.Node;
@@ -39,10 +40,12 @@ import remaster.reactionboxes.PunctualBDReactionBox;
 import java.io.PrintStream;
 import java.util.*;
 
-/**
- * Class of objects representing deterministic approximations to birth-death
- * trajectories.
- */
+@Description("An object representing a deterministic approximation to a" +
+        "birth-death trajectory. Just as for StochasticTrajectory, " +
+        "the birth-death model is specified via Functions representing" +
+        "the various populations, and Reactions representing the reactions " +
+        "producing the dynamics.  This object can be logged to produce a" +
+        "TSV file which can be directly read into R for plotting.")
 public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     public Input<Function> loggingGridSizeInput = new Input<>("loggingGridSize",
@@ -305,21 +308,16 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     public void log(long sample, PrintStream out) {
         state.resetToInitial();
 
-        out.print("t=0");
-        out.print(state);
+        state.addToLog(out, sample, 0, true);
 
         double T = maxTimeInput.get().getArrayValue();
         double dt = T/loggingGridSizeInput.get().getArrayValue();
         for (double t=dt; t<stopTime; t += dt) {
-
-            out.print(";");
-            out.print("t=" + t);
-
             continuousOutputModel.setInterpolatedTime(t);
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
                     state.occupancies, 0, state.occupancies.length);
 
-            out.print(state);
+            state.addToLog(out, sample, t, false);
         }
 
         out.print("\t");

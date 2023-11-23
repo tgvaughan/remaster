@@ -19,6 +19,7 @@
 
 package remaster;
 
+import beast.base.core.Description;
 import beast.base.core.Input;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.coalescent.PopulationFunction;
@@ -28,6 +29,9 @@ import remaster.reactionboxes.PunctualCoalescentReactionBox;
 import java.io.PrintStream;
 import java.util.*;
 
+@Description("An object which represents a coalescent population trajectory. " +
+        "Note that this object can be logged to produce a table of population " +
+        "sizes which can be read into R for plotting.")
 public class CoalescentTrajectory extends AbstractTrajectory {
 
     public Input<List<PopulationFunction.Abstract>> popFuncInput = new Input<>("population",
@@ -141,15 +145,19 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         double maxAge = maxTrajLogAgeInput.get();
         double sampleCount = loggingGridSizeInput.get();
 
+        boolean isFirst = true;
         for (int i = 0; i< loggingGridSizeInput.get(); i++) {
-            if (i>0)
-                out.print(";");
-
             double t = i*maxAge/(sampleCount - 1);
 
-            out.print("t=" + t);
-            for (PopulationFunction.Abstract pop : popFuncInput.get())
-                out.print(":" + pop.getID() + "=" + pop.getPopSize(t));
+            for (PopulationFunction.Abstract pop : popFuncInput.get()) {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    out.print("\n" + sample + "\t");
+                out.print(t + "\t");
+                out.print(pop.getID() + "\t0\t");
+                out.print(pop.getPopSize(t));
+            }
         }
 
         out.print("\t");

@@ -19,6 +19,7 @@
 
 package remaster;
 
+import beast.base.core.Description;
 import beast.base.core.Input;
 import beast.base.core.Log;
 import beast.base.evolution.tree.Node;
@@ -30,6 +31,11 @@ import remaster.reactionboxes.PunctualBDReactionBox;
 import java.io.PrintStream;
 import java.util.*;
 
+@Description("An object representing a stochastic birth-death trajectory." +
+        "The birth-death model is specified via Functions representing" +
+        "the various populations, and Reactions representing the reactions " +
+        "producing the dynamics.  This object can be logged to produce a" +
+        "TSV file which can be directly read into R for plotting.")
 public class StochasticTrajectory extends AbstractBDTrajectory {
 
     public Input<Integer> maxRetriesInput = new Input<>("maxRetries",
@@ -187,14 +193,11 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
     public void log(long sample, PrintStream out) {
         state.resetToInitial();
 
-        out.print("t=0");
-        out.print(state);
+        state.addToLog(out, sample, 0, true);
 
         for (BDTrajectoryEvent event : events) {
-            out.print(";");
-            out.print("t=" + event.time);
             event.reactionBox.incrementState(state, event.multiplicity);
-            out.print(state);
+            state.addToLog(out, sample, event.time, false);
         }
 
         out.print("\t");

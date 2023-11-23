@@ -19,6 +19,7 @@
 
 package remaster;
 
+import beast.base.core.Citation;
 import beast.base.core.Input;
 import beast.base.core.Loggable;
 import beast.base.evolution.tree.Node;
@@ -28,6 +29,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@Citation("Tim Vaughan, ReMASTER: Improved phylodynamic simulation for BEAST 2.7," +
+        "https://doi.org/10.1101/2023.10.09.561485 (preprint, 2023)")
 public abstract class AbstractTrajectory extends CalculationNode implements Loggable {
 
     public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",
@@ -64,10 +67,7 @@ public abstract class AbstractTrajectory extends CalculationNode implements Logg
 
     @Override
     public void init(PrintStream out) {
-        if (getID() != null)
-            out.print(getID() + "\t");
-        else
-            out.print("trajectory\t");
+            out.print("t\tpopulation\tindex\tvalue");
     }
 
     @Override
