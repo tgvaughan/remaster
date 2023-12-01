@@ -34,6 +34,13 @@ with brief summaries of the simulations they perform:
   Simulates coalescent trees under a more complex (piecewise constant
   and exponential) population model. Also writes .traj file
   summarizing the deterministic population dynamics.
+  
+* `HetCoalescent.xml` (requires feast)
+  Demonstrates simulation of heterochronus coalescent trees using three
+  distinct leaf sampling strategies: continuous leaf sampling over a
+  time interval, even distribution of leaf times over an interval,
+  and sampling of a fixed number of leaf times from a uniform distribution
+  over a particular interval.
 
 * `CoalescentInferenceTree.xml`
   Simple self-contained coalescent inference simulation study XML.
