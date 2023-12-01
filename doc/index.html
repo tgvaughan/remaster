@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-11-23 Thu 18:55 -->
+<!-- 2023-12-01 Fri 18:14 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -65,7 +65,7 @@
 </div>
 </nav>
 
-<figure id="orgd47b016">
+<figure id="org7106ab4">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -215,7 +215,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org33dd42c">
+<figure id="org5b53d44">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -348,10 +348,32 @@ reactions and "punctual" reactions.
 <h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions"><span class="section-number-5">4.1.2.1.</span> Continuous reactions</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions">
 <p>
-As the name suggests, reactions are applied continuously throughout the
-simulation at particular <i>rates</i> which determine the probability per
-unit time for the reaction firing on each of the possible combinations
+As the name suggests, these reactions are applied continuously throughout the
+simulation at particular <i>rates</i> which, together with the current state
+of tye system, determine the reaction probability per
+unit time for the reaction firing on each of the possible <i>combinations</i>
 of reactant individuals.
+</p>
+
+<p>
+More specifically, a reaction with rate $\lambda$ is related to the overall reaction propensity
+$\Lambda$ via the following equation:
+$$\Lambda = \lambda \prod_{i}\binom{N_i}{n_i}$$
+where $i$ ranges over all reactant types, $N_i$ represents the total
+number of individuals of type $i$, and $n_i$ represents the number of reactants
+of type $i$ required for the reaction.
+</p>
+
+<p>
+<b><b>For users of MASTER</b></b>: The relationship between rates and
+propensities is subtly different in ReMASTER compared to MASTER.  In
+MASTER, rates were expressed per <i>ordered sequence</i> of reactants,
+rather than per <i>combination</i> of reactants.  This earlier choice was made for
+historical reasons, but the relationship above is arguably much more
+sensible.  However, this change means that, for reactions involving
+more than one reactant of a given type, the MASTER reaction rate
+constants must be multiplied by a factor of $1/n_i!$ for each type $i$
+in order to produce exactly the same results as ReMASTER.
 </p>
 
 <p>
@@ -370,6 +392,7 @@ population is
 $$ (\text{number of $S$ and $I$ pairs}) \times 2 = 2N_SN_I $$
 per unit time.
 </p>
+
 
 <p>
 The per-configuration rate of a continuous reaction can change at one
@@ -726,7 +749,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="orgc60a276">
+<pre class="example" id="org39d1d15">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -773,7 +796,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orgadf609f">
+<pre class="example" id="orgef71c56">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -819,7 +842,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="orgecc853a">
+<figure id="org1fb670f">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -831,7 +854,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgd08a625">
+<figure id="org14d5e41">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -978,7 +1001,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org642f108">
+<figure id="org921a2dc">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1032,7 +1055,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org880c415">
+<figure id="orgf80a5e9">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1122,7 +1145,7 @@ introduces a constant-size population with $N_e(t)=10$:
 </div>
 <p>
 (Like population elements in birth-death models, these population
-elements must be marked with an <code>id</code> attribute.)
+elements <i>must</i> be marked with an <code>id</code> attribute.)
 </p>
 
 <p>
@@ -1140,10 +1163,48 @@ time 0:
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"10"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> 0 -&gt; pop </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
+<p>
+Alternatively,
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"100 0"</span> <span class="org-nxml-attribute-local-name">changeTimes</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> 0 -&gt; pop </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+<p>
+generates leaves at a fixed rate between time 0 and time 1.
+(Note that rate of leaf generation explicitly changes from 1 to 0 at
+time 1 to avoid generating infinite numbers of leaves.) For the chosen rate,
+an average of 100 leaves will be generated by this second reaction, as
+it describes a simple Poisson process.
+</p>
+</div>
+
+<div id="outline-container-id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs" class="outline-4">
+<h4 id="id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs"><span class="section-number-4">5.1.1.</span> Vector-valued Reaction inputs</h4>
+<div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs">
+<p>
+As with all reactions, the <code>n</code>, <code>times</code>, <code>rate</code> and <code>changeTimes</code> inputs can be
+given multiple values.  In the context of coalescent models, this is
+useful for specifying large numbers of leaves at different times, or
+for allowing lineage migration rates to change in a piecewise-constant
+way.
+</p>
+
+<p>
+For example,
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"5"</span> <span class="org-nxml-attribute-local-name">times</span>=<span class="org-string">"0 1 2 3"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> 0 -&gt; pop </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+<p>
+produces 5 tips at each of the times 0, 1, 2, and 3; i.e. 20 leaf nodes in total.
+</p>
+</div>
 </div>
 
 <div id="outline-container-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions" class="outline-4">
-<h4 id="id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions"><span class="section-number-4">5.1.1.</span> Parents and children in coalescent reactions</h4>
+<h4 id="id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions"><span class="section-number-4">5.1.2.</span> Parents and children in coalescent reactions</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions">
 <p>
 Since coalescent reactions are applied to lineages backward in time, the
@@ -1238,7 +1299,7 @@ it yields:
 </div>
 
 
-<figure id="org5466202">
+<figure id="org64aabe4">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1290,7 +1351,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org976f7e3">
+<figure id="org5dd044a">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1358,7 +1419,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orgf79aec3">
+<figure id="org0ef47bf">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1436,6 +1497,38 @@ follows:
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
+
+<p>
+Alternatively, suppose you wish to simulate coalescent trees having
+200 leaves evenly spaced over a period of 0.5 time units.  This can be
+done by supplying a <code>feast.function.Sequence</code> object (feast
+documentation <a href="https://tgvaughan.github.io/feast/#id-3-Numeric-sequences-as-Functions">here</a>), which generates a <code>Function</code> representing a
+sequence of evenly spaced numbers, to the <code>times</code> input of the
+corresponding <code>PunctualReaction</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"> <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
+<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"pop"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">times</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"feast.function.Sequence"</span> <span class="org-nxml-attribute-local-name">start</span>=<span class="org-string">"0"</span> <span class="org-nxml-attribute-local-name">stop</span>=<span class="org-string">"0.5"</span> <span class="org-nxml-attribute-local-name">length</span>=<span class="org-string">"200"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-text">          0 -&gt; pop</span>
+<span class="org-nxml-text">        </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"$(filebase).trees"</span> <span class="org-nxml-attribute-local-name">mode</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">log</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"TypedTreeLogger"</span> <span class="org-nxml-attribute-local-name">tree</span>=<span class="org-string">"@tree"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">logger</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">run</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
 </div>
 </div>
 
@@ -1472,6 +1565,12 @@ effective population size of 1.0.</dd>
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/ComplexCoalescent.xml"><code>ComplexCoalescent.xml</code></a> (requires feast)</dt><dd>Simulates coalescent trees under a more complex (piecewise constant
 and exponential) population model. Also writes .traj file
 summarizing the deterministic population dynamics.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/HetCoalescent.xml"><code>HetCoalescent.xml</code></a> (requires feast)</dt><dd>Demonstrates simulation of heterochronus coalescent trees using three
+distinct leaf sampling strategies: continuous leaf sampling over a
+time interval, even distribution of leaf times over an interval,
+and sampling of a fixed number of leaf times from a uniform distribution
+over a particular interval.</dd>
 
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInferenceTree.xml"><code>CoalescentInferenceTree.xml</code></a></dt><dd>Simple self-contained coalescent inference simulation study XML.
 Uses ReMASTER to simulate a tree under a coalescent model with a
@@ -1518,7 +1617,7 @@ sampling process which only activates after 5 time units.</dd>
 Susceptible-Exposed-Infectious-Removed (SEIR) model with an explicit
 termination condition and punctual sampling reactions.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SimulatedBDAlignment.xml"><code>SimulatedBDAlignment.xml</code></a></dt><dd>Simulates a tree under a birth-death-sampling model, then simulates
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SimulatedBDAlignment.xml"><code>SimulatedBDAlignment.xml</code></a> (requires feast)</dt><dd>Simulates a tree under a birth-death-sampling model, then simulates
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 </dl>
@@ -1539,7 +1638,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org36d6164">
+<pre class="example" id="orgd8b66c5">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1609,7 +1708,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-11-23 Thu 18:55</p>
+<p class="date">Created: 2023-12-01 Fri 18:14</p>
 </div>
 </body>
 </html>
