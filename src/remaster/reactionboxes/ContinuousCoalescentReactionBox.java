@@ -29,6 +29,7 @@ import remaster.LineageFactory;
 import remaster.ReactElement;
 import remaster.Reaction;
 
+import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,11 +64,15 @@ public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
             return currentTime + PopulationFunction.Utils.getSimulatedInterval(
                     popFunc, lineages.get(popEl).size(), currentTime);
         } else {
+            reaction.resetInterval();
+            while (reaction.getIntervalEndTime()<currentTime)
+                reaction.incrementInterval();
+
             double prop = getPropensity(lineages);
             double dt = -Math.log(u)/prop;
             double t = currentTime;
             while (t+dt > reaction.getIntervalEndTime()) {
-                u -= Math.exp(-(t - reaction.getIntervalEndTime()) * prop);
+                u -= 1.0 - Math.exp(-(reaction.getIntervalEndTime() - t) * prop);
                 t = reaction.getIntervalEndTime();
                 reaction.incrementInterval();
                 prop = getPropensity(lineages);
