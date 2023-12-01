@@ -19,12 +19,14 @@
 
 package remaster;
 
+import beast.base.core.Description;
 import beast.base.core.Function;
 import beast.base.core.Input;
 
-/**
- * Class of reactions which occur at pre-determined times.
- */
+import java.util.Arrays;
+import java.util.Comparator;
+
+@Description("Reactions which occur at pre-determined times.")
 public class PunctualReaction extends AbstractReaction {
 
     public Input<Function> pInput = new Input<>("p",
@@ -45,17 +47,26 @@ public class PunctualReaction extends AbstractReaction {
     public void initAndValidate() {
         times = timesInput.get().getDoubleValues();
 
+        // Sort times, keeping association with ns/ps:
+        Integer[] indices = new Integer[times.length];
+        for (int i=0; i<indices.length; i++)
+            indices[i] = i;
+        Arrays.sort(indices, (i1, i2) -> Double.compare(times[i1], times[i2]));
+        Arrays.sort(times);
+
+        // Fill ps and ns (using sorted time indices):
+
         if (pInput.get() != null) {
             ps = new double[times.length];
             int pDim = pInput.get().getDimension();
-            for (int i=0; i<times.length; i++)
+            for (int i : indices)
                 ps[i] = pInput.get().getArrayValue(i%pDim);
         }
 
         if (nInput.get() != null) {
             ns = new double[times.length];
             int nDim = nInput.get().getDimension();
-            for (int i=0; i<times.length; i++)
+            for (int i : indices)
                 ns[i] = nInput.get().getArrayValue(i%nDim);
         }
 
