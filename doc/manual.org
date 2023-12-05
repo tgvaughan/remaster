@@ -49,7 +49,7 @@ at pre-determined times and fire a fixed or stochastic number of times.
 Besides allowing models to include interesting discrete events, this allows
 users to pre-specify sample counts and times.
 
-Setting up a birth-death model in master involves composing an XML input file
+Setting up a birth-death model in ReMASTER involves composing an XML input file
 describing initial population sizes and the set of reactions governing
 their dynamics.  The input file format is quite readable and concise.
 For example, the following is a complete XML input file for 
