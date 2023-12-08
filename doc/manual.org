@@ -1234,6 +1234,9 @@ with brief summaries of the simulations they perform:
   sequence evolution under a basic Jukes-Cantor substitution model to
   produce a corresponding simulated alignment.
 
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml][=YuleInferenceInitialisation.xml]] :: 
+  Demonstrates the use of a ReMASTER birth-death tree simulation to
+  initilise the state of an MCMC analysis of primate sequences.
 
 * Appendix
 :PROPERTIES:

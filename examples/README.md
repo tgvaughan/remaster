@@ -98,3 +98,7 @@ with brief summaries of the simulations they perform:
   Simulates a tree under a birth-death-sampling model, then simulates
   sequence evolution under a basic Jukes-Cantor substitution model to
   produce a corresponding simulated alignment.
+
+* `YuleInferenceInitialisation.xml`
+  Demonstrates the use of ReMASTER to initilise the state of
+  an MCMC analysis using a simulated birth-death tree.

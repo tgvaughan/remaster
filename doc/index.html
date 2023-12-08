@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-12-05 Tue 10:00 -->
+<!-- 2023-12-08 Fri 18:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -65,7 +65,7 @@
 </div>
 </nav>
 
-<figure id="orge6deb6e">
+<figure id="org52451b8">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -215,7 +215,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="orgd32b098">
+<figure id="org39ca0d3">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -749,7 +749,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org25da4a5">
+<pre class="example" id="orgc5813aa">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -796,7 +796,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org995d844">
+<pre class="example" id="org2697744">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -842,7 +842,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org67f467b">
+<figure id="orga4aae2f">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -854,7 +854,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org5215f0c">
+<figure id="orgc3d6bf5">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1001,7 +1001,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orgaa8b281">
+<figure id="org82ff34c">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1055,7 +1055,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgaa9a854">
+<figure id="org127381d">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1299,7 +1299,7 @@ it yields:
 </div>
 
 
-<figure id="org02b2f7e">
+<figure id="org05625b8">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1351,7 +1351,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org354abbd">
+<figure id="org6b885b2">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1419,7 +1419,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orga2ac2c3">
+<figure id="orgb1dc211">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1620,10 +1620,12 @@ termination condition and punctual sampling reactions.</dd>
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SimulatedBDAlignment.xml"><code>SimulatedBDAlignment.xml</code></a> (requires feast)</dt><dd>Simulates a tree under a birth-death-sampling model, then simulates
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
+
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml">=YuleInferenceInitialisation.xml</a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
 </div>
-
 
 <div id="outline-container-id-1-Appendix" class="outline-2">
 <h2 id="id-1-Appendix"><span class="section-number-2">8.</span> Appendix</h2>
@@ -1638,7 +1640,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org1bbe7cf">
+<pre class="example" id="orge5f9a41">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1708,7 +1710,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-12-05 Tue 10:00</p>
+<p class="date">Created: 2023-12-08 Fri 18:27</p>
 </div>
 </body>
 </html>

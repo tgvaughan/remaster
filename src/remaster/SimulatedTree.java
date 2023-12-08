@@ -21,6 +21,7 @@ package remaster;
 
 import beast.base.core.Input;
 import beast.base.core.Log;
+import beast.base.evolution.alignment.TaxonSet;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
 
@@ -85,5 +86,17 @@ public class SimulatedTree extends Tree {
             root = Util.getSingletonFreeTree(root);
 
         assignFromWithoutID(new Tree(root));
+
+        // Recover taxon set
+        if (m_taxonset.get() != null) {
+            if (getLeafNodeCount() != m_taxonset.get().getTaxonCount())
+                throw new IllegalArgumentException("Number of leaves in simulated tree does not match the number of provided taxa.");
+
+            for (int i=0; i<getLeafNodeCount(); i++) {
+                getNode(i).setID(m_taxonset.get().getTaxonId(i));
+            }
+
+        }
+
     }
 }
