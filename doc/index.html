@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-12-13 Wed 17:47 -->
+<!-- 2023-12-13 Wed 19:17 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -65,7 +65,7 @@
 </div>
 </nav>
 
-<figure id="org27a12b4">
+<figure id="org8bcdb51">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -215,7 +215,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org31da31f">
+<figure id="org3ea10fe">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -749,7 +749,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org23b4761">
+<pre class="example" id="org5f60cf2">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -796,7 +796,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org712f9ac">
+<pre class="example" id="orgb06e98a">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -842,7 +842,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org2c73427">
+<figure id="org6104286">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -854,7 +854,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org4eec206">
+<figure id="org27f8037">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -951,7 +951,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#org01f60f5">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orged4cc32">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1010,7 +1010,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org7eace6f">
+<figure id="orgc0c81e3">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1064,7 +1064,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org4932490">
+<figure id="org75ffed9">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1308,7 +1308,7 @@ it yields:
 </div>
 
 
-<figure id="orga349556">
+<figure id="org9f1c161">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1360,7 +1360,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="orgb0004e3">
+<figure id="org5fbfb2b">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1428,7 +1428,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orga4eab64">
+<figure id="orgfba1755">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1552,7 +1552,7 @@ package: <a href="https://github.com/tgvaughan/remaster/tree/master/examples">ht
 </p>
 
 <p>
-<b><b>Note</b></b>: Some of these examples also require the BEAST 2 package <code>feast</code> to be installed.
+<b><b>Note</b></b>: Some of these examples also require the BEAST 2 package <a href="https://tgvaughan.github.io/feast"><code>feast</code></a> to be installed.
 This can be installed directly using the package manager in BEAUti in the same way that
 you installed ReMASTER.
 </p>
@@ -1589,7 +1589,7 @@ population size from that tree.</dd>
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/CoalescentInferenceAlignment.xml"><code>CoalescentInferenceAlignment.xml</code></a> (requires feast)</dt><dd>A more complex self-contained coalescent inference simulation study
 XML.  Uses Remaster to simulate a tree under a coalescent model with
 a true constant population size of 2.0.  Sequence evolution is then
-simulated down the tree using the sequence simulator from the <a href="https://tgvaugahn.github.io/feast">feast</a>
+simulated down the tree using the sequence simulator from the <a href="https://tgvaughan.github.io/feast">feast</a>
 package under a Jukes-Cantor model with strict clock rate of 0.05
 substitutions/site/time. Finally, the XML runs a BEAST MCMC analysis
 to jointly infer the tree, clock rate and population size from the
@@ -1630,7 +1630,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="org01f60f5"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orged4cc32"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1649,7 +1649,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgf0b01c4">
+<pre class="example" id="orgacf1928">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1719,7 +1719,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-12-13 Wed 17:47</p>
+<p class="date">Created: 2023-12-13 Wed 19:17</p>
 </div>
 </body>
 </html>

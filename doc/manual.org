@@ -1157,7 +1157,7 @@ ReMASTER scripts.  These are installed alongside the package when you install it
 You can also access these example scripts directly via the GitHub repository for the
 package: https://github.com/tgvaughan/remaster/tree/master/examples.
 
-**Note**: Some of these examples also require the BEAST 2 package =feast= to be installed.
+**Note**: Some of these examples also require the BEAST 2 package [[https://tgvaughan.github.io/feast][=feast=]] to be installed.
 This can be installed directly using the package manager in BEAUti in the same way that
 you installed ReMASTER.
 
@@ -1197,7 +1197,7 @@ with brief summaries of the simulations they perform:
   A more complex self-contained coalescent inference simulation study
   XML.  Uses Remaster to simulate a tree under a coalescent model with
   a true constant population size of 2.0.  Sequence evolution is then
-  simulated down the tree using the sequence simulator from the [[https://tgvaugahn.github.io/feast][feast]]
+  simulated down the tree using the sequence simulator from the [[https://tgvaughan.github.io/feast][feast]]
   package under a Jukes-Cantor model with strict clock rate of 0.05
   substitutions/site/time. Finally, the XML runs a BEAST MCMC analysis
   to jointly infer the tree, clock rate and population size from the
