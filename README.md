@@ -1,7 +1,7 @@
-Remaster
+ReMASTER
 ========
 
-Remaster is a complete rewrite of the
+ReMASTER is a complete rewrite of the
 [MASTER](https://tgvaughan.github.io/MASTER) tree simulation package
 for [BEAST 2](https://beast2.org).
 
@@ -24,24 +24,24 @@ Happy simulating!
 Building from Source
 --------------------
 
-To build Remaster from source you'll need the following to be installed:
+To build ReMASTER from source you'll need the following to be installed:
 - OpenJDK version 17 or greater
 - the Apache Ant build system
 
 Once these are installed and in your execution path, running `ant` with
-no arguments from the root directory of the Remaster repository should
+no arguments from the root directory of the ReMASTER repository should
 build the package and create the corresponding ZIP file, which will be
 left in the `dist/` subdirectory.
 
 Note that unless you already have a local copy of the latest [beast 2
 source](https://github.com/CompEvol/beast2) in the directory
-`../beast2` relative to the Remaster root, the build script will
+`../beast2` relative to the ReMASTER root, the build script will
 attempt to download it automatically.  Thus, most builds will require
 a network connection.
 
 License
 -------
 
-Remaster is free (as in freedom) software, and is released under the
+ReMASTER is free (as in freedom) software, and is released under the
 terms of version 3 or later of the GNU General Public License. A copy
 of this license can be found in this directory in the file named COPYING.

@@ -3,8 +3,8 @@ Development News
 
 ### 2023-03-29
 
-Remaster version 2.0 is out!  While copious bug fixes and some minor
-improvements will inevitibly follow, I don't intend to add any more
+ReMASTER version 2.0 is out!  While copious bug fixes and some minor
+improvements will inevitably follow, I don't intend to add any more
 major features at this point: I regard this as a "finished" project.
 
 ### 2023-03-24
@@ -56,12 +56,12 @@ the `PopulationFunction` objects.
 
 ### 2022-10-24
 
-I've updated Remaster to work with BEAST 2.7. Expect a new release shortly.
+I've updated ReMASTER to work with BEAST 2.7. Expect a new release shortly.
 
 ### 2022-09-19
 
 I've added [a draft manual](https://tgvaughan.github.io/remaster),
-for those wanting to start using Remaster.
+for those wanting to start using ReMASTER.
 
 Remember, this package is still under a fair bit of churn, so there's
 no guarantee that existing behaviour won't change substantially in
@@ -149,7 +149,7 @@ specified for more kinds of reactions without recourse to the clumsy
 ### 2022-05-23
 
 Preliminary support for end conditions has been added.
-In Remaster, these conditions are specified using boolean expressions
+In ReMASTER, these conditions are specified using boolean expressions
 represented as strings that are subsequently parsed.
 
 For example, the following produces a birth-death-sampling tree using
@@ -186,12 +186,12 @@ The `maxTime` input specifies a maximum time for the simulation.  When
 an `endsWhen` input is specified, the condition must be satisfied even if
 the maximum simulation time is reached.  (Otherwise the simulation is repeated.)
 
-With this addition, Remaster can perform all birth-death simulations
+With this addition, ReMASTER can perform all birth-death simulations
 that were possible in the original MASTER.
 
 ### 2022-05-18
 
-Remaster can now simulate birth-death trajectories and birth-death-sampling
+ReMASTER can now simulate birth-death trajectories and birth-death-sampling
 trees with punctual events, including contemporaneous sampling.  Such events
 take two forms: n-events, which always result in the reaction firing n times,
 and p-events, which apply the reaction to every possible reactant combination
@@ -242,7 +242,7 @@ of the continuous reactions are all set to zero at time 6 in the example above.
 
 ### 2022-04-06
 
-Remaster can now simulate birth-death trajectories and birth-death sampling
+ReMASTER can now simulate birth-death trajectories and birth-death sampling
 trees with piecewise-constant rate variation. There's no support yet for
 contemporaneous sampling (or birth/death) events, nor is there yet support for
 the approximate algorithms needed to handle extremely large populations (10^6+),
