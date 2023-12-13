@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-12-08 Fri 18:27 -->
+<!-- 2023-12-13 Wed 17:47 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -65,7 +65,7 @@
 </div>
 </nav>
 
-<figure id="org52451b8">
+<figure id="org27a12b4">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -215,7 +215,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org39ca0d3">
+<figure id="org31da31f">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -737,8 +737,8 @@ ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&g
 The <code>Simulator</code> takes the following inputs:
 </p>
 <dl class="org-dl">
-<dt>nSims</dt><dd>an integer specifying the number of independent simulations to perform,</dd>
-<dt>simulate</dt><dd>an object representing the simulation, in this case a <code>StochasticTrajectory</code>, and</dd>
+<dt>nSims (required)</dt><dd>an integer specifying the number of independent simulations to perform,</dd>
+<dt>simulate (required)</dt><dd>an object representing the simulation, in this case a <code>StochasticTrajectory</code>, and</dd>
 <dt>logger</dt><dd>what to record in the output files for each replicate of the simulation.
 This input can take multiple values, one for each output file.
 (In this case we only produce one output file, containing a representation of the whole simulated trajectory.)</dd>
@@ -749,7 +749,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="orgc5813aa">
+<pre class="example" id="org23b4761">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -796,7 +796,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org2697744">
+<pre class="example" id="org712f9ac">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -842,7 +842,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="orga4aae2f">
+<figure id="org2c73427">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -854,7 +854,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgc3d6bf5">
+<figure id="org4eec206">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -918,34 +918,43 @@ is easy.  All that is required is to enclose the trajectory element
 </div>
 
 <p>
+The <code>SimulatedTree</code> object takes the following inputs
+</p>
+<dl class="org-dl">
+<dt>trajectory (required)</dt><dd>a ReMASTER trajectory object.
 For trajectories generated using <code>StochasticTrajectory</code>, trees are
 exact realisations of the reconstructed phylogeny under the
 corresponding branching process.  For trajectories generated using
 <code>DeterministicTrajectory</code>, trees can be considered samples from a
 diffusion approximation to the branching process.  (For details on this
-kind of approximation, see <a href="https://doi.org/10.1534/genetics.111.134627">Volz et al., Genetics, 2012</a>.)
-</p>
+kind of approximation, see <a href="https://doi.org/10.1534/genetics.111.134627">Volz et al., Genetics, 2012</a>.)</dd>
 
-<p>
-<code>SimulatedTree</code> takes an optional input, <code>maxRetries</code>.  This is the
-maximum number of times (default 10) that the simulator should attempt
-to produce a tree, in the event that the first simulated tree does not
-have exactly one root lineage.  (Simulated trees may have more than
-one root lineage in the instance that not all sampled lineages find a
-common ancestor before the start of the simulation; a situation common
-for deterministic trajectories. It can also occur when the initial
-number of individuals in the sampled population is greater than 1.)
-</p>
+<dt>maxRetries (default 10)</dt><dd>This is the maximum number of times (default 10) that
+the simulator should attempt to produce a tree, in the event that
+the first simulated tree does not have exactly one root lineage.
+(Simulated trees may have more than one root lineage in the instance
+that not all sampled lineages find a common ancestor before the
+start of the simulation; a situation common for deterministic
+trajectories. It can also occur when the initial number of
+individuals in the sampled population is greater than 1.)</dd>
 
-<p>
-Additionally, the boolean input <code>removeSingletonNodes</code> (default false)
-can be used to specify that single child nodes representing type changes
+<dt>removeSingletonNodes (default false)</dt><dd>This can be used to specify that single child nodes representing type changes
 (if present) should be removed after the simulation is complete.
 This is sometimes useful if the tree is to be used as the basis or
 starting point for inference or sequence simulation, as not all BEAST 2 
-classes know how to handle such nodes.
+classes know how to handle such nodes.</dd>
+</dl>
+
+<p>
+Note: a <code>SimulatedTree</code> is a special case of the generic BEAST <code>Tree</code> object, and
+can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In this vein, if
+a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
+the simulated tree can be associated with a pre-defined set of taxa.  This can
+be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
+data set, as demonstrated in the <a href="#org01f60f5">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
+
 
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs"><span class="section-number-4">4.3.1.</span> Self-contained tree simulation XMLs</h4>
@@ -1001,7 +1010,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org82ff34c">
+<figure id="org7eace6f">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1055,7 +1064,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org127381d">
+<figure id="org4932490">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1179,9 +1188,9 @@ it describes a simple Poisson process.
 </p>
 </div>
 
-<div id="outline-container-id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs" class="outline-4">
-<h4 id="id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs"><span class="section-number-4">5.1.1.</span> Vector-valued Reaction inputs</h4>
-<div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Vector-valued-Reaction-inputs">
+<div id="outline-container-id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs" class="outline-4">
+<h4 id="id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs"><span class="section-number-4">5.1.1.</span> Vector-valued coalescent Reaction inputs</h4>
+<div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs">
 <p>
 As with all reactions, the <code>n</code>, <code>times</code>, <code>rate</code> and <code>changeTimes</code> inputs can be
 given multiple values.  In the context of coalescent models, this is
@@ -1299,7 +1308,7 @@ it yields:
 </div>
 
 
-<figure id="org05625b8">
+<figure id="orga349556">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1351,7 +1360,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org6b885b2">
+<figure id="orgb0004e3">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1419,7 +1428,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orgb1dc211">
+<figure id="orga4eab64">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1621,7 +1630,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml">=YuleInferenceInitialisation.xml</a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="org01f60f5"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1640,7 +1649,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orge5f9a41">
+<pre class="example" id="orgf0b01c4">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1710,7 +1719,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-12-08 Fri 18:27</p>
+<p class="date">Created: 2023-12-13 Wed 17:47</p>
 </div>
 </body>
 </html>

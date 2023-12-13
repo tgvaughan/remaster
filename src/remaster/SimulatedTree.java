@@ -21,7 +21,6 @@ package remaster;
 
 import beast.base.core.Input;
 import beast.base.core.Log;
-import beast.base.evolution.alignment.TaxonSet;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
 
