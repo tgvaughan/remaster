@@ -364,6 +364,82 @@ of the two $I$ products, we could write
 Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 
+*** Complex model configurations using ~<plate>~
+:PROPERTIES:
+:CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-~<plate>~
+:END:
+
+By composing populations and reactions as defined above you can construct birth-death
+(and later coalescent) models of very large complexity. However, for models having
+many distinct types, explicitly describing every possible reaction between these types
+can become extremely tedious.
+
+For instance, consider a model composed of 5 populations X,Y,Z,W, and V, in which
+every population has initially 1 individual and each is subject to a
+birth reaction.
+
+To set this up directly would involve something like the following:
+#+begin_src xml
+  <population id="X" spec="RealParameter" value="1"/>
+  <population id="Y" spec="RealParameter" value="1"/>
+  <population id="Z" spec="RealParameter" value="1"/>
+  <population id="W" spec="RealParameter" value="1"/>
+  <population id="V" spec="RealParameter" value="1"/>
+
+  <reaction spec="Reaction" rate="1.0"> X -> 2X </reaction>
+  <reaction spec="Reaction" rate="1.0"> Y -> 2Y </reaction>
+  <reaction spec="Reaction" rate="1.0"> Z -> 2Z </reaction>
+  <reaction spec="Reaction" rate="1.0"> W -> 2W </reaction>
+  <reaction spec="Reaction" rate="1.0"> V -> 2V </reaction>
+#+end_src
+
+If we also wanted to include reactions involving pairs of different
+populations, the model specification could easily run to many pages.
+
+Happily, BEAST 2 provides a compact way to express repeated a
+repeated fragment of XML: the ~<plate>~ element. To use this,
+we surround a fragment of XML to repeat as follows:
+#+begin_src xml
+  <plate var="i" range="A,B,C,...">
+    <!-- fragment to repeat -->
+  </plate>
+#+end_src
+This causes the body of this element to be repeated a certain number of times,
+defined by the number of comma-delimited values in the string passed to the ~range~ input.
+The ~var~ input defines the name of a variable which will be substituted for each
+of these values when it appears in the fragment.
+
+Using ~<plate>~ notation, our model specification can be written much more simply as
+#+begin_src xml
+  <plate var="pop" range="X,Y,Z,W,V">
+    <population id="$(pop)" spec="RealParameter" value="1"/>
+    <reaction spec="Reaction" rate="1.0"> $(pop) -> 2$(pop) </reaction>
+  </plate>
+#+end_src
+
+We can also nest ~<plate>~ elements to create reactions involving multiple populations.
+For instance, the following defines migration between each possible pair of populations:
+#+begin_src xml
+  <plate var="source" range="X,Y,Z,W,V">
+    <plate var="dest" range="X,Y,Z,W,V">
+      <reaction spec="Reaction" rate="0.5"> $(source) -> $(dest) </reaction>
+    </plate>
+  </plate>
+#+end_src
+(Note that this will produce some reactions that do nothing, but this is not an issue.)
+
+Besides a comma-delimited list of symbols, ~range~ can also take a
+sequence notation "start:end" to represent a sequence of integers
+between start and end inclusive.
+This can be helpful in creating reactions involving many subpopulations:
+#+begin_src xml
+  <population id="X" spec="RealParameter" dimension="100" value="1"/>
+  <plate var="i" range="0:99">
+    <reaction spec="Reaction" rate="1.0"> X[$(i)] -> 2X[$(i)] </reaction>
+  </plate>
+#+end_src
+
+
 ** Trajectory simulation
 :PROPERTIES:
 :CUSTOM_ID: id-2-Birth-death-simulations-Trajectory-simulation
