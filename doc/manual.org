@@ -57,7 +57,7 @@ simulating 100 trees under a the above birth-death sampling model with
 $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 
 #+begin_src xml
-<beast version="2.0" namespace="beast.base.inference:base.base.inference.parameter:remaster">
+<beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="S>=10">

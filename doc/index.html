@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-12-16 Sat 18:11 -->
+<!-- 2023-12-17 Sun 16:45 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -91,7 +91,7 @@
 </div>
 </nav>
 
-<figure id="orgee657d4">
+<figure id="org79cf929">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -157,7 +157,7 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:base.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
             <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"SIRTrajectory"</span> <span class="org-nxml-attribute-local-name">endsWhen</span>=<span class="org-string">"S&gt;=10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -241,7 +241,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org1b49fc7">
+<figure id="orge246354">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -876,7 +876,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="orgf754333">
+<pre class="example" id="orgf8e9f4a">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -923,7 +923,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orgb8ed3e3">
+<pre class="example" id="orgd422cd1">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -969,7 +969,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org92ccb5b">
+<figure id="orgb12235d">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -981,7 +981,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org70ae026">
+<figure id="org5c20bec">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1078,7 +1078,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#orgc100af8">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orgb249a9b">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1137,7 +1137,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org478a961">
+<figure id="orgb1e7520">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1191,7 +1191,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgd8a8415">
+<figure id="orgef2b8de">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1435,7 +1435,7 @@ it yields:
 </div>
 
 
-<figure id="org4e4a731">
+<figure id="orgc91be2e">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1487,7 +1487,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org3a9dc04">
+<figure id="org0b58f8a">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1555,7 +1555,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orgd7428e6">
+<figure id="org92026f2">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1757,7 +1757,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="orgc100af8"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orgb249a9b"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1776,7 +1776,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgcf7c350">
+<pre class="example" id="orgd5f990b">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1846,7 +1846,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-12-16 Sat 18:11</p>
+<p class="date">Created: 2023-12-17 Sun 16:45</p>
 </div>
 </body>
 </html>
