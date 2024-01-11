@@ -1,6 +1,6 @@
 # Turn off default internal styles
 #+OPTIONS: html-style:nil html5-fancy:t
-#+OPTIONS: tex:verbatim H:6 toc:3 num:t
+#+OPTIONS: tex:verbatim H:6 toc:4 num:t
 
 # Exporting to HTML5
 #+HTML_DOCTYPE: html5

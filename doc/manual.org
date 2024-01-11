@@ -144,7 +144,7 @@ The ReMASTER package should now be available on your system!
 
 * Using ReMASTER: General overview
 :PROPERTIES:
-:CUSTOM_ID: id-1-Using-ReMASTER:-General-overview
+:CUSTOM_ID: id-1-Using-ReMASTER-General-overview
 :END:
 
 As mentioned in the [[*Overview][overview]] above, the general approach to using
@@ -171,6 +171,7 @@ be read directly from start to finish.  Thus, even if you are only
 interested in coalescent simulation, please read the [[*Birth-death simulations][Birth-death
 simulations]] chapter first---it introduces in detail several key
 concepts shared by all simulation types.
+
 
 * Birth-death simulations
 :PROPERTIES:
@@ -377,9 +378,9 @@ of the two $I$ products, we could write
 Note that unlike MASTER, ReMASTER requires each child have at most one parent, ensuring
 that the resulting relationships are tree-like.
 
-*** Complex model configurations using ~<plate>~
+*** Complex model configurations using plates
 :PROPERTIES:
-:CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-~<plate>~
+:CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-plates
 :END:
 
 By composing populations and reactions as defined above you can construct birth-death
