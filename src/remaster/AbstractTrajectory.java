@@ -29,8 +29,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@Citation("Tim Vaughan, ReMASTER: Improved phylodynamic simulation for BEAST 2.7," +
-        "https://doi.org/10.1101/2023.10.09.561485 (preprint, 2023)")
+@Citation("T. G. Vaughan, ReMASTER: Improved phylodynamic simulation for BEAST 2.7," +
+        "Bioinformatics, btae015, 2024. (https://doi.org/10.1101/2023.10.09.561485)")
 public abstract class AbstractTrajectory extends CalculationNode implements Loggable {
 
     public Input<List<AbstractReaction>> reactionsInput = new Input<>("reaction",

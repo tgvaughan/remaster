@@ -108,6 +108,19 @@ version 3 of the GNU General Public License, the text of which is
 available [[https://raw.githubusercontent.com/tgvaughan/remaster/master/COPYING][here]].  The source code for the project can be found at the
 official GitHub project page: https://github.com/tgvaughan/remaster.
 
+** Citing ReMASTER
+:PROPERTIES:
+:CUSTOM_ID: id-2-Overview-Citing-ReMASTER
+:END:
+
+If you use ReMASTER as part of research that leads to a publication,
+please cite the following article:
+
+#+BEGIN_QUOTE
+T. G. Vaughan, "ReMASTER: Improved phylodynamic simulation for BEAST 2.7",
+Bioinformatics, btae015, 2024. (https://doi.org/10.1093/bioinformatics/btae015)
+#+END_QUOTE
+
 * Installation
 :PROPERTIES:
 :CUSTOM_ID: id-1-Installation

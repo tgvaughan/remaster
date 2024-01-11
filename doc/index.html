@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-12-17 Sun 16:45 -->
+<!-- 2024-01-11 Thu 10:01 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -31,6 +31,7 @@
 <ul>
 <li><a href="#id-2-Overview-The-name">1.1. The name</a></li>
 <li><a href="#id-2-Overview-License">1.2. License</a></li>
+<li><a href="#id-2-Overview-Citing-ReMASTER">1.3. Citing ReMASTER</a></li>
 </ul>
 </li>
 <li><a href="#id-1-Installation">2. Installation</a></li>
@@ -91,7 +92,7 @@
 </div>
 </nav>
 
-<figure id="org79cf929">
+<figure id="orgf124826">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -217,6 +218,23 @@ official GitHub project page: <a href="https://github.com/tgvaughan/remaster">ht
 </p>
 </div>
 </div>
+
+<div id="outline-container-id-2-Overview-Citing-ReMASTER" class="outline-3">
+<h3 id="id-2-Overview-Citing-ReMASTER"><span class="section-number-3">1.3.</span> Citing ReMASTER</h3>
+<div class="outline-text-3" id="text-id-2-Overview-Citing-ReMASTER">
+<p>
+If you use ReMASTER as part of research that leads to a publication,
+please cite the following article:
+</p>
+
+<blockquote>
+<p>
+T. G. Vaughan, "ReMASTER: Improved phylodynamic simulation for BEAST 2.7",
+Bioinformatics, btae015, 2024. (<a href="https://doi.org/10.1093/bioinformatics/btae015">https://doi.org/10.1093/bioinformatics/btae015</a>)
+</p>
+</blockquote>
+</div>
+</div>
 </div>
 
 <div id="outline-container-id-1-Installation" class="outline-2">
@@ -241,7 +259,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="orge246354">
+<figure id="org8c42a59">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -876,7 +894,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="orgf8e9f4a">
+<pre class="example" id="org131060a">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -923,7 +941,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="orgd422cd1">
+<pre class="example" id="org7fca7cf">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -969,7 +987,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="orgb12235d">
+<figure id="org0f3556f">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -981,7 +999,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org5c20bec">
+<figure id="orgaade549">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1078,7 +1096,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#orgb249a9b">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#org42a36b4">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1137,7 +1155,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orgb1e7520">
+<figure id="org4b27d0d">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1191,7 +1209,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgef2b8de">
+<figure id="org81c95f8">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1435,7 +1453,7 @@ it yields:
 </div>
 
 
-<figure id="orgc91be2e">
+<figure id="orge7c4d18">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1487,7 +1505,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org0b58f8a">
+<figure id="org9f2f97b">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1555,7 +1573,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org92026f2">
+<figure id="orgd1fb648">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1757,7 +1775,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="orgb249a9b"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="org42a36b4"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1776,7 +1794,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgd5f990b">
+<pre class="example" id="org7845fff">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1846,7 +1864,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2023-12-17 Sun 16:45</p>
+<p class="date">Created: 2024-01-11 Thu 10:01</p>
 </div>
 </body>
 </html>
