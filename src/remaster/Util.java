@@ -68,6 +68,21 @@ public class Util {
      * @return Root node of transformed tree
      */
     public static Node getSingletonFreeTree(Node root) {
+        Node newRoot = getSingletonFreeTreeRecurse(root);
+        renumberInternalNodes(newRoot, root.getLeafNodeCount());
+
+        return newRoot;
+    }
+
+    /**
+     * Helper function for getSingletonFreeTree().  Recursively creates a
+     * new tree identical to the input tree but with the singleton nodes
+     * removed.
+     *
+     * @param root root of tree to transform
+     * @return root of newly transformed tree.
+     */
+    private static Node getSingletonFreeTreeRecurse(Node root) {
 
         while (root.getChildren().size() == 1) {
             root = root.getChild(0);
@@ -79,13 +94,37 @@ public class Util {
 
         if (root.isLeaf()) {
             newRoot.setNr(root.getNr());
-            newRoot.setID(newRoot.getID());
+            newRoot.setID(root.getID());
         }
 
         for (Node child : root.getChildren())
-            newRoot.addChild(getSingletonFreeTree(child));
+            newRoot.addChild(getSingletonFreeTreeRecurse(child));
 
         return newRoot;
     }
 
+    /**
+     * Helper function for getSingletonFreeTree().  Recursively
+     * renumbers internal nodes so that they are numbered between
+     * N and 2N-2.
+     *
+     * @param root root of tree with node numbers to adjust
+     * @param nextNr number to be assigned to next internal node. Initialise
+     *               to the number of leaf nodes.
+     * @return updated nextNr.  (At the top level the return value can be
+     * discarded.  Its value is used by the recursive calls to this function.)
+     */
+    private static int renumberInternalNodes(Node root, int nextNr) {
+
+        if (root.isLeaf())
+            return nextNr;
+
+        for (Node child : root.getChildren()) {
+            nextNr = renumberInternalNodes(child, nextNr);
+        }
+
+        root.setNr(nextNr);
+
+        return nextNr + 1;
+    }
 }
