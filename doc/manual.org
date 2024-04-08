@@ -144,7 +144,7 @@ The ReMASTER package should now be available on your system!
 
 * Using ReMASTER: General overview
 :PROPERTIES:
-:CUSTOM_ID: id-1-Using-ReMASTER-General-overview
+:CUSTOM_ID: id-1-Using-ReMASTER:-General-overview
 :END:
 
 As mentioned in the [[*Overview][overview]] above, the general approach to using
@@ -900,6 +900,19 @@ simulated tree directly to initialise an MCMC analysis or to simulate
 sequences, but has the drawback that the original multi-type tree is
 lost.
 
+*** Logging trees with variable numbers of leaves
+:PROPERTIES:
+:CUSTOM_ID: id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves
+:END:
+
+Many stochastic models produce trees containing a random number of
+leaves. Ensembles of trees containing different numbers of leaves
+are written to BEAST tree files can cause downstream problems, as
+such files explicitly assume the number of leaves is the same for
+all trees they contain.
+
+To circumvent this problem, one can use  =TypedTreeLogger= as above
+but with the attribute ~noLabels="true"~ added.
 
 * Coalescent simulations
 :PROPERTIES:
@@ -1396,6 +1409,7 @@ Relevant characters and their corresponding XML entities are as follows
                              (string-join `("id"
                                             ,(number-to-string level)
                                             ,@(reverse (org-get-outline-path))
+this assumption included.
                                             ,title)
                                           "-")))))))
 #+end_src

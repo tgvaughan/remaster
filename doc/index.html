@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-01-11 Thu 10:28 -->
+<!-- 2024-04-08 Mon 16:58 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -35,7 +35,7 @@
 </ul>
 </li>
 <li><a href="#id-1-Installation">2. Installation</a></li>
-<li><a href="#id-1-Using-ReMASTER-General-overview">3. Using ReMASTER: General overview</a>
+<li><a href="#id-1-Using-ReMASTER:-General-overview">3. Using ReMASTER: General overview</a>
 <ul>
 <li><a href="#id-2-Using-ReMASTER:-General-overview-How-to-read-this-manual">3.1. How to read this manual</a></li>
 </ul>
@@ -70,6 +70,7 @@
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">4.3.1. Self-contained tree simulation XMLs</a></li>
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees">4.3.2. Logging typed trees</a></li>
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees">4.3.3. Logging untyped trees</a></li>
+<li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves">4.3.4. Logging trees with variable numbers of leaves</a></li>
 </ul>
 </li>
 </ul>
@@ -98,7 +99,7 @@
 </div>
 </nav>
 
-<figure id="org9f17dfe">
+<figure id="org979a96d">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -265,7 +266,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org23f3e0b">
+<figure id="org099c1af">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -276,9 +277,9 @@ The ReMASTER package should now be available on your system!
 </div>
 </div>
 
-<div id="outline-container-id-1-Using-ReMASTER-General-overview" class="outline-2">
-<h2 id="id-1-Using-ReMASTER-General-overview"><span class="section-number-2">3.</span> Using ReMASTER: General overview</h2>
-<div class="outline-text-2" id="text-id-1-Using-ReMASTER-General-overview">
+<div id="outline-container-id-1-Using-ReMASTER:-General-overview" class="outline-2">
+<h2 id="id-1-Using-ReMASTER:-General-overview"><span class="section-number-2">3.</span> Using ReMASTER: General overview</h2>
+<div class="outline-text-2" id="text-id-1-Using-ReMASTER:-General-overview">
 <p>
 As mentioned in the <a href="#id-1-Overview">overview</a> above, the general approach to using
 ReMASTER is involves (1) model conception, (2) XML input file
@@ -901,7 +902,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org24ff30d">
+<pre class="example" id="org2d6de59">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -948,7 +949,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org78c2c06">
+<pre class="example" id="org32f47a3">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -994,7 +995,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="orgdc29396">
+<figure id="orga87adc0">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1006,7 +1007,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orge5244b0">
+<figure id="orgb7ba27e">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1103,7 +1104,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#org1c0236f">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orgda3df00">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1162,7 +1163,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org1c40047">
+<figure id="org95cffc0">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1216,7 +1217,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgebc5deb">
+<figure id="org3d9552c">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1259,9 +1260,26 @@ lost.
 </p>
 </div>
 </div>
-</div>
-</div>
 
+<div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves" class="outline-4">
+<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves"><span class="section-number-4">4.3.4.</span> Logging trees with variable numbers of leaves</h4>
+<div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves">
+<p>
+Many stochastic models produce trees containing a random number of
+leaves. Ensembles of trees containing different numbers of leaves
+are written to BEAST tree files can cause downstream problems, as
+such files explicitly assume the number of leaves is the same for
+all trees they contain.
+</p>
+
+<p>
+To circumvent this problem, one can use  <code>TypedTreeLogger</code> as above
+but with the attribute <code>noLabels="true"</code> added.
+</p>
+</div>
+</div>
+</div>
+</div>
 
 <div id="outline-container-id-1-Coalescent-simulations" class="outline-2">
 <h2 id="id-1-Coalescent-simulations"><span class="section-number-2">5.</span> Coalescent simulations</h2>
@@ -1460,7 +1478,7 @@ it yields:
 </div>
 
 
-<figure id="orgf3821aa">
+<figure id="org7842bce">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1512,7 +1530,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org848f501">
+<figure id="orgf470600">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1580,7 +1598,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org832951b">
+<figure id="orgb7c12d6">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1782,7 +1800,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="org1c0236f"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orgda3df00"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1801,7 +1819,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org5579436">
+<pre class="example" id="org8609787">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1871,7 +1889,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-01-11 Thu 10:28</p>
+<p class="date">Created: 2024-04-08 Mon 16:58</p>
 </div>
 </body>
 </html>

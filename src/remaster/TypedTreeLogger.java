@@ -38,6 +38,12 @@ public class TypedTreeLogger extends BEASTObject implements Loggable {
                     "(Default false.)",
             false);
 
+    public Input<Boolean> noLabelsInput = new Input<>(
+            "noLabels", "Avoid including taxa block and translate " +
+            "command in output tree file.  These elements can cause problems " +
+            "for external software when the number of tips vary between trees.",
+            false);
+
     Tree tree;
 
     @Override
@@ -47,7 +53,12 @@ public class TypedTreeLogger extends BEASTObject implements Loggable {
 
     @Override
     public void init(PrintStream out) {
-        tree.init(out);
+        if (noLabelsInput.get()) {
+            out.println("#NEXUS\n");
+            out.println("Begin trees;");
+        } else {
+            tree.init(out);
+        }
     }
 
     @Override
