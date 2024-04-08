@@ -54,7 +54,7 @@ public class StochasticTrajectoryTest {
         Reaction death = new Reaction();
         death.initByName("rate", "1.0", "value", "X -> 0");
 
-        double[] finalPopSizes = IntStream.range(0, 10000)
+        double[] finalPopSizes = IntStream.range(0, 100000)
                 .mapToObj(i -> {
                     StochasticTrajectory traj = new StochasticTrajectory();
                     traj.initByName("population", X,

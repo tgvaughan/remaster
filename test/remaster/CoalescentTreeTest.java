@@ -47,7 +47,7 @@ public class CoalescentTreeTest {
         SimulatedTree tree = new SimulatedTree();
         tree.initByName("trajectory", traj);
 
-        double[] coalTimes = IntStream.range(0, 10000)
+        double[] coalTimes = IntStream.range(0, 100000)
                 .mapToDouble(i -> {
                     tree.doSimulation();
                     return tree.getRoot().getHeight();})
