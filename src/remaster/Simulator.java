@@ -65,8 +65,9 @@ public class Simulator extends Runnable {
         Set<BEASTObject> alreadySeen = new HashSet<>();
         for (int i=0; i<nSimsInput.get(); i++) {
 
-            // Reinitialize objects (kicks off simulation)
             alreadySeen.clear();
+
+            // Reinitialize objects (kicks off simulation)
             for (BEASTObject beastObject : beastObjectInput.get())
                 reinitializeObjects(beastObject, alreadySeen, i==0);
 
@@ -96,6 +97,8 @@ public class Simulator extends Runnable {
 
         if (alreadyInitialized.contains(rootObject))
             return;
+
+        alreadyInitialized.add(rootObject);
 
         for (Input<?> input : rootObject.getInputs().values()) {
             if (input.get() != null) {
