@@ -22,6 +22,7 @@ package remaster;
 import beast.base.core.BEASTObject;
 import beast.base.core.Input;
 import beast.base.core.Log;
+import beast.base.inference.Distribution;
 import beast.base.inference.Logger;
 import beast.base.inference.Runnable;
 
@@ -65,15 +66,15 @@ public class Simulator extends Runnable {
         for (int i=0; i<nSimsInput.get(); i++) {
 
             // Reinitialize objects (kicks off simulation)
-            if (i>0) {
-                alreadySeen.clear();
-                for (BEASTObject beastObject : beastObjectInput.get())
-                    reinitializeObjects(beastObject, alreadySeen);
-            }
+            alreadySeen.clear();
+            for (BEASTObject beastObject : beastObjectInput.get())
+                reinitializeObjects(beastObject, alreadySeen, i==0);
 
             // Log state
-            for (Logger logger : loggersInput.get())
+            for (Logger logger : loggersInput.get()) {
+                reinitializeObjects(logger, alreadySeen, false);
                 logger.log(i);
+            }
         }
 
         // Finalize loggers
@@ -90,7 +91,8 @@ public class Simulator extends Runnable {
      * @param rootObject root of object graph
      * @param alreadyInitialized set of objects which have already been seen
      */
-    private void reinitializeObjects(BEASTObject rootObject, Set<BEASTObject> alreadyInitialized) {
+    private void reinitializeObjects(BEASTObject rootObject, Set<BEASTObject> alreadyInitialized,
+                                     Boolean markOnly) {
 
         if (alreadyInitialized.contains(rootObject))
             return;
@@ -98,17 +100,21 @@ public class Simulator extends Runnable {
         for (Input<?> input : rootObject.getInputs().values()) {
             if (input.get() != null) {
                 if (input.get() instanceof BEASTObject) {
-                    reinitializeObjects((BEASTObject)input.get(), alreadyInitialized);
+                    reinitializeObjects((BEASTObject)input.get(), alreadyInitialized, markOnly);
                 } else if (input.get() instanceof List) {
                     for (Object el : (List<?>) input.get()) {
                         if (el instanceof BEASTObject)
-                            reinitializeObjects((BEASTObject) el, alreadyInitialized);
+                            reinitializeObjects((BEASTObject) el, alreadyInitialized, markOnly);
                     }
                 }
             }
         }
 
-        rootObject.initAndValidate();
+        if (!markOnly)
+            rootObject.initAndValidate();
+
+        if (rootObject instanceof Distribution)
+            ((Distribution)rootObject).calculateLogP();
     }
 
 }
