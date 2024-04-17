@@ -1,7 +1,7 @@
 ReMASTER
 ========
 
-This directory contains the source code for ReMASTER, is a complete rewrite of the
+This directory contains the source code for ReMASTER, a complete rewrite of the
 [MASTER](https://tgvaughan.github.io/MASTER) phylogenetic tree simulation package
 for [BEAST 2](https://beast2.org).
 
@@ -12,12 +12,16 @@ It aims to address the following problems with MASTER:
 4. poor integration with BEAST,
 5. inflexible design.
 
-For further information including installation, step-by-step usage
-instructions and examples, refer to the project web page at:
+This repository is primarily of interest to people keen on building
+ReMASTER from the source or adapating it for use in other software. If
+this doesn't include you, please instead visit the project web page
+at:
 
 https://tgvaughan.github.io/remaster
 
-ReMASTER is also described in the following publication:
+There you'll find all relevant usage information including
+installation, step-by-step instructions and examples.  ReMASTER is
+also described in the following publication:
 
 > T. G. Vaughan, "ReMASTER: Improved phylodynamic simulation for BEAST > 2.7",
 > Bioinformatics, btae015, 2024. (https://doi.org/10.1093/bioinformatics/btae015)
