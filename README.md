@@ -23,7 +23,7 @@ There you'll find all relevant usage information including
 installation, step-by-step instructions and examples.  ReMASTER is
 also described in the following publication:
 
-> T. G. Vaughan, "ReMASTER: Improved phylodynamic simulation for BEAST > 2.7",
+> T. G. Vaughan, "ReMASTER: Improved phylodynamic simulation for BEAST 2.7",
 > Bioinformatics, btae015, 2024. (https://doi.org/10.1093/bioinformatics/btae015)
 
 Happy simulating!
