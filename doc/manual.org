@@ -565,7 +565,7 @@ predicating which will cause the simulation to end when it becomes true.
 For instance
 #+begin_src xml
   <trajectory spec="StochasticTrajectory"
-              endsWhen="X=100">
+              endsWhen="X==100">
   ...
   </trajectory>
 #+end_src
