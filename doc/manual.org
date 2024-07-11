@@ -1409,7 +1409,6 @@ Relevant characters and their corresponding XML entities are as follows
                              (string-join `("id"
                                             ,(number-to-string level)
                                             ,@(reverse (org-get-outline-path))
-this assumption included.
                                             ,title)
                                           "-")))))))
 #+end_src
