@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-06-04 Tue 17:49 -->
+<!-- 2024-07-15 Mon 09:40 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -99,7 +99,7 @@
 </div>
 </nav>
 
-<figure id="org129ab6c">
+<figure id="orgaaf340c">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -266,7 +266,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org02e2adb">
+<figure id="org208b7e6">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -902,7 +902,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org1be814f">
+<pre class="example" id="org9491f34">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -949,7 +949,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org9c8de13">
+<pre class="example" id="org64e3149">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -995,7 +995,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org553b751">
+<figure id="org7c80bc6">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1007,7 +1007,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgdd5b5d5">
+<figure id="org4ad87d3">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1104,7 +1104,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#org70942a4">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orge4730c2">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1163,7 +1163,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orgfbcadef">
+<figure id="org1834b5a">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1217,7 +1217,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgf83dc1b">
+<figure id="orgccfa366">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1478,7 +1478,7 @@ it yields:
 </div>
 
 
-<figure id="orgf1e329d">
+<figure id="org4cc5398">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1530,7 +1530,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org4b9c4ec">
+<figure id="org27ae30f">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1598,7 +1598,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org6d959e4">
+<figure id="org330a11e">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1738,8 +1738,8 @@ having 5 contemporaneous samples at time 5, and 5 more at time 6.</dd>
 
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/BDserial.xml"><code>BDserial.xml</code></a></dt><dd>Simulates birth-death-sampling trajectories and trees.</dd>
 
-<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/BDserialAlignment.xml"><code>BDserialAlignment.xml</code></a></dt><dd>Simulates birth-death-sampling trajectories and alignment.</dd>
-    
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/BDserialAlignment.xml"><code>BDserialAlignment.xml</code></a></dt><dd>Simulates a birth-death-sampling trajectory and an alignment.</dd>
+
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/Coalescent.xml"><code>Coalescent.xml</code></a></dt><dd>Simulates coalescent trees with 10 leaves under a constant
 effective population size of 1.0.</dd>
 
@@ -1802,7 +1802,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="org70942a4"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orge4730c2"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1821,7 +1821,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org92624e7">
+<pre class="example" id="org77f56c2">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1891,7 +1891,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-06-04 Tue 17:49</p>
+<p class="date">Created: 2024-07-15 Mon 09:40</p>
 </div>
 </body>
 </html>

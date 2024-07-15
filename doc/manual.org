@@ -1274,6 +1274,9 @@ with brief summaries of the simulations they perform:
 - [[https://github.com/tgvaughan/remaster/blob/master/examples/BDserial.xml][=BDserial.xml=]] ::
   Simulates birth-death-sampling trajectories and trees.
 
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/BDserialAlignment.xml][=BDserialAlignment.xml=]] ::
+  Simulates a birth-death-sampling trajectory and an alignment.
+
 - [[https://github.com/tgvaughan/remaster/blob/master/examples/Coalescent.xml][=Coalescent.xml=]] ::
   Simulates coalescent trees with 10 leaves under a constant
   effective population size of 1.0.
