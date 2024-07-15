@@ -1,0 +1,38 @@
+<!-- Basic birth-death-sampling alignment simulation -->
+
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+
+  <parameter id="kappa.s" spec="parameter.RealParameter" name="stateNode">2.0</parameter>
+  <parameter id="freqParameter.s" spec="parameter.RealParameter" dimension="4" name="stateNode">0.25</parameter>
+
+  <run spec="Simulator" nSims="1">
+    <simulate spec="feast.simulation.SimulatedAlignment"
+	      outputFileName="$(filebase).nexus"
+	      sequenceLength="1000">
+
+      <siteModel spec="beast.base.evolution.sitemodel.SiteModel"
+		 mutationRate="0.001">
+        <substModel spec="beast.base.evolution.substitutionmodel.HKY"
+		    kappa="@kappa.s">
+          <frequencies spec="beast.base.evolution.substitutionmodel.Frequencies"
+		       frequencies="@freqParameter.s"/>
+        </substModel>
+      </siteModel>
+      <tree spec="SimulatedTree" id="tree">
+	<trajectory spec="StochasticTrajectory" id="traj"
+                    endsWhen="sample==10">
+          <population spec="RealParameter" id="X" value="1"/>
+          <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+          <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
+          <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
+          <reaction spec="Reaction" rate="0.1"> X -> sample </reaction>
+	</trajectory>
+      </tree>
+    </simulate>
+
+    <logger spec="Logger" fileName="$(filebase).traj">
+      <log idref="traj"/>
+    </logger>
+  </run>
+</beast>
