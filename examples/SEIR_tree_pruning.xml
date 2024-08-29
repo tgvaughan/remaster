@@ -22,7 +22,9 @@
         </logger>
 
         <logger spec="Logger" mode="tree" fileName="$(filebase).full.trees">
-          <log spec="TypedTreeLogger" tree="@tree"/>
+          <log spec="TypedTreeLogger">
+            <tree spec="PrunedTree" samplePops="R" simulatedTree="@tree"/>
+          </log>
         </logger>
         <logger spec="Logger" mode="tree" fileName="$(filebase).sampled.trees">
           <log spec="TypedTreeLogger">
