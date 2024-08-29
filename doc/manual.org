@@ -914,6 +914,55 @@ all trees they contain.
 To circumvent this problem, one can use  =TypedTreeLogger= as above
 but with the attribute ~noLabels="true"~ added.
 
+*** Logging both full and sampled trees
+:PROPERTIES:
+:CUSTOM_ID: id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees
+:END:
+
+Occasionally it is useful to record the complete tree together with a
+sampled tree in which lineages not ancestral to samples have been
+pruned.
+
+This can be accomplished through the use of the =PrunedTree= class.
+This takes a =SimulatedTree= together with one or more sample
+populations as input, and produces a representation of the input tree
+on which the lineages not ancestral to the specified sample
+populations have been removed (pruned).
+
+For example, the following produces two output files, ~output.full.trees~
+and ~output.sampled.trees~, which contain the full and sampled trees
+respectively.  (Note the use of an additional "removed" sample population.)
+#+begin_src xml
+  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+    <run spec="Simulator" nSims="1">
+      <simulate id="tree" spec="SimulatedTree">
+        <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
+          <population id="X" spec="RealParameter" value="1"/>
+          <population id="Y" spec="RealParameter" value="0"/>
+          <samplePopulation id="removed" spec="RealParameter" value="0"/>
+          <samplePopulation id="sampled" spec="RealParameter" value="0"/>
+
+          <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
+          <reaction spec="Reaction" rate="0.1"> X -> Y </reaction>
+          <reaction spec="Reaction" rate="0.5"> X -> removed </reaction>
+          <reaction spec="Reaction" rate="0.5"> Y -> removed + sampled </reaction>
+        </trajectory>
+      </simulate>
+
+      <logger fileName="output.full.trees" mode="tree">
+        <log spec="TypedTreeLogger">
+          <tree spec="PrunedTree" samplePops="removed" simulatedTree="@tree"/>
+        </log>
+      </logger>
+      <logger fileName="output.sampled.trees" mode="tree">
+        <log spec="TypedTreeLogger">
+          <tree spec="PrunedTree" samplePops="sampled" simulatedTree="@tree"/>
+        </log>
+      </logger>
+    </run>
+  </beast>
+#+end_src
+
 * Coalescent simulations
 :PROPERTIES:
 :CUSTOM_ID: id-1-Coalescent-simulations
@@ -1339,6 +1388,10 @@ with brief summaries of the simulations they perform:
   Susceptible-Exposed-Infectious-Removed (SEIR) model, under a continuous
   sampling process which only activates after 5 time units.
 
+- [[https://github.com/tgvaughan/remaster/blob/master/examples/SEIR_tree_pruning.xml][=SEIR_tree_pruning.xml=]] ::
+  Simulates a tree under the stochastic
+  Susceptible-Exposed-Infectious-Removed (SEIR) model, demonstrating
+  the use of =PrunedTree= to record both full and sampled trees.
 
 - [[https://github.com/tgvaughan/remaster/blob/master/examples/SEIRdet_tree.xml][=SEIRdet_tree.xml=]] ::
   Simulates a tree using a coalescent approximation to the stochastic

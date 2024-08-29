@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-07-15 Mon 09:40 -->
+<!-- 2024-08-29 Thu 13:55 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -71,6 +71,7 @@
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees">4.3.2. Logging typed trees</a></li>
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees">4.3.3. Logging untyped trees</a></li>
 <li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves">4.3.4. Logging trees with variable numbers of leaves</a></li>
+<li><a href="#id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees">4.3.5. Logging both full and sampled trees</a></li>
 </ul>
 </li>
 </ul>
@@ -99,7 +100,7 @@
 </div>
 </nav>
 
-<figure id="orgaaf340c">
+<figure id="orgca3bb46">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -266,7 +267,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org208b7e6">
+<figure id="org1c00be3">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -902,7 +903,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org9491f34">
+<pre class="example" id="org52971ed">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -949,7 +950,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org64e3149">
+<pre class="example" id="org0e1e75d">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -995,7 +996,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org7c80bc6">
+<figure id="org9850f03">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1007,7 +1008,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org4ad87d3">
+<figure id="org9847cb0">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1104,7 +1105,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#orge4730c2">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#org378334f">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1163,7 +1164,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org1834b5a">
+<figure id="orgd38a744">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1217,7 +1218,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgccfa366">
+<figure id="org510e1d3">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1276,6 +1277,62 @@ all trees they contain.
 To circumvent this problem, one can use  <code>TypedTreeLogger</code> as above
 but with the attribute <code>noLabels="true"</code> added.
 </p>
+</div>
+</div>
+
+<div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees" class="outline-4">
+<h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees"><span class="section-number-4">4.3.5.</span> Logging both full and sampled trees</h4>
+<div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees">
+<p>
+Occasionally it is useful to record the complete tree together with a
+sampled tree in which lineages not ancestral to samples have been
+pruned.
+</p>
+
+<p>
+This can be accomplished through the use of the <code>PrunedTree</code> class.
+This takes a <code>SimulatedTree</code> together with one or more sample
+populations as input, and produces a representation of the input tree
+on which the lineages not ancestral to the specified sample
+populations have been removed (pruned).
+</p>
+
+<p>
+For example, the following produces two output files, <code>output.full.trees</code>
+and <code>output.sampled.trees</code>, which contain the full and sampled trees
+respectively.  (Note the use of an additional "removed" sample population.)
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"removed"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"sampled"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; Y </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.5"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; removed </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.5"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> Y -&gt; removed + sampled </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.full.trees"</span> <span class="org-nxml-attribute-local-name">mode</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">log</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"TypedTreeLogger"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">tree</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PrunedTree"</span> <span class="org-nxml-attribute-local-name">samplePops</span>=<span class="org-string">"removed"</span> <span class="org-nxml-attribute-local-name">simulatedTree</span>=<span class="org-string">"@tree"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">log</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">logger</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">logger</span> <span class="org-nxml-attribute-local-name">fileName</span>=<span class="org-string">"output.sampled.trees"</span> <span class="org-nxml-attribute-local-name">mode</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">log</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"TypedTreeLogger"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">tree</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PrunedTree"</span> <span class="org-nxml-attribute-local-name">samplePops</span>=<span class="org-string">"sampled"</span> <span class="org-nxml-attribute-local-name">simulatedTree</span>=<span class="org-string">"@tree"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">log</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">logger</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">run</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">beast</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1478,7 +1535,7 @@ it yields:
 </div>
 
 
-<figure id="org4cc5398">
+<figure id="org56711b7">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1530,7 +1587,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org27ae30f">
+<figure id="org5fc9a98">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1598,7 +1655,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org330a11e">
+<figure id="org5c1e34d">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1790,10 +1847,11 @@ the numerical integration.</dd>
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SEIR_tree.xml"><code>SEIR_tree.xml</code></a></dt><dd>Simulates a tree under the stochastic
 Susceptible-Exposed-Infectious-Removed (SEIR) model, under a continuous
 sampling process which only activates after 5 time units.</dd>
-</dl>
 
+<dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SEIR_tree_pruning.xml"><code>SEIR_tree_pruning.xml</code></a></dt><dd>Simulates a tree under the stochastic
+Susceptible-Exposed-Infectious-Removed (SEIR) model, demonstrating
+the use of <code>PrunedTree</code> to record both full and sampled trees.</dd>
 
-<dl class="org-dl">
 <dt><a href="https://github.com/tgvaughan/remaster/blob/master/examples/SEIRdet_tree.xml"><code>SEIRdet_tree.xml</code></a></dt><dd>Simulates a tree using a coalescent approximation to the stochastic
 Susceptible-Exposed-Infectious-Removed (SEIR) model with an explicit
 termination condition and punctual sampling reactions.</dd>
@@ -1802,7 +1860,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="orge4730c2"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="org378334f"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1821,7 +1879,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org77f56c2">
+<pre class="example" id="orgdeeffac">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1891,7 +1949,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-07-15 Mon 09:40</p>
+<p class="date">Created: 2024-08-29 Thu 13:55</p>
 </div>
 </body>
 </html>
