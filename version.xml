@@ -6,6 +6,7 @@
     <provider classname="remaster.Reaction"/>
     <provider classname="remaster.Simulator"/>
     <provider classname="remaster.TypedTreeLogger"/>
+    <provider classname="remaster.PrunedTree"/>
     <provider classname="remaster.StochasticTrajectoryStatsLogger"/>
     <provider classname="remaster.PunctualReaction"/>
     <provider classname="remaster.SimulatedTree"/>

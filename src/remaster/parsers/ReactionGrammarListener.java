@@ -1,4 +1,4 @@
-// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.10.1
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.13.1
 package remaster.parsers;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -77,6 +77,26 @@ public interface ReactionGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitId(ReactionGrammarParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ReactionGrammarParser#singlepopel}.
+	 * @param ctx the parse tree
+	 */
+	void enterSinglepopel(ReactionGrammarParser.SinglepopelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ReactionGrammarParser#singlepopel}.
+	 * @param ctx the parse tree
+	 */
+	void exitSinglepopel(ReactionGrammarParser.SinglepopelContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ReactionGrammarParser#reactlist}.
+	 * @param ctx the parse tree
+	 */
+	void enterReactlist(ReactionGrammarParser.ReactlistContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ReactionGrammarParser#reactlist}.
+	 * @param ctx the parse tree
+	 */
+	void exitReactlist(ReactionGrammarParser.ReactlistContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ReactionGrammarParser#popname}.
 	 * @param ctx the parse tree

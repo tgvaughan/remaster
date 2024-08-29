@@ -56,7 +56,7 @@ public class PunctualCoalescentReactionBox extends CoalescentReactionBox {
                 ReactElement parentEl = parents.get(i);
 
                 Lineage parent = children.get(i).isEmpty()
-                        ? lineageFactory.createSample(parentEl, reactionTime)
+                        ? lineageFactory.createSample(parentEl, null, reactionTime)
                         : lineageFactory.createInternal(parentEl, reactionTime);
 
                 for (ReactElement childEl : children.get(i)) {

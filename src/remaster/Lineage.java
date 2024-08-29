@@ -20,6 +20,7 @@
 package remaster;
 
 import beast.base.evolution.tree.Node;
+import org.junit.platform.console.shadow.picocli.CommandLine;
 
 /**
  * A class of objects representing "typed" lineages.
@@ -28,11 +29,24 @@ import beast.base.evolution.tree.Node;
  */
 public class Lineage extends Node {
     public ReactElement reactElement;
+    public ReactElement sampElement;
 
     public Lineage(ReactElement reactElement, double time) {
+        this(reactElement, null, time);
+    }
+
+    public Lineage(ReactElement reactElement, ReactElement sampElement, double time) {
         super();
         this.reactElement = reactElement;
+        this.sampElement = sampElement;
         this.height = time;
-        metaDataString = "type=\"" + reactElement + "\"," + "time=" + time;
+
+        metaData.put("type", reactElement);
+        if (sampElement != null)
+            metaData.put("samp", sampElement);
+
+        metaDataString = "type=\"" + reactElement + "\","
+                + (sampElement != null ? "samp=\"" + sampElement + "\"," : "")
+                + "time=" + time;
     }
 }

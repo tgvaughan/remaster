@@ -1,4 +1,4 @@
-// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.10.1
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.13.1
 package remaster.parsers;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@SuppressWarnings("CheckReturnValue")
 public class ReactionGrammarBaseListener implements ReactionGrammarListener {
 	/**
 	 * {@inheritDoc}
@@ -95,6 +96,30 @@ public class ReactionGrammarBaseListener implements ReactionGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitId(ReactionGrammarParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSinglepopel(ReactionGrammarParser.SinglepopelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSinglepopel(ReactionGrammarParser.SinglepopelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReactlist(ReactionGrammarParser.ReactlistContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReactlist(ReactionGrammarParser.ReactlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

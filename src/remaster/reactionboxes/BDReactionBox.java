@@ -205,7 +205,7 @@ public abstract class BDReactionBox {
                     seenElements.put(el, 0);
 
                 if (samplePopNames.contains(el.name)) {
-                    toInclude.add(lineageFactory.createSample(parents.get(i), eventTime));
+                    toInclude.add(lineageFactory.createSample(parents.get(i), el, eventTime));
                     conditionOnInclusion = false;
                     totalInclusionProb = 1.0;
                     continue;

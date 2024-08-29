@@ -101,7 +101,7 @@ public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
                 ReactElement parentEl = parents.get(i);
 
                 Lineage parent = children.get(i).isEmpty()
-                        ? lineageFactory.createSample(parentEl, nextReactionTime)
+                        ? lineageFactory.createSample(parentEl, null, nextReactionTime)
                         : lineageFactory.createInternal(parentEl, nextReactionTime);
 
                 for (ReactElement childEl : children.get(i)) {

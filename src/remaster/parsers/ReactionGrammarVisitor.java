@@ -1,4 +1,4 @@
-// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.10.1
+// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.13.1
 package remaster.parsers;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -52,6 +52,18 @@ public interface ReactionGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitId(ReactionGrammarParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ReactionGrammarParser#singlepopel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSinglepopel(ReactionGrammarParser.SinglepopelContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ReactionGrammarParser#reactlist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReactlist(ReactionGrammarParser.ReactlistContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ReactionGrammarParser#popname}.
 	 * @param ctx the parse tree

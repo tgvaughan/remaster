@@ -29,6 +29,11 @@ popel : factor? popname loc? (':' id)?;
 factor : NZINT ;
 id: '0' | NZINT | IDENT;
 
+// Reactant element list
+
+singlepopel : popname loc?;
+reactlist : singlepopel (',' singlepopel)* EOF ;
+
 // Misc parser rules:
 
 popname : IDENT ;

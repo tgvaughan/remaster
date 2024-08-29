@@ -22,15 +22,15 @@ package remaster;
 import beast.base.evolution.tree.Node;
 
 public class LineageFactory {
-    int nextLeafNr = 0;
+    int nextNodeNr = 0;
     double latestTime = 0;
 
-    public Lineage createSample(ReactElement lineageReactEl, double time) {
-        Lineage lineage = new Lineage(lineageReactEl, time);
-        lineage.setNr(nextLeafNr);
-        lineage.setID("leaf_" + nextLeafNr);
+    public Lineage createSample(ReactElement lineageReactEl, ReactElement sampleReactEl, double time) {
+        Lineage lineage = new Lineage(lineageReactEl, sampleReactEl, time);
+        lineage.setNr(nextNodeNr);
+        lineage.setID("leaf_" + nextNodeNr);
 
-        nextLeafNr += 1;
+        nextNodeNr += 1;
 
         if (time > latestTime)
             latestTime = time;
@@ -50,9 +50,9 @@ public class LineageFactory {
             for (Node child : root.getChildren())
                 numberInternals(child);
 
-            root.setNr(nextLeafNr);
+            root.setNr(nextNodeNr);
 
-            nextLeafNr += 1;
+            nextNodeNr += 1;
         }
     }
 
