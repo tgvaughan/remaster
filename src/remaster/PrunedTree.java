@@ -85,7 +85,7 @@ public class PrunedTree extends Tree {
         prunedNode = new Node();
         if (prunedChildren.isEmpty()) {
             prunedNode.setNr(nextNodeNr);
-            prunedNode.setID("leaf_" + String.valueOf(nextNodeNr));
+            prunedNode.setID("leaf_" + nextNodeNr);
             nextNodeNr += 1;
             prunedNode.setMetaData("samp", node.getMetaData("samp"));
         } else {
@@ -121,7 +121,7 @@ public class PrunedTree extends Tree {
                                     int line, int charPositionInLine,
                                     String msg, RecognitionException e) {
                 throw new RuntimeException("Error parsing character " +
-                        charPositionInLine + " of reaction " +
+                        charPositionInLine + " of reactant list " +
                         "string '" + samplePopsString + "': " + msg);
             }
         };
