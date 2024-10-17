@@ -86,10 +86,9 @@
     </target>
 
     <target name="build-beast" depends="get-local-beast,get-remote-beast">
-        <javac 
+        <javac release="${releaseVersion}" encoding="UTF-8"
             srcdir="${beast-source-root}/src"
             destdir="${build-beast}"
-            release="${releaseVersion}"
             includeantruntime="false"
             fork="yes">
             <classpath>
@@ -101,7 +100,7 @@
 
     <!-- Compile -->
     <target name="compile" depends="build-beast">
-      <javac release="${releaseVersion}"
+      <javac release="${releaseVersion}" encoding="UTF-8"
              srcdir="${src}" destdir="${build}"
              includeantruntime="false" fork="yes">
             <classpath>
@@ -128,7 +127,7 @@
 
     <!-- Compile unit tests -->
     <target name="compile-test" depends="init-test,compile,copy-resources">
-      <javac release="${releaseVersion}"
+      <javac release="${releaseVersion}" encoding="UTF-8"
              srcdir="${test}" destdir="${build-test}"
              includeantruntime="false" fork="yes">
             <classpath>
