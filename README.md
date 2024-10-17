@@ -13,7 +13,7 @@ It aims to address the following problems with MASTER:
 5. inflexible design.
 
 This repository is primarily of interest to people keen on building
-ReMASTER from the source or adapating it for use in other software. If
+ReMASTER from the source or adapting it for use in other software. If
 this doesn't include you, please instead visit the project web page
 at:
 
