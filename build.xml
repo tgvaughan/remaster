@@ -8,9 +8,8 @@
     <!-- Location to check for local copy of beast2 repository -->
     <property name="local-beast-source-root" location="../beast2"/>
 
-    <!-- BEAST 2 currently uses Java 1.8 -->
-    <property name="sourceVersion" value="1.8"/>
-    <property name="targetVersion" value="1.8"/>
+    <!-- BEAST 2 currently uses Java 17 -->
+    <property name="releaseVersion" value="17"/>
 
     <!-- Directories necessary for all BEAST 2 packages -->
     <property name="doc" location="doc"/>
@@ -90,8 +89,7 @@
         <javac 
             srcdir="${beast-source-root}/src"
             destdir="${build-beast}"
-            source="${sourceVersion}"
-            target="${targetVersion}"
+            release="${releaseVersion}"
             includeantruntime="false"
             fork="yes">
             <classpath>
@@ -103,7 +101,7 @@
 
     <!-- Compile -->
     <target name="compile" depends="build-beast">
-      <javac target="${targetVersion}" source="${sourceVersion}"
+      <javac release="${releaseVersion}"
              srcdir="${src}" destdir="${build}"
              includeantruntime="false" fork="yes">
             <classpath>
@@ -130,7 +128,7 @@
 
     <!-- Compile unit tests -->
     <target name="compile-test" depends="init-test,compile,copy-resources">
-      <javac target="${targetVersion}" source="${sourceVersion}"
+      <javac release="${releaseVersion}"
              srcdir="${test}" destdir="${build-test}"
              includeantruntime="false" fork="yes">
             <classpath>
