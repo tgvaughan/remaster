@@ -73,6 +73,9 @@ public class PunctualBDReactionBox extends BDReactionBox {
     }
 
     private double implementNEvent() {
+        if (getMaxReactCount() < reaction.getNextN())
+            return -1; // Insufficient reactants for reaction
+
         incrementState(state, reaction.getNextN());
         return reaction.getNextN();
     }

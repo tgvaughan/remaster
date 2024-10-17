@@ -96,6 +96,9 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
                 if (updatedReactionBox instanceof PunctualBDReactionBox) {
                     // Implement punctual reaction
                     double multiplicity = ((PunctualBDReactionBox) updatedReactionBox).implementEvent(true);
+                    if (multiplicity<0)
+                        return false; // Occurs when n-events lack the necessary reactants to fire
+
                     if (multiplicity>0)
                         events.add(new BDTrajectoryEvent(t, updatedReactionBox, multiplicity));
                 }
@@ -103,9 +106,6 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
                 updatedReactionBox.incrementInterval();
                 reactionBoxesSortedByChangeTimes
                         .sort(Comparator.comparingDouble(BDReactionBox::getIntervalEndTime));
-
-                if (!state.isValid())
-                    return false;
 
                 continue;
             }
