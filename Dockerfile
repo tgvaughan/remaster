@@ -1,8 +1,9 @@
 # Dockerfile to build container for unit testing
 
-FROM openjdk:11
+FROM debian:stable
 
-RUN apt-get update && apt-get install -y git ant
+Run apt-get update
+RUN apt-get install -y git openjdk-17-jdk ant
 
 WORKDIR /root
 
