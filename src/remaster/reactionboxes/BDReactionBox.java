@@ -298,12 +298,24 @@ public abstract class BDReactionBox {
         return reaction.getIntervalEndTime();
     }
 
+    public double getIntervalStartTime() {
+        return reaction.getIntervalStartTime();
+    }
+
     public void incrementInterval() {
         reaction.incrementInterval();
     }
 
+    public void decrementInterval() {
+        reaction.decrementInterval();
+    }
+
     public void resetInterval() {
         reaction.resetInterval();
+    }
+
+    public void resetIntervalToEnd() {
+        reaction.resetIntervalToEnd();
     }
 
     public double[] getAllIntervalEndTimes() {

@@ -53,11 +53,19 @@ public abstract class AbstractReaction extends BEASTObject {
         currentInterval = 0;
     }
 
+    public abstract void resetIntervalToEnd();
+
     public void incrementInterval() {
         currentInterval += 1;
     }
 
+    public void decrementInterval() {
+        currentInterval -= 1;
+    }
+
     public abstract double getIntervalEndTime();
+
+    public abstract double getIntervalStartTime();
 
     public abstract double[] getAllIntervalEndTimes();
 

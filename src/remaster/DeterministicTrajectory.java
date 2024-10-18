@@ -58,7 +58,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     public Input<Function> backwardRelativeStepSizeInput = new Input<>("backwardRelativeStepSize",
             "Integration time step length relative to to maxTime.",
-            new RealParameter("1e-3"));
+            new RealParameter("1e-4"));
 
     FirstOrderIntegrator integrator;
 
@@ -224,19 +224,19 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         LineageFactory lineageFactory = new LineageFactory();
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
 
-        for (PunctualBDReactionBox reactionBox : punctualReactionBoxes)
+        for (BDReactionBox reactionBox : reactionBoxes)
             reactionBox.resetIntervalToEnd();
 
-        List<PunctualBDReactionBox> sortedPunctualReactionsBoxes =
-                new ArrayList<>(punctualReactionBoxes);
-        sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
-                PunctualBDReactionBox::getIntervalStartTime).reversed());
+        List<BDReactionBox> sortedReactionBoxes =
+                new ArrayList<>(reactionBoxes);
+        sortedReactionBoxes.sort(Comparator.comparingDouble(
+                BDReactionBox::getIntervalStartTime).reversed());
 
-        while (!sortedPunctualReactionsBoxes.isEmpty()
-                && sortedPunctualReactionsBoxes.get(0).getIntervalStartTime()>stopTime) {
-            sortedPunctualReactionsBoxes.get(0).decrementInterval();
-            sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
-                    PunctualBDReactionBox::getIntervalStartTime).reversed());
+        while (!sortedReactionBoxes.isEmpty()
+                && sortedReactionBoxes.get(0).getIntervalStartTime()>stopTime) {
+            sortedReactionBoxes.get(0).decrementInterval();
+            sortedReactionBoxes.sort(Comparator.comparingDouble(
+                    BDReactionBox::getIntervalStartTime).reversed());
         }
 
         double t = stopTime;
@@ -249,21 +249,23 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
                     state.occupancies, 0, state.occupancies.length);
 
-            while (!sortedPunctualReactionsBoxes.isEmpty() &&
-                    sortedPunctualReactionsBoxes.get(0).getIntervalStartTime()>t) {
-                PunctualBDReactionBox reactionBox = sortedPunctualReactionsBoxes.get(0);
+            while (!sortedReactionBoxes.isEmpty() &&
+                    sortedReactionBoxes.get(0).getIntervalStartTime()>t) {
+                BDReactionBox reactionBox = sortedReactionBoxes.get(0);
                 reactionBox.decrementInterval();
-                double n = reactionBox.implementEvent(true);
-                for (int i=0; i<n; i++) {
-                    reactionBox.incrementLineages(lineages, t,
-                            lineageFactory, false);
-                    reactionBox.incrementState(state, -1);
+                if (reactionBox instanceof PunctualBDReactionBox) {
+                    PunctualBDReactionBox punctualReactionBox = (PunctualBDReactionBox)reactionBox;
+                    double n = punctualReactionBox.implementEvent(true);
+                    for (int i = 0; i < n; i++) {
+                        punctualReactionBox.incrementLineages(lineages, t,
+                                lineageFactory, false);
+                        punctualReactionBox.incrementState(state, -1);
+                    }
                 }
-                sortedPunctualReactionsBoxes.sort(Comparator.comparingDouble(
-                        PunctualBDReactionBox::getIntervalStartTime).reversed());
+                sortedReactionBoxes.sort(Comparator.comparingDouble(
+                        BDReactionBox::getIntervalStartTime).reversed());
             }
 
-            boolean reactionFired = false;
             for (ContinuousBDReactionBox reactionBox : continuousReactionBoxes) {
                 reactionBox.updatePropensity();
                 double totalInclusionProb =
@@ -275,15 +277,12 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                     reactionBox.incrementLineages(lineages, t,
                             lineageFactory, true);
                     u = Randomizer.nextDouble();
-                    dt = t/Nt;
-                    reactionFired = true;
                     break;
                 } else
                     u -= prob;
             }
 
-            if (!reactionFired)
-                t -= dt;
+            t -= dt;
         }
 
         List<Lineage> rootLineages = new ArrayList<>();

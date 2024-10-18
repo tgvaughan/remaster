@@ -79,16 +79,4 @@ public class PunctualBDReactionBox extends BDReactionBox {
         incrementState(state, reaction.getNextN());
         return reaction.getNextN();
     }
-
-    public double getIntervalStartTime() {
-        return reaction.getIntervalStartTime();
-    }
-
-    public void resetIntervalToEnd() {
-        reaction.resetIntervalToEnd();
-    }
-
-    public void decrementInterval() {
-        reaction.decrementInterval();
-    }
 }

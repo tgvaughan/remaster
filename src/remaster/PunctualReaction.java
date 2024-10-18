@@ -88,10 +88,7 @@ public class PunctualReaction extends AbstractReaction {
         return Double.NEGATIVE_INFINITY;
     }
 
-    public void decrementInterval() {
-        currentInterval -= 1;
-    }
-
+    @Override
     public void resetIntervalToEnd() {
         currentInterval = times.length;
     }

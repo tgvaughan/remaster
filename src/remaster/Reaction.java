@@ -60,6 +60,13 @@ public class Reaction extends AbstractReaction {
             return Double.POSITIVE_INFINITY;
     }
 
+    public double getIntervalStartTime() {
+        if (currentInterval > 0)
+            return changeTimes[currentInterval-1];
+
+        return Double.NEGATIVE_INFINITY;
+    }
+
     @Override
     public double[] getAllIntervalEndTimes() {
         return changeTimes;
@@ -67,6 +74,11 @@ public class Reaction extends AbstractReaction {
 
     public double getIntervalRate() {
         return rates[currentInterval];
+    }
+
+    @Override
+    public void resetIntervalToEnd() {
+        currentInterval = changeTimes.length;
     }
 
     // Main method for debugging
