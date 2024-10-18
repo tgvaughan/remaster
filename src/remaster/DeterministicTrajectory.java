@@ -32,7 +32,7 @@ import org.apache.commons.math3.ode.ContinuousOutputModel;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.events.EventHandler;
-import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
+import org.apache.commons.math3.ode.nonstiff.DormandPrince54Integrator;
 import remaster.reactionboxes.BDReactionBox;
 import remaster.reactionboxes.ContinuousBDReactionBox;
 import remaster.reactionboxes.PunctualBDReactionBox;
@@ -58,7 +58,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     public Input<Function> backwardRelativeStepSizeInput = new Input<>("backwardRelativeStepSize",
             "Integration time step length relative to to maxTime.",
-            new RealParameter("1e-4"));
+            new RealParameter("1e-5"));
 
     FirstOrderIntegrator integrator;
 
@@ -72,9 +72,10 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         if (Double.isInfinite(maxTimeInput.get().getArrayValue()))
             throw new IllegalArgumentException("Must specify finite maxTime for deterministic trajectories.");
 
-        integrator = new ClassicalRungeKuttaIntegrator(
-                maxTimeInput.get().getArrayValue()*
-                                forwardRelativeStepSizeInput.get().getArrayValue());
+        double maxFowardStep = forwardRelativeStepSizeInput.get().getArrayValue()
+                * maxTimeInput.get().getArrayValue();
+        integrator = new DormandPrince54Integrator(maxFowardStep*1e-3,
+                maxFowardStep, 1e-3, 1e-4);
 
         doSimulation();
     }
@@ -272,6 +273,12 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                         reactionBox.getLineageInclusionProbability(lineages);
 
                 double prob = reactionBox.currentPropensity*totalInclusionProb*dt;
+
+                if (prob>1) {
+                    throw new SimulationFailureException("Step reaction probability " +
+                            "exceeds 1.  Consider reducing backwardRelativeStepSize " +
+                            "input to DeterministicTrajectory.");
+                }
 
                 if (u < prob) {
                     reactionBox.incrementLineages(lineages, t,

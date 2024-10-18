@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-08-29 Thu 13:55 -->
+<!-- 2024-10-18 Fri 14:35 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -100,7 +100,7 @@
 </div>
 </nav>
 
-<figure id="orgca3bb46">
+<figure id="orga148386">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -267,7 +267,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org1c00be3">
+<figure id="org059d890">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -790,19 +790,22 @@ numbers can be problematic.
 <p>
 Finally, <code>DeterministicTrajectory</code> accepts two numerical attributes,
 <code>forwardRelativeStepSize</code> and <code>backwardRelativeStepSize</code>.  These
-attributes define the size of the steps taken by the forward-time and
-backward-time numerical integrators, respectively, relative to the
-total simulation time. Reducing the size of these values increases the
-accuracy of the deterministic trajectory calculation and the
-associated tree simulation, but makes the calculation more
-computationally demanding.  The forward-time step size affects the
-population size trajectory calculation accuracy, while the
-backward-time step size affects only the subsequent tree simulation
-accuracy.  Leaving these values to their default settings is usually
-okay, but smaller step sizes may be necessary to avoid numerical
-errors in certain situations. (These sometimes manifest in the form of
-"too many lineages remaining" errors.) Models where populations are
-changing very quickly are particularly susceptible to such problems.
+attributes define the maximum size of the steps taken by the
+forward-time and backward-time numerical integrators, respectively,
+relative to the total simulation time. Reducing the size of these
+values increases the accuracy of the deterministic trajectory
+calculation and the associated tree simulation, but makes the
+calculation more computationally demanding.  The forward-time step
+size affects the population size trajectory calculation accuracy,
+while the backward-time step size affects only the subsequent tree
+simulation accuracy.  Leaving these values to their default settings
+is sometimes okay, but smaller step sizes are often necessary to avoid
+numerical errors. These sometimes manifest in the form of "too many
+lineages remaining" or "step reaction probability exceeds 1" errors,
+but may also affect the output in more subtle ways.  Models where
+populations are changing very quickly are particularly susceptible to
+such problems.  It is thus important to try various values of these
+tuning parameters to ensure numerical convergence.
 </p>
 </div>
 </div>
@@ -903,7 +906,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org52971ed">
+<pre class="example" id="org5731150">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -950,7 +953,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org0e1e75d">
+<pre class="example" id="org444b95b">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -996,7 +999,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org9850f03">
+<figure id="org597839b">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1008,7 +1011,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org9847cb0">
+<figure id="org6cb6b20">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1105,7 +1108,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#org378334f">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orgae965a1">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1164,7 +1167,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orgd38a744">
+<figure id="org36cc385">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1218,7 +1221,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="org510e1d3">
+<figure id="orga084f9b">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1535,7 +1538,7 @@ it yields:
 </div>
 
 
-<figure id="org56711b7">
+<figure id="org9b37ebc">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1587,7 +1590,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org5fc9a98">
+<figure id="org9f2c138">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1655,7 +1658,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="org5c1e34d">
+<figure id="orga3e90a8">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1860,7 +1863,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="org378334f"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orgae965a1"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1879,7 +1882,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="orgdeeffac">
+<pre class="example" id="org8f5b9a0">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1949,7 +1952,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-08-29 Thu 13:55</p>
+<p class="date">Created: 2024-10-18 Fri 14:35</p>
 </div>
 </body>
 </html>

@@ -534,19 +534,22 @@ numbers can be problematic.
 
 Finally, ~DeterministicTrajectory~ accepts two numerical attributes,
 =forwardRelativeStepSize= and =backwardRelativeStepSize=.  These
-attributes define the size of the steps taken by the forward-time and
-backward-time numerical integrators, respectively, relative to the
-total simulation time. Reducing the size of these values increases the
-accuracy of the deterministic trajectory calculation and the
-associated tree simulation, but makes the calculation more
-computationally demanding.  The forward-time step size affects the
-population size trajectory calculation accuracy, while the
-backward-time step size affects only the subsequent tree simulation
-accuracy.  Leaving these values to their default settings is usually
-okay, but smaller step sizes may be necessary to avoid numerical
-errors in certain situations. (These sometimes manifest in the form of
-"too many lineages remaining" errors.) Models where populations are
-changing very quickly are particularly susceptible to such problems.
+attributes define the maximum size of the steps taken by the
+forward-time and backward-time numerical integrators, respectively,
+relative to the total simulation time. Reducing the size of these
+values increases the accuracy of the deterministic trajectory
+calculation and the associated tree simulation, but makes the
+calculation more computationally demanding.  The forward-time step
+size affects the population size trajectory calculation accuracy,
+while the backward-time step size affects only the subsequent tree
+simulation accuracy.  Leaving these values to their default settings
+is sometimes okay, but smaller step sizes are often necessary to avoid
+numerical errors. These sometimes manifest in the form of "too many
+lineages remaining" or "step reaction probability exceeds 1" errors,
+but may also affect the output in more subtle ways.  Models where
+populations are changing very quickly are particularly susceptible to
+such problems.  It is thus important to try various values of these
+tuning parameters to ensure numerical convergence.
 
 *** Placing conditions on trajectories
 :PROPERTIES:
