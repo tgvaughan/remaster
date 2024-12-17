@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-10-18 Fri 14:35 -->
+<!-- 2024-12-17 Tue 09:40 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -100,7 +100,7 @@
 </div>
 </nav>
 
-<figure id="orga148386">
+<figure id="orgec52d0f">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -267,7 +267,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="org059d890">
+<figure id="orgd5ee091">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -324,6 +324,13 @@ concepts shared by all simulation types.
 Birth-death simulations are the bread and butter of ReMASTER.  Unlike
 MASTER, ReMASTER is built from the ground up to make simulating
 birth-death trajectories and trees as easy and flexible as possible.
+</p>
+
+<p>
+Note that the birth-death models ReMASTER is capable of simulating are
+restricted to those whose population dynamics obey a time-inhomogeneous
+Chemical Master Equation.  More details on this are given below when
+discussing the connection between reaction rates and propensities.
 </p>
 </div>
 
@@ -403,7 +410,7 @@ reactions and "punctual" reactions.
 <p>
 As the name suggests, these reactions are applied continuously throughout the
 simulation at particular <i>rates</i> which, together with the current state
-of tye system, determine the reaction probability per
+of the system, determine the reaction probability per
 unit time for the reaction firing on each of the possible <i>combinations</i>
 of reactant individuals.
 </p>
@@ -415,6 +422,15 @@ $$\Lambda = \lambda \prod_{i}\binom{N_i}{n_i}$$
 where $i$ ranges over all reactant types, $N_i$ represents the total
 number of individuals of type $i$, and $n_i$ represents the number of reactants
 of type $i$ required for the reaction.
+</p>
+
+<p>
+The relationship between reaction rate $\lambda$ and the overall
+propensity takes the form used by so-called Chemical Master Equations,
+where the dependence of the propensity on the current population sizes
+is determined entirely by mass action kinetics.  Just as in MASTER before
+it, ReMASTER cannot simulate birth-death processes where propensities have
+some other dependence on the population sizes.
 </p>
 
 <p>
@@ -906,7 +922,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="org5731150">
+<pre class="example" id="orgf59fc89">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -953,7 +969,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org444b95b">
+<pre class="example" id="org2a07cef">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -999,7 +1015,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org597839b">
+<figure id="org789bb79">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1011,7 +1027,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="org6cb6b20">
+<figure id="orgdc6ac30">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1108,7 +1124,7 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#orgae965a1">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#orgcb34882">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
 
@@ -1167,7 +1183,7 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="org36cc385">
+<figure id="orgf4efcd7">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
@@ -1221,7 +1237,7 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orga084f9b">
+<figure id="orgc3bb5c7">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
@@ -1538,7 +1554,7 @@ it yields:
 </div>
 
 
-<figure id="org9b37ebc">
+<figure id="org7396054">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1590,7 +1606,7 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org9f2c138">
+<figure id="org5c34e80">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
@@ -1658,7 +1674,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orga3e90a8">
+<figure id="orgcbe6cf8">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1863,7 +1879,7 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="orgae965a1"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="orgcb34882"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
@@ -1882,7 +1898,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org8f5b9a0">
+<pre class="example" id="org628feed">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1952,7 +1968,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-10-18 Fri 14:35</p>
+<p class="date">Created: 2024-12-17 Tue 09:40</p>
 </div>
 </body>
 </html>

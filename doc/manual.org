@@ -182,6 +182,11 @@ Birth-death simulations are the bread and butter of ReMASTER.  Unlike
 MASTER, ReMASTER is built from the ground up to make simulating
 birth-death trajectories and trees as easy and flexible as possible.
 
+Note that the birth-death models ReMASTER is capable of simulating are
+restricted to those whose population dynamics obey a time-inhomogeneous
+Chemical Master Equation.  More details on this are given below when
+discussing the connection between reaction rates and propensities.
+
 ** Model specification
 :PROPERTIES:
 :CUSTOM_ID: id-2-Birth-death-simulations-Model-specification
@@ -242,7 +247,7 @@ reactions and "punctual" reactions.
 
 As the name suggests, these reactions are applied continuously throughout the
 simulation at particular /rates/ which, together with the current state
-of tye system, determine the reaction probability per
+of the system, determine the reaction probability per
 unit time for the reaction firing on each of the possible /combinations/
 of reactant individuals.
 
@@ -252,6 +257,13 @@ $$\Lambda = \lambda \prod_{i}\binom{N_i}{n_i}$$
 where $i$ ranges over all reactant types, $N_i$ represents the total
 number of individuals of type $i$, and $n_i$ represents the number of reactants
 of type $i$ required for the reaction.
+
+The relationship between reaction rate $\lambda$ and the overall
+propensity takes the form used by so-called Chemical Master Equations,
+where the dependence of the propensity on the current population sizes
+is determined entirely by mass action kinetics.  Just as in MASTER before
+it, ReMASTER cannot simulate birth-death processes where propensities have
+some other dependence on the population sizes.
 
 **For users of MASTER**: The relationship between rates and
 propensities is subtly different in ReMASTER compared to MASTER.  In
