@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Tim Vaughan
+ * Copyright (c) 2024 ETH Zurich
  *
  * This file is part of remaster.
  *
