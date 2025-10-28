@@ -20,7 +20,6 @@
 package remaster;
 
 import beast.base.evolution.tree.Node;
-import org.junit.platform.console.shadow.picocli.CommandLine;
 
 /**
  * A class of objects representing "typed" lineages.
