@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 ETH Zurich
+ * Copyright (c) 2023-2025 ETH Zurich
  *
  * This file is part of remaster.
  *
@@ -23,6 +23,12 @@ import beast.base.core.Input;
 import beast.base.core.Log;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeMap;
 
 public class SimulatedTree extends Tree {
 
@@ -84,7 +90,7 @@ public class SimulatedTree extends Tree {
         if (removeSingletonsInput.get())
             root = Util.getSingletonFreeTree(root);
 
-        assignFromWithoutID(new Tree(root));
+        nonBinaryAssignFromWithoutID(new Tree(root));
 
         // Recover taxon set
         if (m_taxonset.get() != null) {
@@ -98,4 +104,127 @@ public class SimulatedTree extends Tree {
         }
 
     }
+
+    /**
+     * Duplicates copies another tree to this tree.  In contrast to
+     * the Tree::assignFrom(), this method does not assume that
+     * the tree being copied is binary.
+     *
+     * @param otherTree tree to copy
+     */
+    private void nonBinaryAssignFromWithoutID(Tree otherTree) {
+        final RemasterNode[] theseNodes = new RemasterNode[otherTree.getNodeCount()];
+        for (int i = 0; i < otherTree.getNodeCount(); i++)
+            theseNodes[i] = new RemasterNode();
+
+        RemasterNode rootNode = theseNodes[otherTree.getRoot().getNr()];
+        rootNode.assignFromNonBinary(theseNodes, otherTree.getRoot());
+
+        root = rootNode;
+        root.setParent(null);
+        nodeCount = theseNodes.length;
+        internalNodeCount = -1;
+        leafNodeCount = -1;
+        initArrays();
+    }
+
+    /**
+     * Helper subclass needed to access protected members of Node.
+     */
+    private static class RemasterNode extends Node {
+
+        public void assignFromNonBinary(RemasterNode[] theseNodes, Node otherNode) {
+            height = otherNode.getHeight();
+            labelNr = otherNode.getNr();
+            metaDataString = otherNode.metaDataString;
+            lengthMetaDataString = otherNode.lengthMetaDataString;
+            metaData = new TreeMap<>();
+            for (String key : otherNode.getMetaDataNames())
+                metaData.put(key, otherNode.getMetaData(key));
+            lengthMetaData = new TreeMap<>();
+            for (String key : otherNode.getLengthMetaDataNames())
+                lengthMetaData.put(key, otherNode.getLengthMetaData(key));
+            parent = null;
+            setID(otherNode.getID());
+
+            for (Node otherChild : otherNode.getChildren()) {
+                RemasterNode thisChild = theseNodes[otherChild.getNr()];
+                children.add(thisChild);
+                thisChild.assignFromNonBinary(theseNodes, otherChild);
+                thisChild.setParentOnly(this);
+            }
+        }
+
+        public void setParentOnly(Node newParent) {
+            parent = newParent;
+        }
+    }
+
+    /*
+     * Modifications to Tree logging methods to allow correct logging of
+     * non-binary trees.
+     */
+
+    @Override
+    public void init(PrintStream out) {
+        Node node = getRoot();
+        out.println("#NEXUS\n");
+        out.println("Begin taxa;");
+        out.println("\tDimensions ntax=" + getLeafNodeCount() + ";");
+        out.println("\t\tTaxlabels");
+        printTaxaNonBinary(node, out, getLeafNodeCount());
+        out.println("\t\t\t;");
+        out.println("End;");
+
+        out.println("Begin trees;");
+        out.println("\tTranslate");
+        printTranslateNonBinary(node, out, getLeafNodeCount());
+        out.print(";");
+    }
+
+    public static void printTranslateNonBinary(final Node node, final PrintStream out, final int nodeCount) {
+        final List<String> translateLines = new ArrayList<>();
+        printTranslateNonBinary(node, translateLines, nodeCount);
+        Collections.sort(translateLines);
+        for (final String line : translateLines) {
+            out.println(line);
+        }
+    }
+
+    /**
+     * need this helper so that we can sort list of entries *
+     */
+    static void printTranslateNonBinary(Node node, List<String> translateLines, int nodeCount) {
+        if (node.isLeaf()) {
+            String line = String.format("\t\t%6d ", node.getNr() + taxaTranslationOffset);
+            if (node.getID().indexOf(' ') > 0) {
+                char c = node.getID().charAt(0);
+                if (c == '\"' || c == '\'') {
+                    line += node.getID();
+                } else {
+                    line += '\"' + node.getID() + "\"";
+                }
+            } else {
+                line += node.getID();
+            }
+            if (node.getNr() < nodeCount) {
+                line += ",";
+            }
+            translateLines.add(line);
+        } else {
+            for (Node child : node.getChildren())
+                printTranslateNonBinary(child, translateLines, nodeCount);
+        }
+    }
+
+    public static void printTaxaNonBinary(final Node node, final PrintStream out, final int nodeCount) {
+        final List<String> translateLines = new ArrayList<>();
+        printTranslateNonBinary(node, translateLines, nodeCount);
+        Collections.sort(translateLines);
+        for (String line : translateLines) {
+            line = line.substring(line.indexOf(" ", 7)).replace(',', ' ').trim();
+            out.println("\t\t\t" + line);
+        }
+    }
+
 }
