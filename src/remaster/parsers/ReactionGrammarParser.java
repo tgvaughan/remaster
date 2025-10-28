@@ -1,4 +1,4 @@
-// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ReactionGrammar.g4 by ANTLR 4.13.1
+// Generated from ReactionGrammar.g4 by ANTLR 4.10.1
 package remaster.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ReactionGrammarParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -94,7 +94,6 @@ public class ReactionGrammarParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ReactionContext extends ParserRuleContext {
 		public ReactantsContext reactants() {
 			return getRuleContext(ReactantsContext.class,0);
@@ -149,7 +148,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ReactantsContext extends ParserRuleContext {
 		public PopsumContext popsum() {
 			return getRuleContext(PopsumContext.class,0);
@@ -194,7 +192,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ProductsContext extends ParserRuleContext {
 		public PopsumContext popsum() {
 			return getRuleContext(PopsumContext.class,0);
@@ -239,7 +236,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PopsumContext extends ParserRuleContext {
 		public List<PopelContext> popel() {
 			return getRuleContexts(PopelContext.class);
@@ -321,7 +317,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PopelContext extends ParserRuleContext {
 		public PopnameContext popname() {
 			return getRuleContext(PopnameContext.class,0);
@@ -408,7 +403,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class FactorContext extends ParserRuleContext {
 		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
 		public FactorContext(ParserRuleContext parent, int invokingState) {
@@ -451,7 +445,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class IdContext extends ParserRuleContext {
 		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
 		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
@@ -484,7 +477,7 @@ public class ReactionGrammarParser extends Parser {
 			{
 			setState(57);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1408L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ZERO) | (1L << NZINT) | (1L << IDENT))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -505,7 +498,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class SinglepopelContext extends ParserRuleContext {
 		public PopnameContext popname() {
 			return getRuleContext(PopnameContext.class,0);
@@ -564,7 +556,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ReactlistContext extends ParserRuleContext {
 		public List<SinglepopelContext> singlepopel() {
 			return getRuleContexts(SinglepopelContext.class);
@@ -632,7 +623,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PopnameContext extends ParserRuleContext {
 		public TerminalNode IDENT() { return getToken(ReactionGrammarParser.IDENT, 0); }
 		public PopnameContext(ParserRuleContext parent, int invokingState) {
@@ -675,7 +665,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class LocContext extends ParserRuleContext {
 		public LocidxContext locidx() {
 			return getRuleContext(LocidxContext.class,0);
@@ -724,7 +713,6 @@ public class ReactionGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class LocidxContext extends ParserRuleContext {
 		public TerminalNode ZERO() { return getToken(ReactionGrammarParser.ZERO, 0); }
 		public TerminalNode NZINT() { return getToken(ReactionGrammarParser.NZINT, 0); }
@@ -757,7 +745,7 @@ public class ReactionGrammarParser extends Parser {
 			{
 			setState(79);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1408L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ZERO) | (1L << NZINT) | (1L << IDENT))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {

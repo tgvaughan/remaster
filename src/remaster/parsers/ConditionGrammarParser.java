@@ -1,4 +1,4 @@
-// Generated from /Users/vaughant/code/beast_and_friends/remaster/src/remaster/parsers/ConditionGrammar.g4 by ANTLR 4.10.1
+// Generated from ConditionGrammar.g4 by ANTLR 4.10.1
 package remaster.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
