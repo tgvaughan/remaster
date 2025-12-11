@@ -54,3 +54,6 @@ License
 ReMASTER is free (as in freedom) software, and is released under the
 terms of version 3 or later of the GNU General Public License. A copy
 of this license can be found in this directory in the file named COPYING.
+
+ReMASTER incorporates the [Google Guava library](https://github.com/google/guava)
+which is distributed under version 2 of the Apache License.
