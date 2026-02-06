@@ -68,18 +68,43 @@ public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
             while (reaction.getIntervalEndTime()<currentTime)
                 reaction.incrementInterval();
 
-            double prop = getPropensity(lineages);
-            double dt = -Math.log(u)/prop;
             double t = currentTime;
-            while (t+dt > reaction.getIntervalEndTime()) {
-                u -= 1.0 - Math.exp(-(reaction.getIntervalEndTime() - t) * prop);
-                t = reaction.getIntervalEndTime();
-                reaction.incrementInterval();
-                prop = getPropensity(lineages);
-                dt = -Math.log(u)/prop;
-            }
+            // Correct inverse-CDF sampler for a piecewise-constant propensity process:
+            // draw w ~ Exp(1) and solve int lambda(t) dt = w by walking intervals.
+            // (The previous implementation updated u by subtracting CDF mass, which is incorrect
+            //  and can yield negative u / NaN reaction times.)
+            double w = -Math.log(u);
+            while (true) {
+                double tEnd = reaction.getIntervalEndTime();
+                double prop = getPropensity(lineages);
 
-            return t + dt;
+                if (!(prop > 0.0) || Double.isNaN(prop) || Double.isInfinite(prop)) {
+                    if (tEnd == Double.POSITIVE_INFINITY)
+                        return Double.POSITIVE_INFINITY;
+                    t = tEnd;
+                    reaction.incrementInterval();
+                    continue;
+                }
+
+                if (tEnd == Double.POSITIVE_INFINITY)
+                    return t + w/prop;
+
+                double dt = tEnd - t;
+                if (dt < 0.0) {
+                    // Numerical drift; advance.
+                    t = tEnd;
+                    reaction.incrementInterval();
+                    continue;
+                }
+
+                double h = prop * dt;
+                if (w <= h)
+                    return t + w/prop;
+
+                w -= h;
+                t = tEnd;
+                reaction.incrementInterval();
+            }
         }
     }
 
