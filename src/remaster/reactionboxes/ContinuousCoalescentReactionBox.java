@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 ETH Zurich
+ * Copyright (c) 2023-2026 ETH Zürich
  *
  * This file is part of remaster.
  *
@@ -72,7 +72,9 @@ public class ContinuousCoalescentReactionBox extends CoalescentReactionBox {
             double dt = -Math.log(u)/prop;
             double t = currentTime;
             while (t+dt > reaction.getIntervalEndTime()) {
-                u -= 1.0 - Math.exp(-(reaction.getIntervalEndTime() - t) * prop);
+                double pNoFire = Math.exp(-(reaction.getIntervalEndTime()-t)*prop);
+                u = u/pNoFire; // When t+dt exceeds interval, u is less than pNoFire
+
                 t = reaction.getIntervalEndTime();
                 reaction.incrementInterval();
                 prop = getPropensity(lineages);
