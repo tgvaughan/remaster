@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Tim Vaughan
+ * Copyright (c) 2023-2026 ETH Zürich
  *
  * This file is part of remaster.
  *
