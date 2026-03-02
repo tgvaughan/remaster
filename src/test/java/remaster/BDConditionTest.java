@@ -19,35 +19,36 @@
 
 package remaster;
 
-import beast.base.core.Function;
-import beast.base.inference.parameter.RealParameter;
-import org.junit.Test;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.inference.parameter.RealVectorParam;
+import beast.base.spec.type.RealVector;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BDConditionTest {
 
     @Test
     public void testSimple() {
 
-        List<Function> allPops = new ArrayList<>();
+        List<RealVector<NonNegativeReal>> allPops = new ArrayList<>();
         Set<String> samplePopNames = new HashSet<>();
 
-        RealParameter X = new RealParameter("1 20 30");
+        RealVectorParam<NonNegativeReal> X = new RealVectorParam<>(new double[]{1, 20, 30}, NonNegativeReal.INSTANCE);
         X.setID("X");
         allPops.add(X);
 
-        RealParameter Y = new RealParameter("12");
+        RealVectorParam<NonNegativeReal> Y = new RealVectorParam<>(new double[]{12}, NonNegativeReal.INSTANCE);
         Y.setID("Y");
         allPops.add(Y);
 
-        RealParameter S = new RealParameter("100");
+        RealVectorParam<NonNegativeReal> S = new RealVectorParam<>(new double[]{100}, NonNegativeReal.INSTANCE);
         S.setID("S");
         allPops.add(S);
 
@@ -70,14 +71,14 @@ public class BDConditionTest {
     @Test
     public void testSwitch() {
 
-        List<Function> allPops = new ArrayList<>();
+        List<RealVector<NonNegativeReal>> allPops = new ArrayList<>();
         Set<String> samplePopNames = new HashSet<>();
 
-        RealParameter X = new RealParameter("1");
+        RealVectorParam<NonNegativeReal> X = new RealVectorParam<>(new double[]{1}, NonNegativeReal.INSTANCE);
         X.setID("X");
         allPops.add(X);
 
-        RealParameter Y = new RealParameter("0");
+        RealVectorParam<NonNegativeReal> Y = new RealVectorParam<>(new double[]{0}, NonNegativeReal.INSTANCE);
         Y.setID("Y");
         allPops.add(Y);
 

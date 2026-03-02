@@ -87,8 +87,8 @@ public class StochasticTrajectory extends AbstractBDTrajectory {
             t += delta;
 
             BDReactionBox updatedReactionBox = reactionBoxesSortedByChangeTimes.get(0);
-            if (maxTimeInput.get().getArrayValue() < updatedReactionBox.getIntervalEndTime()) {
-                if (t > maxTimeInput.get().getArrayValue())
+            if (maxTimeInput.get().get() < updatedReactionBox.getIntervalEndTime()) {
+                if (t > maxTimeInput.get().get())
                     break;
             } else if (t > updatedReactionBox.getIntervalEndTime()) {
                 t = updatedReactionBox.getIntervalEndTime();

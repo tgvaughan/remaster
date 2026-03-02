@@ -21,8 +21,7 @@ package remaster.reactionboxes;
 
 import beast.base.util.DiscreteStatistics;
 import beast.base.util.Randomizer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import remaster.Lineage;
 import remaster.LineageFactory;
 import remaster.ReactElement;
@@ -30,6 +29,8 @@ import remaster.Reaction;
 
 import java.util.*;
 import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContinuousCoalescentReactionBoxTest {
 
@@ -65,7 +66,7 @@ public class ContinuousCoalescentReactionBoxTest {
                 })
                 .toArray();
 
-        Assert.assertEquals(0.25,DiscreteStatistics.mean(nextReactionTimes), 1e-3);
+        assertEquals(0.25,DiscreteStatistics.mean(nextReactionTimes), 1e-3);
     }
 
     @Test
@@ -106,6 +107,6 @@ public class ContinuousCoalescentReactionBoxTest {
         double T = 1.0;
         double trueMean = 1/lambda1 + Math.exp(-lambda1*T)*(1/lambda2 - 1/lambda1);
 
-        Assert.assertEquals(trueMean, DiscreteStatistics.mean(nextReactionTimes), 1e-3);
+        assertEquals(trueMean, DiscreteStatistics.mean(nextReactionTimes), 1e-3);
     }
 }

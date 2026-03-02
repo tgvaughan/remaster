@@ -21,6 +21,8 @@ package remaster;
 
 import beast.base.core.BEASTObject;
 import beast.base.core.Function;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.type.RealVector;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -40,25 +42,25 @@ public class BDTrajectoryState {
 
     public Set<AbstractReaction> sampleProducingReactions;
 
-    public BDTrajectoryState(List<Function> allPops, Set<String> samplePopNames)  {
+    public BDTrajectoryState(List<RealVector<NonNegativeReal>> allPops, Set<String> samplePopNames)  {
 
         int nextIdx = 0;
 
-        for (Function popFunc : allPops) {
+        for (RealVector<NonNegativeReal> popFunc : allPops) {
             String popName = ((BEASTObject)popFunc).getID().intern();
             popIndices.put(popName, nextIdx);
-            popDims.put(popName, popFunc.getDimension());
-            nextIdx += popFunc.getDimension();
+            popDims.put(popName, popFunc.size());
+            nextIdx += popFunc.size();
         }
 
         occupancies = new double[nextIdx];
         initialOccupancies = new double[nextIdx];
         finalOccupancies = new double[nextIdx];
 
-        for (Function popFunc : allPops) {
+        for (RealVector<NonNegativeReal> popFunc : allPops) {
             String popName = ((BEASTObject)popFunc).getID().intern();
-            System.arraycopy(popFunc.getDoubleValues(), 0, initialOccupancies,
-                    popIndices.get(popName), popFunc.getDimension());
+            for (int i=0; i<popFunc.size(); i++)
+                initialOccupancies[popIndices.get(popName)+i] = popFunc.get(i);
         }
 
         System.arraycopy(initialOccupancies, 0, occupancies, 0,

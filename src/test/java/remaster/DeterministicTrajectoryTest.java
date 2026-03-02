@@ -20,17 +20,18 @@
 package remaster;
 
 import beast.base.inference.parameter.RealParameter;
-import org.junit.Assert;
-import org.junit.Test;
-import remaster.DeterministicTrajectory;
-import remaster.Reaction;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.inference.parameter.RealVectorParam;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeterministicTrajectoryTest {
 
     @Test
     public void linearBDtest() {
 
-        RealParameter X = new RealParameter("1");
+        RealVectorParam<NonNegativeReal> X = new RealVectorParam<>(new double[]{1}, NonNegativeReal.INSTANCE);
         X.setID("X");
 
         Reaction birth = new Reaction();
@@ -46,6 +47,6 @@ public class DeterministicTrajectoryTest {
                 "maxTime", "5");
 
         traj.continuousOutputModel.setInterpolatedTime(5);
-        Assert.assertEquals(12.18249, traj.continuousOutputModel.getInterpolatedState()[0], 1e-5);
+        assertEquals(12.18249, traj.continuousOutputModel.getInterpolatedState()[0], 1e-5);
     }
 }

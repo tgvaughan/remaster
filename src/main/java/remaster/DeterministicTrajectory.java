@@ -69,11 +69,11 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     public void initAndValidate() {
         super.initAndValidate();
 
-        if (Double.isInfinite(maxTimeInput.get().getArrayValue()))
+        if (Double.isInfinite(maxTimeInput.get().get()))
             throw new IllegalArgumentException("Must specify finite maxTime for deterministic trajectories.");
 
         double maxFowardStep = forwardRelativeStepSizeInput.get().getArrayValue()
-                * maxTimeInput.get().getArrayValue();
+                * maxTimeInput.get().get();
         integrator = new DormandPrince54Integrator(maxFowardStep*1e-3,
                 maxFowardStep, 1e-3, 1e-4);
 
@@ -164,8 +164,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         };
 
         integrator.addEventHandler(rateShiftHandler,
-                1e-2 * maxTimeInput.get().getArrayValue(),
-                1e-5 * maxTimeInput.get().getArrayValue(),
+                1e-2 * maxTimeInput.get().get(),
+                1e-5 * maxTimeInput.get().get(),
                 10);
 
         if (endCondition != null) {
@@ -197,8 +197,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             };
 
             integrator.addEventHandler(endConditionHandler,
-                    1e-2 * maxTimeInput.get().getArrayValue(),
-                    1e-5 * maxTimeInput.get().getArrayValue(),
+                    1e-2 * maxTimeInput.get().get(),
+                    1e-5 * maxTimeInput.get().get(),
                     10);
         }
 
@@ -206,7 +206,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         integrator.addStepHandler(continuousOutputModel);
 
         stopTime = integrator.integrate(system, 0, state.occupancies,
-                maxTimeInput.get().getArrayValue(), state.occupancies);
+                maxTimeInput.get().get(), state.occupancies);
 
         if (acceptCondition != null && !acceptCondition.isMet()) {
             System.out.println("Trajectory acceptance condition not met: " + mustHaveInput.get());
@@ -316,7 +316,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
         state.addToLog(out, sample, 0, true);
 
-        double T = maxTimeInput.get().getArrayValue();
+        double T = maxTimeInput.get().get();
         double dt = T/loggingGridSizeInput.get().getArrayValue();
         for (double t=dt; t<stopTime; t += dt) {
             continuousOutputModel.setInterpolatedTime(t);

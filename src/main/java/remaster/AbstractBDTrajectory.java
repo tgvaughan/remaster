@@ -24,6 +24,11 @@ import beast.base.core.BEASTObject;
 import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.inference.parameter.RealParameter;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.domain.PositiveReal;
+import beast.base.spec.inference.parameter.RealScalarParam;
+import beast.base.spec.type.RealScalar;
+import beast.base.spec.type.RealVector;
 import remaster.reactionboxes.BDReactionBox;
 import remaster.reactionboxes.ContinuousBDReactionBox;
 import remaster.reactionboxes.PunctualBDReactionBox;
@@ -35,10 +40,10 @@ import java.util.Set;
 
 public abstract class AbstractBDTrajectory extends AbstractTrajectory {
 
-    public Input<List<Function>> populationsInput = new Input<>("population",
+    public Input<List<RealVector<NonNegativeReal>>> populationsInput = new Input<>("population",
             "Population or compartment", new ArrayList<>());
 
-    public Input<List<Function>> samplePopulationsInput = new Input<>("samplePopulation",
+    public Input<List<RealVector<NonNegativeReal>>> samplePopulationsInput = new Input<>("samplePopulation",
             "Sample population or compartment", new ArrayList<>());
 
     public Input<String> endsWhenInput = new Input<>("endsWhen",
@@ -47,8 +52,8 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
     public Input<String> mustHaveInput = new Input<>("mustHave",
             "Acceptance predicate.");
 
-    public Input<Function> maxTimeInput = new Input<>("maxTime",
-            "Maximum length of simulation", new RealParameter("Infinity"));
+    public Input<RealScalar<PositiveReal>> maxTimeInput = new Input<>("maxTime",
+            "Maximum length of simulation", new RealScalarParam<>(Double.POSITIVE_INFINITY, PositiveReal.INSTANCE));
 
     BDCondition endCondition, acceptCondition;
 
@@ -62,11 +67,11 @@ public abstract class AbstractBDTrajectory extends AbstractTrajectory {
         super.initAndValidate();
 
         Set<String> samplePopNames = new HashSet<>();
-        for (Function popFunc : samplePopulationsInput.get()) {
+        for (RealVector<NonNegativeReal> popFunc : samplePopulationsInput.get()) {
             String popName = ((BEASTObject) popFunc).getID().intern();
             samplePopNames.add(popName);
         }
-        List<Function> allPops = new ArrayList<>(populationsInput.get());
+        List<RealVector<NonNegativeReal>> allPops = new ArrayList<>(populationsInput.get());
         allPops.addAll(samplePopulationsInput.get());
 
         state = new BDTrajectoryState(allPops, samplePopNames);

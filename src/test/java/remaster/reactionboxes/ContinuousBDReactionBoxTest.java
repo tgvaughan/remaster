@@ -19,9 +19,10 @@
 
 package remaster.reactionboxes;
 
-import beast.base.core.Function;
-import beast.base.inference.parameter.RealParameter;
-import org.junit.Test;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.inference.parameter.RealVectorParam;
+import beast.base.spec.type.RealVector;
+import org.junit.jupiter.api.Test;
 import remaster.BDTrajectoryState;
 import remaster.Reaction;
 
@@ -30,23 +31,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContinuousBDReactionBoxTest {
 
     @Test
     public void test() {
 
-        List<Function> allPops = new ArrayList<>();
-        RealParameter X = new RealParameter("25");
+        List<RealVector<NonNegativeReal>> allPops = new ArrayList<>();
+        RealVectorParam<NonNegativeReal> X = new RealVectorParam<>(new double[]{25}, NonNegativeReal.INSTANCE);
         X.setID("X");
         allPops.add(X);
 
-        RealParameter Y = new RealParameter("3");
+        RealVectorParam<NonNegativeReal> Y = new RealVectorParam<>(new double[]{3}, NonNegativeReal.INSTANCE);
         Y.setID("Y");
         allPops.add(Y);
 
-        RealParameter S = new RealParameter("0");
+        RealVectorParam<NonNegativeReal> S = new RealVectorParam<>(new double[]{0}, NonNegativeReal.INSTANCE);
         S.setID("S");
         allPops.add(S);
 

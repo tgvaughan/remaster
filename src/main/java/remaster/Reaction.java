@@ -19,18 +19,19 @@
 
 package remaster;
 
-import beast.base.core.Function;
 import beast.base.core.Input;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.type.RealVector;
 
 /**
  * Class of continuous-time reactions.
  */
 public class Reaction extends AbstractReaction {
 
-    public Input<Function> rateInput = new Input<>("rate",
+    public Input<RealVector<NonNegativeReal>> rateInput = new Input<>("rate",
             "Per-configuration rate constant.");
 
-    public Input<Function> changeTimesInput = new Input<>("changeTimes",
+    public Input<RealVector<NonNegativeReal>> changeTimesInput = new Input<>("changeTimes",
             "Rate change times.");
 
     double[] rates, changeTimes;
@@ -41,13 +42,19 @@ public class Reaction extends AbstractReaction {
         if (rateInput.get() == null)
             throw new IllegalArgumentException("No rate provided.");
 
-        rates = rateInput.get().getDoubleValues();
-        changeTimes = changeTimesInput.get() == null
-                ? new double[0] : changeTimesInput.get().getDoubleValues();
+        rates = new double[rateInput.get().size()];
+        for (int i=0; i<rates.length; i++)
+            rates[i] = rateInput.get().get(i);
 
+        changeTimes = changeTimesInput.get() == null
+                ? new double[0]
+                : new double[changeTimesInput.get().size()];
         if (changeTimes.length != rates.length-1)
             throw new IllegalArgumentException("Number of change times must " +
                     "equal number of distinct rates - 1.");
+
+        for (int i=0; i<changeTimes.length; i++)
+            changeTimes[i] = changeTimesInput.get().get(i);
 
         super.initAndValidate();
     }

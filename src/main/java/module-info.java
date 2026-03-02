@@ -2,6 +2,9 @@ open module remaster {
     requires beast.pkgmgmt;
     requires beast.base;
     requires org.apache.commons.statistics.distribution;
+    requires org.antlr.antlr4.runtime;
+    requires com.google.common;
+    requires commons.math3;
 
     exports remaster;
 

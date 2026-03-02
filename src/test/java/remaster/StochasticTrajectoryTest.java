@@ -20,12 +20,16 @@
 package remaster;
 
 import beast.base.inference.parameter.RealParameter;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.inference.parameter.RealVectorParam;
+import beast.base.spec.type.RealVector;
 import beast.base.util.DiscreteStatistics;
 import beast.base.util.Randomizer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StochasticTrajectoryTest {
 
@@ -45,7 +49,7 @@ public class StochasticTrajectoryTest {
     public void linearBDtest() {
         Randomizer.setSeed(53);
 
-        RealParameter X = new RealParameter("1");
+        RealVectorParam<NonNegativeReal> X = new RealVectorParam<>(new double[]{1}, NonNegativeReal.INSTANCE);
         X.setID("X");
 
         Reaction birth = new Reaction();
@@ -66,6 +70,6 @@ public class StochasticTrajectoryTest {
                 .mapToDouble(state -> state.get("X", 0))
                 .toArray();
 
-        Assert.assertEquals(12.18249, DiscreteStatistics.mean(finalPopSizes), 0.1);
+        assertEquals(12.18249, DiscreteStatistics.mean(finalPopSizes), 0.1);
     }
 }

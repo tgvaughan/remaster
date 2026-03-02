@@ -22,10 +22,11 @@ package remaster;
 import beast.base.evolution.tree.coalescent.ConstantPopulation;
 import beast.base.util.DiscreteStatistics;
 import beast.base.util.Randomizer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CoalescentTreeTest {
 
@@ -53,6 +54,6 @@ public class CoalescentTreeTest {
                     return tree.getRoot().getHeight();})
                 .toArray();
 
-        Assert.assertEquals(10.0, DiscreteStatistics.mean(coalTimes), 0.1);
+        assertEquals(10.0, DiscreteStatistics.mean(coalTimes), 0.1);
     }
 }
