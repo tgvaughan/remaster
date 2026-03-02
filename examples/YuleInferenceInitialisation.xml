@@ -17,7 +17,7 @@
                   :beast.base.evolution.sitemodel
                   :beast.base.evolution.substitutionmodel
                   :beast.base.evolution.likelihood
-                  :beast.base.inference.parameter"
+                  :beast.base.spec.inference.parameter"
        version="2.0">
 
   <data dataType="nucleotide" id="alignment" name="alignment" strip="false">
@@ -38,8 +38,8 @@
       <!-- Initial tree simulated using ReMASTER -->
       <stateNode id="Tree.t:alignment" spec="remaster.SimulatedTree">
         <trajectory spec="remaster.StochasticTrajectory" maxTime="10">
-          <population id="X" spec="RealParameter" value="1"/>
-          <samplePopulation id="samp" spec="RealParameter" value="0"/>
+          <population id="X" spec="RealVectorParam" value="1"/>
+          <samplePopulation id="samp" spec="RealVectorParam" value="0"/>
 
           <reaction spec="remaster.Reaction" rate="1.0"> X -> 2X </reaction>
           <reaction spec="remaster.PunctualReaction" n="6" times="10"> X -> samp </reaction>

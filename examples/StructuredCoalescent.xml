@@ -1,7 +1,7 @@
 <!-- Basic structured coalescent tree simulation -->
 
 <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+       namespace="beast.base.spec.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="10">
     <simulate id="tree" spec="SimulatedTree">

@@ -1,12 +1,12 @@
 <!-- Basic birth-death-sampling simulation -->
 
-<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+<beast version="2.0" namespace="beast.base.spec.inference.parameter:beast.base.inference:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="traj"
                         endsWhen="sample==10">
-                <population spec="RealParameter" id="X" value="1"/>
-                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+                <population spec="RealVectorParam" id="X" value="1"/>
+                <samplePopulation spec="RealVectorParam" id="sample" value="0"/>
 
                 <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
