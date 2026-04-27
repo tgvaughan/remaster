@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>remaster</groupId>
+    <groupId>io.github.tgvaughan</groupId>
     <artifactId>remaster</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-beta1</version>
 
     <name>ReMASTER</name>
     <description>ReMASTER phylodynamic simulator</description>
@@ -36,7 +36,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
-        <beast.version>2.8.0-SNAPSHOT</beast.version>
+        <beast.version>2.8.0-beta4</beast.version>
+        <beast.module>beast.base</beast.module>
+        <beast.main>beast.base.minimal.BeastMain</beast.main>
+        <beast.args/>
         <beast.pkg.name>remaster</beast.pkg.name>
         <beast.pkg.version>3.0.0</beast.pkg.version>
     </properties>
@@ -161,6 +164,33 @@
                                 </resource>
                             </resources>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Run BEAST or BEAUti with package on module path:
+     mvn exec:exec -Dbeast.args="examples/mypackage.xml"
+     mvn exec:exec -Dbeast.module=beast.fx -Dbeast.main=beastfx.app.beauti.Beauti -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <commandlineArgs>--module-path %classpath -DBEAST_PACKAGE_PATH=${project.build.outputDirectory} -m ${beast.module}/${beast.main} ${beast.args}</commandlineArgs>
+                </configuration>
+            </plugin>
+
+            <!-- Source JAR (included in BEAST package ZIP as PKG_NAME.src.jar) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals><goal>jar-no-fork</goal></goals>
                     </execution>
                 </executions>
             </plugin>

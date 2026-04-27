@@ -23,6 +23,11 @@ import beast.base.core.Description;
 import beast.base.core.Input;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.coalescent.PopulationFunction;
+import beast.base.spec.domain.PositiveInt;
+import beast.base.spec.domain.PositiveReal;
+import beast.base.spec.inference.parameter.IntScalarParam;
+import beast.base.spec.type.IntScalar;
+import beast.base.spec.type.RealScalar;
 import remaster.reactionboxes.ContinuousCoalescentReactionBox;
 import remaster.reactionboxes.PunctualCoalescentReactionBox;
 
@@ -38,12 +43,12 @@ public class CoalescentTrajectory extends AbstractTrajectory {
         "Population represented by a beast PopulationFunction object",
         new ArrayList<>());
 
-    public Input<Double> maxTrajLogAgeInput = new Input<>("maxTrajLogAge",
+    public Input<RealScalar<PositiveReal>> maxTrajLogAgeInput = new Input<>("maxTrajLogAge",
             "Maximum age for logging population dynamics.");
 
-    public Input<Integer> loggingGridSizeInput = new Input<>("loggingGridSize",
+    public Input<IntScalar<PositiveInt>> loggingGridSizeInput = new Input<>("loggingGridSize",
             "Number of evenly spaced samples used to log population dynamics.",
-            101);
+            new IntScalarParam<>(101, PositiveInt.INSTANCE));
 
     Set<ReactElement> popElements;
     List<ContinuousCoalescentReactionBox> continuousCoalReactions;
@@ -142,11 +147,11 @@ public class CoalescentTrajectory extends AbstractTrajectory {
             throw new IllegalArgumentException("Cannot log CoalescentTrajectory without" +
                     "specifying maxTrajLogAge.");
 
-        double maxAge = maxTrajLogAgeInput.get();
-        double sampleCount = loggingGridSizeInput.get();
+        double maxAge = maxTrajLogAgeInput.get().get();
+        double sampleCount = loggingGridSizeInput.get().get();
 
         boolean isFirst = true;
-        for (int i = 0; i< loggingGridSizeInput.get(); i++) {
+        for (int i = 0; i< loggingGridSizeInput.get().get(); i++) {
             double t = i*maxAge/(sampleCount - 1);
 
             for (PopulationFunction.Abstract pop : popFuncInput.get()) {

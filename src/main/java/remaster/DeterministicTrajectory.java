@@ -20,11 +20,14 @@
 package remaster;
 
 import beast.base.core.Description;
-import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.evolution.tree.Node;
-import beast.base.inference.parameter.IntegerParameter;
-import beast.base.inference.parameter.RealParameter;
+import beast.base.spec.domain.*;
+import beast.base.spec.inference.parameter.IntScalarParam;
+import beast.base.spec.inference.parameter.RealScalarParam;
+import beast.base.spec.inference.parameter.RealVectorParam;
+import beast.base.spec.type.IntScalar;
+import beast.base.spec.type.RealScalar;
 import beast.base.util.Randomizer;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
@@ -48,17 +51,17 @@ import java.util.*;
         "TSV file which can be directly read into R for plotting.")
 public class DeterministicTrajectory extends AbstractBDTrajectory {
 
-    public Input<Function> loggingGridSizeInput = new Input<>("loggingGridSize",
+    public Input<IntScalar<PositiveInt>> loggingGridSizeInput = new Input<>("loggingGridSize",
             "Number of grid points used to log trajectory.",
-            new IntegerParameter("101"));
+            new IntScalarParam<>(101, PositiveInt.INSTANCE));
 
-    public Input<Function> forwardRelativeStepSizeInput = new Input<>("forwardRelativeStepSize",
+    public Input<RealScalar<UnitInterval>> forwardRelativeStepSizeInput = new Input<>("forwardRelativeStepSize",
             "Integration time step length relative to to maxTime.",
-            new RealParameter("1e-4"));
+            new RealScalarParam<>(1e-4, UnitInterval.INSTANCE));
 
-    public Input<Function> backwardRelativeStepSizeInput = new Input<>("backwardRelativeStepSize",
+    public Input<RealScalar<UnitInterval>> backwardRelativeStepSizeInput = new Input<>("backwardRelativeStepSize",
             "Integration time step length relative to to maxTime.",
-            new RealParameter("1e-5"));
+            new RealScalarParam<>(1e-5, UnitInterval.INSTANCE));
 
     FirstOrderIntegrator integrator;
 
@@ -72,7 +75,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         if (Double.isInfinite(maxTimeInput.get().get()))
             throw new IllegalArgumentException("Must specify finite maxTime for deterministic trajectories.");
 
-        double maxFowardStep = forwardRelativeStepSizeInput.get().getArrayValue()
+        double maxFowardStep = forwardRelativeStepSizeInput.get().get()
                 * maxTimeInput.get().get();
         integrator = new DormandPrince54Integrator(maxFowardStep*1e-3,
                 maxFowardStep, 1e-3, 1e-4);
@@ -144,12 +147,11 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
             @Override
             public void resetState(double t, double[] y) {
-                double eventTime = reactionBoxesSortedByChangeTimes.get(0).getIntervalEndTime();
-                while (reactionBoxesSortedByChangeTimes.get(0).getIntervalEndTime() == eventTime) {
-                    BDReactionBox reactionBox = reactionBoxesSortedByChangeTimes.get(0);
+                double eventTime = reactionBoxesSortedByChangeTimes.getFirst().getIntervalEndTime();
+                while (reactionBoxesSortedByChangeTimes.getFirst().getIntervalEndTime() == eventTime) {
+                    BDReactionBox reactionBox = reactionBoxesSortedByChangeTimes.getFirst();
 
-                    if (reactionBox instanceof PunctualBDReactionBox) {
-                        PunctualBDReactionBox punctualReaction = (PunctualBDReactionBox) reactionBox;
+                    if (reactionBox instanceof PunctualBDReactionBox punctualReaction) {
 
                         System.arraycopy(y, 0, state.occupancies, 0, y.length);
                         punctualReaction.implementEvent(false);
@@ -220,7 +222,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
     @Override
     public Node simulateTree() throws SimulationFailureException {
 
-        int Nt = (int)Math.round(1/backwardRelativeStepSizeInput.get().getArrayValue());
+        int Nt = (int)Math.round(1/backwardRelativeStepSizeInput.get().get());
 
         LineageFactory lineageFactory = new LineageFactory();
         Map<ReactElement, List<Lineage>> lineages = new HashMap<>();
@@ -234,8 +236,8 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                 BDReactionBox::getIntervalStartTime).reversed());
 
         while (!sortedReactionBoxes.isEmpty()
-                && sortedReactionBoxes.get(0).getIntervalStartTime()>stopTime) {
-            sortedReactionBoxes.get(0).decrementInterval();
+                && sortedReactionBoxes.getFirst().getIntervalStartTime()>stopTime) {
+            sortedReactionBoxes.getFirst().decrementInterval();
             sortedReactionBoxes.sort(Comparator.comparingDouble(
                     BDReactionBox::getIntervalStartTime).reversed());
         }
@@ -251,11 +253,10 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
                     state.occupancies, 0, state.occupancies.length);
 
             while (!sortedReactionBoxes.isEmpty() &&
-                    sortedReactionBoxes.get(0).getIntervalStartTime()>t) {
-                BDReactionBox reactionBox = sortedReactionBoxes.get(0);
+                    sortedReactionBoxes.getFirst().getIntervalStartTime()>t) {
+                BDReactionBox reactionBox = sortedReactionBoxes.getFirst();
                 reactionBox.decrementInterval();
-                if (reactionBox instanceof PunctualBDReactionBox) {
-                    PunctualBDReactionBox punctualReactionBox = (PunctualBDReactionBox)reactionBox;
+                if (reactionBox instanceof PunctualBDReactionBox punctualReactionBox) {
                     double n = punctualReactionBox.implementEvent(true);
                     for (int i = 0; i < n; i++) {
                         punctualReactionBox.incrementLineages(lineages, t,
@@ -304,10 +305,10 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
             throw new SimulationFailureException("Multiple lineages remaining.");
         }
 
-        lineageFactory.numberInternals(rootLineages.get(0));
-        lineageFactory.computeAgesFromTimes(rootLineages.get(0));
+        lineageFactory.numberInternals(rootLineages.getFirst());
+        lineageFactory.computeAgesFromTimes(rootLineages.getFirst());
 
-        return rootLineages.get(0);
+        return rootLineages.getFirst();
     }
 
     @Override
@@ -317,7 +318,7 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
         state.addToLog(out, sample, 0, true);
 
         double T = maxTimeInput.get().get();
-        double dt = T/loggingGridSizeInput.get().getArrayValue();
+        double dt = T/loggingGridSizeInput.get().get();
         for (double t=dt; t<stopTime; t += dt) {
             continuousOutputModel.setInterpolatedTime(t);
             System.arraycopy(continuousOutputModel.getInterpolatedState(), 0,
@@ -331,28 +332,27 @@ public class DeterministicTrajectory extends AbstractBDTrajectory {
 
     /**
      * Testing
-     * @param args
      */
-    public static void main(String[] args) {
+    public static void main() {
 
-        RealParameter popX = new RealParameter("1.0");
+        RealVectorParam<NonNegativeReal> popX = new RealVectorParam<>(new double[] {1.0}, NonNegativeReal.INSTANCE);
         popX.setID("X");
 
         Reaction birth = new Reaction();
         birth.initByName(
                 "value", "X -> 2X",
-                "rate", new RealParameter("2.0"));
+                "rate", new RealVectorParam<>(new double[]{2.0}, NonNegativeReal.INSTANCE));
 
         Reaction death = new Reaction();
         death.initByName(
                 "value", "X -> 0",
-                "rate", new RealParameter("1.0"));
+                "rate", new RealVectorParam<>(new double[]{1.0}, NonNegativeReal.INSTANCE));
 
         DeterministicTrajectory traj = new DeterministicTrajectory();
         traj.initByName("population", popX,
                 "reaction", birth,
                 "reaction", death,
-                "maxTime", new RealParameter("5.0"));
+        "maxTime", new RealScalarParam<>(4.0, PositiveReal.INSTANCE));
     }
 
 }

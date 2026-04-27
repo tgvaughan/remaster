@@ -22,30 +22,39 @@ package remaster;
 import beast.base.core.Description;
 import beast.base.core.Function;
 import beast.base.core.Input;
+import beast.base.spec.domain.NonNegativeInt;
+import beast.base.spec.domain.NonNegativeReal;
+import beast.base.spec.domain.UnitInterval;
+import beast.base.spec.type.IntVector;
+import beast.base.spec.type.RealVector;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 @Description("Reactions which occur at pre-determined times.")
 public class PunctualReaction extends AbstractReaction {
 
-    public Input<Function> pInput = new Input<>("p",
+    public Input<RealVector<UnitInterval>> pInput = new Input<>("p",
             "Probability of reaction firing per compatible " +
                     "configuration at specified times.");
 
-    public Input<Function> nInput = new Input<>("n",
+    public Input<IntVector<NonNegativeInt>> nInput = new Input<>("n",
             "Number of reactions to fire at specified times.",
             Input.Validate.XOR, pInput);
 
-    public Input<Function> timesInput = new Input<>("times",
+    public Input<RealVector<NonNegativeReal>> timesInput = new Input<>("times",
             "Times at which punctual reactions occur.",
             Input.Validate.REQUIRED);
 
-    double[] ps, ns, times;
+    double[] ps, times;
+    int[] ns;
 
     @Override
     public void initAndValidate() {
-        times = timesInput.get().getDoubleValues();
+        times = new double[timesInput.get().size()];
+        for (int i=0; i<times.length; i++)
+            times[i] = timesInput.get().get(i);
 
         // Sort times, keeping association with ns/ps:
         Integer[] indices = new Integer[times.length];
@@ -58,16 +67,16 @@ public class PunctualReaction extends AbstractReaction {
 
         if (pInput.get() != null) {
             ps = new double[times.length];
-            int pDim = pInput.get().getDimension();
+            int pDim = pInput.get().size();
             for (int i : indices)
-                ps[i] = pInput.get().getArrayValue(i%pDim);
+                ps[i] = pInput.get().get(i%pDim);
         }
 
         if (nInput.get() != null) {
-            ns = new double[times.length];
-            int nDim = nInput.get().getDimension();
+            ns = new int[times.length];
+            int nDim = nInput.get().size();
             for (int i : indices)
-                ns[i] = nInput.get().getArrayValue(i%nDim);
+                ns[i] = nInput.get().get(i%nDim);
         }
 
         super.initAndValidate();
