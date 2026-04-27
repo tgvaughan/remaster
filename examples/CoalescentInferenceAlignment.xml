@@ -6,12 +6,19 @@
      size and the substitution rate from the resulting sequence alignment. -->
 
 <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+       namespace="beast.base.spec.inference.parameter:remaster
                   :beast.base.inference
-                  :beast.base.evolution
                   :beast.base.evolution.tree
                   :beast.base.evolution.alignment
-                  :beast.base.evolution.likelihood
+                  :beast.base.spec.evolution.alignment
+                  :beast.base.spec.evolution.likelihood
+                  :beast.base.spec.evolution.tree
+                  :beast.base.spec.evolution.tree.coalescent
+                  :beast.base.spec.evolution.sitemodel
+                  :beast.base.spec.evolution.substitutionmodel
+                  :beast.base.spec.inference.distribution
+                  :beast.base.spec.inference.operator
+                  :beast.base.spec.evolution.operator
                   :beast.base.evolution.operator
                   :feast.simulation.SimulatedAlignment">
 
@@ -26,8 +33,8 @@
   <!-- Simulated alignment -->
   <data id="alignment" spec="feast.simulation.SimulatedAlignment" sequenceLength="2000">
     <tree idref="trueTree"/>
-    <siteModel spec="sitemodel.SiteModel" mutationRate="0.05">
-      <substModel spec="substitutionmodel.JukesCantor"/>
+    <siteModel spec="SiteModel" mutationRate="0.05">
+      <substModel spec="JukesCantor"/>
     </siteModel>
   </data>
   <traitset id="tipDates" spec="feast.fileio.TipDatesFromTree" tree="@trueTree">
@@ -37,12 +44,12 @@
   <!-- Inference -->
   <run spec="MCMC" chainLength="1000000">
     <state>
-      <stateNode spec="RealParameter" id="inferredPopSize" value="1.0"/>
+      <stateNode spec="RealScalarParam" id="inferredPopSize" value="1.0"/>
       <stateNode spec="Tree" id="tree">
         <taxonset idref="taxonSet"/>
         <trait idref="tipDates"/>
       </stateNode>
-      <stateNode spec="RealParameter" id="inferredMutationRate" value="0.1"/>
+      <stateNode spec="RealScalarParam" id="inferredMutationRate" value="0.1"/>
     </state>
 
     <distribution id="posterior" spec="CompoundDistribution">
@@ -50,36 +57,33 @@
       <distribution id="likelihood" spec="TreeLikelihood">
         <data idref="alignment"/>
         <tree idref="tree"/>
-        <siteModel spec="sitemodel.SiteModel" mutationRate="@inferredMutationRate">
-          <substModel spec="substitutionmodel.JukesCantor"/>
+        <siteModel spec="SiteModel" mutationRate="@inferredMutationRate">
+          <substModel spec="JukesCantor"/>
         </siteModel>
       </distribution>
 
       <distribution id="treePrior" spec="coalescent.Coalescent">
-        <treeIntervals spec="tree.TreeIntervals" tree="@tree"/>
-        <populationModel spec="coalescent.ConstantPopulation" popSize="@inferredPopSize"/>
+        <treeIntervals spec="TreeIntervals" tree="@tree"/>
+        <populationModel spec="ConstantPopulation" popSize="@inferredPopSize"/>
       </distribution>
 
-      <distribution id="popSizePrior" spec="distribution.Prior" x="@inferredPopSize">
-        <distr spec="distribution.OneOnX"/>
-      </distribution>
-      <distribution id="mutationRatePrior" spec="distribution.Prior" x="@inferredMutationRate">
-        <distr spec="distribution.OneOnX"/>
-      </distribution>
+      <distribution id="popSizePrior" spec="Exponential" mean="1" param="@inferredPopSize"/>
+      <distribution id="mutationRatePrior" spec="Exponential" mean="1" param="@inferredMutationRate"/>
     </distribution>
 
-    <operator spec="operator.ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
+    <operator spec="ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
               parameter="@inferredPopSize" weight="1.0"/>
-    <operator spec="operator.ScaleOperator" id="mutationRateScaler" scaleFactor="0.8"
+    <operator spec="ScaleOperator" id="mutationRateScaler" scaleFactor="0.8"
               parameter="@inferredMutationRate" weight="1.0"/>
 
-    <operator id='treeScaler' spec='ScaleOperator' scaleFactor="0.5" tree="@tree" weight="1"/>
-    <operator spec='Uniform' tree="@tree" weight="10"/>
-    <operator spec='SubtreeSlide' gaussian="true" size="1.0" tree="@tree" weight="5"/>
-    <operator id='narrow' spec='Exchange' isNarrow='true' tree="@tree" weight="1"/>
-    <operator id='wide' spec='Exchange' isNarrow='false' tree="@tree" weight="1"/>
-    <operator spec='WilsonBalding' tree="@tree" weight="1"/>
-
+    <operator id='treeIntervalScaler' spec='IntervalScaleOperator' scaleFactor="0.5" tree="@tree" weight="3"/>
+    <operator id="treeScaler" spec="beast.base.spec.evolution.operator.UpDownOperator" up="@tree" scaleFactor="0.1" weight="4.0"/>
+    <operator id="treeRootScaler" spec="kernel.BactrianScaleOperator" scaleFactor="0.5" tree="@tree" rootOnly="true" weight="3"/>
+    <operator id="uniformNodeOperator" spec="kernel.BactrianNodeOperator" tree="@tree" weight="30"/>
+    <operator id="subtreeSlide" spec="kernel.BactrianSubtreeSlide" size="1.0" tree="@tree" weight="15"/>
+    <operator id="exchangeNarrow" spec="Exchange" isNarrow="true" tree="@tree" weight="15"/>
+    <operator id="exchangeWidt" spec="Exchange" isNarrow="false" tree="@tree" weight="3"/>
+    <operator id="wilsonBalding" spec="WilsonBalding" tree="@tree" weight="3"/>
 
     <!-- File log -->
     <logger fileName="$(filebase).log" logEvery="100">
