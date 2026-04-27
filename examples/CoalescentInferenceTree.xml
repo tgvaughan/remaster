@@ -5,40 +5,41 @@
      size from the tree. -->
 
 <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+       namespace="beast.base.spec.inference.parameter:remaster
+                  :beast.base.spec.inference.distribution
+                  :beast.base.spec.inference.operator
                   :beast.base.inference
-                  :beast.base.evolution
-                  :beast.base.evolution.tree">
+                  :beast.base.evolution.tree
+                  :beast.base.spec.evolution.tree
+                  :beast.base.spec.evolution.tree.coalescent">
 
 
   <run spec="MCMC" chainLength="1000000">
     <state>
-      <stateNode spec="RealParameter" id="inferredPopSize" value="1.0"/>
+      <stateNode spec="RealScalarParam" id="inferredPopSize" value="1.0"/>
     </state>
 
     <distribution spec="CompoundDistribution">
       <distribution spec="coalescent.Coalescent">
-        <treeIntervals spec="tree.TreeIntervals">
+        <treeIntervals spec="TreeIntervals">
 
           <!-- Simulated tree -->
           <tree id="tree" spec="SimulatedTree">
             <trajectory id="traj" spec="CoalescentTrajectory">
-              <population id="pop" spec="coalescent.ConstantPopulation" popSize="2.0"/>
+              <population id="pop" spec="ConstantPopulation" popSize="2.0"/>
               <reaction spec="PunctualReaction" n="100" times="0">0 -> pop</reaction>
             </trajectory>
           </tree>
 
         </treeIntervals>
 
-        <populationModel spec="coalescent.ConstantPopulation" popSize="@inferredPopSize"/>
+        <populationModel spec="ConstantPopulation" popSize="@inferredPopSize"/>
       </distribution>
 
-      <distribution spec="distribution.Prior" x="@inferredPopSize">
-        <distr spec="distribution.OneOnX"/>
-      </distribution>
+      <distribution spec="Exponential" mean="1.0" param="@inferredPopSize"/>
     </distribution>
 
-    <operator spec="operator.ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
+    <operator spec="ScaleOperator" id="popSizeScaler" scaleFactor="0.8"
               parameter="@inferredPopSize" weight="1.0"/>
 
     <!-- File log -->

@@ -9,16 +9,16 @@
       <trajectory id="traj" spec="CoalescentTrajectory">
         <population id="pop" spec="ConstantPopulation" popSize="1.0"/>
 
-        <!-- Generate a 200 leaves evenly spaced between times 0 and 1 before the present. -->
+        <!-- Generate 200 leaves evenly spaced between times 0 and 1 before the present. -->
         <reaction spec="PunctualReaction" n="1">
-          <times spec="feast.function.Sequence" start="0" stop="1" length="200"/>
+          <times spec="feast.realvector.Sequence" start="0" stop="1" length="200"/>
           0 -> pop
         </reaction>
 
-        <!-- Generate a 200 leaves with times sampled from Unif(2,3). -->
+        <!-- Generate 200 leaves with times sampled from Unif(2,3). -->
         <reaction spec="PunctualReaction" n="1">
-          <times id="t" spec="feast.parameter.RandomRealParameter" dimension="200" value="0">
-            <distr spec="beast.base.inference.distribution.Uniform" lower="2" upper="3"/>
+          <times id="t" spec="feast.parameter.RandomRealVectorParam" dimension="200" value="0">
+            <distr spec="beast.base.spec.inference.distribution.Uniform" lower="2" upper="3"/>
           </times>
           0 -> pop
         </reaction>
