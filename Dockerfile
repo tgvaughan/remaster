@@ -2,11 +2,11 @@
 
 FROM debian:stable
 
-Run apt-get update
-RUN apt-get install -y git openjdk-21-jdk ant
+RUN apt-get update
+RUN apt-get install -y openjdk-25-jdk maven
 
 WORKDIR /root
 
 ADD . ./
 
-ENTRYPOINT ant test
+ENTRYPOINT mvn test
