@@ -1,6 +1,5 @@
-<beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
-                  :beast.base.evolution.tree.coalescent">
+<beast version="2.8"
+       namespace="remaster:beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
