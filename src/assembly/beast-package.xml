@@ -19,6 +19,11 @@
             <destName>${beast.pkg.name}.src.jar</destName>
             <outputDirectory>/</outputDirectory>
         </file>
+        <!-- license -->
+        <file>
+            <source>${project.basedir}/COPYING</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
     </files>
 
     <!-- Module JAR only (BEAST core, JavaFX, and their transitive deps are provided by the runtime) -->
@@ -43,6 +48,11 @@
         <fileSet>
             <directory>${project.basedir}/examples</directory>
             <outputDirectory>/examples</outputDirectory>
+        </fileSet>
+        <!-- library licenses -->
+        <fileSet>
+            <directory>${project.basedir}/lib</directory>
+            <outputDirectory>/lib</outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>
