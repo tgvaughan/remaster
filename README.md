@@ -54,3 +54,6 @@ of this license can be found in this directory in the file named COPYING.
 
 ReMASTER incorporates the [Google Guava library](https://github.com/google/guava)
 which is distributed under version 2 of the Apache License.
+It also depends on [ANTLR](https://antlr.org) which is distributed under
+the BSD 3-clause license.  These licenses may be found in the /lib
+directory of this repository.
