@@ -57,12 +57,12 @@ simulating 100 trees under a the above birth-death sampling model with
 $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 
 #+begin_src xml
-<beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+<beast version="2.8" namespace="beast.base.spec.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="S>=10">
-                <population spec="RealParameter" id="X" value="1"/>
-                <samplePopulation spec="RealParameter" id="S" value="0"/>
+                <population spec="RealVectorParam" id="X" value="1"/>
+                <samplePopulation spec="RealVectorParam" id="S" value="0"/>
 
                 <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
@@ -127,7 +127,7 @@ Bioinformatics, btae015, 2024. (https://doi.org/10.1093/bioinformatics/btae015)
 :END:
 
 ReMASTER is a BEAST 2 package.  To install it, you'll first need to ensure a
-recent version of BEAST 2 (version 2.7 or later) is available on your system.
+recent version of BEAST 2 (version 2.8 or later) is available on your system.
 If not, go to https://beast2.org and follow the instructions.
 
 Once BEAST 2 is installed, ReMASTER can be installed directly from the
@@ -199,27 +199,27 @@ Like MASTER, ReMASTER defines models in terms of [[*Populations][populations]] a
 :CUSTOM_ID: id-3-Model-specification-Birth-death-simulations-Populations
 :END:
 
-A population in ReMASTER is simply a ~RealParameter~ (or other
-~Function~) with a specific ID.  The value of the ~RealParameter~ is
+A population in ReMASTER is simply a ~RealVectorParam~ (or other
+~RealVector~) with a specific ID.  The value of the ~RealVectorParam~ is
 used as its initial population size in the simulation.
 
 For example, the following defines a population named "X" with an initial size
 of 10:
 #+begin_src xml
-<population id="X" spec="RealParameter" value="10"/>
+<population id="X" spec="RealVectorParam" value="10"/>
 #+end_src
 
-If the ~RealParameter~ is a vector, its elements represent subpopulations.
+If the ~RealVectorParam~ has more than one element, these represent subpopulations.
 For example, the following population "Y" has two subpopulations initially
 occupied by 1 and 10 individuals, respectively:
 #+begin_src xml
-<population id="Y" spec="RealParameter" value="1 10"/>
+<population id="Y" spec="RealVectorParam" value="1 10"/>
 #+end_src
 
 Populations may also be marked as "sample" populations by using the appropriate
 tag:
 #+begin_src xml
-<samplePopulation id="sample" spec="RealParameter" value="0"/>
+<samplePopulation id="sample" spec="RealVectorParam" value="0"/>
 #+end_src
 For trajectories, sample populations behave just like any other
 population, besides being forbidden from appearing on the reactant
@@ -406,11 +406,11 @@ birth reaction.
 
 To set this up directly would involve something like the following:
 #+begin_src xml
-  <population id="X" spec="RealParameter" value="1"/>
-  <population id="Y" spec="RealParameter" value="1"/>
-  <population id="Z" spec="RealParameter" value="1"/>
-  <population id="W" spec="RealParameter" value="1"/>
-  <population id="V" spec="RealParameter" value="1"/>
+  <population id="X" spec="RealVectorParam" value="1"/>
+  <population id="Y" spec="RealVectorParam" value="1"/>
+  <population id="Z" spec="RealVectorParam" value="1"/>
+  <population id="W" spec="RealVectorParam" value="1"/>
+  <population id="V" spec="RealVectorParam" value="1"/>
 
   <reaction spec="Reaction" rate="1.0"> X -> 2X </reaction>
   <reaction spec="Reaction" rate="1.0"> Y -> 2Y </reaction>
@@ -438,7 +438,7 @@ of these values when it appears in the fragment.
 Using ~<plate>~ notation, our model specification can be written much more simply as
 #+begin_src xml
   <plate var="pop" range="X,Y,Z,W,V">
-    <population id="$(pop)" spec="RealParameter" value="1"/>
+    <population id="$(pop)" spec="RealVectorParam" value="1"/>
     <reaction spec="Reaction" rate="1.0"> $(pop) -> 2$(pop) </reaction>
   </plate>
 #+end_src
@@ -459,7 +459,7 @@ sequence notation "start:end" to represent a sequence of integers
 between start and end inclusive.
 This can be helpful in creating reactions involving many subpopulations:
 #+begin_src xml
-  <population id="X" spec="RealParameter" dimension="100" value="1"/>
+  <population id="X" spec="RealVectorParam" dimension="100" value="1"/>
   <plate var="i" range="0:99">
     <reaction spec="Reaction" rate="1.0"> X[$(i)] -> 2X[$(i)] </reaction>
   </plate>
@@ -504,7 +504,7 @@ birth-death-sampling process trajectory with constant rates:
 #+begin_src xml
   <trajectory spec="StochasticTrajectory"
               maxTime="10">
-    <population id="X" spec="RealParameter" value="1"/>
+    <population id="X" spec="RealVectorParam" value="1"/>
 
     <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
     <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
@@ -533,7 +533,7 @@ with rate $\lambda-\mu=1.2-1.0=0.2$:
 #+begin_src xml
   <trajectory spec="DeterministicTrajectory"
               maxTime="10">
-    <population id="X" spec="RealParameter" value="1"/>
+    <population id="X" spec="RealVectorParam" value="1"/>
 
     <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
     <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
@@ -613,10 +613,10 @@ it needs to be embedded in a BEAST XML that produces output.  The most direct wa
 ReMASTER's =Simulator= object, which can be used as a =<run>= element as follows:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+  <beast version="2.8" namespace="beast.base.spec.inference.parameter:remaster">
     <run spec="Simulator" nSims="100">
       <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
-        <population id="X" spec="RealParameter" value="1"/>
+        <population id="X" spec="RealVectorParam" value="1"/>
         <reaction spec="Reaction" rate="1.2"> X -> 2X </reaction>
         <reaction spec="Reaction" rate="1"> X -> 0 </reaction>
       </simulate>
@@ -750,8 +750,8 @@ is easy.  All that is required is to enclose the trajectory element
   <tree spec="SimulatedTree">
     <trajectory spec="StochasticTrajectory"
                 maxTime="10">
-      <population id="X" spec="RealParameter" value="1"/>
-      <samplePopulation id="samp" spec="RealParameter" value="0"/>
+      <population id="X" spec="RealVectorParam" value="1"/>
+      <samplePopulation id="samp" spec="RealVectorParam" value="0"/>
 
       <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
       <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
@@ -808,12 +808,12 @@ trees sampled from a linear birth-death-sampling model and saves them to a file
 named "output.trees":
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+  <beast version="2.8" namespace="beast.base.spec.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
-          <population id="X" spec="RealParameter" value="1"/>
-          <samplePopulation id="samp" spec="RealParameter" value="0"/>
+          <population id="X" spec="RealVectorParam" value="1"/>
+          <samplePopulation id="samp" spec="RealVectorParam" value="0"/>
 
           <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
           <reaction spec="Reaction" rate="0.5"> X -> 0 </reaction>
@@ -856,13 +856,13 @@ In order to include this information so that it can be shown on the tree,
 you'll need to use the =TypedTreeLogger= in place of the standard logger:
 
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+  <beast version="2.8" namespace="beast.base.spec.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
-          <population id="X" spec="RealParameter" value="1"/>
-          <population id="Y" spec="RealParameter" value="0"/>
-          <samplePopulation id="samp" spec="RealParameter" value="0"/>
+          <population id="X" spec="RealVectorParam" value="1"/>
+          <population id="Y" spec="RealVectorParam" value="0"/>
+          <samplePopulation id="samp" spec="RealVectorParam" value="0"/>
 
           <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
           <reaction spec="Reaction" rate="0.1"> X -> Y </reaction>
@@ -948,14 +948,14 @@ For example, the following produces two output files, ~output.full.trees~
 and ~output.sampled.trees~, which contain the full and sampled trees
 respectively.  (Note the use of an additional "removed" sample population.)
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:beast.base.inference.parameter:remaster">
+  <beast version="2.8" namespace="beast.spec.base.inference.parameter:remaster">
     <run spec="Simulator" nSims="1">
       <simulate id="tree" spec="SimulatedTree">
         <trajectory id="trajectory" spec="StochasticTrajectory" maxTime="10">
-          <population id="X" spec="RealParameter" value="1"/>
-          <population id="Y" spec="RealParameter" value="0"/>
-          <samplePopulation id="removed" spec="RealParameter" value="0"/>
-          <samplePopulation id="sampled" spec="RealParameter" value="0"/>
+          <population id="X" spec="RealVectorParam" value="1"/>
+          <population id="Y" spec="RealVectorParam" value="0"/>
+          <samplePopulation id="removed" spec="RealVectorParam" value="0"/>
+          <samplePopulation id="sampled" spec="RealVectorParam" value="0"/>
 
           <reaction spec="Reaction" rate="1.4"> X -> 2X </reaction>
           <reaction spec="Reaction" rate="0.1"> X -> Y </reaction>
@@ -1008,7 +1008,7 @@ at time $t$.  (Note that in ReMASTER and BEAST 2 in general,
 "effective population size" is simply the inverse
 pairwise coalescent rate, and therefore has units of "time".)
 For this reason, ~<population/>~ elements are associated with BEAST 2 ~PopulationFunction~ objects
-rather than regular ~Function~ objects. For instance, the following element
+rather than regular ~RealVector~ objects. For instance, the following element
 introduces a constant-size population with $N_e(t)=10$:
 #+begin_src xml
 <population id="pop" spec="ConstantPopulation" popSize="10"/>
@@ -1092,9 +1092,8 @@ represents a two-deme structured coalescent model in which one of the
 populations is growing exponentially toward the present:
 
 #+begin_src xml
-<beast version="2.0"
-       namespace="beast.base.inference:beast.base.inference.parameter:remaster
-                  :beast.base.evolution.tree.coalescent">
+<beast version="2.8"
+       namespace="remaster:beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="1">
     <simulate  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
       <population id="C" spec="ConstantPopulation" popSize="10.0"/>
@@ -1144,9 +1143,8 @@ As for birth-death models, we can simulate trees by wrapping the ~CoalescentTraj
 object in a ~SimulatedTree~:
 
 #+begin_src xml
-<beast version="2.0"
-       namespace="beast.base.inference:beast.base.inference.parameter:remaster
-                  :beast.base.evolution.tree.coalescent">
+<beast version="2.8"
+       namespace="remaster:beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory  id="traj" spec="CoalescentTrajectory" maxTrajLogAge="10">
@@ -1192,10 +1190,8 @@ strong population bottleneck between times 5 and 5.1, and an eventual exponentia
 decline into the past (growth into the future):
 
 #+begin_src xml
-<beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
-                  :beast.base.evolution.tree.coalescent
-                  :feast.popmodels">
+<beast version="2.8"
+       namespace="remaster:beast.base.evolution.tree.coalescent:feast.popmodels">
   <run spec="Simulator" nSims="1">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="CoalescentTrajectory"
@@ -1243,17 +1239,17 @@ Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the foll
 
 - trees are standard BEAST =Tree= objects,
 - it uses standard =Logger= objects to produce output,
-- it uses ~RealParameter~ or ~Function~ objects to define birth-death populations,
+- it uses ~RealVectorParam~ or ~RealVector~ objects to define birth-death populations,
 - it uses ~PopulationFunction~ objects to define coalescent populations,
 - the inputs defining reaction rates, times, probabilities or numbers
-  expect generic ~Function~ inputs.
+  expect generic ~RealVector~ inputs with appropriate domains.
 
 This means that it is possible to use ReMASTER to initialise MCMC chains, to
 simulate sequence data, or to produce single-XML simulation studies which combine
 both simulation and inference.
 
-Furthermore, the copious use of =Function= input types means that one can use
-the =Function=-specific objects from the [[https://tgvaughan.github.io/feast][feast]] package to create simulation XMLs
+Furthermore, the copious use of =RealVector= input types means that one can use
+the =RealVector=-specific objects from the [[https://tgvaughan.github.io/feast][feast]] package to create simulation XMLs
 in which parameters are transformed in moderately complex ways before being
 applied to the simulation.
 
@@ -1262,9 +1258,9 @@ epidemiological model defined by a basic reproductive number
 $R=\lambda/\mu$ instead of a birth rate.  One can easily do this as
 follows:
 #+begin_src xml
-  <beast version="2.0" namespace="beast.base.inference:remaster">
-    <param id="R" spec="RealParameter" value="1.5"/>
-    <param id="mu" spec="RealParameter" value="1.0"/>
+  <beast version="2.8" namespace="beast.base.spec.inference:remaster">
+    <param id="R" spec="RealVectorParam" value="1.5"/>
+    <param id="mu" spec="RealVectorParam" value="1.0"/>
 
     <param id="lambda" spec="feast.expressions.ExpCalculator" value="R*mu">
       <arg idref="R"/>
@@ -1273,7 +1269,7 @@ follows:
 
     <run spec="Simulator" nSims="1">
       <simulate id="trajectory" spec="StochasticTrajectory" maxTime="10">
-        <population id="X" spec="RealParameter" value="1"/>
+        <population id="X" spec="RealVectorParam" value="1"/>
         <reaction spec="Reaction" rate="@lambda"> X -> 2X </reaction>
         <reaction spec="Reaction" rate="@mu"> X -> 0 </reaction>
       </simulate>
@@ -1287,21 +1283,21 @@ follows:
 
 Alternatively, suppose you wish to simulate coalescent trees having
 200 leaves evenly spaced over a period of 0.5 time units.  This can be
-done by supplying a =feast.function.Sequence= object (feast
-documentation [[https://tgvaughan.github.io/feast/#id-3-Numeric-sequences-as-Functions][here]]), which generates a =Function= representing a
+done by supplying a =feast.realvector.Sequence= object (feast
+documentation [[https://tgvaughan.github.io/feast/#id-3-Numeric-sequences-as-RealVectors][here]]), which generates a =RealVector= representing a
 sequence of evenly spaced numbers, to the ~times~ input of the
 corresponding =PunctualReaction=:
 
 #+begin_src xml
- <beast version="2.0"
-       namespace="beast.base.inference.parameter:remaster
+ <beast version="2.8"
+       namespace="beast.base.spec.inference.parameter:remaster
                   :beast.base.evolution.tree.coalescent">
   <run spec="Simulator" nSims="100">
     <simulate id="tree" spec="SimulatedTree">
       <trajectory id="traj" spec="CoalescentTrajectory">
         <population id="pop" spec="ConstantPopulation" popSize="1.0"/>
         <reaction spec="PunctualReaction" n="1">
-          <times spec="feast.function.Sequence" start="0" stop="0.5" length="200"/>
+          <times spec="feast.realvector.Sequence" start="0" stop="0.5" length="200"/>
           0 -> pop
         </reaction>
       </trajectory>

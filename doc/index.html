@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-12-17 Tue 09:40 -->
+<!-- 2026-04-29 Wed 15:30 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ReMASTER</title>
@@ -100,7 +100,7 @@
 </div>
 </nav>
 
-<figure id="orgec52d0f">
+<figure id="org2fb9183">
 <img src="logos/remaster_logo.svg" alt="remaster_logo.svg" class="org-svg">
 
 </figure>
@@ -112,7 +112,6 @@
 <p>
 GitHub Repository: <a href="https://github.com/tgvaughan/remaster">https://github.com/tgvaughan/remaster</a>
 </p>
-
 <div id="outline-container-id-1-Overview" class="outline-2">
 <h2 id="id-1-Overview"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-id-1-Overview">
@@ -166,12 +165,12 @@ $\lambda=2$, $\mu=1$ and $\psi=0.1$:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
             <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"SIRTrajectory"</span> <span class="org-nxml-attribute-local-name">endsWhen</span>=<span class="org-string">"S&gt;=10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-                <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-                <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"S"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+                <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+                <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"S"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
                 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"2"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
                 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -202,7 +201,6 @@ XML analysis scripts to initialise MCMC states or construct
 simulation-based validation studies.
 </p>
 </div>
-
 <div id="outline-container-id-2-Overview-The-name" class="outline-3">
 <h3 id="id-2-Overview-The-name"><span class="section-number-3">1.1.</span> The name</h3>
 <div class="outline-text-3" id="text-id-2-Overview-The-name">
@@ -214,7 +212,6 @@ MASTER itself was actually used.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-2-Overview-License" class="outline-3">
 <h3 id="id-2-Overview-License"><span class="section-number-3">1.2.</span> License</h3>
 <div class="outline-text-3" id="text-id-2-Overview-License">
@@ -226,7 +223,6 @@ official GitHub project page: <a href="https://github.com/tgvaughan/remaster">ht
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-2-Overview-Citing-ReMASTER" class="outline-3">
 <h3 id="id-2-Overview-Citing-ReMASTER"><span class="section-number-3">1.3.</span> Citing ReMASTER</h3>
 <div class="outline-text-3" id="text-id-2-Overview-Citing-ReMASTER">
@@ -244,13 +240,12 @@ Bioinformatics, btae015, 2024. (<a href="https://doi.org/10.1093/bioinformatics/
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-1-Installation" class="outline-2">
 <h2 id="id-1-Installation"><span class="section-number-2">2.</span> Installation</h2>
 <div class="outline-text-2" id="text-id-1-Installation">
 <p>
 ReMASTER is a BEAST 2 package.  To install it, you'll first need to ensure a
-recent version of BEAST 2 (version 2.7 or later) is available on your system.
+recent version of BEAST 2 (version 2.8 or later) is available on your system.
 If not, go to <a href="https://beast2.org">https://beast2.org</a> and follow the instructions.
 </p>
 
@@ -267,7 +262,7 @@ standard BEAST 2 package repository.  To do this, follow these steps:
 </ol>
 
 
-<figure id="orgd5ee091">
+<figure id="org740d8d5">
 <img src="figures/install.png" alt="install.png">
 
 </figure>
@@ -277,7 +272,6 @@ The ReMASTER package should now be available on your system!
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-1-Using-ReMASTER:-General-overview" class="outline-2">
 <h2 id="id-1-Using-ReMASTER:-General-overview"><span class="section-number-2">3.</span> Using ReMASTER: General overview</h2>
 <div class="outline-text-2" id="text-id-1-Using-ReMASTER:-General-overview">
@@ -301,7 +295,6 @@ input files which describe them, as well as running the simulations and
 analysing the results of birth-death and coalescent simulations.
 </p>
 </div>
-
 <div id="outline-container-id-2-Using-ReMASTER:-General-overview-How-to-read-this-manual" class="outline-3">
 <h3 id="id-2-Using-ReMASTER:-General-overview-How-to-read-this-manual"><span class="section-number-3">3.1.</span> How to read this manual</h3>
 <div class="outline-text-3" id="text-id-2-Using-ReMASTER:-General-overview-How-to-read-this-manual">
@@ -315,8 +308,6 @@ concepts shared by all simulation types.
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-id-1-Birth-death-simulations" class="outline-2">
 <h2 id="id-1-Birth-death-simulations"><span class="section-number-2">4.</span> Birth-death simulations</h2>
 <div class="outline-text-2" id="text-id-1-Birth-death-simulations">
@@ -333,7 +324,6 @@ Chemical Master Equation.  More details on this are given below when
 discussing the connection between reaction rates and propensities.
 </p>
 </div>
-
 <div id="outline-container-id-2-Birth-death-simulations-Model-specification" class="outline-3">
 <h3 id="id-2-Birth-death-simulations-Model-specification"><span class="section-number-3">4.1.</span> Model specification</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Model-specification">
@@ -341,13 +331,12 @@ discussing the connection between reaction rates and propensities.
 Like MASTER, ReMASTER defines models in terms of <a href="#id-3-Model-specification-Birth-death-simulations-Populations">populations</a> and <a href="#id-3-Model-specification-Birth-death-simulations-Reactions">reactions</a>.
 </p>
 </div>
-
 <div id="outline-container-id-3-Model-specification-Birth-death-simulations-Populations" class="outline-4">
 <h4 id="id-3-Model-specification-Birth-death-simulations-Populations"><span class="section-number-4">4.1.1.</span> Populations</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Birth-death-simulations-Populations">
 <p>
-A population in ReMASTER is simply a <code>RealParameter</code> (or other
-<code>Function</code>) with a specific ID.  The value of the <code>RealParameter</code> is
+A population in ReMASTER is simply a <code>RealVectorParam</code> (or other
+<code>RealVector</code>) with a specific ID.  The value of the <code>RealVectorParam</code> is
 used as its initial population size in the simulation.
 </p>
 
@@ -356,17 +345,17 @@ For example, the following defines a population named "X" with an initial size
 of 10:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 
 <p>
-If the <code>RealParameter</code> is a vector, its elements represent subpopulations.
+If the <code>RealVectorParam</code> has more than one element, these represent subpopulations.
 For example, the following population "Y" has two subpopulations initially
 occupied by 1 and 10 individuals, respectively:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1 10"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1 10"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 
@@ -375,7 +364,7 @@ Populations may also be marked as "sample" populations by using the appropriate
 tag:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"sample"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"sample"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 <p>
@@ -388,7 +377,6 @@ external) in the resulting tree.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Model-specification-Birth-death-simulations-Reactions" class="outline-4">
 <h4 id="id-3-Model-specification-Birth-death-simulations-Reactions"><span class="section-number-4">4.1.2.</span> Reactions</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Birth-death-simulations-Reactions">
@@ -403,7 +391,6 @@ There are two distinct kinds of reactions which can be specified: "continuous"
 reactions and "punctual" reactions.
 </p>
 </div>
-
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions" class="outline-5">
 <h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions"><span class="section-number-5">4.1.2.1.</span> Continuous reactions</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Continuous-reactions">
@@ -486,7 +473,6 @@ written:
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions" class="outline-5">
 <h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions"><span class="section-number-5">4.1.2.2.</span> Punctual reactions</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Punctual-reactions">
@@ -540,7 +526,6 @@ each with the same sampling probability of $\rho=0.5$ by writing
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children" class="outline-5">
 <h5 id="id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children"><span class="section-number-5">4.1.2.3.</span> Identifying parents and children</h5>
 <div class="outline-text-5" id="text-id-4-Reactions-Model-specification-Birth-death-simulations-Identifying-parents-and-children">
@@ -605,7 +590,6 @@ that the resulting relationships are tree-like.
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-plates" class="outline-4">
 <h4 id="id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-plates"><span class="section-number-4">4.1.3.</span> Complex model configurations using plates</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Birth-death-simulations-Complex-model-configurations-using-plates">
@@ -626,11 +610,11 @@ birth reaction.
 To set this up directly would involve something like the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Z"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"W"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"V"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Z"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"W"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"V"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> Y -&gt; 2Y </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -668,7 +652,7 @@ Using <code>&lt;plate&gt;</code> notation, our model specification can be writte
 </p>
 <div class="org-src-container">
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">plate</span> <span class="org-nxml-attribute-local-name">var</span>=<span class="org-string">"pop"</span> <span class="org-nxml-attribute-local-name">range</span>=<span class="org-string">"X,Y,Z,W,V"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"$(pop)"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"$(pop)"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> $(pop) -&gt; 2$(pop) </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">plate</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
@@ -697,7 +681,7 @@ between start and end inclusive.
 This can be helpful in creating reactions involving many subpopulations:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">dimension</span>=<span class="org-string">"100"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">dimension</span>=<span class="org-string">"100"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">plate</span> <span class="org-nxml-attribute-local-name">var</span>=<span class="org-string">"i"</span> <span class="org-nxml-attribute-local-name">range</span>=<span class="org-string">"0:99"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X[$(i)] -&gt; 2X[$(i)] </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
 <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">plate</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -706,8 +690,6 @@ This can be helpful in creating reactions involving many subpopulations:
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-id-2-Birth-death-simulations-Trajectory-simulation" class="outline-3">
 <h3 id="id-2-Birth-death-simulations-Trajectory-simulation"><span class="section-number-3">4.2.</span> Trajectory simulation</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Trajectory-simulation">
@@ -736,7 +718,6 @@ simulate trees under coalescent approximations of
 birth-death models.
 </p>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories"><span class="section-number-4">4.2.1.</span> Stochastic Trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Stochastic-Trajectories">
@@ -753,7 +734,7 @@ birth-death-sampling process trajectory with constant rates:
 <div class="org-src-container">
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span>
             <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.2"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -771,7 +752,6 @@ fire.)
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories"><span class="section-number-4">4.2.2.</span> Deterministic Trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Deterministic-Trajectories">
@@ -789,7 +769,7 @@ with rate $\lambda-\mu=1.2-1.0=0.2$:
 <div class="org-src-container">
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"DeterministicTrajectory"</span>
             <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.2"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -825,7 +805,6 @@ tuning parameters to ensure numerical convergence.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories"><span class="section-number-4">4.2.3.</span> Placing conditions on trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Placing-conditions-on-trajectories">
@@ -845,9 +824,9 @@ For instance
 </p>
 <div class="org-src-container">
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span>
-            <span class="org-nxml-attribute-local-name">endsWhen</span>=<span class="org-string">"X==100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-text">...</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
+            <span class="org-nxml-attribute-local-name">endsWhen</span>=<span class="org-string">"X==100"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">
+...
+</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 <p>
@@ -861,9 +840,9 @@ Similarly, to define a condition on the finished simulation, use the
 </p>
 <div class="org-src-container">
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span>
-            <span class="org-nxml-attribute-local-name">mustHave</span>=<span class="org-string">"sample&gt;=50"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-text">...</span>
-<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
+            <span class="org-nxml-attribute-local-name">mustHave</span>=<span class="org-string">"sample&gt;=50"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">
+...
+</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
 </pre>
 </div>
 <p>
@@ -879,7 +858,6 @@ escaped versions <code>&amp;lt;</code> and <code>&amp;amp;</code>.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs"><span class="section-number-4">4.2.4.</span> Self-contained trajectory simulation XMLs</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Self-contained-trajectory-simulation-XMLs">
@@ -890,10 +868,10 @@ ReMASTER's <code>Simulator</code> object, which can be used as a <code>&lt;run&g
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.2"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -922,7 +900,7 @@ To run the simulation and produce the output, copy the above XML into
 a file named something like "BDtraj.xml" and then run it through
 BEAST, either via the command line:
 </p>
-<pre class="example" id="orgf59fc89">
+<pre class="example" id="orgf0d4b5a">
 $ beast BDtraj.xml
 </pre>
 <p>
@@ -936,7 +914,6 @@ This should produce some screen output, together with a file
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories"><span class="section-number-4">4.2.5.</span> Plotting simulated trajectories</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Plotting-simulated-trajectories">
@@ -969,7 +946,7 @@ traj <span class="org-ess-assignment">&lt;-</span> read_tsv(<span class="org-str
 <p>
 The resulting data frame has the following layout:
 </p>
-<pre class="example" id="org2a07cef">
+<pre class="example" id="orge248eef">
 &gt; traj
 # A tibble: 7,605 × 5
    Sample     t population index value
@@ -1015,7 +992,7 @@ different trajectories are grouped appropriately.)
 </p>
 
 
-<figure id="org789bb79">
+<figure id="orgbf33249">
 <img src="examples/BDtraj_output.png" alt="BDtraj_output.png">
 
 </figure>
@@ -1027,7 +1004,7 @@ displays the following figure depicting the expected population size dynamics:
 </p>
 
 
-<figure id="orgdc6ac30">
+<figure id="org6a32db2">
 <img src="examples/DetBDtraj_output.png" alt="DetBDtraj_output.png">
 
 </figure>
@@ -1038,7 +1015,6 @@ linear models.)
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics" class="outline-4">
 <h4 id="id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics"><span class="section-number-4">4.2.6.</span> Logging stochastic trajectory statistics</h4>
 <div class="outline-text-4" id="text-id-3-Trajectory-simulation-Birth-death-simulations-Logging-stochastic-trajectory-statistics">
@@ -1066,7 +1042,6 @@ it is useful to log only a few basic statistics instead - the full trajectory lo
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-2-Birth-death-simulations-Tree-simulation" class="outline-3">
 <h3 id="id-2-Birth-death-simulations-Tree-simulation"><span class="section-number-3">4.3.</span> Tree simulation</h3>
 <div class="outline-text-3" id="text-id-2-Birth-death-simulations-Tree-simulation">
@@ -1079,8 +1054,8 @@ is easy.  All that is required is to enclose the trajectory element
 <pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">tree</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span>
               <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.5"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1124,11 +1099,9 @@ can be used in BEAST 2 XML files wherever a <code>Tree</code> is expected. In th
 a <code>TaxonSet</code> object is supplied to the optional <code>taxonset</code> input, the leaves of
 the simulated tree can be associated with a pre-defined set of taxa.  This can
 be useful when using <code>SimulatedTree</code> to initialise an MCMC analysis of an existing
-data set, as demonstrated in the <a href="#orgcb34882">YuleInferenceInitialisation.xml</a> example.
+data set, as demonstrated in the <a href="#org3d47898">YuleInferenceInitialisation.xml</a> example.
 </p>
 </div>
-
-
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs"><span class="section-number-4">4.3.1.</span> Self-contained tree simulation XMLs</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Self-contained-tree-simulation-XMLs">
@@ -1146,12 +1119,12 @@ named "output.trees":
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.5"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1183,13 +1156,12 @@ Loading the tree file in a phylogenetic tree viewer such as <a href="https://icy
 </p>
 
 
-<figure id="orgf4efcd7">
+<figure id="org6b82859">
 <img src="examples/BDtree_output.png" alt="BDtree_output.png">
 
 </figure>
 </div>
 </div>
-
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees"><span class="section-number-4">4.3.2.</span> Logging typed trees</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-typed-trees">
@@ -1207,13 +1179,13 @@ you'll need to use the <code>TypedTreeLogger</code> in place of the standard log
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"samp"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; Y </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1237,13 +1209,12 @@ labeled by their corresponding population types:
 </p>
 
 
-<figure id="orgc3bb5c7">
+<figure id="org3d4b36a">
 <img src="examples/BD2type_output.png" alt="BD2type_output.png">
 
 </figure>
 </div>
 </div>
-
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees"><span class="section-number-4">4.3.3.</span> Logging untyped trees</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-untyped-trees">
@@ -1280,7 +1251,6 @@ lost.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves"><span class="section-number-4">4.3.4.</span> Logging trees with variable numbers of leaves</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-trees-with-variable-numbers-of-leaves">
@@ -1298,7 +1268,6 @@ but with the attribute <code>noLabels="true"</code> added.
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees" class="outline-4">
 <h4 id="id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees"><span class="section-number-4">4.3.5.</span> Logging both full and sampled trees</h4>
 <div class="outline-text-4" id="text-id-3-Tree-simulation-Birth-death-simulations-Logging-both-full-and-sampled-trees">
@@ -1322,14 +1291,14 @@ and <code>output.sampled.trees</code>, which contain the full and sampled trees
 respectively.  (Note the use of an additional "removed" sample population.)
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.spec.base.inference.parameter:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"removed"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"sampled"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"Y"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"removed"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+        <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">samplePopulation</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"sampled"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"1.4"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"0.1"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; Y </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1356,7 +1325,6 @@ respectively.  (Note the use of an additional "removed" sample population.)
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-1-Coalescent-simulations" class="outline-2">
 <h2 id="id-1-Coalescent-simulations"><span class="section-number-2">5.</span> Coalescent simulations</h2>
 <div class="outline-text-2" id="text-id-1-Coalescent-simulations">
@@ -1366,7 +1334,6 @@ prime focus of ReMASTER, it is also possible to perform a variety
 of coalescent simulations.
 </p>
 </div>
-
 <div id="outline-container-id-2-Coalescent-simulations-Model-specification" class="outline-3">
 <h3 id="id-2-Coalescent-simulations-Model-specification"><span class="section-number-3">5.1.</span> Model specification</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Model-specification">
@@ -1391,7 +1358,7 @@ at time $t$.  (Note that in ReMASTER and BEAST 2 in general,
 "effective population size" is simply the inverse
 pairwise coalescent rate, and therefore has units of "time".)
 For this reason, <code>&lt;population/&gt;</code> elements are associated with BEAST 2 <code>PopulationFunction</code> objects
-rather than regular <code>Function</code> objects. For instance, the following element
+rather than regular <code>RealVector</code> objects. For instance, the following element
 introduces a constant-size population with $N_e(t)=10$:
 </p>
 <div class="org-src-container">
@@ -1433,7 +1400,6 @@ an average of 100 leaves will be generated by this second reaction, as
 it describes a simple Poisson process.
 </p>
 </div>
-
 <div id="outline-container-id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs" class="outline-4">
 <h4 id="id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs"><span class="section-number-4">5.1.1.</span> Vector-valued coalescent Reaction inputs</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Vector-valued-coalescent-Reaction-inputs">
@@ -1457,7 +1423,6 @@ produces 5 tips at each of the times 0, 1, 2, and 3; i.e. 20 leaf nodes in total
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions" class="outline-4">
 <h4 id="id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions"><span class="section-number-4">5.1.2.</span> Parents and children in coalescent reactions</h4>
 <div class="outline-text-4" id="text-id-3-Model-specification-Coalescent-simulations-Parents-and-children-in-coalescent-reactions">
@@ -1489,7 +1454,6 @@ assignment is not correct.
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-2-Coalescent-simulations-Trajectory-simulation" class="outline-3">
 <h3 id="id-2-Coalescent-simulations-Trajectory-simulation"><span class="section-number-3">5.2.</span> Trajectory simulation</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Trajectory-simulation">
@@ -1507,9 +1471,8 @@ populations is growing exponentially toward the present:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
-       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster</span>
-<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"remaster:beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span>  <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTrajLogAge</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"C"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"10.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1554,7 +1517,7 @@ it yields:
 </div>
 
 
-<figure id="org7396054">
+<figure id="org1c39e42">
 <img src="examples/Ctraj_output.png" alt="Ctraj_output.png">
 
 </figure>
@@ -1565,7 +1528,6 @@ Because the population size dynamics are fixed, reactions described by
 </p>
 </div>
 </div>
-
 <div id="outline-container-id-2-Coalescent-simulations-Tree-simulation" class="outline-3">
 <h3 id="id-2-Coalescent-simulations-Tree-simulation"><span class="section-number-3">5.3.</span> Tree simulation</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-Tree-simulation">
@@ -1575,9 +1537,8 @@ object in a <code>SimulatedTree</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
-       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:beast.base.inference.parameter:remaster</span>
-<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"remaster:beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span>  <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTrajLogAge</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1606,13 +1567,12 @@ produce 50 tips in each of the two populations at time zero:
 </p>
 
 
-<figure id="org5c34e80">
+<figure id="orgc1ed74d">
 <img src="examples/Ctree_output.png" alt="Ctree_output.png">
 
 </figure>
 </div>
 </div>
-
 <div id="outline-container-id-2-Coalescent-simulations-More-complex-coalescent-models" class="outline-3">
 <h3 id="id-2-Coalescent-simulations-More-complex-coalescent-models"><span class="section-number-3">5.4.</span> More complex coalescent models</h3>
 <div class="outline-text-3" id="text-id-2-Coalescent-simulations-More-complex-coalescent-models">
@@ -1636,10 +1596,8 @@ decline into the past (growth into the future):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
-       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
-<span class="org-string">                  :beast.base.evolution.tree.coalescent</span>
-<span class="org-string">                  :feast.popmodels"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"remaster:beast.base.evolution.tree.coalescent:feast.popmodels"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span>
@@ -1674,7 +1632,7 @@ Plotting the trajectory yields a visualisation of the compound model:
 </pre>
 </div>
 
-<figure id="orgcbe6cf8">
+<figure id="org46a2488">
 <img src="examples/ComplexCoalescent_traj.png" alt="ComplexCoalescent_traj.png">
 
 </figure>
@@ -1692,7 +1650,6 @@ provided by <code>DeterministicTrajectory</code>.
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-1-Integrating-with-BEAST" class="outline-2">
 <h2 id="id-1-Integrating-with-BEAST"><span class="section-number-2">6.</span> Integrating with BEAST</h2>
 <div class="outline-text-2" id="text-id-1-Integrating-with-BEAST">
@@ -1703,10 +1660,10 @@ Unlike MASTER, ReMASTER is tightly integrated with the rest of BEAST in the foll
 <ul class="org-ul">
 <li>trees are standard BEAST <code>Tree</code> objects,</li>
 <li>it uses standard <code>Logger</code> objects to produce output,</li>
-<li>it uses <code>RealParameter</code> or <code>Function</code> objects to define birth-death populations,</li>
+<li>it uses <code>RealVectorParam</code> or <code>RealVector</code> objects to define birth-death populations,</li>
 <li>it uses <code>PopulationFunction</code> objects to define coalescent populations,</li>
 <li>the inputs defining reaction rates, times, probabilities or numbers
-expect generic <code>Function</code> inputs.</li>
+expect generic <code>RealVector</code> inputs with appropriate domains.</li>
 </ul>
 
 <p>
@@ -1716,8 +1673,8 @@ both simulation and inference.
 </p>
 
 <p>
-Furthermore, the copious use of <code>Function</code> input types means that one can use
-the <code>Function</code>-specific objects from the <a href="https://tgvaughan.github.io/feast">feast</a> package to create simulation XMLs
+Furthermore, the copious use of <code>RealVector</code> input types means that one can use
+the <code>RealVector</code>-specific objects from the <a href="https://tgvaughan.github.io/feast">feast</a> package to create simulation XMLs
 in which parameters are transformed in moderately complex ways before being
 applied to the simulation.
 </p>
@@ -1729,9 +1686,9 @@ $R=\lambda/\mu$ instead of a birth rate.  One can easily do this as
 follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">param</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"R"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1.5"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">param</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"mu"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span> <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference:remaster"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">param</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"R"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1.5"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">param</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"mu"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">param</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"lambda"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"feast.expressions.ExpCalculator"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"R*mu"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">arg</span> <span class="org-nxml-attribute-local-name">idref</span>=<span class="org-string">"R"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1740,7 +1697,7 @@ follows:
 
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"trajectory"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"StochasticTrajectory"</span> <span class="org-nxml-attribute-local-name">maxTime</span>=<span class="org-string">"10"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealParameter"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"X"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"RealVectorParam"</span> <span class="org-nxml-attribute-local-name">value</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"@lambda"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 2X </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Reaction"</span> <span class="org-nxml-attribute-local-name">rate</span>=<span class="org-string">"@mu"</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text"> X -&gt; 0 </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
@@ -1756,24 +1713,24 @@ follows:
 <p>
 Alternatively, suppose you wish to simulate coalescent trees having
 200 leaves evenly spaced over a period of 0.5 time units.  This can be
-done by supplying a <code>feast.function.Sequence</code> object (feast
-documentation <a href="https://tgvaughan.github.io/feast/#id-3-Numeric-sequences-as-Functions">here</a>), which generates a <code>Function</code> representing a
+done by supplying a <code>feast.realvector.Sequence</code> object (feast
+documentation <a href="https://tgvaughan.github.io/feast/#id-3-Numeric-sequences-as-RealVectors">here</a>), which generates a <code>RealVector</code> representing a
 sequence of evenly spaced numbers, to the <code>times</code> input of the
 corresponding <code>PunctualReaction</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-xml"> <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.0"</span>
-       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.inference.parameter:remaster</span>
-<span class="org-string">                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<pre class="src src-xml"> <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">beast</span> <span class="org-nxml-attribute-local-name">version</span>=<span class="org-string">"2.8"</span>
+       <span class="org-nxml-attribute-local-name">namespace</span>=<span class="org-string">"beast.base.spec.inference.parameter:remaster
+                  :beast.base.evolution.tree.coalescent"</span><span class="org-nxml-tag-delimiter">&gt;</span>
   <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">run</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"Simulator"</span> <span class="org-nxml-attribute-local-name">nSims</span>=<span class="org-string">"100"</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">simulate</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"tree"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"SimulatedTree"</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">trajectory</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"traj"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"CoalescentTrajectory"</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">population</span> <span class="org-nxml-attribute-local-name">id</span>=<span class="org-string">"pop"</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"ConstantPopulation"</span> <span class="org-nxml-attribute-local-name">popSize</span>=<span class="org-string">"1.0"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
         <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">reaction</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"PunctualReaction"</span> <span class="org-nxml-attribute-local-name">n</span>=<span class="org-string">"1"</span><span class="org-nxml-tag-delimiter">&gt;</span>
-          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">times</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"feast.function.Sequence"</span> <span class="org-nxml-attribute-local-name">start</span>=<span class="org-string">"0"</span> <span class="org-nxml-attribute-local-name">stop</span>=<span class="org-string">"0.5"</span> <span class="org-nxml-attribute-local-name">length</span>=<span class="org-string">"200"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
-<span class="org-nxml-text">          0 -&gt; pop</span>
-<span class="org-nxml-text">        </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
+          <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">times</span> <span class="org-nxml-attribute-local-name">spec</span>=<span class="org-string">"feast.realvector.Sequence"</span> <span class="org-nxml-attribute-local-name">start</span>=<span class="org-string">"0"</span> <span class="org-nxml-attribute-local-name">stop</span>=<span class="org-string">"0.5"</span> <span class="org-nxml-attribute-local-name">length</span>=<span class="org-string">"200"</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">
+          0 -&gt; pop
+        </span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">reaction</span><span class="org-nxml-tag-delimiter">&gt;</span>
       <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">trajectory</span><span class="org-nxml-tag-delimiter">&gt;</span>
     <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">simulate</span><span class="org-nxml-tag-delimiter">&gt;</span>
 
@@ -1786,7 +1743,6 @@ corresponding <code>PunctualReaction</code>:
 </div>
 </div>
 </div>
-
 <div id="outline-container-id-1-Examples" class="outline-2">
 <h2 id="id-1-Examples"><span class="section-number-2">7.</span> Examples</h2>
 <div class="outline-text-2" id="text-id-1-Examples">
@@ -1879,17 +1835,15 @@ termination condition and punctual sampling reactions.</dd>
 sequence evolution under a basic Jukes-Cantor substitution model to
 produce a corresponding simulated alignment.</dd>
 
-<dt><a id="orgcb34882"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
+<dt><a id="org3d47898"></a><a href="https://github.com/tgvaughan/remaster/blob/master/examples/YuleInferenceInitialisation.xml"><code>YuleInferenceInitialisation.xml</code></a></dt><dd>Demonstrates the use of a ReMASTER birth-death tree simulation to
 initilise the state of an MCMC analysis of primate sequences.</dd>
 </dl>
 </div>
 </div>
-
 <div id="outline-container-id-1-Appendix" class="outline-2">
 <h2 id="id-1-Appendix"><span class="section-number-2">8.</span> Appendix</h2>
 <div class="outline-text-2" id="text-id-1-Appendix">
 </div>
-
 <div id="outline-container-id-2-Appendix-Condition-syntax" class="outline-3">
 <h3 id="id-2-Appendix-Condition-syntax"><span class="section-number-3">8.1.</span> Condition syntax</h3>
 <div class="outline-text-3" id="text-id-2-Appendix-Condition-syntax">
@@ -1898,7 +1852,7 @@ The expressions provided to <code>endsWhen</code> and <code>mustHave</code> conf
 grammar:
 </p>
 
-<pre class="example" id="org628feed">
+<pre class="example" id="org63a41ed">
 expression :
   '(' expression ')'
   |   (SUM|MIN|MAX) '(' expression ')'
@@ -1968,7 +1922,7 @@ Relevant characters and their corresponding XML entities are as follows
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Tim Vaughan</p>
-<p class="date">Created: 2024-12-17 Tue 09:40</p>
+<p class="date">Created: 2026-04-29 Wed 15:30</p>
 </div>
 </body>
 </html>
