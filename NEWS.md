@@ -1,6 +1,14 @@
 Development News
 ----------------
 
+### 2026-04-29
+
+ReMASTER version 3.0 is out.  This does not include any new features,
+but is a major release nonetheless as it includes many breaking changes
+required to support BEAST 2.8. Principle among these is the deprecation
+of Function in favour of RealVector and RealParameter in favour of
+RealVectorParam.
+
 ### 2023-03-29
 
 ReMASTER version 2.0 is out!  While copious bug fixes and some minor
