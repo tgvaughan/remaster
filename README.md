@@ -34,19 +34,16 @@ Building from Source
 --------------------
 
 To build ReMASTER from source you'll need the following to be installed:
-- OpenJDK version 17 or greater
-- the Apache Ant build system
+- OpenJDK version 25 or greater
+- the Apache Maven build system
 
-Once these are installed and in your execution path, running `ant` with
-no arguments from the root directory of the ReMASTER repository should
-build the package and create the corresponding ZIP file, which will be
-left in the `dist/` subdirectory.
+Once these are installed and in your execution path, running `mvn target`
+from the root directory of the ReMASTER repository should build the package
+and create the corresponding ZIP file, which will be left in the `target/`
+subdirectory.
 
-Note that unless you already have a local copy of the latest [beast 2
-source](https://github.com/CompEvol/beast2) in the directory
-`../beast2` relative to the ReMASTER root, the build script will
-attempt to download it automatically.  Thus, most builds will require
-a network connection.
+Most builds will require a network connection to allow maven to resolve
+the various build dependencies, such as beast 2.8.
 
 License
 -------
