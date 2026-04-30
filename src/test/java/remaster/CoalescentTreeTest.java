@@ -19,7 +19,7 @@
 
 package remaster;
 
-import beast.base.evolution.tree.coalescent.ConstantPopulation;
+import beast.base.spec.evolution.tree.coalescent.ConstantPopulation;
 import beast.base.util.DiscreteStatistics;
 import beast.base.util.Randomizer;
 import org.junit.jupiter.api.Test;
