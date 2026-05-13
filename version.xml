@@ -1,16 +1,3 @@
-<package name="remaster" version="3.0.0">
+<package name="remaster" version="3.0.1">
   <depends on="BEAST.base" atleast="2.8.0" atmost="2.8.9"/>
-
-  <service type="beast.base.core.BEASTInterface">
-    <provider classname="remaster.Reaction"/>
-    <provider classname="remaster.Simulator"/>
-    <provider classname="remaster.TypedTreeLogger"/>
-    <provider classname="remaster.PrunedTree"/>
-    <provider classname="remaster.StochasticTrajectoryStatsLogger"/>
-    <provider classname="remaster.PunctualReaction"/>
-    <provider classname="remaster.SimulatedTree"/>
-    <provider classname="remaster.StochasticTrajectory"/>
-    <provider classname="remaster.DeterministicTrajectory"/>
-    <provider classname="remaster.CoalescentTrajectory"/>
-  </service>
 </package>
