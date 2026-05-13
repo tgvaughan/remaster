@@ -1,4 +1,4 @@
-<beast version='2.0'
+<beast version="2.8"
        namespace='beast.pkgmgmt:beast.base.core:beast.base.inference:
        beast.base.evolution.tree.coalescent:beast.evolution.nuc:beast.base.evolution.alignment:
        beast.base.evolution.operator:beast.base.spec.inference.operator:

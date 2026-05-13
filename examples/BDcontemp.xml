@@ -1,11 +1,13 @@
 <!-- Basic birth-death simulation with two contemporanous uniform sampling events. -->
 
-<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+<beast version="2.8" namespace="beast.base.spec.inference.parameter
+                                :beast.base.inference
+                                :remaster">
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="tree">
             <trajectory spec="StochasticTrajectory" id="traj" maxTime="6">
-                <population spec="RealParameter" id="X" value="1"/>
-                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+                <population spec="RealVectorParam" id="X" value="1"/>
+                <samplePopulation spec="RealVectorParam" id="sample" value="0"/>
 
                 <reaction spec="Reaction" rate="2"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="1"> X -> 0 </reaction>

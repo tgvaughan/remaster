@@ -1,11 +1,11 @@
 <!-- Demonstrates use of feast's ExpCalculator to simulate using
      epi parameters -->
 
-<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+<beast version="2.8" namespace="beast.base.spec.inference.parameter:beast.base.inference:remaster">
 
-    <param id="r0" spec="RealParameter" value="2"/>
-    <param id="burate" spec="RealParameter" value="36"/>
-    <param id="s" spec="RealParameter" value="0.1"/>
+    <param id="r0" spec="RealVectorParam" value="2"/>
+    <param id="burate" spec="RealVectorParam" value="36"/>
+    <param id="s" spec="RealVectorParam" value="0.1"/>
 
     <param id="lambda" spec="feast.expressions.ExpCalculator" value="r0*burate">
         <arg idref="r0"/>
@@ -25,8 +25,8 @@
     <run spec="Simulator" nSims="100">
         <simulate spec="SimulatedTree" id="SIRTree">
             <trajectory spec="StochasticTrajectory" id="SIRTrajectory" endsWhen="sample>=100">
-                <population spec="RealParameter" id="X" value="1"/>
-                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+                <population spec="RealVectorParam" id="X" value="1"/>
+                <samplePopulation spec="RealVectorParam" id="sample" value="0"/>
 
                 <reaction spec="Reaction" rate="@lambda"> X -> 2X </reaction>
                 <reaction spec="Reaction" rate="@mu"> X -> 0 </reaction>
